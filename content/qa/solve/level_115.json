@@ -1,0 +1,27 @@
+{
+  "levelId": "L115",
+  "solvable": true,
+  "optimalMoves": 13,
+  "optimalProven": false,
+  "statesExplored": 60061,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 410,
+  "solution": [
+    "r3:0",
+    "r5:330",
+    "r7:180",
+    "r5:150",
+    "r6:300",
+    "r6:90",
+    "r2:240",
+    "r4:90",
+    "r3:330",
+    "r1:120",
+    "r2:150",
+    "r3:270",
+    "r3:30"
+  ],
+  "topologyHash": "fb1dc82783fe241f",
+  "notes": []
+}

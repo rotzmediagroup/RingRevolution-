@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "id": "L022",
+  "index": 22,
+  "worldId": "blossom_teahouse",
+  "chapter": 3,
+  "chapterLevel": 2,
+  "seed": 2200000,
+  "name": "Bamboemandjes 2",
+  "mechanicTags": [
+    "overlap",
+    "locked_order"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.5,
+        0.5
+      ],
+      "radius": 0.21219402523015532,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 61.0
+        }
+      ],
+      "initialAngleDeg": 330,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.7017522853002992,
+        0.30465602295578204
+      ],
+      "radius": 0.15215152866437806,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 85.0
+        }
+      ],
+      "initialAngleDeg": 120,
+      "stepDeg": 30,
+      "exitAngleDeg": 316,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": null
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.4794883426134879,
+        0.3557929725895312
+      ],
+      "radius": 0.2006329276034703,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 65.0
+        }
+      ],
+      "initialAngleDeg": 120,
+      "stepDeg": 30,
+      "exitAngleDeg": 262,
+      "arc": null,
+      "lockedBy": [
+        "r4"
+      ],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": null
+    },
+    {
+      "id": "r4",
+      "center": [
+        0.6415114490367323,
+        0.46374069457021694
+      ],
+      "radius": 0.20126958777456325,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 89.0
+        }
+      ],
+      "initialAngleDeg": 150,
+      "stepDeg": 30,
+      "exitAngleDeg": 346,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": null
+    }
+  ],
+  "obstacles": [],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r3",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r4",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r3",
+      "b": "r4",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 3,
+  "goodMoves": 5,
+  "difficulty": 3,
+  "reward": {
+    "coins": 32,
+    "boosters": {}
+  },
+  "tutorialCueId": null,
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:0",
+    "r2:150",
+    "r4:90"
+  ],
+  "topologyHash": "a41f8bc7d808e802"
+}

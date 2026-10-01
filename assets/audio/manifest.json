@@ -1,0 +1,604 @@
+{
+  "assets": [
+    {
+      "id": "amb_market",
+      "file": "assets/audio/ambience/amb_market.ogg",
+      "type": "ambience",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "amb_market - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/amb_market.wav",
+      "durationSec": 46.0,
+      "loop": true,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "amb_mountain",
+      "file": "assets/audio/ambience/amb_mountain.ogg",
+      "type": "ambience",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "amb_mountain - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/amb_mountain.wav",
+      "durationSec": 52.0,
+      "loop": true,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "amb_teahouse",
+      "file": "assets/audio/ambience/amb_teahouse.ogg",
+      "type": "ambience",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "amb_teahouse - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/amb_teahouse.wav",
+      "durationSec": 46.0,
+      "loop": true,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "menu_theme",
+      "file": "assets/audio/music/menu_theme.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "cozy lounge instrumental, nylon acoustic guitar, warm piano, light jazz brushes, upright bass, inviting and relaxed, subtle Asian pentatonic colour, menu music for a cozy mobile game, 90 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "9ee2a7517f6d24c2b59e90b880b1e895",
+      "clipIds": [
+        "dd90e940-19c7-4df4-9850-acd969f542b6",
+        "97eefb3a-198f-41c3-9277-9ba507c15a23"
+      ],
+      "sourceMp3": "assets/audio/source/music/menu_theme.mp3",
+      "alternates": [
+        "assets/audio/source/music/menu_theme_alt2.mp3"
+      ],
+      "durationSec": 138.04,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "world1_blossom_teahouse",
+      "file": "assets/audio/music/world1_blossom_teahouse.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "gentle uplifting acoustic instrumental, koto and shamisen hints, soft felt piano, light hand percussion, warm spring morning in a Japanese teahouse, cozy mobile puzzle game background music, calm, loopable, 85 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "aa1c0648a96bbda094b346afaac22736",
+      "clipIds": [
+        "77db4d5d-030b-4b99-a2c8-03556bf7c3eb",
+        "58218c9c-63b1-4aec-a224-01f8141ad3e9"
+      ],
+      "sourceMp3": "assets/audio/source/music/world1_blossom_teahouse.mp3",
+      "alternates": [
+        "assets/audio/source/music/world1_blossom_teahouse_alt2.mp3"
+      ],
+      "durationSec": 147.59,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "world2_lantern_night_market",
+      "file": "assets/audio/music/world2_lantern_night_market.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "playful cozy instrumental, pizzicato strings, marimba, soft hand drums, erhu and dizi colour, warm festive Asian night market evening, lanterns, slightly energetic, mobile puzzle game loop, 100 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "ffe783d747a9ba8e4db498211d558e86",
+      "clipIds": [
+        "1d10650f-2f18-4f5d-a03f-8577e2bce6c4",
+        "4e51df64-d88e-4e2c-affb-dee703d19252"
+      ],
+      "sourceMp3": "assets/audio/source/music/world2_lantern_night_market.mp3",
+      "alternates": [
+        "assets/audio/source/music/world2_lantern_night_market_alt2.mp3"
+      ],
+      "durationSec": 148.0,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "world3_moonlit_mountain_kitchen",
+      "file": "assets/audio/music/world3_moonlit_mountain_kitchen.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "dreamy magical atmospheric instrumental, soft warm pads, music box, guzheng, celesta, gentle sense of wonder and accomplishment, moonlit mountain night, calm mobile puzzle game loop, 75 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "7f578fd8900ab70645f836ab03c6c0f1",
+      "clipIds": [
+        "e0b67d57-a2b0-423c-ad33-e939accdde8c",
+        "54c09054-639f-4bff-a30b-343ab8801464"
+      ],
+      "sourceMp3": "assets/audio/source/music/world3_moonlit_mountain_kitchen.mp3",
+      "alternates": [
+        "assets/audio/source/music/world3_moonlit_mountain_kitchen_alt2.mp3"
+      ],
+      "durationSec": 147.64,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "sfx_booster_golden",
+      "file": "assets/audio/sfx/sfx_booster_golden.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_booster_golden - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_booster_golden.wav",
+      "durationSec": 1.63,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_booster_hint",
+      "file": "assets/audio/sfx/sfx_booster_hint.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_booster_hint - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_booster_hint.wav",
+      "durationSec": 1.5,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_booster_twist",
+      "file": "assets/audio/sfx/sfx_booster_twist.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_booster_twist - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_booster_twist.wav",
+      "durationSec": 1.1,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_button_back",
+      "file": "assets/audio/sfx/sfx_button_back.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_button_back - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_button_back.wav",
+      "durationSec": 0.2,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_button_tap",
+      "file": "assets/audio/sfx/sfx_button_tap.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_button_tap - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_button_tap.wav",
+      "durationSec": 0.18,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_chapter_bell",
+      "file": "assets/audio/sfx/sfx_chapter_bell.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_chapter_bell - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_chapter_bell.wav",
+      "durationSec": 2.15,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_coin_chime",
+      "file": "assets/audio/sfx/sfx_coin_chime.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_coin_chime - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_coin_chime.wav",
+      "durationSec": 1.16,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_combo_1",
+      "file": "assets/audio/sfx/sfx_combo_1.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_combo_1 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_combo_1.wav",
+      "durationSec": 1.37,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_combo_2",
+      "file": "assets/audio/sfx/sfx_combo_2.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_combo_2 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_combo_2.wav",
+      "durationSec": 1.44,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_combo_3",
+      "file": "assets/audio/sfx/sfx_combo_3.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_combo_3 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_combo_3.wav",
+      "durationSec": 1.51,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_dough_tap",
+      "file": "assets/audio/sfx/sfx_dough_tap.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_dough_tap - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_dough_tap.wav",
+      "durationSec": 0.75,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_dumpling_jump",
+      "file": "assets/audio/sfx/sfx_dumpling_jump.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_dumpling_jump - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_dumpling_jump.wav",
+      "durationSec": 1.13,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_gate_open",
+      "file": "assets/audio/sfx/sfx_gate_open.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_gate_open - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_gate_open.wav",
+      "durationSec": 1.6,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_invalid",
+      "file": "assets/audio/sfx/sfx_invalid.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_invalid - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_invalid.wav",
+      "durationSec": 0.91,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_level_complete_bell",
+      "file": "assets/audio/sfx/sfx_level_complete_bell.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_level_complete_bell - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_level_complete_bell.wav",
+      "durationSec": 1.64,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_lock_click",
+      "file": "assets/audio/sfx/sfx_lock_click.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_lock_click - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_lock_click.wav",
+      "durationSec": 0.66,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_ring_release_pop",
+      "file": "assets/audio/sfx/sfx_ring_release_pop.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_ring_release_pop - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_ring_release_pop.wav",
+      "durationSec": 1.3,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_ring_select",
+      "file": "assets/audio/sfx/sfx_ring_select.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_ring_select - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_ring_select.wav",
+      "durationSec": 0.68,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_rotate_tick_1",
+      "file": "assets/audio/sfx/sfx_rotate_tick_1.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_rotate_tick_1 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_rotate_tick_1.wav",
+      "durationSec": 0.22,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_rotate_tick_2",
+      "file": "assets/audio/sfx/sfx_rotate_tick_2.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_rotate_tick_2 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_rotate_tick_2.wav",
+      "durationSec": 0.22,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_rotate_tick_3",
+      "file": "assets/audio/sfx/sfx_rotate_tick_3.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_rotate_tick_3 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_rotate_tick_3.wav",
+      "durationSec": 0.22,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_snap",
+      "file": "assets/audio/sfx/sfx_snap.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_snap - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_snap.wav",
+      "durationSec": 0.72,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_star_1",
+      "file": "assets/audio/sfx/sfx_star_1.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_star_1 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_star_1.wav",
+      "durationSec": 1.4,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_star_2",
+      "file": "assets/audio/sfx/sfx_star_2.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_star_2 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_star_2.wav",
+      "durationSec": 1.4,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_star_3",
+      "file": "assets/audio/sfx/sfx_star_3.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_star_3 - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_star_3.wav",
+      "durationSec": 1.4,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_undo",
+      "file": "assets/audio/sfx/sfx_undo.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_undo - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_undo.wav",
+      "durationSec": 0.9,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "sfx_unlock",
+      "file": "assets/audio/sfx/sfx_unlock.ogg",
+      "type": "sfx",
+      "source": "procedural synth (numpy)",
+      "model": null,
+      "prompt": "sfx_unlock - additive/noise synthesis, see tools/audio_generate/synth_sfx.py",
+      "taskId": null,
+      "sourceWav": "assets/audio/source/sfx/sfx_unlock.wav",
+      "durationSec": 1.77,
+      "loop": false,
+      "license": "Original procedural synthesis generated in-repo; no third-party samples. Owned by the project."
+    },
+    {
+      "id": "chef_finale_variation_w1",
+      "file": "assets/audio/music/chef_finale_variation_w1.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "celebratory rich acoustic instrumental, koto, shamisen, soft piano, taiko-lite hand percussion, warm string section swells, joyful spring morning teahouse, triumphant but cozy, mobile puzzle game loop, 88 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "3e17eb49de7e8dcb609208316e162eb9",
+      "clipIds": [
+        "cf48084d-887c-445d-ac4e-263094720c78",
+        "2ea337aa-fc42-4302-83b1-146c42eec925"
+      ],
+      "sourceMp3": "assets/audio/source/music/chef_finale_variation_w1.mp3",
+      "alternates": [
+        "assets/audio/source/music/chef_finale_variation_w1_alt1.mp3"
+      ],
+      "durationSec": 147.95,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "chef_finale_variation_w2",
+      "file": "assets/audio/music/chef_finale_variation_w2.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "celebratory festive instrumental, pizzicato and bowed strings, marimba, lively hand drums and shakers, erhu and dizi melody, bright night market celebration, richer and more energetic, mobile puzzle game loop, 104 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "8f906670f9bccb38aa4ad797112ec321",
+      "clipIds": [
+        "2b9686fa-6353-47f8-af2b-53b80d269634",
+        "fc02969f-d521-42c4-adc1-066e1afbb2ee"
+      ],
+      "sourceMp3": "assets/audio/source/music/chef_finale_variation_w2.mp3",
+      "alternates": [
+        "assets/audio/source/music/chef_finale_variation_w2_alt2.mp3"
+      ],
+      "durationSec": 147.64,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "chef_finale_variation_w3",
+      "file": "assets/audio/music/chef_finale_variation_w3.ogg",
+      "type": "music",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "celebratory dreamy orchestral instrumental, music box, guzheng, celesta, warm string ensemble, soft timpani and chimes, magical sense of accomplishment, moonlit mountain, richer variation, mobile puzzle game loop, 78 bpm, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "62d035923129689bd9500aa7857edbf5",
+      "clipIds": [
+        "f06fbd24-cf73-4c6d-a151-778e8afec661",
+        "747f2c54-c0d9-4606-aebe-e6702cd568b0"
+      ],
+      "sourceMp3": "assets/audio/source/music/chef_finale_variation_w3.mp3",
+      "alternates": [
+        "assets/audio/source/music/chef_finale_variation_w3_alt2.mp3"
+      ],
+      "durationSec": 148.02,
+      "loop": true,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "level_complete_sting",
+      "file": "assets/audio/music/level_complete_sting.ogg",
+      "type": "stinger",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "short bright warm satisfying musical sting, celesta, koto, soft bells, a single resolving uplifting phrase, 10 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "c8fb51f3f64c81bcd02ab3da750ad72e",
+      "clipIds": [
+        "36e6af56-2cce-4ad1-8b7e-77937c1ae189",
+        "01454cbd-bf41-4926-a791-71f24b6404a2"
+      ],
+      "sourceMp3": "assets/audio/source/music/level_complete_sting.mp3",
+      "alternates": [
+        "assets/audio/source/music/level_complete_sting_alt2.mp3"
+      ],
+      "durationSec": 8.42,
+      "loop": false,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "chapter_complete_fanfare",
+      "file": "assets/audio/music/chapter_complete_fanfare.ogg",
+      "type": "stinger",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "short warm celebratory fanfare, strings, bells, koto, soft hand drums, rising triumphant phrase with gentle ending, 15 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "d902dfff2df2a709604ee1b9b88353c1",
+      "clipIds": [
+        "a9ffc0a2-4179-4bf0-a41e-2708f471ccd4",
+        "cbd05306-0c6b-43b2-83bf-9326784af672"
+      ],
+      "sourceMp3": "assets/audio/source/music/chapter_complete_fanfare.mp3",
+      "alternates": [
+        "assets/audio/source/music/chapter_complete_fanfare_alt2.mp3"
+      ],
+      "durationSec": 16.03,
+      "loop": false,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    },
+    {
+      "id": "world_unlock_fanfare",
+      "file": "assets/audio/music/world_unlock_fanfare.ogg",
+      "type": "stinger",
+      "source": "Suno API (sunoapi.org)",
+      "model": "V6",
+      "prompt": "short magical reveal fanfare, shimmering celesta and chimes, guzheng glissando, warm strings swell into a bright hopeful chord, 15 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+      "negativeTags": "vocals, singing, voice, lyrics, choir, heavy drums, distorted guitar, EDM, trap, harsh, aggressive, loud",
+      "taskId": "a671a573b900320ccfe5c2de3bfd8d96",
+      "clipIds": [
+        "3d1809f5-12c5-40d2-bde2-ea8ab603d647",
+        "891cefc1-2ce5-47c4-8e5d-aa803dca3ebe"
+      ],
+      "sourceMp3": "assets/audio/source/music/world_unlock_fanfare.mp3",
+      "alternates": [
+        "assets/audio/source/music/world_unlock_fanfare_alt2.mp3"
+      ],
+      "durationSec": 17.64,
+      "loop": false,
+      "license": "AI-generated via sunoapi.org; commercial rights depend on the Suno account plan - owner must confirm (see docs/AUDIO_REPORT.md)"
+    }
+  ]
+}

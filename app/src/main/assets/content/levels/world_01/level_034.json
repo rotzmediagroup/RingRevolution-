@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 2,
+  "id": "L034",
+  "index": 34,
+  "worldId": "blossom_teahouse",
+  "chapter": 4,
+  "chapterLevel": 4,
+  "seed": 3400000,
+  "name": "De theemeester 4",
+  "mechanicTags": [
+    "overlap",
+    "nested"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.38056433484255325,
+        0.4425493762101884
+      ],
+      "radius": 0.16536484305576715,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 82.0
+        }
+      ],
+      "initialAngleDeg": 180,
+      "stepDeg": 30,
+      "exitAngleDeg": 206,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.5516168284675165,
+        0.4977717431038665
+      ],
+      "radius": 0.1842332695637523,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 68.0
+        }
+      ],
+      "initialAngleDeg": 0,
+      "stepDeg": 30,
+      "exitAngleDeg": 358,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": null
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.35850449009773944,
+        0.5683443135628599
+      ],
+      "radius": 0.12392013916442074,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 66.0
+        }
+      ],
+      "initialAngleDeg": 0,
+      "stepDeg": 30,
+      "exitAngleDeg": 154,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": null
+    },
+    {
+      "id": "r4",
+      "center": [
+        0.41159436801041677,
+        0.617247654865386
+      ],
+      "radius": 0.1285138117823312,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 81.0
+        }
+      ],
+      "initialAngleDeg": 210,
+      "stepDeg": 30,
+      "exitAngleDeg": 127,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": null
+    },
+    {
+      "id": "r5",
+      "center": [
+        0.5149354834091361,
+        0.5909165739428517
+      ],
+      "radius": 0.16444375618930035,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 69.0
+        }
+      ],
+      "initialAngleDeg": 330,
+      "stepDeg": 30,
+      "exitAngleDeg": 80,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": null
+    }
+  ],
+  "obstacles": [],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "b_over"
+    },
+    {
+      "a": "r1",
+      "b": "r4",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r5",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r2",
+      "b": "r3",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r4",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r2",
+      "b": "r5",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r3",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r3",
+      "b": "r5",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r4",
+      "b": "r5",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 5,
+  "goodMoves": 7,
+  "difficulty": 4,
+  "reward": {
+    "coins": 37,
+    "boosters": {}
+  },
+  "tutorialCueId": null,
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:30",
+    "r2:90",
+    "r3:300",
+    "r5:120",
+    "r5:180"
+  ],
+  "topologyHash": "3a1f989c2785f2e4"
+}

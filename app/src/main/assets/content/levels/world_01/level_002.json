@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "id": "L002",
+  "index": 2,
+  "worldId": "blossom_teahouse",
+  "chapter": 1,
+  "chapterLevel": 2,
+  "seed": 200002,
+  "name": "Eerste stoom 2",
+  "mechanicTags": [
+    "basic_rotation",
+    "release"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.5,
+        0.5
+      ],
+      "radius": 0.22299510138740042,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 90.0
+        }
+      ],
+      "initialAngleDeg": 300,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": null
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.5604548928416826,
+        0.27437926834870796
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.5385774549690198,
+        0.3560269780289176
+      ],
+      "to": [
+        0.5823323307143455,
+        0.19273155866849834
+      ],
+      "thickness": 0.028,
+      "colorId": null,
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "chopstick"
+    }
+  ],
+  "weaves": [],
+  "winCondition": "remove_all_rings",
+  "parMoves": 1,
+  "goodMoves": 3,
+  "difficulty": 1,
+  "reward": {
+    "coins": 22,
+    "boosters": {}
+  },
+  "tutorialCueId": "gap_and_exit",
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:210"
+  ],
+  "topologyHash": "9868af0808cd8989"
+}

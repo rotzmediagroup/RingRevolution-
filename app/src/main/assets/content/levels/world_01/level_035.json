@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 2,
+  "id": "L035",
+  "index": 35,
+  "worldId": "blossom_teahouse",
+  "chapter": 4,
+  "chapterLevel": 5,
+  "seed": 3500000,
+  "name": "De theemeester 5",
+  "mechanicTags": [
+    "overlap",
+    "nested"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.5,
+        0.5
+      ],
+      "radius": 0.17321493497581883,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 62.0
+        }
+      ],
+      "initialAngleDeg": 180,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.32934684871619724,
+        0.6657140792913776
+      ],
+      "radius": 0.1722083329017715,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 61.0
+        }
+      ],
+      "initialAngleDeg": 60,
+      "stepDeg": 30,
+      "exitAngleDeg": 135,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": null
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.5786364257908382,
+        0.27266170967421444
+      ],
+      "radius": 0.15714979177243857,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 61.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 290,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": null
+    },
+    {
+      "id": "r4",
+      "center": [
+        0.7056808187097626,
+        0.4634251322467127
+      ],
+      "radius": 0.15325876777952763,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 85.0
+        }
+      ],
+      "initialAngleDeg": 300,
+      "stepDeg": 30,
+      "exitAngleDeg": 350,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": null
+    },
+    {
+      "id": "r5",
+      "center": [
+        0.7026843863710073,
+        0.34945824073417364
+      ],
+      "radius": 0.16926300473813988,
+      "thickness": 0.048,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 80.0
+        }
+      ],
+      "initialAngleDeg": 180,
+      "stepDeg": 30,
+      "exitAngleDeg": 324,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": null
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.6299667365342686,
+        0.37003326346573134
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.5810820831746422,
+        0.41891791682535784
+      ],
+      "to": [
+        0.678851389893895,
+        0.32114861010610485
+      ],
+      "thickness": 0.028,
+      "colorId": null,
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "chopstick"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r5",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r3",
+      "b": "r4",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r3",
+      "b": "r5",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r4",
+      "b": "r5",
+      "pattern": "a_over"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 5,
+  "goodMoves": 7,
+  "difficulty": 4,
+  "reward": {
+    "coins": 37,
+    "boosters": {
+      "hint": 1
+    }
+  },
+  "tutorialCueId": null,
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:60",
+    "r1:270",
+    "r3:30",
+    "r4:180",
+    "r5:120"
+  ],
+  "topologyHash": "cd2053f6bf1f2dea"
+}

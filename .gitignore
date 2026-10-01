@@ -1,0 +1,18 @@
+# Build
+build/
+.gradle/
+*.apk
+*.aab
+!docs/**
+local.properties
+.idea/
+*.iml
+.kotlin/
+__pycache__/
+*.pyc
+.DS_Store
+# secrets
+secrets.properties
+tools/**/.env
+# scratch
+/tmp/

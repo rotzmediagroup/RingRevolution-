@@ -1,0 +1,9 @@
+-keep class com.shiostudios.dumplingrings.core.** { *; }
+-keepclassmembers class kotlinx.serialization.json.** { *** Companion; }
+-keepclasseswithmembers class kotlinx.serialization.json.** { kotlinx.serialization.KSerializer serializer(...); }
+-keep,includedescriptorclasses class com.shiostudios.dumplingrings.**$$serializer { *; }
+-keepclassmembers class com.shiostudios.dumplingrings.** { *** Companion; }
+-keepclasseswithmembers class com.shiostudios.dumplingrings.** { kotlinx.serialization.KSerializer serializer(...); }
+-dontwarn org.bouncycastle.**
+-dontwarn org.conscrypt.**
+-dontwarn org.openjsse.**

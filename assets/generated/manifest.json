@@ -1,0 +1,686 @@
+[
+  {
+    "id": "world1_teahouse_bg",
+    "file": "backgrounds/world1_teahouse_bg.png",
+    "prompt": "cozy blossom teahouse veranda background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, portrait composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 45587,
+    "createdAt": "2026-10-01T09:06:27.511143+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 27.6
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK (retry 1). Steamers/cups kept to table ends; centre clear."
+  },
+  {
+    "id": "world1_teahouse_bg_land",
+    "file": "backgrounds/world1_teahouse_bg_land.png",
+    "prompt": "cozy blossom teahouse veranda background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, wide landscape composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1536x1024",
+    "seed": 45231,
+    "createdAt": "2026-10-01T09:00:31.680088+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 27.1
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "world2_nightmarket_bg",
+    "file": "backgrounds/world2_nightmarket_bg.png",
+    "prompt": "lantern night market street background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, portrait composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 46170,
+    "createdAt": "2026-10-01T09:16:10.039634+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 27.3
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 2). Earlier passes had lantern glyphs and human silhouettes."
+  },
+  {
+    "id": "world2_nightmarket_bg_land",
+    "file": "backgrounds/world2_nightmarket_bg_land.png",
+    "prompt": "lantern night market street background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, wide landscape composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1536x1024",
+    "seed": 46197,
+    "createdAt": "2026-10-01T09:16:37.338735+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 27.0
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 2). Earlier pass had human silhouettes."
+  },
+  {
+    "id": "world3_mountain_bg",
+    "file": "backgrounds/world3_mountain_bg.png",
+    "prompt": "moonlit mountain temple kitchen background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, portrait composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 45313,
+    "createdAt": "2026-10-01T09:01:53.713087+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 26.8
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "world3_mountain_bg_land",
+    "file": "backgrounds/world3_mountain_bg_land.png",
+    "prompt": "moonlit mountain temple kitchen background, wide empty plain wooden table surface filling the center of the frame, completely clear and uncluttered center, soft low-contrast muted center, decorative elements only along the edges and corners, no objects in the middle, no characters, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, wide landscape composition, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1536x1024",
+    "seed": 45340,
+    "createdAt": "2026-10-01T09:02:20.544921+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 28.0
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "app_icon_1024",
+    "file": "icon/app_icon_1024.png",
+    "prompt": "app icon, a single cute smiling chibi bao dumpling with rosy cheeks sitting centered inside a glowing golden open ring, warm honey wood background, simple bold composition, centered, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1024",
+    "seed": 45524,
+    "createdAt": "2026-10-01T09:05:24.097212+00:00",
+    "usage": {
+      "generation_seconds": 18.1,
+      "cold_start": false,
+      "wall_seconds": 19.5
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK first pass. Rounded-square bevel baked into art; crop/mask as needed."
+  },
+  {
+    "id": "world1_map",
+    "file": "map/world1_map.png",
+    "prompt": "tall illustrated world map of a blossom teahouse garden village seen from above at a gentle angle, a winding empty dirt path snaking from bottom to top through cherry blossom trees, teahouses, bamboo groves and koi ponds, cute tiny props, path completely empty with no markers, no numbers, no signs, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 45669,
+    "createdAt": "2026-10-01T09:07:49.810608+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 28.9
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had numbered circles on path."
+  },
+  {
+    "id": "world2_map",
+    "file": "map/world2_map.png",
+    "prompt": "tall illustrated level-select map painting of a lantern night market town seen from above at a gentle angle, a winding empty cobblestone path snaking from bottom to top between glowing food stalls, lantern strings, red gates and bridges, plain blank lanterns without symbols, no people, flat painted ground only, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 46224,
+    "createdAt": "2026-10-01T09:17:04.336607+00:00",
+    "usage": {
+      "generation_seconds": 41.2,
+      "cold_start": false,
+      "wall_seconds": 42.8
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 2). 'world map' wording produced a globe in the sky; reworded to 'level-select map'."
+  },
+  {
+    "id": "world3_map",
+    "file": "map/world3_map.png",
+    "prompt": "tall illustrated world map of a moonlit mountain seen from above at a gentle angle, a winding empty stone path snaking from bottom to top past temple kitchens, jade pagodas, clouds and a moon bridge toward a peak, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 45422,
+    "createdAt": "2026-10-01T09:03:42.870718+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 28.0
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "mat_bamboo",
+    "file": "materials/mat_bamboo.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, woven bamboo basket strips, natural light tan bamboo, tight weave, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 45516,
+    "createdAt": "2026-10-01T09:05:16.459454+00:00",
+    "usage": {
+      "generation_seconds": 6.0,
+      "cold_start": false,
+      "wall_seconds": 7.5
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "mat_beet_pink",
+    "file": "materials/mat_beet_pink.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, flat continuous smooth soft beet pink dough surface, gentle soft creases and light flour dust, one single surface, no individual dumplings, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 45734,
+    "createdAt": "2026-10-01T09:08:54.788146+00:00",
+    "usage": {
+      "generation_seconds": 6.0,
+      "cold_start": false,
+      "wall_seconds": 7.4
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass rendered dumplings."
+  },
+  {
+    "id": "mat_gold",
+    "file": "materials/mat_gold.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, polished warm gold metal surface with faint flowing embossed cloud swirls, continuous brushed metal, even lighting across the whole image, no tiles, no grid, no panels, no seams, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 46279,
+    "createdAt": "2026-10-01T09:17:59.205174+00:00",
+    "usage": {
+      "generation_seconds": 6.0,
+      "cold_start": false,
+      "wall_seconds": 7.5
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK (retry 2). Earlier passes had a tile grid."
+  },
+  {
+    "id": "mat_matcha",
+    "file": "materials/mat_matcha.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, fine matcha green tea powder dusted surface, soft velvety mint-green, subtle grain, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 45486,
+    "createdAt": "2026-10-01T09:04:46.356737+00:00",
+    "usage": {
+      "generation_seconds": 6.0,
+      "cold_start": false,
+      "wall_seconds": 7.5
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "mat_sesame_dough",
+    "file": "materials/mat_sesame_dough.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, flat continuous pale golden steamed bread dough surface, smooth matte crust with scattered black and white sesame seeds, one single surface, no individual buns, no circles, close-up macro of one flat crust, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 46267,
+    "createdAt": "2026-10-01T09:17:47.159452+00:00",
+    "usage": {
+      "generation_seconds": 10.6,
+      "cold_start": false,
+      "wall_seconds": 12.0
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK (retry 2). Earlier passes rendered individual buns."
+  },
+  {
+    "id": "mat_ube_purple",
+    "file": "materials/mat_ube_purple.png",
+    "prompt": "seamless tileable texture, flat lit, top-down, smooth soft ube purple yam dough surface, subtle swirl, gentle lavender highlights, uniform even lighting, no shadows, no vignette, repeating pattern, painterly, no text, no watermark",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "512x512",
+    "seed": 45501,
+    "createdAt": "2026-10-01T09:05:01.308741+00:00",
+    "usage": {
+      "generation_seconds": 6.0,
+      "cold_start": false,
+      "wall_seconds": 7.6
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "menu_keyart",
+    "file": "menu/menu_keyart.png",
+    "prompt": "cozy blossom teahouse interior scene, one cute smiling chibi bao dumpling character with rosy cheeks sitting on a wooden table beside a tall stack of bamboo steamers with soft steam, teacups, cherry blossom branch, warm morning sunlight, empty space at the top of the frame, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1536",
+    "seed": 45451,
+    "createdAt": "2026-10-01T09:04:11.038148+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 27.7
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass. Empty space top for logo."
+  },
+  {
+    "id": "chapter_01",
+    "file": "scenes/chapter_01.png",
+    "prompt": "a cute smiling bao dumpling character lifting the lid of a bamboo steamer on a teahouse veranda, first puff of soft steam, morning sun, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45749,
+    "createdAt": "2026-10-01T09:09:09.849361+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.0
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_02",
+    "file": "scenes/chapter_02.png",
+    "prompt": "cute bao dumpling and a chibi tanuki in a bamboo garden with stone lanterns and a koi pond, dappled morning light, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45764,
+    "createdAt": "2026-10-01T09:09:24.853762+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.9
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_03",
+    "file": "scenes/chapter_03.png",
+    "prompt": "chibi rabbit in a kimono pouring tea from a green floral teapot for a cute dumpling character, tea set on a low wooden table, sakura branch, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45779,
+    "createdAt": "2026-10-01T09:09:39.756445+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.8
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_04",
+    "file": "scenes/chapter_04.png",
+    "prompt": "cherry blossom festival at a teahouse, cute dumpling characters and a chibi fox in pink kimono under falling petals, unlit paper lanterns, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45794,
+    "createdAt": "2026-10-01T09:09:54.606435+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.1
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_05",
+    "file": "scenes/chapter_05.png",
+    "prompt": "elegant chibi crane bird animal character wearing a kimono, presenting a tower of bamboo steamers to a crowd of happy cute dumplings, teahouse interior, golden morning light, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46286,
+    "createdAt": "2026-10-01T09:18:06.734595+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.5
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass drew a winged human girl instead of a crane."
+  },
+  {
+    "id": "chapter_06",
+    "file": "scenes/chapter_06.png",
+    "prompt": "cute bao dumpling character hanging the first glowing paper lantern at dusk in an empty quiet night market street, indigo sky, amber glow, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46302,
+    "createdAt": "2026-10-01T09:18:22.228619+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.1
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had humans in background."
+  },
+  {
+    "id": "chapter_07",
+    "file": "scenes/chapter_07.png",
+    "prompt": "row of colourful night market food stalls with red and blue awnings, cute dumpling characters and a chibi red panda animal shopping, blank awnings with no writing, glowing lanterns, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46317,
+    "createdAt": "2026-10-01T09:18:37.300593+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.9
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had signage text."
+  },
+  {
+    "id": "chapter_08",
+    "file": "scenes/chapter_08.png",
+    "prompt": "busy lantern-lit night market alley, crowd made only of cute dumpling characters and chibi cat and panda animals carrying food, blank lanterns, bokeh lights, mist, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46332,
+    "createdAt": "2026-10-01T09:18:52.175236+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.1
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had humans and signage text."
+  },
+  {
+    "id": "chapter_09",
+    "file": "scenes/chapter_09.png",
+    "prompt": "night market festival with hanging lantern strings, drums and fireworks, cute dumpling characters dancing with a chibi fox animal, crowd of only dumplings and animals, deep indigo sky, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46347,
+    "createdAt": "2026-10-01T09:19:07.280856+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.0
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had humans."
+  },
+  {
+    "id": "chapter_10",
+    "file": "scenes/chapter_10.png",
+    "prompt": "proud chibi dragon chef in an apron at a glowing night market stall serving steaming dumplings to a crowd of cute dumpling characters, amber and gold, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45885,
+    "createdAt": "2026-10-01T09:11:25.528696+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.0
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_11",
+    "file": "scenes/chapter_11.png",
+    "prompt": "cute bao dumpling character and a chibi rabbit walking a winding moonlit mountain path with stone steps, soft clouds, jade pines, lavender sky, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45900,
+    "createdAt": "2026-10-01T09:11:40.522557+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.9
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_12",
+    "file": "scenes/chapter_12.png",
+    "prompt": "mountain temple kitchen with jade ornaments, only cute dumpling characters and a chibi cat animal cooking with glowing magical steam, moonlight through the window, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46362,
+    "createdAt": "2026-10-01T09:19:22.291218+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.9
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass drew a human girl."
+  },
+  {
+    "id": "chapter_13",
+    "file": "scenes/chapter_13.png",
+    "prompt": "arched stone bridge under a huge full moon above clouds, cute dumpling characters and a chibi cloud dragon crossing, snow white and jade, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45930,
+    "createdAt": "2026-10-01T09:12:10.344196+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.1
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "chapter_14",
+    "file": "scenes/chapter_14.png",
+    "prompt": "cute dumpling characters releasing sparkling star-filled magical steam into a night sky from a bamboo steamer on an open mountain peak under the stars, lavender and gold, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46377,
+    "createdAt": "2026-10-01T09:19:37.159065+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.9
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had a sign with glyphs."
+  },
+  {
+    "id": "chapter_15",
+    "file": "scenes/chapter_15.png",
+    "prompt": "grand moonlit feast on a mountain temple terrace, long table full of dumplings and tea, all the chibi animal friends and cute dumpling characters celebrating, jade and gold lanterns, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 45960,
+    "createdAt": "2026-10-01T09:12:40.434150+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.2
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "world_intro_1",
+    "file": "scenes/world_intro_1.png",
+    "prompt": "wide establishing illustration of the blossom teahouse at sunrise, cute bao dumpling character waving from the veranda, blank hanging plaque, cherry blossom trees, honey wood, bamboo green, cream, sakura pink and morning gold palette, cherry blossoms, bamboo steamers with soft steam, teacups, unlit paper lanterns, morning sun, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46392,
+    "createdAt": "2026-10-01T09:19:52.076291+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.0
+    },
+    "world": 1,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had plaque text."
+  },
+  {
+    "id": "world_intro_2",
+    "file": "scenes/world_intro_2.png",
+    "prompt": "wide establishing illustration of the lantern night market entrance gate at dusk, cute bao dumpling character holding a glowing lantern, empty street with only cute dumpling characters, blank gate plaque, indigo dusk, amber lantern glow, red, gold and soft mist palette, glowing paper lanterns, night market food stalls, warm reflections, bokeh, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo, no humans, no people, no signboards with writing, plain blank lanterns",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46407,
+    "createdAt": "2026-10-01T09:20:07.062516+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 14.7
+    },
+    "world": 2,
+    "status": "approved",
+    "qaNote": "OK (retry 1). First pass had humans and signage text."
+  },
+  {
+    "id": "world_intro_3",
+    "file": "scenes/world_intro_3.png",
+    "prompt": "wide establishing illustration of the moonlit mountain temple kitchen above the clouds, cute bao dumpling character on the moon bridge, moon blue, jade green, lavender, snow white and gold palette, mountain temple kitchen, moonlight, soft clouds, jade ornaments, winter blossoms, magical glowing steam, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x768",
+    "seed": 46006,
+    "createdAt": "2026-10-01T09:13:26.529147+00:00",
+    "usage": {
+      "generation_seconds": 13.6,
+      "cold_start": false,
+      "wall_seconds": 15.1
+    },
+    "world": 3,
+    "status": "approved",
+    "qaNote": "OK first pass."
+  },
+  {
+    "id": "ui_bamboo_frame",
+    "file": "ui/ui_bamboo_frame.png",
+    "prompt": "a single rectangular bamboo frame border made of tied bamboo poles with rope knots at the corners, empty hollow white center, centered, isolated on a flat pure white background, game UI asset, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1024",
+    "seed": 46071,
+    "createdAt": "2026-10-01T09:14:31.209803+00:00",
+    "usage": {
+      "generation_seconds": 18.1,
+      "cold_start": false,
+      "wall_seconds": 20.6
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK. Hollow centre keyed via centre seed."
+  },
+  {
+    "id": "ui_button_plate",
+    "file": "ui/ui_button_plate.png",
+    "prompt": "a single round wooden button plate, polished honey wood disc with golden rim, blank center, centered, isolated on a flat pure white background, game UI asset, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1024x1024",
+    "seed": 46050,
+    "createdAt": "2026-10-01T09:14:10.720640+00:00",
+    "usage": {
+      "generation_seconds": 18.1,
+      "cold_start": false,
+      "wall_seconds": 20.5
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK. Global white-distance key ate interior highlights; fixed with border-connected flood-fill key."
+  },
+  {
+    "id": "ui_sign_board",
+    "file": "ui/ui_sign_board.png",
+    "prompt": "a single horizontal wooden sign board panel, rounded plank with carved golden trim and small cherry blossom corner ornaments, blank empty surface, centered, isolated on a flat pure white background, game UI asset, hand-painted cozy mobile game illustration, warm soft cinematic lighting, gentle bloom, subtle depth of field, chibi kawaii proportions, smooth painterly shading, rich saturated but soft colors, high detail, no text, no watermark, no letters, no logo",
+    "negative": "text, letters, watermark, signature, photo-realistic, 3D render look, harsh black outlines, grid, checkerboard, clutter, dark gritty, horror, humans",
+    "model": "klein",
+    "size": "1536x1024",
+    "seed": 46021,
+    "createdAt": "2026-10-01T09:13:41.792248+00:00",
+    "usage": {
+      "generation_seconds": 25.6,
+      "cold_start": false,
+      "wall_seconds": 28.9
+    },
+    "world": 0,
+    "status": "approved",
+    "qaNote": "OK. Keyed cleanly (flood-fill matting)."
+  }
+]

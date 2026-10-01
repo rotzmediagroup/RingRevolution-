@@ -1,0 +1,27 @@
+{
+  "levelId": "L138",
+  "solvable": true,
+  "optimalMoves": 13,
+  "optimalProven": false,
+  "statesExplored": 60022,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 190,
+  "solution": [
+    "r1:180",
+    "r7:240",
+    "r1:0",
+    "r1:120",
+    "r2:180",
+    "r10:300",
+    "r7:180",
+    "r11:30",
+    "r11:90",
+    "r11:30",
+    "r5:180",
+    "r9:330",
+    "r9:90"
+  ],
+  "topologyHash": "b4bd96143ac517f4",
+  "notes": []
+}

@@ -1,0 +1,28 @@
+{
+  "levelId": "L123",
+  "solvable": true,
+  "optimalMoves": 14,
+  "optimalProven": false,
+  "statesExplored": 60102,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 609,
+  "solution": [
+    "r6:270",
+    "r2:150",
+    "r8:270",
+    "r4:330",
+    "r4:150",
+    "r8:300",
+    "r4:180",
+    "r1:300",
+    "r1:60",
+    "r9:270",
+    "r6:330",
+    "r6:0",
+    "r9:330",
+    "r6:240"
+  ],
+  "topologyHash": "ef65fd4d6824f3fc",
+  "notes": []
+}

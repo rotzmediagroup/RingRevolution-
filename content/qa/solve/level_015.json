@@ -1,0 +1,17 @@
+{
+  "levelId": "L015",
+  "solvable": true,
+  "optimalMoves": 3,
+  "optimalProven": true,
+  "statesExplored": 49,
+  "avgBranching": 34.55102040816327,
+  "deadEndRatio": 0.0,
+  "solveMillis": 1,
+  "solution": [
+    "r1:0",
+    "r3:120",
+    "r4:270"
+  ],
+  "topologyHash": "95054bacc5cd5b76",
+  "notes": []
+}

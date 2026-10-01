@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 2,
+  "id": "L003",
+  "index": 3,
+  "worldId": "blossom_teahouse",
+  "chapter": 1,
+  "chapterLevel": 3,
+  "seed": 300000,
+  "name": "Eerste stoom 3",
+  "mechanicTags": [
+    "basic_rotation",
+    "release"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.617583274814714,
+        0.5156025464662334
+      ],
+      "radius": 0.18858497245497546,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 81.0
+        }
+      ],
+      "initialAngleDeg": 210,
+      "stepDeg": 30,
+      "exitAngleDeg": 7,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.6528090533522686,
+        0.622391531752744
+      ],
+      "radius": 0.17543607978771772,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 80.0
+        }
+      ],
+      "initialAngleDeg": 150,
+      "stepDeg": 30,
+      "exitAngleDeg": 38,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": null
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.6045006174193737,
+        0.44210199441699405
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.6236187959022104,
+        0.5134520078631107
+      ],
+      "to": [
+        0.585382438936537,
+        0.3707519809708773
+      ],
+      "thickness": 0.028,
+      "colorId": null,
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "chopstick"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 3,
+  "goodMoves": 5,
+  "difficulty": 1,
+  "reward": {
+    "coins": 22,
+    "boosters": {}
+  },
+  "tutorialCueId": "two_rings_order",
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:330",
+    "r2:180",
+    "r1:180"
+  ],
+  "topologyHash": "41ba1f9b9403a0e3"
+}

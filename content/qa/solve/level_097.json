@@ -1,0 +1,22 @@
+{
+  "levelId": "L097",
+  "solvable": true,
+  "optimalMoves": 8,
+  "optimalProven": false,
+  "statesExplored": 61138,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 369,
+  "solution": [
+    "r6:300",
+    "r2:270",
+    "r3:300",
+    "r4:210",
+    "r5:330",
+    "r6:240",
+    "r8:30",
+    "r8:330"
+  ],
+  "topologyHash": "4e27314a21e4f37f",
+  "notes": []
+}

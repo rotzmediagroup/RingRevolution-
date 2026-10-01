@@ -1,0 +1,19 @@
+{
+  "levelId": "L042",
+  "solvable": true,
+  "optimalMoves": 5,
+  "optimalProven": true,
+  "statesExplored": 10804,
+  "avgBranching": 38.126434653831915,
+  "deadEndRatio": 0.0,
+  "solveMillis": 112,
+  "solution": [
+    "r2:240",
+    "r3:30",
+    "r4:330",
+    "r1:330",
+    "r2:0"
+  ],
+  "topologyHash": "b2b0c4671cb6c91f",
+  "notes": []
+}

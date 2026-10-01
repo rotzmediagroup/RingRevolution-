@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "id": "L006",
+  "index": 6,
+  "worldId": "blossom_teahouse",
+  "chapter": 1,
+  "chapterLevel": 6,
+  "seed": 600003,
+  "name": "Eerste stoom 6",
+  "mechanicTags": [
+    "basic_rotation",
+    "release"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.42748262221300937,
+        0.6151109952520868
+      ],
+      "radius": 0.19840749909041439,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 77.0
+        }
+      ],
+      "initialAngleDeg": 180,
+      "stepDeg": 30,
+      "exitAngleDeg": 122,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.5384396610455195,
+        0.409118128799143
+      ],
+      "radius": 0.17995783036219204,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 89.0
+        }
+      ],
+      "initialAngleDeg": 90,
+      "stepDeg": 30,
+      "exitAngleDeg": 293,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": null
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.31281466355981813,
+        0.5308117774540924
+      ],
+      "radius": 0.18673821215177533,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 85.0
+        }
+      ],
+      "initialAngleDeg": 150,
+      "stepDeg": 30,
+      "exitAngleDeg": 170,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": null
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.7213528835034217,
+        0.45812957904171225
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.6566357204939304,
+        0.44078866747688566
+      ],
+      "to": [
+        0.7860700465129132,
+        0.4754704906065388
+      ],
+      "thickness": 0.028,
+      "colorId": null,
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "chopstick"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r2",
+      "b": "r3",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 2,
+  "goodMoves": 4,
+  "difficulty": 2,
+  "reward": {
+    "coins": 24,
+    "boosters": {}
+  },
+  "tutorialCueId": "undo",
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r2:0",
+    "r3:270"
+  ],
+  "topologyHash": "558eb768f803afa6"
+}

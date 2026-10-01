@@ -1,0 +1,110 @@
+{
+ "sheet01": {
+  "sheet": "sheet01_characters_crane_rabbit_tanuki_fox.png",
+  "count": 32,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet02": {
+  "sheet": "sheet02_food_faces_sakura_mochi_tea_bento_bao.png",
+  "count": 48,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet03": {
+  "sheet": "sheet03_props_petals_windchime_koi_tea_lantern_sparrow_waterfall_rope.png",
+  "count": 48,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet04": {
+  "sheet": "sheet04_isometric_tiles_garden.png",
+  "count": 104,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet05": {
+  "sheet": "sheet05_food_faces_tea_dango_bao_parfait_icons.png",
+  "count": 37,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet06": {
+  "sheet": "sheet06_characters_dragon_redpanda_cat_clouddragon.png",
+  "count": 20,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet07": {
+  "sheet": "sheet07_props_night_market.png",
+  "count": 33,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet08": {
+  "sheet": "sheet08_food_faces_cloud_dumplings.png",
+  "count": 25,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet09": {
+  "sheet": "sheet09_characters_forest_raccoon_tanuki_fox_panda.png",
+  "count": 20,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet10": {
+  "sheet": "sheet10_food_bamboo_baskets.png",
+  "count": 36,
+  "removed": 0,
+  "warnings": []
+ },
+ "sheet11": {
+  "sheet": "sheet11_living_foods_b_desserts_drinks_anim.png",
+  "count": 220,
+  "removed": 88,
+  "warnings": []
+ },
+ "sheet12": {
+  "sheet": "sheet12_living_foods_a_anim.png",
+  "count": 170,
+  "removed": 19,
+  "warnings": []
+ },
+ "sheet13": {
+  "sheet": "sheet13_customers_cat_panda_rabbit_fox_frog_emotions.png",
+  "count": 30,
+  "removed": 13,
+  "warnings": []
+ },
+ "sheet14": {
+  "sheet": "sheet14_fx_pointer_ripple_sparkle_steam_combo_coins_boosters.png",
+  "count": 61,
+  "removed": 22,
+  "warnings": []
+ },
+ "sheet15": {
+  "sheet": "sheet15_world_map_meta_kit.png",
+  "count": 86,
+  "removed": 82,
+  "warnings": []
+ },
+ "sheet16": {
+  "sheet": "sheet16_diner_decor_lanterns_steamers_dishes_banners.png",
+  "count": 111,
+  "removed": 46,
+  "warnings": []
+ },
+ "sheet17": {
+  "sheet": "sheet17_customers_fox_sheep_raccoon_shiba_capybara_anim.png",
+  "count": 90,
+  "removed": 10,
+  "warnings": []
+ },
+ "sheet18": {
+  "sheet": "sheet18_customers_orangecat_bunny_panda_frog_graycat_anim.png",
+  "count": 80,
+  "removed": 18,
+  "warnings": []
+ }
+}

@@ -1,0 +1,26 @@
+{
+  "levelId": "L133",
+  "solvable": true,
+  "optimalMoves": 12,
+  "optimalProven": false,
+  "statesExplored": 60189,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 250,
+  "solution": [
+    "r9:240",
+    "r7:300",
+    "r7:90",
+    "r2:330",
+    "r5:330",
+    "r1:240",
+    "r1:60",
+    "r2:0",
+    "r1:330",
+    "r1:90",
+    "r6:330",
+    "r6:120"
+  ],
+  "topologyHash": "8e773e1208386f90",
+  "notes": []
+}

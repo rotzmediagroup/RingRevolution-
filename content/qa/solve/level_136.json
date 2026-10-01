@@ -1,0 +1,28 @@
+{
+  "levelId": "L136",
+  "solvable": true,
+  "optimalMoves": 14,
+  "optimalProven": false,
+  "statesExplored": 60166,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 513,
+  "solution": [
+    "r2:270",
+    "r5:300",
+    "r6:30",
+    "r2:180",
+    "r2:240",
+    "r2:90",
+    "r1:270",
+    "r3:60",
+    "r4:150",
+    "r4:300",
+    "r8:30",
+    "r8:60",
+    "r1:300",
+    "r1:90"
+  ],
+  "topologyHash": "2e42d9558ac660c1",
+  "notes": []
+}

@@ -1,0 +1,29 @@
+{
+  "levelId": "L135",
+  "solvable": true,
+  "optimalMoves": 15,
+  "optimalProven": false,
+  "statesExplored": 60071,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 619,
+  "solution": [
+    "r3:330",
+    "r3:150",
+    "r6:270",
+    "r5:240",
+    "r4:300",
+    "r8:300",
+    "r8:330",
+    "r8:30",
+    "r6:150",
+    "r8:240",
+    "r7:120",
+    "r9:120",
+    "r2:330",
+    "r5:120",
+    "r5:150"
+  ],
+  "topologyHash": "1e36e5ca3a82bc60",
+  "notes": []
+}

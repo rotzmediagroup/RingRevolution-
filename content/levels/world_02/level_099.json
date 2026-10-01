@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 2,
+  "id": "L099",
+  "index": 99,
+  "worldId": "lantern_night_market",
+  "chapter": 10,
+  "chapterLevel": 9,
+  "seed": 9900017,
+  "name": "Middernachtfeest 9",
+  "mechanicTags": [
+    "overlap",
+    "colour_gate",
+    "rotation_chain",
+    "rotating_obstacle"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.5,
+        0.5
+      ],
+      "radius": 0.08010159060555962,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 64.0
+        }
+      ],
+      "initialAngleDeg": 0,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": "g1",
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": "jade"
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.5819107733852621,
+        0.5232026445200078
+      ],
+      "radius": 0.11965611668376502,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 50.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 15,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": "red"
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.42377837977043803,
+        0.42250618992577693
+      ],
+      "radius": 0.11465311860075703,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 60.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 226,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": "red"
+    },
+    {
+      "id": "r4",
+      "center": [
+        0.4457216489640626,
+        0.5410251498728506
+      ],
+      "radius": 0.08042980066883312,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 59.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 142,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": "jade"
+    },
+    {
+      "id": "r5",
+      "center": [
+        0.7250389617829786,
+        0.5536167296187944
+      ],
+      "radius": 0.08035547514410887,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 50.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 13,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": "red"
+    },
+    {
+      "id": "r6",
+      "center": [
+        0.7408506208747824,
+        0.4990648398117486
+      ],
+      "radius": 0.09012546346565964,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 69.0
+        }
+      ],
+      "initialAngleDeg": 30,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": "jade"
+    },
+    {
+      "id": "r7",
+      "center": [
+        0.3403084421200707,
+        0.3027714579724287
+      ],
+      "radius": 0.08844258900933478,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 63.0
+        }
+      ],
+      "initialAngleDeg": 300,
+      "stepDeg": 30,
+      "exitAngleDeg": 232,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": "red"
+    },
+    {
+      "id": "r8",
+      "center": [
+        0.25464664952334226,
+        0.35666113526014587
+      ],
+      "radius": 0.11343819219278356,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 56.0
+        }
+      ],
+      "initialAngleDeg": 60,
+      "stepDeg": 30,
+      "exitAngleDeg": 211,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": "jade"
+    },
+    {
+      "id": "r9",
+      "center": [
+        0.4031621645240131,
+        0.23712221429755906
+      ],
+      "radius": 0.12469257786743913,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 56.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 250,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": "g1",
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": "red"
+    },
+    {
+      "id": "r10",
+      "center": [
+        0.2461147225120562,
+        0.1893134436912931
+      ],
+      "radius": 0.11025812060739522,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 64.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 231,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": "jade"
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.6755465366493899,
+        0.564368924037141
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.7012858998839036,
+        0.5386295608026274
+      ],
+      "to": [
+        0.6498071734148763,
+        0.5901082872716548
+      ],
+      "thickness": 0.028,
+      "colorId": "red",
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "lantern_gate"
+    },
+    {
+      "id": "o2",
+      "shape": "segment",
+      "center": [
+        0.7408506208747824,
+        0.4990648398117486
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.8717760843404421,
+        0.4990648398117486
+      ],
+      "to": [
+        0.9674237590336692,
+        0.4990648398117486
+      ],
+      "thickness": 0.026,
+      "colorId": null,
+      "linkedRingId": "r6",
+      "baseAngleDeg": 180,
+      "visualId": "lantern_arm"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r3",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r5",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r2",
+      "b": "r6",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r3",
+      "b": "r4",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r3",
+      "b": "r7",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r3",
+      "b": "r8",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r3",
+      "b": "r9",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r5",
+      "b": "r6",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r7",
+      "b": "r8",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r7",
+      "b": "r9",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r7",
+      "b": "r10",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r8",
+      "b": "r9",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r8",
+      "b": "r10",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r9",
+      "b": "r10",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 10,
+  "goodMoves": 15,
+  "difficulty": 8,
+  "reward": {
+    "coins": 63,
+    "boosters": {}
+  },
+  "tutorialCueId": null,
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r10:30",
+    "r1:270",
+    "r8:330",
+    "r3:240",
+    "r6:90",
+    "r3:30",
+    "r4:0",
+    "r5:210",
+    "r6:120",
+    "r2:210"
+  ],
+  "topologyHash": "ccb46319ae8e42a0"
+}

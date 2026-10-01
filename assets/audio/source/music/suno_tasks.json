@@ -1,0 +1,72 @@
+{
+  "world1_blossom_teahouse": {
+    "taskId": "aa1c0648a96bbda094b346afaac22736",
+    "model": "V6",
+    "style": "gentle uplifting acoustic instrumental, koto and shamisen hints, soft felt piano, light hand percussion, warm spring morning in a Japanese teahouse, cozy mobile puzzle game background music, calm, loopable, 85 bpm, no vocals",
+    "title": "Blossom Teahouse Morning",
+    "duration": 150
+  },
+  "world2_lantern_night_market": {
+    "taskId": "ffe783d747a9ba8e4db498211d558e86",
+    "model": "V6",
+    "style": "playful cozy instrumental, pizzicato strings, marimba, soft hand drums, erhu and dizi colour, warm festive Asian night market evening, lanterns, slightly energetic, mobile puzzle game loop, 100 bpm, no vocals",
+    "title": "Lantern Night Market",
+    "duration": 150
+  },
+  "world3_moonlit_mountain_kitchen": {
+    "taskId": "7f578fd8900ab70645f836ab03c6c0f1",
+    "model": "V6",
+    "style": "dreamy magical atmospheric instrumental, soft warm pads, music box, guzheng, celesta, gentle sense of wonder and accomplishment, moonlit mountain night, calm mobile puzzle game loop, 75 bpm, no vocals",
+    "title": "Moonlit Mountain Kitchen",
+    "duration": 150
+  },
+  "menu_theme": {
+    "taskId": "9ee2a7517f6d24c2b59e90b880b1e895",
+    "model": "V6",
+    "style": "cozy lounge instrumental, nylon acoustic guitar, warm piano, light jazz brushes, upright bass, inviting and relaxed, subtle Asian pentatonic colour, menu music for a cozy mobile game, 90 bpm, no vocals",
+    "title": "Teahouse Lounge",
+    "duration": 140
+  },
+  "chef_finale_variation_w1": {
+    "taskId": "3e17eb49de7e8dcb609208316e162eb9",
+    "model": "V6",
+    "style": "celebratory rich acoustic instrumental, koto, shamisen, soft piano, taiko-lite hand percussion, warm string section swells, joyful spring morning teahouse, triumphant but cozy, mobile puzzle game loop, 88 bpm, no vocals",
+    "title": "Blossom Teahouse Chef Finale",
+    "duration": 150
+  },
+  "chef_finale_variation_w2": {
+    "taskId": "8f906670f9bccb38aa4ad797112ec321",
+    "model": "V6",
+    "style": "celebratory festive instrumental, pizzicato and bowed strings, marimba, lively hand drums and shakers, erhu and dizi melody, bright night market celebration, richer and more energetic, mobile puzzle game loop, 104 bpm, no vocals",
+    "title": "Lantern Market Chef Finale",
+    "duration": 150
+  },
+  "chef_finale_variation_w3": {
+    "taskId": "62d035923129689bd9500aa7857edbf5",
+    "model": "V6",
+    "style": "celebratory dreamy orchestral instrumental, music box, guzheng, celesta, warm string ensemble, soft timpani and chimes, magical sense of accomplishment, moonlit mountain, richer variation, mobile puzzle game loop, 78 bpm, no vocals",
+    "title": "Moonlit Mountain Chef Finale",
+    "duration": 150
+  },
+  "level_complete_sting": {
+    "taskId": "c8fb51f3f64c81bcd02ab3da750ad72e",
+    "model": "V6",
+    "style": "short bright warm satisfying musical sting, celesta, koto, soft bells, a single resolving uplifting phrase, 10 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+    "title": "Level Complete",
+    "duration": 12
+  },
+  "chapter_complete_fanfare": {
+    "taskId": "d902dfff2df2a709604ee1b9b88353c1",
+    "model": "V6",
+    "style": "short warm celebratory fanfare, strings, bells, koto, soft hand drums, rising triumphant phrase with gentle ending, 15 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+    "title": "Chapter Complete",
+    "duration": 16
+  },
+  "world_unlock_fanfare": {
+    "taskId": "a671a573b900320ccfe5c2de3bfd8d96",
+    "model": "V6",
+    "style": "short magical reveal fanfare, shimmering celesta and chimes, guzheng glissando, warm strings swell into a bright hopeful chord, 15 seconds, instrumental jingle for a cozy puzzle game, no vocals",
+    "title": "New World Unlocked",
+    "duration": 18
+  }
+}

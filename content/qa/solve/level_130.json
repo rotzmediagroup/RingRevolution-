@@ -1,0 +1,30 @@
+{
+  "levelId": "L130",
+  "solvable": true,
+  "optimalMoves": 16,
+  "optimalProven": false,
+  "statesExplored": 62751,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 258,
+  "solution": [
+    "r9:60",
+    "r4:0",
+    "r8:330",
+    "r2:210",
+    "r5:180",
+    "r1:210",
+    "r1:0",
+    "r5:330",
+    "r2:330",
+    "r2:60",
+    "r1:300",
+    "r1:270",
+    "r2:0",
+    "r2:240",
+    "r1:60",
+    "r1:90"
+  ],
+  "topologyHash": "5ecfd218559c3e3",
+  "notes": []
+}

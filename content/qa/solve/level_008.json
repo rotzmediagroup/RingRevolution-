@@ -1,0 +1,17 @@
+{
+  "levelId": "L008",
+  "solvable": true,
+  "optimalMoves": 3,
+  "optimalProven": true,
+  "statesExplored": 91,
+  "avgBranching": 35.68131868131868,
+  "deadEndRatio": 0.0,
+  "solveMillis": 7,
+  "solution": [
+    "r1:60",
+    "r2:30",
+    "r3:240"
+  ],
+  "topologyHash": "1ddae61a9b35fe54",
+  "notes": []
+}

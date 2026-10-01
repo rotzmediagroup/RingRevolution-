@@ -1,0 +1,24 @@
+{
+  "levelId": "L104",
+  "solvable": true,
+  "optimalMoves": 10,
+  "optimalProven": false,
+  "statesExplored": 60025,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 625,
+  "solution": [
+    "r4:240",
+    "r3:120",
+    "r6:90",
+    "r1:0",
+    "r5:210",
+    "r4:180",
+    "r5:150",
+    "r4:330",
+    "r2:30",
+    "r4:90"
+  ],
+  "topologyHash": "93b810e27f7ae6e4",
+  "notes": []
+}

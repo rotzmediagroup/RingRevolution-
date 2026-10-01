@@ -1,0 +1,281 @@
+[
+ {
+  "id": "deco_sakura_lantern",
+  "kind": "decor",
+  "nameKey": "cos_deco_sakura_lantern",
+  "unlock": {
+   "chapter": 1
+  },
+  "sprite": "sheet16/sakura_lantern_01"
+ },
+ {
+  "id": "deco_blossom_planter",
+  "kind": "decor",
+  "nameKey": "cos_deco_blossom_planter",
+  "unlock": {
+   "chapter": 2
+  },
+  "sprite": "sheet16/blossom_planter_crate"
+ },
+ {
+  "id": "deco_bamboo_steamer",
+  "kind": "decor",
+  "nameKey": "cos_deco_bamboo_steamer",
+  "unlock": {
+   "chapter": 3
+  },
+  "sprite": "sheet16/bamboo_steamer_steam_f03"
+ },
+ {
+  "id": "deco_teapot",
+  "kind": "decor",
+  "nameKey": "cos_deco_teapot",
+  "unlock": {
+   "chapter": 4
+  },
+  "sprite": "sheet16/teapot_green_steam"
+ },
+ {
+  "id": "theme_matcha",
+  "kind": "theme",
+  "nameKey": "cos_theme_matcha",
+  "unlock": {
+   "chapter": 5
+  },
+  "sprite": "materials/matcha"
+ },
+ {
+  "id": "deco_balloon_lantern",
+  "kind": "decor",
+  "nameKey": "cos_deco_balloon_lantern",
+  "unlock": {
+   "chapter": 6
+  },
+  "sprite": "sheet07/balloon_lantern_red"
+ },
+ {
+  "id": "deco_lantern_string",
+  "kind": "decor",
+  "nameKey": "cos_deco_lantern_string",
+  "unlock": {
+   "chapter": 7
+  },
+  "sprite": "sheet16/lantern_string_01"
+ },
+ {
+  "id": "deco_bonsai",
+  "kind": "decor",
+  "nameKey": "cos_deco_bonsai",
+  "unlock": {
+   "chapter": 8
+  },
+  "sprite": "sheet16/potted_bonsai"
+ },
+ {
+  "id": "deco_drum",
+  "kind": "decor",
+  "nameKey": "cos_deco_drum",
+  "unlock": {
+   "chapter": 9
+  },
+  "sprite": "sheet07/drum_red_large"
+ },
+ {
+  "id": "theme_beet",
+  "kind": "theme",
+  "nameKey": "cos_theme_beet",
+  "unlock": {
+   "chapter": 10
+  },
+  "sprite": "materials/beet_pink"
+ },
+ {
+  "id": "deco_stone_lantern",
+  "kind": "decor",
+  "nameKey": "cos_deco_stone_lantern",
+  "unlock": {
+   "chapter": 11
+  },
+  "sprite": "sheet16/stone_lantern_large"
+ },
+ {
+  "id": "deco_jade_mochi",
+  "kind": "decor",
+  "nameKey": "cos_deco_jade_mochi",
+  "unlock": {
+   "chapter": 12
+  },
+  "sprite": "sheet10/matcha_mochi_f01"
+ },
+ {
+  "id": "deco_cloud",
+  "kind": "decor",
+  "nameKey": "cos_deco_cloud",
+  "unlock": {
+   "chapter": 13
+  },
+  "sprite": "sheet15/cloud_01"
+ },
+ {
+  "id": "deco_star_jelly",
+  "kind": "decor",
+  "nameKey": "cos_deco_star_jelly",
+  "unlock": {
+   "chapter": 14
+  },
+  "sprite": "sheet08/star_jelly_idle"
+ },
+ {
+  "id": "theme_gold",
+  "kind": "theme",
+  "nameKey": "cos_theme_gold",
+  "unlock": {
+   "chapter": 15
+  },
+  "sprite": "materials/gold"
+ },
+ {
+  "id": "theme_premium_ube",
+  "kind": "theme",
+  "nameKey": "cos_theme_premium_ube",
+  "unlock": {
+   "premium": true
+  },
+  "sprite": "materials/ube_purple"
+ },
+ {
+  "id": "char_tanuki",
+  "kind": "character",
+  "nameKey": "char_tanuki",
+  "unlock": {
+   "chapter": 1
+  },
+  "sprite": "sheet01/tanuki_idle"
+ },
+ {
+  "id": "char_rabbit",
+  "kind": "character",
+  "nameKey": "char_rabbit",
+  "unlock": {
+   "chapter": 2
+  },
+  "sprite": "sheet01/rabbit_idle"
+ },
+ {
+  "id": "char_panda",
+  "kind": "character",
+  "nameKey": "char_panda",
+  "unlock": {
+   "chapter": 3
+  },
+  "sprite": "sheet09/panda_idle"
+ },
+ {
+  "id": "char_crane",
+  "kind": "character",
+  "nameKey": "char_crane",
+  "unlock": {
+   "chapter": 4
+  },
+  "sprite": "sheet01/crane_idle"
+ },
+ {
+  "id": "char_fox",
+  "kind": "character",
+  "nameKey": "char_fox",
+  "unlock": {
+   "chapter": 5
+  },
+  "sprite": "sheet01/fox_idle"
+ },
+ {
+  "id": "char_red_panda",
+  "kind": "character",
+  "nameKey": "char_red_panda",
+  "unlock": {
+   "chapter": 6
+  },
+  "sprite": "sheet06/red_panda_idle"
+ },
+ {
+  "id": "char_black_cat",
+  "kind": "character",
+  "nameKey": "char_black_cat",
+  "unlock": {
+   "chapter": 7
+  },
+  "sprite": "sheet06/black_cat_idle"
+ },
+ {
+  "id": "char_fox",
+  "kind": "character",
+  "nameKey": "char_fox",
+  "unlock": {
+   "chapter": 8
+  },
+  "sprite": "sheet09/fox_idle"
+ },
+ {
+  "id": "char_red_dragon",
+  "kind": "character",
+  "nameKey": "char_red_dragon",
+  "unlock": {
+   "chapter": 9
+  },
+  "sprite": "sheet06/red_dragon_idle"
+ },
+ {
+  "id": "char_golden_bao",
+  "kind": "character",
+  "nameKey": "char_golden_bao",
+  "unlock": {
+   "chapter": 10
+  },
+  "sprite": "sheet08/golden_dumpling_idle"
+ },
+ {
+  "id": "char_raccoon",
+  "kind": "character",
+  "nameKey": "char_raccoon",
+  "unlock": {
+   "chapter": 11
+  },
+  "sprite": "sheet09/raccoon_idle"
+ },
+ {
+  "id": "char_star_jelly",
+  "kind": "character",
+  "nameKey": "char_star_jelly",
+  "unlock": {
+   "chapter": 12
+  },
+  "sprite": "sheet08/star_jelly_idle"
+ },
+ {
+  "id": "char_cloud_dumpling",
+  "kind": "character",
+  "nameKey": "char_cloud_dumpling",
+  "unlock": {
+   "chapter": 13
+  },
+  "sprite": "sheet08/cloud_dumpling_idle"
+ },
+ {
+  "id": "char_rainbow_dango",
+  "kind": "character",
+  "nameKey": "char_rainbow_dango",
+  "unlock": {
+   "chapter": 14
+  },
+  "sprite": "sheet08/rainbow_dango_idle"
+ },
+ {
+  "id": "char_cloud_dragon",
+  "kind": "character",
+  "nameKey": "char_cloud_dragon",
+  "unlock": {
+   "chapter": 15
+  },
+  "sprite": "sheet06/cloud_dragon_idle"
+ }
+]

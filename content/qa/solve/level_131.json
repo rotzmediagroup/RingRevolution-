@@ -1,0 +1,21 @@
+{
+  "levelId": "L131",
+  "solvable": true,
+  "optimalMoves": 7,
+  "optimalProven": false,
+  "statesExplored": 60008,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 173,
+  "solution": [
+    "r2:150",
+    "r1:240",
+    "r6:0",
+    "r1:60",
+    "r2:210",
+    "r2:300",
+    "r4:0"
+  ],
+  "topologyHash": "5eda8dc4a0a3a7ff",
+  "notes": []
+}

@@ -1,0 +1,28 @@
+{
+  "levelId": "L137",
+  "solvable": true,
+  "optimalMoves": 14,
+  "optimalProven": false,
+  "statesExplored": 60055,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 939,
+  "solution": [
+    "r7:300",
+    "r8:30",
+    "r8:210",
+    "r5:30",
+    "r8:60",
+    "r1:330",
+    "r8:150",
+    "r6:210",
+    "r6:150",
+    "r4:210",
+    "r9:90",
+    "r9:270",
+    "r3:240",
+    "r3:150"
+  ],
+  "topologyHash": "dda20e8061515760",
+  "notes": []
+}

@@ -1,0 +1,26 @@
+{
+ "startCoins": 0,
+ "startInventory": {
+  "hint": 3,
+  "steam_peek": 2,
+  "chefs_twist": 1,
+  "golden_steamer": 0
+ },
+ "prices": {
+  "hint": 60,
+  "steam_peek": 100,
+  "chefs_twist": 180,
+  "golden_steamer": 240
+ },
+ "starBonus": {
+  "1": 0,
+  "2": 5,
+  "3": 12
+ },
+ "replayCoins": 0,
+ "dailyCoins": 25,
+ "premiumDailyClaim": {
+  "hint": 1
+ },
+ "rewardedCoinsMultiplier": 2
+}

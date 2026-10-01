@@ -1,0 +1,317 @@
+[
+ {
+  "number": 1,
+  "world": 1,
+  "levels": [
+   1,
+   10
+  ],
+  "name": {
+   "nl": "Eerste stoom",
+   "en": "First Steam",
+   "de": "Erster Dampf"
+  },
+  "mechanic": "basic_rotation",
+  "scene": "scenes/chapter_01.webp",
+  "rewardCharacter": "sheet01/tanuki",
+  "rewardCosmetic": "deco_sakura_lantern",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 90
+ },
+ {
+  "number": 2,
+  "world": 1,
+  "levels": [
+   11,
+   20
+  ],
+  "name": {
+   "nl": "Bloesempad",
+   "en": "Blossom Path",
+   "de": "Blütenpfad"
+  },
+  "mechanic": "overlap",
+  "scene": "scenes/chapter_02.webp",
+  "rewardCharacter": "sheet01/rabbit",
+  "rewardCosmetic": "deco_blossom_planter",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 100
+ },
+ {
+  "number": 3,
+  "world": 1,
+  "levels": [
+   21,
+   30
+  ],
+  "name": {
+   "nl": "Bamboemandjes",
+   "en": "Bamboo Baskets",
+   "de": "Bambuskörbe"
+  },
+  "mechanic": "locked_order",
+  "scene": "scenes/chapter_03.webp",
+  "rewardCharacter": "sheet09/panda",
+  "rewardCosmetic": "deco_bamboo_steamer",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 110
+ },
+ {
+  "number": 4,
+  "world": 1,
+  "levels": [
+   31,
+   40
+  ],
+  "name": {
+   "nl": "De theemeester",
+   "en": "The Tea Master",
+   "de": "Der Teemeister"
+  },
+  "mechanic": "nested",
+  "scene": "scenes/chapter_04.webp",
+  "rewardCharacter": "sheet01/crane",
+  "rewardCosmetic": "deco_teapot",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 120
+ },
+ {
+  "number": 5,
+  "world": 1,
+  "levels": [
+   41,
+   50
+  ],
+  "name": {
+   "nl": "Het lentefeest",
+   "en": "Spring Festival",
+   "de": "Das Frühlingsfest"
+  },
+  "mechanic": "combo",
+  "scene": "scenes/chapter_05.webp",
+  "rewardCharacter": "sheet01/fox",
+  "rewardCosmetic": "theme_matcha",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 130
+ },
+ {
+  "number": 6,
+  "world": 2,
+  "levels": [
+   51,
+   60
+  ],
+  "name": {
+   "nl": "Avondlicht",
+   "en": "Evening Light",
+   "de": "Abendlicht"
+  },
+  "mechanic": "dense_overlap",
+  "scene": "scenes/chapter_06.webp",
+  "rewardCharacter": "sheet06/red_panda",
+  "rewardCosmetic": "deco_balloon_lantern",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 140
+ },
+ {
+  "number": 7,
+  "world": 2,
+  "levels": [
+   61,
+   70
+  ],
+  "name": {
+   "nl": "Lampionstraat",
+   "en": "Lantern Street",
+   "de": "Laternenstraße"
+  },
+  "mechanic": "colour_gate",
+  "scene": "scenes/chapter_07.webp",
+  "rewardCharacter": "sheet06/black_cat",
+  "rewardCosmetic": "deco_lantern_string",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 150
+ },
+ {
+  "number": 8,
+  "world": 2,
+  "levels": [
+   71,
+   80
+  ],
+  "name": {
+   "nl": "De kruidentuin",
+   "en": "The Herb Garden",
+   "de": "Der Kräutergarten"
+  },
+  "mechanic": "restricted_arc",
+  "scene": "scenes/chapter_08.webp",
+  "rewardCharacter": "sheet09/fox",
+  "rewardCosmetic": "deco_bonsai",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 160
+ },
+ {
+  "number": 9,
+  "world": 2,
+  "levels": [
+   81,
+   90
+  ],
+  "name": {
+   "nl": "De wokmeester",
+   "en": "The Wok Master",
+   "de": "Der Wokmeister"
+  },
+  "mechanic": "rotation_chain",
+  "scene": "scenes/chapter_09.webp",
+  "rewardCharacter": "sheet06/red_dragon",
+  "rewardCosmetic": "deco_drum",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 170
+ },
+ {
+  "number": 10,
+  "world": 2,
+  "levels": [
+   91,
+   100
+  ],
+  "name": {
+   "nl": "Middernachtfeest",
+   "en": "Midnight Feast",
+   "de": "Mitternachtsfest"
+  },
+  "mechanic": "rotating_obstacle",
+  "scene": "scenes/chapter_10.webp",
+  "rewardCharacter": "sheet08/golden_dumpling",
+  "rewardCosmetic": "theme_beet",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 180
+ },
+ {
+  "number": 11,
+  "world": 3,
+  "levels": [
+   101,
+   110
+  ],
+  "name": {
+   "nl": "Maanpoort",
+   "en": "Moon Gate",
+   "de": "Mondtor"
+  },
+  "mechanic": "complex_sequence",
+  "scene": "scenes/chapter_11.webp",
+  "rewardCharacter": "sheet09/raccoon",
+  "rewardCosmetic": "deco_stone_lantern",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 190
+ },
+ {
+  "number": 12,
+  "world": 3,
+  "levels": [
+   111,
+   120
+  ],
+  "name": {
+   "nl": "Jadepaviljoen",
+   "en": "Jade Pavilion",
+   "de": "Jadepavillon"
+  },
+  "mechanic": "double_gap",
+  "scene": "scenes/chapter_12.webp",
+  "rewardCharacter": "sheet08/star_jelly",
+  "rewardCosmetic": "deco_jade_mochi",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 200
+ },
+ {
+  "number": 13,
+  "world": 3,
+  "levels": [
+   121,
+   130
+  ],
+  "name": {
+   "nl": "Wolkentrap",
+   "en": "Cloud Stairs",
+   "de": "Wolkentreppe"
+  },
+  "mechanic": "hinge_link",
+  "scene": "scenes/chapter_13.webp",
+  "rewardCharacter": "sheet08/cloud_dumpling",
+  "rewardCosmetic": "deco_cloud",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 210
+ },
+ {
+  "number": 14,
+  "world": 3,
+  "levels": [
+   131,
+   140
+  ],
+  "name": {
+   "nl": "Sterrenkeuken",
+   "en": "Star Kitchen",
+   "de": "Sternenküche"
+  },
+  "mechanic": "all_mechanics",
+  "scene": "scenes/chapter_14.webp",
+  "rewardCharacter": "sheet08/rainbow_dango",
+  "rewardCosmetic": "deco_star_jelly",
+  "rewardBoosters": {
+   "steam_peek": 1
+  },
+  "rewardCoins": 220
+ },
+ {
+  "number": 15,
+  "world": 3,
+  "levels": [
+   141,
+   150
+  ],
+  "name": {
+   "nl": "De laatste stoom",
+   "en": "The Last Steam",
+   "de": "Der letzte Dampf"
+  },
+  "mechanic": "finale",
+  "scene": "scenes/chapter_15.webp",
+  "rewardCharacter": "sheet06/cloud_dragon",
+  "rewardCosmetic": "theme_gold",
+  "rewardBoosters": {
+   "hint": 1
+  },
+  "rewardCoins": 230
+ }
+]

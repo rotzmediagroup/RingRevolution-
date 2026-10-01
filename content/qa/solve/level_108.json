@@ -1,0 +1,23 @@
+{
+  "levelId": "L108",
+  "solvable": true,
+  "optimalMoves": 9,
+  "optimalProven": false,
+  "statesExplored": 60017,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 183,
+  "solution": [
+    "r3:90",
+    "r3:270",
+    "r5:240",
+    "r9:90",
+    "r2:300",
+    "r2:240",
+    "r8:90",
+    "r2:60",
+    "r4:150"
+  ],
+  "topologyHash": "154e7698574a64ac",
+  "notes": []
+}

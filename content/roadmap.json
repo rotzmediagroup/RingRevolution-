@@ -1,0 +1,1362 @@
+[
+ {
+  "index": 1,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 1,
+  "focus": "Basisrotatie",
+  "variation": "introductie",
+  "difficulty": 1,
+  "tutorialCueId": "rotate_first_ring"
+ },
+ {
+  "index": 2,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 1,
+  "focus": "Basisrotatie",
+  "variation": "nieuwe topologie",
+  "difficulty": 1,
+  "tutorialCueId": "gap_and_exit"
+ },
+ {
+  "index": 3,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 2,
+  "focus": "Basisrotatie",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 1,
+  "tutorialCueId": "two_rings_order"
+ },
+ {
+  "index": 4,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 2,
+  "focus": "Basisrotatie",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 1,
+  "tutorialCueId": "free_rotation"
+ },
+ {
+  "index": 5,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 3,
+  "focus": "Basisrotatie",
+  "variation": "extra overlap",
+  "difficulty": 1,
+  "tutorialCueId": "recognise_blocker"
+ },
+ {
+  "index": 6,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 3,
+  "focus": "Basisrotatie",
+  "variation": "afleidende draairichting",
+  "difficulty": 2,
+  "tutorialCueId": "undo"
+ },
+ {
+  "index": 7,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 3,
+  "focus": "Basisrotatie",
+  "variation": "geneste configuratie",
+  "difficulty": 2,
+  "tutorialCueId": "restart"
+ },
+ {
+  "index": 8,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 4,
+  "focus": "Basisrotatie",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 2,
+  "tutorialCueId": "simple_chain"
+ },
+ {
+  "index": 9,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 4,
+  "focus": "Basisrotatie",
+  "variation": "combinatieproef",
+  "difficulty": 2,
+  "tutorialCueId": "hint_optional"
+ },
+ {
+  "index": 10,
+  "world": 1,
+  "chapterName": "Eerste stoom",
+  "rings": 4,
+  "focus": "Basisrotatie",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 2,
+  "tutorialCueId": "first_finale"
+ },
+ {
+  "index": 11,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 3,
+  "focus": "Eenvoudige overlap",
+  "variation": "introductie",
+  "difficulty": 2
+ },
+ {
+  "index": 12,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 3,
+  "focus": "Eenvoudige overlap",
+  "variation": "nieuwe topologie",
+  "difficulty": 2
+ },
+ {
+  "index": 13,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 3,
+  "focus": "Eenvoudige overlap",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 2
+ },
+ {
+  "index": 14,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 4,
+  "focus": "Eenvoudige overlap",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 2
+ },
+ {
+  "index": 15,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 4,
+  "focus": "Eenvoudige overlap",
+  "variation": "extra overlap",
+  "difficulty": 2
+ },
+ {
+  "index": 16,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 4,
+  "focus": "Eenvoudige overlap",
+  "variation": "afleidende draairichting",
+  "difficulty": 3
+ },
+ {
+  "index": 17,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 4,
+  "focus": "Eenvoudige overlap",
+  "variation": "geneste configuratie",
+  "difficulty": 3
+ },
+ {
+  "index": 18,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 5,
+  "focus": "Eenvoudige overlap",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 3
+ },
+ {
+  "index": 19,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 5,
+  "focus": "Eenvoudige overlap",
+  "variation": "combinatieproef",
+  "difficulty": 3
+ },
+ {
+  "index": 20,
+  "world": 1,
+  "chapterName": "Bloesempad",
+  "rings": 5,
+  "focus": "Eenvoudige overlap",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 3
+ },
+ {
+  "index": 21,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 4,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "introductie",
+  "difficulty": 3
+ },
+ {
+  "index": 22,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 4,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "nieuwe topologie",
+  "difficulty": 3
+ },
+ {
+  "index": 23,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 4,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 3
+ },
+ {
+  "index": 24,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 5,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 3
+ },
+ {
+  "index": 25,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 5,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "extra overlap",
+  "difficulty": 3
+ },
+ {
+  "index": 26,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 5,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "afleidende draairichting",
+  "difficulty": 4
+ },
+ {
+  "index": 27,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 5,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "geneste configuratie",
+  "difficulty": 4
+ },
+ {
+  "index": 28,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 6,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 4
+ },
+ {
+  "index": 29,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 6,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "combinatieproef",
+  "difficulty": 4
+ },
+ {
+  "index": 30,
+  "world": 1,
+  "chapterName": "Bamboemandjes",
+  "rings": 6,
+  "focus": "Ontgrendelvolgorde",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 4
+ },
+ {
+  "index": 31,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 4,
+  "focus": "Geneste ringen",
+  "variation": "introductie",
+  "difficulty": 3
+ },
+ {
+  "index": 32,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 4,
+  "focus": "Geneste ringen",
+  "variation": "nieuwe topologie",
+  "difficulty": 3
+ },
+ {
+  "index": 33,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 5,
+  "focus": "Geneste ringen",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 3
+ },
+ {
+  "index": 34,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 5,
+  "focus": "Geneste ringen",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 4
+ },
+ {
+  "index": 35,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 5,
+  "focus": "Geneste ringen",
+  "variation": "extra overlap",
+  "difficulty": 4
+ },
+ {
+  "index": 36,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 6,
+  "focus": "Geneste ringen",
+  "variation": "afleidende draairichting",
+  "difficulty": 4
+ },
+ {
+  "index": 37,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 6,
+  "focus": "Geneste ringen",
+  "variation": "geneste configuratie",
+  "difficulty": 4
+ },
+ {
+  "index": 38,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 6,
+  "focus": "Geneste ringen",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 5
+ },
+ {
+  "index": 39,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 7,
+  "focus": "Geneste ringen",
+  "variation": "combinatieproef",
+  "difficulty": 5
+ },
+ {
+  "index": 40,
+  "world": 1,
+  "chapterName": "De theemeester",
+  "rings": 7,
+  "focus": "Geneste ringen",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 5
+ },
+ {
+  "index": 41,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 5,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "introductie",
+  "difficulty": 4
+ },
+ {
+  "index": 42,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 5,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "nieuwe topologie",
+  "difficulty": 4
+ },
+ {
+  "index": 43,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 6,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 4
+ },
+ {
+  "index": 44,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 6,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 5
+ },
+ {
+  "index": 45,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 6,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "extra overlap",
+  "difficulty": 5
+ },
+ {
+  "index": 46,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 7,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "afleidende draairichting",
+  "difficulty": 5
+ },
+ {
+  "index": 47,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 7,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "geneste configuratie",
+  "difficulty": 5
+ },
+ {
+  "index": 48,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 7,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 6
+ },
+ {
+  "index": 49,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 8,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "combinatieproef",
+  "difficulty": 6
+ },
+ {
+  "index": 50,
+  "world": 1,
+  "chapterName": "Het lentefeest",
+  "rings": 8,
+  "focus": "Gecombineerde basispuzzels",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 6
+ },
+ {
+  "index": 51,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 5,
+  "focus": "Dichte overlappingen",
+  "variation": "introductie",
+  "difficulty": 4
+ },
+ {
+  "index": 52,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 5,
+  "focus": "Dichte overlappingen",
+  "variation": "nieuwe topologie",
+  "difficulty": 4
+ },
+ {
+  "index": 53,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 5,
+  "focus": "Dichte overlappingen",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 4
+ },
+ {
+  "index": 54,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 6,
+  "focus": "Dichte overlappingen",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 4
+ },
+ {
+  "index": 55,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 6,
+  "focus": "Dichte overlappingen",
+  "variation": "extra overlap",
+  "difficulty": 4
+ },
+ {
+  "index": 56,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 6,
+  "focus": "Dichte overlappingen",
+  "variation": "afleidende draairichting",
+  "difficulty": 5
+ },
+ {
+  "index": 57,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 6,
+  "focus": "Dichte overlappingen",
+  "variation": "geneste configuratie",
+  "difficulty": 5
+ },
+ {
+  "index": 58,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 7,
+  "focus": "Dichte overlappingen",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 5
+ },
+ {
+  "index": 59,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 7,
+  "focus": "Dichte overlappingen",
+  "variation": "combinatieproef",
+  "difficulty": 5
+ },
+ {
+  "index": 60,
+  "world": 2,
+  "chapterName": "Avondlicht",
+  "rings": 7,
+  "focus": "Dichte overlappingen",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 5
+ },
+ {
+  "index": 61,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 5,
+  "focus": "Kleurpoorten",
+  "variation": "introductie",
+  "difficulty": 5
+ },
+ {
+  "index": 62,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 5,
+  "focus": "Kleurpoorten",
+  "variation": "nieuwe topologie",
+  "difficulty": 5
+ },
+ {
+  "index": 63,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 6,
+  "focus": "Kleurpoorten",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 5
+ },
+ {
+  "index": 64,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 6,
+  "focus": "Kleurpoorten",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 5
+ },
+ {
+  "index": 65,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 6,
+  "focus": "Kleurpoorten",
+  "variation": "extra overlap",
+  "difficulty": 5
+ },
+ {
+  "index": 66,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 7,
+  "focus": "Kleurpoorten",
+  "variation": "afleidende draairichting",
+  "difficulty": 6
+ },
+ {
+  "index": 67,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 7,
+  "focus": "Kleurpoorten",
+  "variation": "geneste configuratie",
+  "difficulty": 6
+ },
+ {
+  "index": 68,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 7,
+  "focus": "Kleurpoorten",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 6
+ },
+ {
+  "index": 69,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 8,
+  "focus": "Kleurpoorten",
+  "variation": "combinatieproef",
+  "difficulty": 6
+ },
+ {
+  "index": 70,
+  "world": 2,
+  "chapterName": "Lampionstraat",
+  "rings": 8,
+  "focus": "Kleurpoorten",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 6
+ },
+ {
+  "index": 71,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 6,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "introductie",
+  "difficulty": 5
+ },
+ {
+  "index": 72,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 6,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "nieuwe topologie",
+  "difficulty": 5
+ },
+ {
+  "index": 73,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 7,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 5
+ },
+ {
+  "index": 74,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 7,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 6
+ },
+ {
+  "index": 75,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 7,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "extra overlap",
+  "difficulty": 6
+ },
+ {
+  "index": 76,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 8,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "afleidende draairichting",
+  "difficulty": 6
+ },
+ {
+  "index": 77,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 8,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "geneste configuratie",
+  "difficulty": 6
+ },
+ {
+  "index": 78,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 8,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 7
+ },
+ {
+  "index": 79,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 9,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "combinatieproef",
+  "difficulty": 7
+ },
+ {
+  "index": 80,
+  "world": 2,
+  "chapterName": "De kruidentuin",
+  "rings": 9,
+  "focus": "Beperkte rotatiebogen",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 7
+ },
+ {
+  "index": 81,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 6,
+  "focus": "Rotatieketens",
+  "variation": "introductie",
+  "difficulty": 6
+ },
+ {
+  "index": 82,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 6,
+  "focus": "Rotatieketens",
+  "variation": "nieuwe topologie",
+  "difficulty": 6
+ },
+ {
+  "index": 83,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 7,
+  "focus": "Rotatieketens",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 6
+ },
+ {
+  "index": 84,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 7,
+  "focus": "Rotatieketens",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 7
+ },
+ {
+  "index": 85,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 7,
+  "focus": "Rotatieketens",
+  "variation": "extra overlap",
+  "difficulty": 7
+ },
+ {
+  "index": 86,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 8,
+  "focus": "Rotatieketens",
+  "variation": "afleidende draairichting",
+  "difficulty": 7
+ },
+ {
+  "index": 87,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 8,
+  "focus": "Rotatieketens",
+  "variation": "geneste configuratie",
+  "difficulty": 7
+ },
+ {
+  "index": 88,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 8,
+  "focus": "Rotatieketens",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 8
+ },
+ {
+  "index": 89,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 9,
+  "focus": "Rotatieketens",
+  "variation": "combinatieproef",
+  "difficulty": 8
+ },
+ {
+  "index": 90,
+  "world": 2,
+  "chapterName": "De wokmeester",
+  "rings": 9,
+  "focus": "Rotatieketens",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 8
+ },
+ {
+  "index": 91,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 7,
+  "focus": "Poorten en ketens combineren",
+  "variation": "introductie",
+  "difficulty": 6
+ },
+ {
+  "index": 92,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 7,
+  "focus": "Poorten en ketens combineren",
+  "variation": "nieuwe topologie",
+  "difficulty": 6
+ },
+ {
+  "index": 93,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 8,
+  "focus": "Poorten en ketens combineren",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 6
+ },
+ {
+  "index": 94,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 8,
+  "focus": "Poorten en ketens combineren",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 7
+ },
+ {
+  "index": 95,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 8,
+  "focus": "Poorten en ketens combineren",
+  "variation": "extra overlap",
+  "difficulty": 7
+ },
+ {
+  "index": 96,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 9,
+  "focus": "Poorten en ketens combineren",
+  "variation": "afleidende draairichting",
+  "difficulty": 7
+ },
+ {
+  "index": 97,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 9,
+  "focus": "Poorten en ketens combineren",
+  "variation": "geneste configuratie",
+  "difficulty": 7
+ },
+ {
+  "index": 98,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 9,
+  "focus": "Poorten en ketens combineren",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 8
+ },
+ {
+  "index": 99,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 10,
+  "focus": "Poorten en ketens combineren",
+  "variation": "combinatieproef",
+  "difficulty": 8
+ },
+ {
+  "index": 100,
+  "world": 2,
+  "chapterName": "Middernachtfeest",
+  "rings": 10,
+  "focus": "Poorten en ketens combineren",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 8
+ },
+ {
+  "index": 101,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 7,
+  "focus": "Complexe volgordes",
+  "variation": "introductie",
+  "difficulty": 6
+ },
+ {
+  "index": 102,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 7,
+  "focus": "Complexe volgordes",
+  "variation": "nieuwe topologie",
+  "difficulty": 6
+ },
+ {
+  "index": 103,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 7,
+  "focus": "Complexe volgordes",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 6
+ },
+ {
+  "index": 104,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 8,
+  "focus": "Complexe volgordes",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 6
+ },
+ {
+  "index": 105,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 8,
+  "focus": "Complexe volgordes",
+  "variation": "extra overlap",
+  "difficulty": 6
+ },
+ {
+  "index": 106,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 8,
+  "focus": "Complexe volgordes",
+  "variation": "afleidende draairichting",
+  "difficulty": 7
+ },
+ {
+  "index": 107,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 8,
+  "focus": "Complexe volgordes",
+  "variation": "geneste configuratie",
+  "difficulty": 7
+ },
+ {
+  "index": 108,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 9,
+  "focus": "Complexe volgordes",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 7
+ },
+ {
+  "index": 109,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 9,
+  "focus": "Complexe volgordes",
+  "variation": "combinatieproef",
+  "difficulty": 7
+ },
+ {
+  "index": 110,
+  "world": 3,
+  "chapterName": "Maanpoort",
+  "rings": 9,
+  "focus": "Complexe volgordes",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 7
+ },
+ {
+  "index": 111,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 7,
+  "focus": "Dubbele openingen",
+  "variation": "introductie",
+  "difficulty": 7
+ },
+ {
+  "index": 112,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 7,
+  "focus": "Dubbele openingen",
+  "variation": "nieuwe topologie",
+  "difficulty": 7
+ },
+ {
+  "index": 113,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 8,
+  "focus": "Dubbele openingen",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 7
+ },
+ {
+  "index": 114,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 8,
+  "focus": "Dubbele openingen",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 7
+ },
+ {
+  "index": 115,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 8,
+  "focus": "Dubbele openingen",
+  "variation": "extra overlap",
+  "difficulty": 7
+ },
+ {
+  "index": 116,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 9,
+  "focus": "Dubbele openingen",
+  "variation": "afleidende draairichting",
+  "difficulty": 8
+ },
+ {
+  "index": 117,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 9,
+  "focus": "Dubbele openingen",
+  "variation": "geneste configuratie",
+  "difficulty": 8
+ },
+ {
+  "index": 118,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 9,
+  "focus": "Dubbele openingen",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 8
+ },
+ {
+  "index": 119,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 10,
+  "focus": "Dubbele openingen",
+  "variation": "combinatieproef",
+  "difficulty": 8
+ },
+ {
+  "index": 120,
+  "world": 3,
+  "chapterName": "Jadepaviljoen",
+  "rings": 10,
+  "focus": "Dubbele openingen",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 8
+ },
+ {
+  "index": 121,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 8,
+  "focus": "Scharnierende verbindingen",
+  "variation": "introductie",
+  "difficulty": 7
+ },
+ {
+  "index": 122,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 8,
+  "focus": "Scharnierende verbindingen",
+  "variation": "nieuwe topologie",
+  "difficulty": 7
+ },
+ {
+  "index": 123,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 9,
+  "focus": "Scharnierende verbindingen",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 7
+ },
+ {
+  "index": 124,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 9,
+  "focus": "Scharnierende verbindingen",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 7
+ },
+ {
+  "index": 125,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 9,
+  "focus": "Scharnierende verbindingen",
+  "variation": "extra overlap",
+  "difficulty": 7
+ },
+ {
+  "index": 126,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 10,
+  "focus": "Scharnierende verbindingen",
+  "variation": "afleidende draairichting",
+  "difficulty": 8
+ },
+ {
+  "index": 127,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 10,
+  "focus": "Scharnierende verbindingen",
+  "variation": "geneste configuratie",
+  "difficulty": 8
+ },
+ {
+  "index": 128,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 10,
+  "focus": "Scharnierende verbindingen",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 8
+ },
+ {
+  "index": 129,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 11,
+  "focus": "Scharnierende verbindingen",
+  "variation": "combinatieproef",
+  "difficulty": 8
+ },
+ {
+  "index": 130,
+  "world": 3,
+  "chapterName": "Wolkentrap",
+  "rings": 11,
+  "focus": "Scharnierende verbindingen",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 8
+ },
+ {
+  "index": 131,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 8,
+  "focus": "Alle mechanieken combineren",
+  "variation": "introductie",
+  "difficulty": 8
+ },
+ {
+  "index": 132,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 8,
+  "focus": "Alle mechanieken combineren",
+  "variation": "nieuwe topologie",
+  "difficulty": 8
+ },
+ {
+  "index": 133,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 9,
+  "focus": "Alle mechanieken combineren",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 8
+ },
+ {
+  "index": 134,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 9,
+  "focus": "Alle mechanieken combineren",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 8
+ },
+ {
+  "index": 135,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 10,
+  "focus": "Alle mechanieken combineren",
+  "variation": "extra overlap",
+  "difficulty": 8
+ },
+ {
+  "index": 136,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 10,
+  "focus": "Alle mechanieken combineren",
+  "variation": "afleidende draairichting",
+  "difficulty": 9
+ },
+ {
+  "index": 137,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 11,
+  "focus": "Alle mechanieken combineren",
+  "variation": "geneste configuratie",
+  "difficulty": 9
+ },
+ {
+  "index": 138,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 11,
+  "focus": "Alle mechanieken combineren",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 9
+ },
+ {
+  "index": 139,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 12,
+  "focus": "Alle mechanieken combineren",
+  "variation": "combinatieproef",
+  "difficulty": 9
+ },
+ {
+  "index": 140,
+  "world": 3,
+  "chapterName": "Sterrenkeuken",
+  "rings": 12,
+  "focus": "Alle mechanieken combineren",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 9
+ },
+ {
+  "index": 141,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 9,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "introductie",
+  "difficulty": 8
+ },
+ {
+  "index": 142,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 9,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "nieuwe topologie",
+  "difficulty": 8
+ },
+ {
+  "index": 143,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 10,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "asymmetrische plaatsing",
+  "difficulty": 8
+ },
+ {
+  "index": 144,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 10,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "kortere oplossingsroute",
+  "difficulty": 9
+ },
+ {
+  "index": 145,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 10,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "extra overlap",
+  "difficulty": 9
+ },
+ {
+  "index": 146,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 11,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "afleidende draairichting",
+  "difficulty": 9
+ },
+ {
+  "index": 147,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 11,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "geneste configuratie",
+  "difficulty": 9
+ },
+ {
+  "index": 148,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 11,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "meerstapsvolgorde",
+  "difficulty": 10
+ },
+ {
+  "index": 149,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 12,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "combinatieproef",
+  "difficulty": 10
+ },
+ {
+  "index": 150,
+  "world": 3,
+  "chapterName": "De laatste stoom",
+  "rings": 12,
+  "focus": "Meesterpuzzels en finale",
+  "variation": "chef-level / hoofdstukfinale",
+  "difficulty": 10
+ }
+]

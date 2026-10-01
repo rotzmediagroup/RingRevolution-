@@ -1,0 +1,1707 @@
+{
+ "_doc": "Per-sheet slicing config for tools/asset_import/extract_sheets.py. Coordinates are full-resolution sheet pixels. methods: cc | grid (cols/rows or col_bounds/row_bounds, assign centroid|clip, grid_names) | rows | cols | groups | boxes. labels:false disables label detection; exclude_rects always masked; label_rects: bands where any pill-coloured blob is a label; protect_rects: never masked.",
+ "sheets": {
+  "sheet01": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "characters",
+     "method": "grid",
+     "cols": 8,
+     "rows": 4,
+     "dilate": 1,
+     "category": "character",
+     "grid_names": {
+      "rows": [
+       "crane",
+       "rabbit",
+       "tanuki",
+       "fox"
+      ],
+      "cols": [
+       "idle",
+       "blink",
+       "happy",
+       "cheer",
+       "serve_basket",
+       "eating",
+       "celebrate",
+       "wink"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    }
+   ]
+  },
+  "sheet02": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "faces",
+     "method": "grid",
+     "cols": 8,
+     "dilate": 1,
+     "row_bounds": [
+      0,
+      145,
+      298,
+      535,
+      731,
+      929,
+      1254
+     ],
+     "category": "food_character",
+     "grid_names": {
+      "rows": [
+       "sakura_mochi_a",
+       "sakura_mochi_b",
+       "tea_cup",
+       "bento_a",
+       "bento_b",
+       "bao"
+      ],
+      "cols": [
+       "idle",
+       "blink",
+       "content",
+       "happy",
+       "laugh",
+       "wink",
+       "sparkle",
+       "cheer"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    }
+   ]
+  },
+  "sheet03": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "anims",
+     "method": "grid",
+     "cols": 6,
+     "rows": 8,
+     "dilate": 1,
+     "category": "prop",
+     "grid_names": {
+      "rows": [
+       "petal",
+       "windchime",
+       "koi_jump",
+       "tea_steam",
+       "lantern_glow",
+       "sparrow",
+       "waterfall",
+       "rope"
+      ],
+      "pattern": "{row}_f{ci:02d}"
+     }
+    }
+   ]
+  },
+  "sheet04": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "tiles",
+     "method": "rowbands",
+     "rect": [
+      0,
+      0,
+      1254,
+      1130
+     ],
+     "row_bounds": [
+      0,
+      122,
+      227,
+      343,
+      455,
+      583,
+      707,
+      818,
+      936,
+      1034,
+      1130
+     ],
+     "x_cuts": {
+      "4": [
+       994
+      ],
+      "5": [
+       506,
+       643
+      ]
+     },
+     "category": "tile",
+     "row_names": [
+      "tile_grass_blossom",
+      "tile_stone",
+      "tile_wood_deck",
+      "bridge_red",
+      "tile_koi_pond",
+      "tile_waterfall",
+      "tile_lantern_stairs",
+      "tile_cliff_grass",
+      "tile_tatami_fence",
+      "tile_wall"
+     ]
+    },
+    {
+     "label": "props",
+     "method": "cc",
+     "rect": [
+      0,
+      1130,
+      1254,
+      1254
+     ],
+     "dilate": 2,
+     "category": "prop",
+     "prefix": "garden_prop"
+    }
+   ]
+  },
+  "sheet05": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "faces",
+     "method": "grid",
+     "cols": 8,
+     "dilate": 1,
+     "row_bounds": [
+      0,
+      245,
+      533,
+      743,
+      1020
+     ],
+     "category": "food_character",
+     "grid_names": {
+      "rows": [
+       "citrus_tea",
+       "dango",
+       "bao_steamer",
+       "parfait"
+      ],
+      "cols": [
+       "idle",
+       "blink",
+       "content",
+       "wink",
+       "laugh",
+       "cheer",
+       "happy",
+       "excited"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    },
+    {
+     "label": "icons",
+     "method": "cc",
+     "rect": [
+      0,
+      1020,
+      1254,
+      1254
+     ],
+     "dilate": 2,
+     "category": "ui",
+     "names": [
+      "icon_sakura_badge",
+      "icon_stamp_fuji",
+      "icon_coin_sakura",
+      "icon_lantern_sakura",
+      "icon_postcard"
+     ],
+     "min_size": 40
+    }
+   ]
+  },
+  "sheet06": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "characters",
+     "method": "grid",
+     "cols": 5,
+     "rows": 4,
+     "dilate": 1,
+     "category": "character",
+     "grid_names": {
+      "rows": [
+       "red_dragon",
+       "red_panda",
+       "black_cat",
+       "cloud_dragon"
+      ],
+      "cols": [
+       "idle",
+       "blink",
+       "cheer",
+       "serve_basket",
+       "celebrate"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    }
+   ]
+  },
+  "sheet07": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "row2",
+     "rect": [
+      0,
+      300,
+      1254,
+      540
+     ],
+     "method": "boxes",
+     "boxes": [
+      [
+       0,
+       300,
+       320,
+       540
+      ],
+      [
+       274,
+       300,
+       560,
+       540
+      ],
+      [
+       545,
+       300,
+       800,
+       540
+      ],
+      [
+       760,
+       300,
+       1010,
+       540
+      ],
+      [
+       1000,
+       300,
+       1254,
+       540
+      ]
+     ],
+     "category": "prop",
+     "prefix": "r2",
+     "names": [
+      "rope_barrier_long",
+      "gate_arch_small",
+      "gate_arch_lanterns",
+      "stall_red_dumpling",
+      "stall_blue_tea"
+     ]
+    },
+    {
+     "label": "main",
+     "method": "cc",
+     "dilate": 2,
+     "category": "prop",
+     "prefix": "night_market",
+     "names": [
+      "balloon_lantern_red",
+      "balloon_lantern_blue",
+      "banner_pole_red_blossom",
+      "banner_pole_blue_cloud",
+      "banner_pole_sunset",
+      "lantern_post",
+      "flag_pole_streamers",
+      "stall_red_steamer",
+      "bench_red_long",
+      "table_round_stools",
+      "umbrella_table_set",
+      "flower_planter_pink",
+      "flower_planter_blue",
+      "cloud_lantern_pink",
+      "cloud_lantern_white",
+      "bonsai_tree",
+      "drum_red_large",
+      "drum_red_small",
+      "banner_hanging_bao",
+      "sign_board_teapot",
+      "sign_board_sunset",
+      "lantern_string",
+      "roof_eave_blue",
+      "fountain_lotus",
+      "fountain_bamboo",
+      "cart_steamer",
+      "cart_umbrella",
+      "rope_barrier_short"
+     ]
+    }
+   ]
+  },
+  "sheet08": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "faces",
+     "method": "grid",
+     "cols": 5,
+     "rows": 5,
+     "dilate": 1,
+     "category": "food_character",
+     "grid_names": {
+      "rows": [
+       "cloud_dumpling",
+       "star_jelly",
+       "rainbow_dango",
+       "golden_dumpling",
+       "rainbow_tea"
+      ],
+      "cols": [
+       "idle",
+       "blink",
+       "cheer",
+       "excited",
+       "celebrate"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    }
+   ]
+  },
+  "sheet09": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "characters",
+     "method": "grid",
+     "cols": 5,
+     "rows": 4,
+     "dilate": 1,
+     "category": "character",
+     "grid_names": {
+      "rows": [
+       "raccoon",
+       "tanuki",
+       "fox",
+       "panda"
+      ],
+      "cols": [
+       "idle",
+       "happy",
+       "walk",
+       "serve_basket",
+       "celebrate"
+      ],
+      "pattern": "{row}_{col}"
+     }
+    }
+   ]
+  },
+  "sheet10": {
+   "labels": false,
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "baskets",
+     "method": "grid",
+     "cols": 6,
+     "rows": 6,
+     "dilate": 1,
+     "category": "food_character",
+     "grid_names": {
+      "rows": [
+       "zongzi",
+       "mystery_basket",
+       "matcha_mochi",
+       "mushroom_soup",
+       "bao_bun",
+       "sticky_rice"
+      ],
+      "pattern": "{row}_f{ci:02d}"
+     }
+    }
+   ]
+  },
+  "sheet11": {
+   "alpha_t": 100,
+   "exclude_rects": [
+    [
+     420,
+     0,
+     1030,
+     95
+    ],
+    [
+     0,
+     95,
+     185,
+     133
+    ],
+    [
+     0,
+     202,
+     182,
+     239
+    ],
+    [
+     0,
+     307,
+     208,
+     344
+    ],
+    [
+     0,
+     420,
+     188,
+     457
+    ],
+    [
+     0,
+     551,
+     170,
+     588
+    ],
+    [
+     0,
+     678,
+     164,
+     723
+    ],
+    [
+     0,
+     791,
+     181,
+     828
+    ],
+    [
+     0,
+     889,
+     195,
+     926
+    ],
+    [
+     0,
+     988,
+     140,
+     1025
+    ]
+   ],
+   "regions": [
+    {
+     "label": "anims",
+     "method": "groups",
+     "rect": [
+      8,
+      95,
+      1448,
+      1086
+     ],
+     "row_bounds": [
+      95,
+      212,
+      306,
+      416,
+      549,
+      677,
+      806,
+      902,
+      987,
+      1086
+     ],
+     "group_bounds": [
+      8,
+      428,
+      629,
+      921,
+      1208,
+      1448
+     ],
+     "cols": [
+      6,
+      4,
+      6,
+      6,
+      4
+     ],
+     "row_names": [
+      "pancake_stack",
+      "pudding_flan",
+      "strawberry_mochi",
+      "dango_skewer",
+      "parfait_cup",
+      "bubble_tea",
+      "matcha_latte",
+      "hot_cocoa_mug",
+      "taiyaki"
+     ],
+     "group_names": [
+      "idle",
+      "blink",
+      "bounce",
+      "cheer",
+      "serve_ready"
+     ],
+     "category": "food_character"
+    }
+   ]
+  },
+  "sheet12": {
+   "alpha_t": 100,
+   "exclude_rects": [
+    [
+     0,
+     0,
+     1448,
+     40
+    ],
+    [
+     0,
+     0,
+     135,
+     1086
+    ]
+   ],
+   "regions": [
+    {
+     "label": "anims",
+     "method": "groups",
+     "rect": [
+      130,
+      40,
+      1448,
+      1086
+     ],
+     "group_bounds": [
+      130,
+      392,
+      690,
+      985,
+      1240,
+      1445
+     ],
+     "cols": [
+      4,
+      4,
+      4,
+      3,
+      2
+     ],
+     "row_names": [
+      "dumpling",
+      "bao_bun",
+      "sushi_roll",
+      "onigiri",
+      "ramen_bowl",
+      "bubble_tea",
+      "pancake_stack",
+      "pudding_flan",
+      "mochi",
+      "tempura_shrimp"
+     ],
+     "group_names": [
+      "idle",
+      "blink",
+      "bounce",
+      "cheer",
+      "serve_ready"
+     ],
+     "category": "food_character"
+    }
+   ]
+  },
+  "sheet13": {
+   "exclude_rects": [
+    [
+     0,
+     0,
+     1448,
+     70
+    ]
+   ],
+   "regions": [
+    {
+     "label": "emotions",
+     "method": "grid",
+     "assign": "centroid",
+     "dilate": 2,
+     "col_bounds": [
+      194,
+      443,
+      687,
+      950,
+      1213,
+      1448
+     ],
+     "row_bounds": [
+      72,
+      259,
+      437,
+      594,
+      772,
+      924,
+      1082
+     ],
+     "category": "character",
+     "grid_names": {
+      "cols": [
+       "cat",
+       "panda",
+       "rabbit",
+       "fox",
+       "frog"
+      ],
+      "rows": [
+       "idle",
+       "blink",
+       "happy",
+       "eating",
+       "thinking",
+       "annoyed"
+      ],
+      "pattern": "{col}_{row}"
+     }
+    }
+   ]
+  },
+  "sheet14": {
+   "alpha_t": 64,
+   "regions": [
+    {
+     "label": "tap_hand",
+     "rect": [
+      6,
+      6,
+      546,
+      157
+     ],
+     "method": "grid",
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "fx",
+     "assign": "clip",
+     "cols": 5,
+     "grid_names": {
+      "pattern": "tap_hand_f{ci:02d}"
+     }
+    },
+    {
+     "label": "tap_ripple",
+     "rect": [
+      579,
+      13,
+      967,
+      157
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "col_bounds": [
+      579,
+      654,
+      739,
+      845,
+      967
+     ],
+     "category": "fx",
+     "grid_names": {
+      "pattern": "tap_ripple_f{ci:02d}"
+     }
+    },
+    {
+     "label": "success_ring",
+     "rect": [
+      1000,
+      13,
+      1434,
+      157
+     ],
+     "method": "cols",
+     "alpha_t": 160,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "fx",
+     "prefix": "success_ring_f"
+    },
+    {
+     "label": "incorrect_x",
+     "rect": [
+      46,
+      210,
+      408,
+      322
+     ],
+     "method": "cols",
+     "alpha_t": 128,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "fx",
+     "prefix": "incorrect_x_f"
+    },
+    {
+     "label": "sparkle_pop",
+     "rect": [
+      460,
+      210,
+      908,
+      322
+     ],
+     "method": "cols",
+     "alpha_t": 128,
+     "min_gap": 4,
+     "min_band": 12,
+     "category": "fx",
+     "prefix": "sparkle_pop_f"
+    },
+    {
+     "label": "steam_puff",
+     "rect": [
+      980,
+      210,
+      1428,
+      322
+     ],
+     "method": "cols",
+     "alpha_t": 100,
+     "min_gap": 2,
+     "min_band": 12,
+     "category": "fx",
+     "prefix": "steam_puff_f"
+    },
+    {
+     "label": "heart_pop",
+     "rect": [
+      26,
+      368,
+      368,
+      506
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 3,
+     "category": "fx",
+     "grid_names": {
+      "pattern": "heart_pop_f{ci:02d}"
+     }
+    },
+    {
+     "label": "combo",
+     "rect": [
+      388,
+      368,
+      987,
+      513
+     ],
+     "method": "cols",
+     "alpha_t": 160,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "fx",
+     "names": [
+      "fx_combo_burst",
+      "combo_text",
+      "combo_x3"
+     ]
+    },
+    {
+     "label": "check_mark",
+     "rect": [
+      1007,
+      368,
+      1434,
+      506
+     ],
+     "method": "cols",
+     "alpha_t": 128,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "fx",
+     "prefix": "check_mark_f"
+    },
+    {
+     "label": "coin_pop",
+     "rect": [
+      32,
+      559,
+      381,
+      684
+     ],
+     "method": "grid",
+     "min_gap": 2,
+     "min_band": 12,
+     "category": "fx",
+     "assign": "clip",
+     "cols": 4,
+     "grid_names": {
+      "pattern": "coin_pop_f{ci:02d}"
+     }
+    },
+    {
+     "label": "patience",
+     "rect": [
+      394,
+      566,
+      987,
+      684
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 5,
+     "category": "ui",
+     "names": [
+      "patience_bar_full",
+      "patience_bar_high",
+      "patience_bar_mid",
+      "patience_bar_low",
+      "patience_bar_critical"
+     ]
+    },
+    {
+     "label": "timer",
+     "rect": [
+      1007,
+      566,
+      1434,
+      684
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 4,
+     "category": "fx",
+     "grid_names": {
+      "pattern": "timer_pulse_f{ci:02d}"
+     }
+    },
+    {
+     "label": "arc_trail",
+     "rect": [
+      19,
+      730,
+      592,
+      862
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "col_bounds": [
+      19,
+      213,
+      401,
+      592
+     ],
+     "category": "fx",
+     "grid_names": {
+      "pattern": "food_arc_trail_f{ci:02d}"
+     }
+    },
+    {
+     "label": "selected_glow",
+     "rect": [
+      631,
+      730,
+      1046,
+      862
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 3,
+     "category": "fx",
+     "names": [
+      "selected_glow_gold",
+      "selected_glow_blue",
+      "selected_glow_green"
+     ]
+    },
+    {
+     "label": "target",
+     "rect": [
+      1066,
+      730,
+      1434,
+      862
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 3,
+     "category": "fx",
+     "grid_names": {
+      "pattern": "target_highlight_f{ci:02d}"
+     }
+    },
+    {
+     "label": "bell",
+     "rect": [
+      269,
+      914,
+      539,
+      1039
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 2,
+     "category": "ui",
+     "names": [
+      "booster_bell_idle",
+      "booster_bell_active"
+     ]
+    },
+    {
+     "label": "swirl",
+     "rect": [
+      579,
+      914,
+      868,
+      1039
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 2,
+     "category": "ui",
+     "names": [
+      "booster_swirl_idle",
+      "booster_swirl_active"
+     ]
+    },
+    {
+     "label": "freeze",
+     "rect": [
+      901,
+      914,
+      1178,
+      1039
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 2,
+     "category": "ui",
+     "names": [
+      "booster_freeze_idle",
+      "booster_freeze_active"
+     ]
+    }
+   ]
+  },
+  "sheet15": {
+   "alpha_t": 64,
+   "exclude_rects": [
+    [
+     380,
+     0,
+     1080,
+     80
+    ],
+    [
+     28,
+     566,
+     147,
+     589
+    ]
+   ],
+   "label_rects": [
+    [
+     13,
+     210,
+     1000,
+     256
+    ],
+    [
+     19,
+     379,
+     921,
+     426
+    ]
+   ],
+   "protect_rects": [
+    [
+     1283,
+     645,
+     1362,
+     756
+    ],
+    [
+     618,
+     1000,
+     691,
+     1072
+    ]
+   ],
+   "regions": [
+    {
+     "label": "nodes",
+     "rect": [
+      13,
+      111,
+      1000,
+      256
+     ],
+     "method": "cols",
+     "alpha_t": 160,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "map",
+     "names": [
+      "node_locked",
+      "node_unlocked",
+      "node_star1",
+      "node_star2",
+      "node_star3",
+      "node_selected_f01",
+      "node_selected_f02",
+      "node_selected_f03",
+      "node_selected_f04"
+     ]
+    },
+    {
+     "label": "lock",
+     "rect": [
+      1039,
+      111,
+      1434,
+      256
+     ],
+     "method": "cols",
+     "alpha_t": 160,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "map",
+     "prefix": "node_lock_pulse_f"
+    },
+    {
+     "label": "path",
+     "rect": [
+      19,
+      283,
+      921,
+      421
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 8,
+     "category": "map",
+     "names": [
+      "path_straight_h",
+      "path_straight_v",
+      "path_curve_ne",
+      "path_curve_nw",
+      "path_curve_se",
+      "path_curve_sw",
+      "path_t_junction",
+      "path_cross"
+     ]
+    },
+    {
+     "label": "stones",
+     "rect": [
+      941,
+      289,
+      1434,
+      408
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "prefix": "stepping_stone_"
+    },
+    {
+     "label": "bridge",
+     "rect": [
+      19,
+      454,
+      513,
+      585
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "names": [
+      "bridge_straight",
+      "bridge_curved",
+      "bridge_end",
+      "bridge_pillar"
+     ]
+    },
+    {
+     "label": "water",
+     "rect": [
+      519,
+      454,
+      842,
+      585
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "names": [
+      "water_river_edge_left",
+      "water_river_edge_right",
+      "water_pond_tile"
+     ]
+    },
+    {
+     "label": "wf_top",
+     "rect": [
+      849,
+      454,
+      954,
+      585
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "names": [
+      "waterfall_top"
+     ]
+    },
+    {
+     "label": "wf_mid",
+     "rect": [
+      960,
+      454,
+      1184,
+      552
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 4,
+     "category": "map",
+     "grid_names": {
+      "pattern": "waterfall_mid_f{ci:02d}"
+     }
+    },
+    {
+     "label": "wf_bot",
+     "rect": [
+      1191,
+      454,
+      1434,
+      585
+     ],
+     "method": "grid",
+     "assign": "clip",
+     "cols": 4,
+     "category": "map",
+     "grid_names": {
+      "pattern": "waterfall_bottom_f{ci:02d}"
+     }
+    },
+    {
+     "label": "trees",
+     "rect": [
+      19,
+      631,
+      460,
+      763
+     ],
+     "method": "grid",
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "map",
+     "names": [
+      "tree_sakura_small",
+      "tree_sakura_large",
+      "tree_sakura_sapling",
+      "tree_green"
+     ],
+     "assign": "clip",
+     "col_bounds": [
+      19,
+      111,
+      279,
+      365,
+      460
+     ]
+    },
+    {
+     "label": "shrubs",
+     "rect": [
+      467,
+      631,
+      697,
+      763
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "prefix": "shrub_"
+    },
+    {
+     "label": "rocks",
+     "rect": [
+      704,
+      631,
+      1000,
+      763
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "prefix": "rock_"
+    },
+    {
+     "label": "fences",
+     "rect": [
+      1007,
+      631,
+      1434,
+      763
+     ],
+     "method": "cols",
+     "alpha_t": 200,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "map",
+     "prefix": "fence_prop_"
+    },
+    {
+     "label": "buildings",
+     "rect": [
+      13,
+      789,
+      645,
+      960
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "prefix": "restaurant_"
+    },
+    {
+     "label": "hub",
+     "rect": [
+      645,
+      789,
+      987,
+      960
+     ],
+     "method": "boxes",
+     "boxes": [
+      [
+       645,
+       789,
+       987,
+       960
+      ]
+     ],
+     "category": "map",
+     "names": [
+      "dumpling_hub_building"
+     ]
+    },
+    {
+     "label": "signs",
+     "rect": [
+      987,
+      809,
+      1434,
+      960
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "grid_names": null,
+     "prefix": "chapter_signboard_"
+    },
+    {
+     "label": "clouds",
+     "rect": [
+      19,
+      993,
+      454,
+      1072
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "category": "map",
+     "prefix": "cloud_"
+    },
+    {
+     "label": "ui",
+     "rect": [
+      467,
+      993,
+      770,
+      1072
+     ],
+     "method": "grid",
+     "dilate": 2,
+     "category": "ui",
+     "names": [
+      "marker_pin",
+      "marker_flag",
+      "marker_exclaim",
+      "marker_speech",
+      "marker_map"
+     ],
+     "assign": "clip",
+     "col_bounds": [
+      467,
+      526,
+      576,
+      629,
+      684,
+      770
+     ]
+    },
+    {
+     "label": "chests",
+     "rect": [
+      776,
+      993,
+      1197,
+      1072
+     ],
+     "method": "cols",
+     "alpha_t": 250,
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "ui",
+     "names": [
+      "chest_closed",
+      "chest_open",
+      "chest_sparkle_f01",
+      "chest_sparkle_f02",
+      "chest_sparkle_f03",
+      "chest_sparkle_f04"
+     ]
+    },
+    {
+     "label": "stars",
+     "rect": [
+      1211,
+      993,
+      1434,
+      1072
+     ],
+     "method": "grid",
+     "min_gap": 2,
+     "min_band": 20,
+     "category": "ui",
+     "names": [
+      "star_badge_gold",
+      "star_badge_gold_small",
+      "star_badge_bronze",
+      "star_badge_empty"
+     ],
+     "assign": "clip",
+     "cols": 4
+    }
+   ]
+  },
+  "sheet16": {
+   "alpha_t": 64,
+   "brand": [
+    {
+     "name": "dumpling_diner_logo",
+     "rect": [
+      0,
+      0,
+      375,
+      165
+     ],
+     "tags": [
+      "logo",
+      "brand"
+     ]
+    }
+   ],
+   "exclude_rects": [
+    [
+     612,
+     941,
+     691,
+     960
+    ],
+    [
+     756,
+     941,
+     829,
+     960
+    ],
+    [
+     974,
+     941,
+     1053,
+     960
+    ],
+    [
+     612,
+     1010,
+     677,
+     1029
+    ]
+   ],
+   "regions": [
+    {
+     "label": "petals",
+     "rect": [
+      335,
+      934,
+      605,
+      1072
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "min_size": 10,
+     "category": "fx",
+     "prefix": "petal_loose_"
+    },
+    {
+     "label": "fx",
+     "rect": [
+      608,
+      934,
+      1092,
+      1072
+     ],
+     "method": "cc",
+     "dilate": 2,
+     "min_size": 10,
+     "category": "fx",
+     "prefix": "fx_",
+     "names": [
+      "lantern_glow_f01",
+      "lantern_glow_f02",
+      "lantern_glow_f03",
+      "steam_puff_f01",
+      "steam_puff_f02",
+      "steam_puff_f03",
+      "steam_puff_f04",
+      "sparkle_glow_f01",
+      "sparkle_glow_f02",
+      "sparkle_glow_f03",
+      "sparkle_glow_f04",
+      "sparkle_glow_f05",
+      "sparkle_glow_f06",
+      "sparkle_glow_f07",
+      "sparkle_glow_f08",
+      "petal_drift_f01",
+      "petal_drift_f02",
+      "petal_drift_f03",
+      "petal_drift_f04",
+      "petal_drift_f05",
+      "petal_drift_f06",
+      "petal_drift_f07",
+      "petal_drift_f08"
+     ]
+    },
+    {
+     "label": "main",
+     "method": "cc",
+     "dilate": 2,
+     "category": "prop",
+     "prefix": "decor_",
+     "names": [
+      "lantern_post_sakura",
+      "sakura_lantern_01",
+      "sakura_lantern_02",
+      "sakura_lantern_03",
+      "sakura_lantern_04",
+      "lantern_glow_pink",
+      "stone_lantern_large",
+      "floor_lantern_01",
+      "floor_lantern_02",
+      "floor_lantern_03",
+      "lantern_string_01",
+      "lantern_string_02",
+      "lantern_string_03",
+      "lantern_string_04",
+      "blossom_planter_crate",
+      "blossom_planter_stone",
+      "blossom_planter_barrel",
+      "potted_plant_leafy",
+      "potted_bonsai",
+      "potted_sakura_tree",
+      "potted_blossoms",
+      "bamboo_steamer_steam_f01",
+      "bamboo_steamer_steam_f02",
+      "bamboo_steamer_steam_f03",
+      "bamboo_steamer_steam_f04",
+      "bamboo_steamer_steam_f05",
+      "dish_plate_sakura",
+      "dish_bowl_brown",
+      "dish_bowl_blue",
+      "dish_sakura_small",
+      "dish_bowl_wood",
+      "dish_leaf_plate",
+      "tray_set",
+      "chopstick_holder_box",
+      "chopstick_holder_cup",
+      "chopstick_holder_cat",
+      "condiment_soy_sauce",
+      "condiment_sake_bottle",
+      "condiment_mortar",
+      "condiment_jar_label",
+      "condiment_chili_jar",
+      "teapot_green_steam",
+      "tea_cup_bamboo_steam",
+      "tea_cup_pink_steam",
+      "teapot_brown_steam",
+      "menu_sign_chalkboard_cat",
+      "menu_sign_dumpling",
+      "menu_sign_tea",
+      "wall_banner_red_cat",
+      "wall_banner_blue_sakura",
+      "wall_banner_tea_scroll",
+      "wall_banner_gyoza_tag",
+      "cat_logo_banner_red",
+      "cat_logo_banner_round",
+      "cat_logo_banner_paw_scroll",
+      "display_case_glass",
+      "display_case_awning",
+      "crates_vegetables",
+      "barrel_sack_crate",
+      "shelf_condiments_plant",
+      "shelf_bowls_towel",
+      "shelf_lucky_cat_ivy",
+      "bridge_deck_indoor",
+      "bridge_stone_indoor",
+      "fence_blossom_indoor",
+      "blossom_cluster_01",
+      "blossom_cluster_02",
+      "blossom_cluster_03",
+      "bonus_lucky_cat",
+      "bonus_sakura_tree_rock",
+      "bonus_stone_lantern",
+      "bonus_wood_stool"
+     ]
+    }
+   ]
+  },
+  "sheet17": {
+   "alpha_t": 100,
+   "exclude_rects": [
+    [
+     0,
+     0,
+     1448,
+     130
+    ],
+    [
+     0,
+     0,
+     132,
+     1086
+    ]
+   ],
+   "regions": [
+    {
+     "label": "anims",
+     "method": "groups",
+     "rect": [
+      125,
+      130,
+      1448,
+      1086
+     ],
+     "group_bounds": [
+      125,
+      355,
+      572,
+      790,
+      1006,
+      1218,
+      1445
+     ],
+     "cols": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+     ],
+     "row_names": [
+      "fox",
+      "sheep",
+      "raccoon",
+      "shiba",
+      "capybara"
+     ],
+     "group_names": [
+      "idle",
+      "blink",
+      "happy",
+      "impatient",
+      "eating",
+      "celebrate"
+     ],
+     "category": "character"
+    }
+   ]
+  },
+  "sheet18": {
+   "alpha_t": 100,
+   "exclude_rects": [
+    [
+     0,
+     0,
+     1448,
+     180
+    ],
+    [
+     0,
+     0,
+     110,
+     1086
+    ]
+   ],
+   "regions": [
+    {
+     "label": "anims",
+     "method": "groups",
+     "rect": [
+      105,
+      180,
+      1448,
+      1086
+     ],
+     "group_bounds": [
+      105,
+      342,
+      562,
+      800,
+      984,
+      1228,
+      1445
+     ],
+     "cols": [
+      3,
+      3,
+      3,
+      2,
+      3,
+      2
+     ],
+     "row_names": [
+      "orange_cat",
+      "bunny",
+      "panda",
+      "frog",
+      "gray_cat"
+     ],
+     "group_names": [
+      "idle",
+      "blink",
+      "happy",
+      "impatient",
+      "eating",
+      "celebrate"
+     ],
+     "category": "character"
+    }
+   ]
+  }
+ }
+}

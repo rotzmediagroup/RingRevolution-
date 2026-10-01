@@ -1,0 +1,23 @@
+{
+  "levelId": "L069",
+  "solvable": true,
+  "optimalMoves": 9,
+  "optimalProven": false,
+  "statesExplored": 60012,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 662,
+  "solution": [
+    "r6:150",
+    "r3:90",
+    "r2:30",
+    "r5:300",
+    "r4:30",
+    "r4:270",
+    "r3:60",
+    "r7:30",
+    "r7:0"
+  ],
+  "topologyHash": "2a930196f3af9d31",
+  "notes": []
+}

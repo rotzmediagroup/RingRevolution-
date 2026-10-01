@@ -1,0 +1,22 @@
+{
+  "levelId": "L083",
+  "solvable": true,
+  "optimalMoves": 8,
+  "optimalProven": false,
+  "statesExplored": 60009,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 236,
+  "solution": [
+    "r7:60",
+    "r3:270",
+    "r1:0",
+    "r1:330",
+    "r1:30",
+    "r4:0",
+    "r4:330",
+    "r2:240"
+  ],
+  "topologyHash": "e147b98ed2639662",
+  "notes": []
+}

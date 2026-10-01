@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 2,
+  "id": "L004",
+  "index": 4,
+  "worldId": "blossom_teahouse",
+  "chapter": 1,
+  "chapterLevel": 4,
+  "seed": 400001,
+  "name": "Eerste stoom 4",
+  "mechanicTags": [
+    "basic_rotation",
+    "release"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.5,
+        0.5
+      ],
+      "radius": 0.24287790361463432,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 75.0
+        }
+      ],
+      "initialAngleDeg": 60,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": null
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.367317938101395,
+        0.46562848452172384
+      ],
+      "radius": 0.23643203792371487,
+      "thickness": 0.055,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 89.0
+        }
+      ],
+      "initialAngleDeg": 150,
+      "stepDeg": 30,
+      "exitAngleDeg": 195,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": null
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.18847136192548547,
+        0.6444750606976334
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.26017518367939196,
+        0.5727712389437268
+      ],
+      "to": [
+        0.11676754017157898,
+        0.7161788824515399
+      ],
+      "thickness": 0.028,
+      "colorId": null,
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "chopstick"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt1"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 2,
+  "goodMoves": 4,
+  "difficulty": 1,
+  "reward": {
+    "coins": 22,
+    "boosters": {}
+  },
+  "tutorialCueId": "free_rotation",
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:90",
+    "r2:60"
+  ],
+  "topologyHash": "259c72302f58c617"
+}

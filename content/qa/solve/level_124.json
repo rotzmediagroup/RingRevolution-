@@ -1,0 +1,26 @@
+{
+  "levelId": "L124",
+  "solvable": true,
+  "optimalMoves": 12,
+  "optimalProven": false,
+  "statesExplored": 60017,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 391,
+  "solution": [
+    "r5:120",
+    "r8:210",
+    "r4:0",
+    "r3:120",
+    "r2:330",
+    "r2:60",
+    "r1:90",
+    "r2:0",
+    "r2:120",
+    "r6:210",
+    "r2:180",
+    "r9:240"
+  ],
+  "topologyHash": "50daa8c8f06faa7e",
+  "notes": []
+}
