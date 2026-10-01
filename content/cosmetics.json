@@ -277,5 +277,41 @@
    "chapter": 15
   },
   "sprite": "sheet06/cloud_dragon_idle"
+ },
+ {
+  "id": "theme_bronze",
+  "kind": "theme",
+  "nameKey": "cos_theme_bronze",
+  "unlock": {
+   "stars": 60
+  },
+  "sprite": "materials/gold"
+ },
+ {
+  "id": "theme_obsidian",
+  "kind": "theme",
+  "nameKey": "cos_theme_obsidian",
+  "unlock": {
+   "stars": 150
+  },
+  "sprite": "materials/gold"
+ },
+ {
+  "id": "theme_pearl",
+  "kind": "theme",
+  "nameKey": "cos_theme_pearl",
+  "unlock": {
+   "stars": 240
+  },
+  "sprite": "materials/gold"
+ },
+ {
+  "id": "theme_lacquer",
+  "kind": "theme",
+  "nameKey": "cos_theme_lacquer",
+  "unlock": {
+   "stars": 330
+  },
+  "sprite": "materials/gold"
  }
 ]

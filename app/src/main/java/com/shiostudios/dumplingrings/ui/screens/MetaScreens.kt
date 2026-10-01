@@ -157,7 +157,7 @@ fun CollectionScreen(container: AppContainer, nav: Nav) {
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) { }
                     androidx.compose.foundation.layout.FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         for (c in items) {
-                            val unlocked = c.id in save.unlockedCosmetics || (c.unlockPremium && save.premium)
+                            val unlocked = c.id in save.unlockedCosmetics || (c.unlockPremium && save.premium) || (c.unlockStars?.let { save.totalStars >= it } ?: false)
                             val selected = kind == "theme" && save.selectedTheme == c.id
                             Column(Modifier.width(104.dp).clip(RoundedCornerShape(16.dp)).background(if (selected) DR.Sakura.copy(alpha = 0.5f) else DR.CreamDark)
                                 .clickable(enabled = unlocked && kind == "theme") { container.save.update { it.copy(selectedTheme = if (it.selectedTheme == c.id) "default" else c.id) }; container.audio.sfx("button_tap") }
@@ -168,7 +168,7 @@ fun CollectionScreen(container: AppContainer, nav: Nav) {
                                     if (!unlocked) Glyph("lock", Modifier.size(26.dp), DR.WoodDeep)
                                 }
                                 Text(stringResource(cosmeticNameRes(container, c.nameKey)), style = MaterialTheme.typography.labelMedium, color = DR.Ink, textAlign = TextAlign.Center, maxLines = 2)
-                                if (!unlocked) Text(c.unlockChapter?.let { stringResource(R.string.unlock_by_chapter, it) } ?: stringResource(R.string.unlock_by_premium), style = MaterialTheme.typography.labelMedium.copy(fontSize = androidx.compose.ui.unit.TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp)), color = DR.InkSoft, textAlign = TextAlign.Center)
+                                if (!unlocked) Text(c.unlockChapter?.let { stringResource(R.string.unlock_by_chapter, it) } ?: c.unlockStars?.let { stringResource(R.string.unlock_by_stars, it) } ?: stringResource(R.string.unlock_by_premium), style = MaterialTheme.typography.labelMedium.copy(fontSize = androidx.compose.ui.unit.TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp)), color = DR.InkSoft, textAlign = TextAlign.Center)
                                 else if (kind == "theme") Text(stringResource(if (selected) R.string.selected else R.string.select), style = MaterialTheme.typography.labelMedium, color = DR.SakuraDeep)
                             }
                         }

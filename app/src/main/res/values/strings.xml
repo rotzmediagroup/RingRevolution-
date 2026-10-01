@@ -183,4 +183,9 @@
     <string name="world_locked_text">Complete the previous world to travel here.</string>
     <string name="ring_board_cd">Puzzle board</string>
     <string name="char_white_fox">White Fox</string>
+    <string name="cos_theme_bronze">Bronze ring theme</string>
+    <string name="cos_theme_obsidian">Obsidian ring theme</string>
+    <string name="cos_theme_pearl">Pearl ring theme</string>
+    <string name="cos_theme_lacquer">Red lacquer ring theme</string>
+    <string name="unlock_by_stars">%1$d stars</string>
 </resources>

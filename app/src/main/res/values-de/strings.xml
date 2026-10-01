@@ -183,4 +183,9 @@
     <string name="world_locked_text">Schließe die vorherige Welt ab, um hierher zu reisen.</string>
     <string name="ring_board_cd">Rätselfeld</string>
     <string name="char_white_fox">Weißer Fuchs</string>
+    <string name="cos_theme_bronze">Bronze-Ringthema</string>
+    <string name="cos_theme_obsidian">Obsidian-Ringthema</string>
+    <string name="cos_theme_pearl">Perlen-Ringthema</string>
+    <string name="cos_theme_lacquer">Rotlack-Ringthema</string>
+    <string name="unlock_by_stars">%1$d Sterne</string>
 </resources>

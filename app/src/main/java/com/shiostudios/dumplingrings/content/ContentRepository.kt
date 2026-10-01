@@ -24,6 +24,7 @@ data class ChapterDef(
 @Serializable
 data class CosmeticDef(val id: String, val kind: String, val nameKey: String, val unlock: Map<String, kotlinx.serialization.json.JsonElement>, val sprite: String) {
     val unlockChapter: Int? get() = unlock["chapter"]?.let { (it as? kotlinx.serialization.json.JsonPrimitive)?.content?.toIntOrNull() }
+    val unlockStars: Int? get() = unlock["stars"]?.let { (it as? kotlinx.serialization.json.JsonPrimitive)?.content?.toIntOrNull() }
     val unlockPremium: Boolean get() = unlock["premium"]?.let { (it as? kotlinx.serialization.json.JsonPrimitive)?.content == "true" } ?: false
 }
 

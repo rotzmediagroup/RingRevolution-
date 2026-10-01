@@ -183,4 +183,9 @@
     <string name="world_locked_text">Voltooi de vorige wereld om hierheen te reizen.</string>
     <string name="ring_board_cd">Puzzelveld</string>
     <string name="char_white_fox">Witte vos</string>
+    <string name="cos_theme_bronze">Bronzen ringthema</string>
+    <string name="cos_theme_obsidian">Obsidiaan-ringthema</string>
+    <string name="cos_theme_pearl">Parel-ringthema</string>
+    <string name="cos_theme_lacquer">Rood lak-ringthema</string>
+    <string name="unlock_by_stars">%1$d sterren</string>
 </resources>

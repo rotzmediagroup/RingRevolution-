@@ -141,7 +141,7 @@ fun GameBody(container: AppContainer, activity: ComponentActivity, controller: G
     val level = controller.level
     val reduce = LocalReduceMotion.current
     var explain by remember { mutableStateOf<String?>(null) }
-    val themeMaterial = save.selectedTheme.takeIf { it != "default" }?.let { when (it) { "theme_matcha" -> "dough_matcha"; "theme_beet" -> "dough_beet"; "theme_gold" -> "dough_gold"; "theme_premium_ube" -> "dough_ube"; else -> null } }
+    val themeMaterial = save.selectedTheme.takeIf { it != "default" }?.let { when (it) { "theme_matcha" -> "dough_matcha"; "theme_beet" -> "dough_beet"; "theme_gold" -> "dough_gold"; "theme_premium_ube" -> "dough_ube"; "theme_bronze" -> "ring_bronze"; "theme_obsidian" -> "ring_obsidian"; "theme_pearl" -> "ring_pearl"; "theme_lacquer" -> "ring_lacquer"; else -> null } }
     val stuck = controller.failedReleaseTaps >= 4 || (level.parMoves > 0 && controller.moves > level.parMoves * 3 + 4)
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val landscape = maxWidth > maxHeight
