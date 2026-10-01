@@ -5310,6 +5310,33 @@
   "sha1": "70d10fc1813a537b2787e1395c0c5863a9f3d9b5"
  },
  {
+  "id": "env/world1_env.png",
+  "file": "app/src/main/assets/env/world1_env.png",
+  "source": "assets/generated/env/world1_env.png",
+  "usage": "prefiltered HDR environment atlas for the 3D board",
+  "world": 1,
+  "bytes": 88508,
+  "sha1": "105bdf5799d1c5e59820a2ba77559e6fbc466bb5"
+ },
+ {
+  "id": "env/world2_env.png",
+  "file": "app/src/main/assets/env/world2_env.png",
+  "source": "assets/generated/env/world2_env.png",
+  "usage": "prefiltered HDR environment atlas for the 3D board",
+  "world": 2,
+  "bytes": 142048,
+  "sha1": "46a56a71545fd69d3bc693dca798624361dd55a1"
+ },
+ {
+  "id": "env/world3_env.png",
+  "file": "app/src/main/assets/env/world3_env.png",
+  "source": "assets/generated/env/world3_env.png",
+  "usage": "prefiltered HDR environment atlas for the 3D board",
+  "world": 3,
+  "bytes": 91455,
+  "sha1": "acda8a4b6c2020b0b4d08252bff6e934aa799b94"
+ },
+ {
   "id": "audio/music/chapter_complete_fanfare.ogg",
   "file": "app/src/main/assets/audio/music/chapter_complete_fanfare.ogg",
   "source": "assets/audio/music/chapter_complete_fanfare.ogg",

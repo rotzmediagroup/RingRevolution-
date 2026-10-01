@@ -138,18 +138,21 @@ uniform float uCapRad;                            // dome length in radians: gap
 out vec4 fragColor;
 float ggx(vec3 n, vec3 h, float a) { float a2 = a * a; float ndh = max(dot(n, h), 0.0); float d = ndh * ndh * (a2 - 1.0) + 1.0; return a2 / (3.14159 * d * d + 1e-5); }
 float geo(float ndv, float ndl, float a) { float k = (a + 1.0) * (a + 1.0) / 8.0; return (ndv / (ndv * (1.0 - k) + k)) * (ndl / (ndl * (1.0 - k) + k)); }
-vec3 env(vec3 d, float rough) {
-  // studio environment: warm sky/ground gradient, a soft window reflection band and the key light as a bright blob
-  float up = d.z * 0.5 + 0.5;
-  vec3 e = mix(uAmbientGround * 1.4, uAmbientSky * 1.6, up);
-  // softbox window: a sharp bright band for lustre on polished surfaces, broad on rough ones
-  float band = smoothstep(0.42, 0.52, d.z) * (1.0 - smoothstep(0.66, 0.80, d.z));
-  e += band * vec3(1.0, 0.98, 0.95) * mix(1.6, 0.4, rough);
-  float sun = pow(max(dot(d, normalize(uKeyDir)), 0.0), mix(90.0, 8.0, rough));
-  e += sun * uKeyCol * 1.8;
-  float rimGlow = pow(max(dot(d, normalize(uRimDir)), 0.0), mix(40.0, 6.0, rough));
-  e += rimGlow * uRimCol * 0.9;
-  return e;
+// --- image-based lighting: per-world HDR studio environment, GGX-prefiltered at 6 roughness levels + cosine irradiance (row 6),
+// stacked equirect atlas (7 rows), gamma range encoding hdr = (tex ^ 2.4) * 16  (tools/asset_generate/make_env_maps.py)
+uniform sampler2D uEnv;
+vec2 equirect(vec3 d) { return vec2(atan(d.y, d.x) / 6.2831853 + 0.5, acos(clamp(d.z, -1.0, 1.0)) / 3.14159265); }
+vec3 envRow(vec2 uv, float row) { uv.y = (clamp(uv.y, 0.004, 0.996) + row) / 7.0; return pow(texture(uEnv, uv).rgb, vec3(2.4)) * 16.0; }
+vec3 envSpecular(vec3 d, float rough) {
+  float lv = clamp(rough, 0.0, 1.0) * 5.0; float l0 = floor(lv); float l1 = min(l0 + 1.0, 5.0);
+  vec2 uv = equirect(d); return mix(envRow(uv, l0), envRow(uv, l1), lv - l0);
+}
+vec3 envIrradiance(vec3 n) { return envRow(equirect(n), 6.0); }
+// split-sum environment BRDF (Karis' analytic fit): returns F0 * x + y
+vec2 envBrdf(float rough, float ndv) {
+  vec4 c0 = vec4(-1.0, -0.0275, -0.572, 0.022); vec4 c1 = vec4(1.0, 0.0425, 1.04, -0.04);
+  vec4 rr = rough * c0 + c1; float a004 = min(rr.x * rr.x, exp2(-9.28 * ndv)) * rr.x + rr.y;
+  return vec2(-1.04, 1.04) * a004 + rr.zw;
 }
 void main() {
   // gap cut (local angle): fragment inside any gap, widened by the dome length, is discarded (the domed caps cover the edges)
@@ -176,7 +179,8 @@ void main() {
   vec3 F0 = mix(vec3(0.04), albedo, metal);
   vec3 diffCol = albedo * (1.0 - metal);
   float a = rough * rough;
-  vec3 col = diffCol * mix(uAmbientGround, uAmbientSky, n.z * 0.5 + 0.5) * 0.35;
+  // diffuse from the irradiance map (what Uncharted-style artefact viewers do), specular from the prefiltered environment
+  vec3 col = diffCol * envIrradiance(n) * 0.9;
   vec3 lights[3]; vec3 lcols[3]; lights[0] = uKeyDir; lcols[0] = uKeyCol; lights[1] = uFillDir; lcols[1] = uFillCol; lights[2] = uRimDir; lcols[2] = uRimCol;
   for (int i = 0; i < 3; i++) {
     vec3 l = normalize(lights[i]); float ndl = max(dot(n, l), 0.0); vec3 h = normalize(l + v);
@@ -184,12 +188,12 @@ void main() {
     vec3 spec = ggx(n, h, a) * geo(ndv, ndl, a) * F / (4.0 * ndv * ndl + 1e-4);
     // clear-coat lobe: a tight second highlight that reads as polish/lacquer
     float cc = ggx(n, h, 0.05) * geo(ndv, ndl, 0.05) * (0.04 + 0.96 * pow(1.0 - max(dot(h, v), 0.0), 5.0)) / (4.0 * ndv * ndl + 1e-4);
-    col += (diffCol / 3.14159 + spec + cc * 0.6) * ndl * lcols[i] * 2.4;
+    col += (diffCol / 3.14159 + spec + cc * 0.6) * ndl * lcols[i] * 1.3;   // direct key/fill/rim on top of the environment
   }
   // environment reflection (the premium look of metal/stone/lacquer)
   vec3 r = reflect(-v, n);
-  vec3 Fenv = F0 + (max(vec3(1.0 - rough), F0) - F0) * pow(1.0 - ndv, 5.0);
-  col += env(r, rough) * Fenv * mix(0.9, 0.35, rough);
+  vec2 ab = envBrdf(rough, ndv);
+  col += envSpecular(r, rough) * (F0 * ab.x + ab.y);
   if (uStripeOn > 0.5) { float band = smoothstep(0.17, 0.21, fract(vUv.y)) * (1.0 - smoothstep(0.29, 0.33, fract(vUv.y))); col = mix(col, uStripe * 1.15, band * 0.0); }
   col = mix(col, col * 0.45, uDarken);
   // selection / ghost glow as a warm rim light (reads on black onyx as well as on gold)

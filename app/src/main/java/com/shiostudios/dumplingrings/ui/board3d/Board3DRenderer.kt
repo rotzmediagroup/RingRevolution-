@@ -44,6 +44,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     private val meshes = ArrayList<TorusMesh>()
     private val vbos = IntArray(level.rings.size); private val ibos = IntArray(level.rings.size)
     private val textures = HashMap<String, Int>()
+    private val envTex = IntArray(4)   // index = world (1..3): prefiltered HDR environment atlas
     private val props = HashMap<String, GlProp>()
     private var quadVbo = 0
     private val centers = Array(level.rings.size) { FloatArray(2) }
@@ -79,6 +80,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         quadProg = program(Shaders.QUAD_VS, Shaders.QUAD_FS)
         glbRingProg = program(Shaders.GLBRING_VS, Shaders.GLBRING_FS)
         meshes.clear(); capMeshes.clear(); ringModels.clear()
+        for (w in 1..3) envTex[w] = try { context.assets.open("env/world${w}_env.png").use { st -> BitmapFactory.decodeStream(st)?.let { envTexture(it) } ?: 0 } } catch (e: Exception) { Log.w("Board3D", "env map $w: ${e.message}"); 0 }
         // rings are ALWAYS the Meshy premium meshes, drawn uniformly scaled (the model's own tube thickness); an unknown/missing asset falls back to the silver Meshy ring
         for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat)) ?: loadRingModel("ring_silver")
         for ((i, r) in level.rings.withIndex()) {
@@ -285,6 +287,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, model.base); GLES30.glUniform1i(u(prog, "uAlbedo"), 0)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE1); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, if (model.mr != 0) model.mr else whiteTex); GLES30.glUniform1i(u(prog, "uMetalRough"), 1)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE2); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, if (model.nrm != 0) model.nrm else whiteTex); GLES30.glUniform1i(u(prog, "uNormalMap"), 2)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE3); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, envTex[s.world.coerceIn(1, 3)].takeIf { it != 0 } ?: whiteTex); GLES30.glUniform1i(u(prog, "uEnv"), 3)
         GLES30.glUniform1f(u(prog, "uHasMR"), if (model.mr != 0) 1f else 0f); GLES30.glUniform1f(u(prog, "uHasNormal"), if (model.nrm != 0) 1f else 0f)
         GLES30.glUniform1f(u(prog, "uMetalFactor"), model.metal); GLES30.glUniform1f(u(prog, "uRoughFactor"), model.rough)
         val pulse = 0.5f + 0.5f * sin(s.timeMs / 320.0).toFloat()
@@ -439,6 +442,16 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
 
     private fun loadTexture(path: String) {
         try { context.assets.open(path).use { s -> BitmapFactory.decodeStream(s)?.let { textures[path] = texture(it, repeat = true) } } } catch (e: Exception) { Log.w("Board3D", "texture $path: ${e.message}") }
+    }
+
+    /** Environment atlas: linear filtering without mipmaps (rows must not bleed), wraps in longitude only. */
+    private fun envTexture(bmp: Bitmap): Int {
+        val ids = IntArray(1); GLES30.glGenTextures(1, ids, 0)
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, ids[0])
+        GLUtils.texImage2D(GLES30.GL_TEXTURE_2D, 0, bmp, 0)
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR); GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_REPEAT); GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
+        return ids[0]
     }
 
     private fun texture(bmp: Bitmap, repeat: Boolean = false): Int {

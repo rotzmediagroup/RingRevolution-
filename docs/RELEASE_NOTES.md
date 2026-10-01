@@ -1,3 +1,8 @@
+## Dumpling Rings 1.1.5 — image-based lighting (artefact-viewer quality)
+
+- Each world has an HDR studio environment (shoji window and sun; paper lanterns and neon; moon and snow bounce), GGX-prefiltered at six roughness levels plus a cosine irradiance map (`tools/asset_generate/make_env_maps.py`)
+- Rings are shaded with real image-based lighting: diffuse from irradiance, specular from the prefiltered environment through the split-sum BRDF, on top of the three direct lights. Metals mirror the room, lacquer and stone pick up soft window light, exactly as in a game's inspect-the-treasure view
+
 ## Dumpling Rings 1.1.4 — rings are rigid Meshy models
 
 - No more per-vertex bending: every ring is the Meshy GLB placed as a rigid body (position, uniform scale, rotation) and therefore perfectly round

@@ -133,6 +133,11 @@ if os.path.isdir(D3):
             thumb = os.path.join(d, "thumbnail.png")
             if os.path.exists(thumb): webp(thumb, f"3d/rings/{name}_thumb.webp", 256, 256, 86, note="ring theme thumbnail (Meshy)")
 
+# --- image-based lighting atlases (tools/asset_generate/make_env_maps.py)
+for w in (1, 2, 3):
+    src = f"{G}/env/world{w}_env.png"
+    if os.path.exists(src): copy(src, f"env/world{w}_env.png", "prefiltered HDR environment atlas for the 3D board", world=w)
+
 # --- audio
 A = os.path.join(ROOT, "assets/audio")
 for sub in ("music", "sfx", "ambience"):

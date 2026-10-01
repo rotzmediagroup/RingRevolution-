@@ -224,7 +224,7 @@ def main():
         glEnableVertexAttribArray(1); glVertexAttribPointer(1, 2, GL_FLOAT, False, 36, ctypes.c_void_p(12))
         glEnableVertexAttribArray(2); glVertexAttribPointer(2, 3, GL_FLOAT, False, 36, ctypes.c_void_p(20))
         placement(p, r); glUniform1f(u("uMinor"), r["radius"] * k * tr); set_lights(p)   # uniform scale of the Meshy model
-        for unit, (name, t) in enumerate([("uAlbedo", glb["base"]), ("uMetalRough", glb["mr"]), ("uNormalMap", glb["nm"])]):
+        for unit, (name, t) in enumerate([("uAlbedo", glb["base"]), ("uMetalRough", glb["mr"]), ("uNormalMap", glb["nm"]), ("uEnv", envT)]):
             glActiveTexture(GL_TEXTURE0 + unit); glBindTexture(GL_TEXTURE_2D, t); glUniform1i(u(name), unit)
         glUniform1f(u("uHasMR"), 1.0 if glb["mr"] else 0.0); glUniform1f(u("uHasNormal"), 1.0 if glb["nm"] else 0.0)
         glUniform1f(u("uMetalFactor"), glb["mf"]); glUniform1f(u("uRoughFactor"), glb["rf"])
@@ -264,6 +264,12 @@ def main():
         nx, ny = -a, -b; l = math.sqrt(nx * nx + ny * ny + 1.0); x, y, z = nx / l, ny / l, 1.0 / l; kk = 1.0 / (1.0 + z)
         m = np.array([[1 - x * x * kk, -x * y * kk, x], [-x * y * kk, 1 - y * y * kk, y], [-x, -y, z]], np.float32)   # GL row-major view
         glUniformMatrix3fv(u("uTilt"), 1, True, m); glUniform1f(u("uZ0"), mn * 1.02 + 0.55 * math.hypot(a, b) * R)
+    envp = os.path.join(ROOT, "assets/generated/env", f"world{world}_env.png"); envT = 0
+    if os.path.exists(envp):
+        im = Image.open(envp).convert("RGB"); envT = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, envT)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, im.width, im.height, 0, GL_RGB, GL_UNSIGNED_BYTE, np.array(im, np.uint8).tobytes())
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE)
     white = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, white); glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes([255] * 12)); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     def draw_ring(p, i, r, shadow, sel=False):
         v, ix = meshes[i]

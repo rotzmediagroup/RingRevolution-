@@ -44,8 +44,8 @@ plus the screens. Content JSON, audio and art are shared as-is.
 `app/ui/board3d/`: `BoardCamera` (shared perspective camera, project/unproject for overlay + touch), `GlbLoader` (minimal GLB
 reader incl. PBR textures), `RingModel` (normalises any Meshy torus into tube space: angle, radial/height offset in tube radii,
 UV, local normal — so one model dresses every level ring), `TorusMesh` (procedural arcs used only for the projected shadow and the
-domed end caps that close the cut ring), `Shaders` (GLSL ES 3.00: `GLBRING` vertex shader places the model rigidly (uniform scale to the level radius, rotation, a rigid lean per ring derived from its crossings' over/under); in-shader gap cut; PBR metallic-roughness with normal map, studio environment
-reflection, key/fill/rim lights, rim-light selection glow, colour-gate stripe), `Board3DRenderer` (GLSurfaceView renderer: glow
+domed end caps that close the cut ring), `Shaders` (GLSL ES 3.00: `GLBRING` vertex shader places the model rigidly (uniform scale to the level radius, rotation, a rigid lean per ring derived from its crossings' over/under); in-shader gap cut; PBR metallic-roughness with normal map, image-based lighting from a per-world prefiltered HDR
+environment atlas (`assets/generated/env`, split-sum BRDF), key/fill/rim lights, rim-light selection glow, colour-gate stripe), `Board3DRenderer` (GLSurfaceView renderer: glow
 discs, projected soft shadows, Meshy rings only — a missing asset falls back to the silver Meshy ring — procedural capsule
 obstacles, dumpling pop), `Board3D` (Compose host + touch via the camera), `BoardOverlay` (2D decorations/FX at projected
 positions). `app/ui/fx/Particles.kt` adds the living background (Ken-Burns drift, breathing light pool, world particles,
