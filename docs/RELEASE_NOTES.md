@@ -1,3 +1,7 @@
+## Dumpling Rings 1.1.7 — new app icon
+
+- Owner-supplied icon (three dumpling friends on interlocked rings in a bamboo steamer): legacy launcher icon with transparent corners, full-bleed adaptive foreground, cream adaptive background; store icon at docs/store_icon_512.png
+
 ## Dumpling Rings 1.1.6 — fix: black board background
 
 - The GL board now renders into a translucent TextureView on its own EGL thread instead of a SurfaceView. A SurfaceView punches a hole in the window, so the painted scene behind it was never visible (black). The painted world scene, particles and vignette now show under the rings and the HUD stays on top

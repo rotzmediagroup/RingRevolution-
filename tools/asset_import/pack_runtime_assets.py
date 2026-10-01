@@ -157,17 +157,18 @@ for f in ("roadmap.json", "worlds.json", "chapters.json", "cosmetics.json", "eco
     p = os.path.join(C, f)
     if os.path.exists(p): copy(p, f"content/{f}", "content table")
 
-# --- launcher icons (square crop of generated icon, rounded by the launcher mask)
+# --- launcher icons: legacy = the artist's rounded square with transparent corners; adaptive foreground = full-bleed art
+#     scaled to the 108dp canvas (the launcher's own mask crops it; the characters sit inside the 72dp safe zone)
 icon = Image.open(f"{G}/icon/app_icon_1024.png").convert("RGBA")
+full = Image.open(f"{G}/icon/app_icon_full_1024.png").convert("RGBA") if os.path.exists(f"{G}/icon/app_icon_full_1024.png") else icon
 for dpi, px in (("mdpi", 48), ("hdpi", 72), ("xhdpi", 96), ("xxhdpi", 144), ("xxxhdpi", 192)):
     d = os.path.join(RES, f"mipmap-{dpi}"); os.makedirs(d, exist_ok=True)
     icon.resize((px, px), Image.LANCZOS).save(os.path.join(d, "ic_launcher.png"))
     icon.resize((px, px), Image.LANCZOS).save(os.path.join(d, "ic_launcher_round.png"))
-    # adaptive foreground: icon centred in a 108dp canvas with the 72dp safe zone
     fg_px = int(px * 108 / 48)
     fg = Image.new("RGBA", (fg_px, fg_px), (0, 0, 0, 0))
-    inner = int(fg_px * 0.78)
-    fg.paste(icon.resize((inner, inner), Image.LANCZOS), ((fg_px - inner) // 2, (fg_px - inner) // 2))
+    inner = int(fg_px * 0.86)   # inset so the dumplings survive round masks
+    fg.paste(full.resize((inner, inner), Image.LANCZOS), ((fg_px - inner) // 2, (fg_px - inner) // 2))
     fg.save(os.path.join(d, "ic_launcher_foreground.png"))
 
 os.makedirs(os.path.join(ROOT, "assets"), exist_ok=True)
