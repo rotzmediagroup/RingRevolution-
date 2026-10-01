@@ -101,6 +101,28 @@
       ],
       "balance_after": 841,
       "finished_at": "2026-10-01T13:27:49.826341+00:00"
+    },
+    {
+      "started_at": "2026-10-01T14:13:41.723824+00:00",
+      "balance_before": 841,
+      "rings": [
+        "ring_gold",
+        "ring_silver",
+        "ring_rose_gold"
+      ],
+      "balance_after": 796,
+      "finished_at": "2026-10-01T14:15:04.048477+00:00"
+    },
+    {
+      "started_at": "2026-10-01T14:37:15.033075+00:00",
+      "balance_before": 796,
+      "rings": [
+        "ring_onyx",
+        "ring_jade",
+        "ring_marble"
+      ],
+      "balance_after": 751,
+      "finished_at": "2026-10-01T14:38:46.863073+00:00"
     }
   ],
   "rings": {
@@ -140,7 +162,106 @@
       "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
       "reference_seed": 1111,
       "reference_hole_ratio": 0.754,
-      "reference_ok": true
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7d0-5f39-7604-bcdc-cca81c794ba0",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_gold/ring_gold_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19929,
+        "triangles": 31476,
+        "bbox_min": [
+          -0.9504,
+          -0.0359,
+          -0.9521
+        ],
+        "bbox_max": [
+          0.9466,
+          0.0324,
+          0.9485
+        ],
+        "size": [
+          1.897,
+          0.0683,
+          1.9006
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 827640
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.969,
+        "inner_radius": 0.8582,
+        "tube_thickness_normal": 0.0683,
+        "tube_thickness_radial": 0.1107,
+        "ratio_thickness_over_outer": 0.071,
+        "ratio_radial_thickness_over_outer": 0.114,
+        "hole_fraction": 0.886,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7d0-ac2e-7505-ad8b-7db35d814a81",
+      "retexture_request": {
+        "input_task_id": "01a0f7d0-5f39-7604-bcdc-cca81c794ba0",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_gold/ring_gold.glb",
+      "textures": [
+        "assets/generated/3d/ring_gold/ring_gold_base_color.png",
+        "assets/generated/3d/ring_gold/ring_gold_metallic.png",
+        "assets/generated/3d/ring_gold/ring_gold_roughness.png",
+        "assets/generated/3d/ring_gold/ring_gold_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_gold/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19929,
+        "triangles": 31476,
+        "bbox_min": [
+          -0.9504,
+          -0.0359,
+          -0.9521
+        ],
+        "bbox_max": [
+          0.9466,
+          0.0324,
+          0.9485
+        ],
+        "size": [
+          1.897,
+          0.0683,
+          1.9006
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 4305620
+      },
+      "texture_prompt": "polished reflective 24k yellow gold metal with subtle engraved cloud pattern",
+      "qa_note": "thin torus OK (thickness/outer 0.071, hole 0.886), 31476 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:15:03.453125+00:00"
     },
     "ring_silver": {
       "name": "ring_silver",
@@ -164,7 +285,106 @@
       "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of brushed sterling silver with a polished mirror rim, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
       "reference_seed": 1037,
       "reference_hole_ratio": 0.718,
-      "reference_ok": true
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7d0-5edf-77da-a666-dabd86f4b086",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_silver/ring_silver_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19256,
+        "triangles": 31415,
+        "bbox_min": [
+          -0.9518,
+          -0.0781,
+          -0.9517
+        ],
+        "bbox_max": [
+          0.9481,
+          0.0746,
+          0.9483
+        ],
+        "size": [
+          1.8999,
+          0.1527,
+          1.9
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 805736
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 1.0469,
+        "inner_radius": 0.7363,
+        "tube_thickness_normal": 0.1527,
+        "tube_thickness_radial": 0.3105,
+        "ratio_thickness_over_outer": 0.146,
+        "ratio_radial_thickness_over_outer": 0.297,
+        "hole_fraction": 0.703,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7d0-aba3-77ef-84d6-8a934f960617",
+      "retexture_request": {
+        "input_task_id": "01a0f7d0-5edf-77da-a666-dabd86f4b086",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_silver/ring_silver.glb",
+      "textures": [
+        "assets/generated/3d/ring_silver/ring_silver_base_color.png",
+        "assets/generated/3d/ring_silver/ring_silver_metallic.png",
+        "assets/generated/3d/ring_silver/ring_silver_roughness.png",
+        "assets/generated/3d/ring_silver/ring_silver_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_silver/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19256,
+        "triangles": 31415,
+        "bbox_min": [
+          -0.9518,
+          -0.0781,
+          -0.9517
+        ],
+        "bbox_max": [
+          0.9481,
+          0.0746,
+          0.9483
+        ],
+        "size": [
+          1.8999,
+          0.1527,
+          1.9
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 7050676
+      },
+      "texture_prompt": "brushed sterling silver metal with fine linear brush marks and a polished mirror rim",
+      "qa_note": "thin torus OK (thickness/outer 0.146, hole 0.703), 31415 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:14:56.329694+00:00"
     },
     "ring_rose_gold": {
       "name": "ring_rose_gold",
@@ -181,7 +401,106 @@
       "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished rose gold, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
       "reference_seed": 1000,
       "reference_hole_ratio": 0.664,
-      "reference_ok": true
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7d0-5f21-76bb-8014-990fad803893",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_rose_gold/ring_rose_gold_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 24357,
+        "triangles": 30290,
+        "bbox_min": [
+          -0.9518,
+          -0.0791,
+          -0.9521
+        ],
+        "bbox_max": [
+          0.9479,
+          0.0754,
+          0.9489
+        ],
+        "size": [
+          1.8997,
+          0.1545,
+          1.9009
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 962220
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.9994,
+        "inner_radius": 0.7636,
+        "tube_thickness_normal": 0.1545,
+        "tube_thickness_radial": 0.2358,
+        "ratio_thickness_over_outer": 0.155,
+        "ratio_radial_thickness_over_outer": 0.236,
+        "hole_fraction": 0.764,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7d0-a9d9-7157-95b2-2de6ad03d5ff",
+      "retexture_request": {
+        "input_task_id": "01a0f7d0-5f21-76bb-8014-990fad803893",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_rose_gold/ring_rose_gold.glb",
+      "textures": [
+        "assets/generated/3d/ring_rose_gold/ring_rose_gold_base_color.png",
+        "assets/generated/3d/ring_rose_gold/ring_rose_gold_metallic.png",
+        "assets/generated/3d/ring_rose_gold/ring_rose_gold_roughness.png",
+        "assets/generated/3d/ring_rose_gold/ring_rose_gold_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_rose_gold/thumbnail.png",
+      "glb_stats": {
+        "vertices": 24357,
+        "triangles": 30290,
+        "bbox_min": [
+          -0.9518,
+          -0.0791,
+          -0.9521
+        ],
+        "bbox_max": [
+          0.9479,
+          0.0754,
+          0.9489
+        ],
+        "size": [
+          1.8997,
+          0.1545,
+          1.9009
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 5593928
+      },
+      "texture_prompt": "polished reflective rose gold metal, warm pink-copper tint",
+      "qa_note": "thin torus OK (thickness/outer 0.155, hole 0.764), 30290 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:14:56.549433+00:00"
     },
     "ring_onyx": {
       "name": "ring_onyx",
@@ -269,13 +588,135 @@
           "hole_ratio": 0.468,
           "note": "hole horizontal 0.47, vertical 0.35, object bbox 864x750",
           "file": "assets/generated/3d/ring_onyx/reference_try11.png"
+        },
+        {
+          "seed": 1444,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.346,
+          "note": "hole horizontal 0.35, vertical 0.23, object bbox 902x708",
+          "file": "assets/generated/3d/ring_onyx/reference_try12.png"
+        },
+        {
+          "seed": 1481,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.391,
+          "note": "hole horizontal 0.39, vertical 0.28, object bbox 1010x886",
+          "file": "assets/generated/3d/ring_onyx/reference_try13.png"
+        },
+        {
+          "seed": 1518,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of polished black onyx stone with a thin inlaid gold line running around it, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.718,
+          "note": "hole horizontal 0.72, vertical 0.64, object bbox 788x546",
+          "file": "assets/generated/3d/ring_onyx/reference.png"
         }
       ],
       "reference_image": "assets/generated/3d/ring_onyx/reference.png",
-      "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
-      "reference_seed": 1185,
-      "reference_hole_ratio": 0.666,
-      "reference_ok": true
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of polished black onyx stone with a thin inlaid gold line running around it, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1518,
+      "reference_hole_ratio": 0.718,
+      "reference_ok": true,
+      "reference_model": "flux2",
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e5-eec3-7632-a64f-25ab64d7db70",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_onyx/ring_onyx_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 18890,
+        "triangles": 31120,
+        "bbox_min": [
+          -0.947,
+          -0.1219,
+          -0.9469
+        ],
+        "bbox_max": [
+          0.9435,
+          0.118,
+          0.9434
+        ],
+        "size": [
+          1.8905,
+          0.24,
+          1.8903
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 792252
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.9785,
+        "inner_radius": 0.724,
+        "tube_thickness_normal": 0.24,
+        "tube_thickness_radial": 0.2546,
+        "ratio_thickness_over_outer": 0.245,
+        "ratio_radial_thickness_over_outer": 0.26,
+        "hole_fraction": 0.74,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e6-78ec-7614-9fb0-498d004399c9",
+      "retexture_request": {
+        "input_task_id": "01a0f7e5-eec3-7632-a64f-25ab64d7db70",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_onyx/ring_onyx.glb",
+      "textures": [
+        "assets/generated/3d/ring_onyx/ring_onyx_base_color.png",
+        "assets/generated/3d/ring_onyx/ring_onyx_metallic.png",
+        "assets/generated/3d/ring_onyx/ring_onyx_roughness.png",
+        "assets/generated/3d/ring_onyx/ring_onyx_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_onyx/thumbnail.png",
+      "glb_stats": {
+        "vertices": 18890,
+        "triangles": 31120,
+        "bbox_min": [
+          -0.947,
+          -0.1219,
+          -0.9469
+        ],
+        "bbox_max": [
+          0.9435,
+          0.118,
+          0.9434
+        ],
+        "size": [
+          1.8905,
+          0.24,
+          1.8903
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 7718268
+      },
+      "texture_prompt": "polished glossy black onyx stone with a thin inlaid gold line",
+      "qa_note": "thin torus OK (thickness/outer 0.245, hole 0.74), 31120 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:38:44.914344+00:00"
     },
     "ring_jade": {
       "name": "ring_jade",
@@ -321,8 +762,673 @@
           "hole_ratio": 0.475,
           "note": "hole horizontal 0.47, vertical 0.26, object bbox 714x682",
           "file": "assets/generated/3d/ring_jade/reference_try5.png"
+        },
+        {
+          "seed": 1222,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of translucent green jade stone with a fine shallow carved line pattern on the surface, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.713,
+          "note": "hole horizontal 0.71, vertical 0.58, object bbox 854x520",
+          "file": "assets/generated/3d/ring_jade/reference.png"
         }
-      ]
+      ],
+      "reference_image": "assets/generated/3d/ring_jade/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of translucent green jade stone with a fine shallow carved line pattern on the surface, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1222,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.713,
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e5-eeb5-731c-9887-2b834d98fb4f",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_jade/ring_jade_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19089,
+        "triangles": 31358,
+        "bbox_min": [
+          -0.9458,
+          -0.1198,
+          -0.9457
+        ],
+        "bbox_max": [
+          0.9417,
+          0.1161,
+          0.9419
+        ],
+        "size": [
+          1.8876,
+          0.2358,
+          1.8876
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 800048
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.9882,
+        "inner_radius": 0.7108,
+        "tube_thickness_normal": 0.2358,
+        "tube_thickness_radial": 0.2773,
+        "ratio_thickness_over_outer": 0.239,
+        "ratio_radial_thickness_over_outer": 0.281,
+        "hole_fraction": 0.719,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e6-7898-72d2-b657-e0815646f75b",
+      "retexture_request": {
+        "input_task_id": "01a0f7e5-eeb5-731c-9887-2b834d98fb4f",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_jade/ring_jade.glb",
+      "textures": [
+        "assets/generated/3d/ring_jade/ring_jade_base_color.png",
+        "assets/generated/3d/ring_jade/ring_jade_metallic.png",
+        "assets/generated/3d/ring_jade/ring_jade_roughness.png",
+        "assets/generated/3d/ring_jade/ring_jade_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_jade/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19089,
+        "triangles": 31358,
+        "bbox_min": [
+          -0.9458,
+          -0.1198,
+          -0.9457
+        ],
+        "bbox_max": [
+          0.9417,
+          0.1161,
+          0.9419
+        ],
+        "size": [
+          1.8876,
+          0.2358,
+          1.8876
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 6719888
+      },
+      "texture_prompt": "translucent green jade stone with subtle veining and fine carved relief",
+      "qa_note": "thin torus OK (thickness/outer 0.239, hole 0.719), 31358 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:38:46.329122+00:00"
+    },
+    "ring_marble": {
+      "name": "ring_marble",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of polished white marble with grey veins, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.818,
+          "note": "hole horizontal 0.82, vertical 0.70, object bbox 820x584",
+          "file": "assets/generated/3d/ring_marble/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_marble/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of polished white marble with grey veins, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.818,
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e5-eeb4-7081-8db0-69579f11c543",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_marble/ring_marble_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19005,
+        "triangles": 31374,
+        "bbox_min": [
+          -0.9497,
+          -0.0991,
+          -0.9498
+        ],
+        "bbox_max": [
+          0.9459,
+          0.0953,
+          0.9456
+        ],
+        "size": [
+          1.8956,
+          0.1944,
+          1.8953
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 797460
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.9972,
+        "inner_radius": 0.7405,
+        "tube_thickness_normal": 0.1944,
+        "tube_thickness_radial": 0.2566,
+        "ratio_thickness_over_outer": 0.195,
+        "ratio_radial_thickness_over_outer": 0.257,
+        "hole_fraction": 0.743,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e6-79a1-7632-b4bf-97ab4d840ffc",
+      "retexture_request": {
+        "input_task_id": "01a0f7e5-eeb4-7081-8db0-69579f11c543",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_marble/ring_marble.glb",
+      "textures": [
+        "assets/generated/3d/ring_marble/ring_marble_base_color.png",
+        "assets/generated/3d/ring_marble/ring_marble_metallic.png",
+        "assets/generated/3d/ring_marble/ring_marble_roughness.png",
+        "assets/generated/3d/ring_marble/ring_marble_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_marble/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19005,
+        "triangles": 31374,
+        "bbox_min": [
+          -0.9497,
+          -0.0991,
+          -0.9498
+        ],
+        "bbox_max": [
+          0.9459,
+          0.0953,
+          0.9456
+        ],
+        "size": [
+          1.8956,
+          0.1944,
+          1.8953
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 7683444
+      },
+      "texture_prompt": "polished white marble with soft grey veins",
+      "qa_note": "thin torus OK (thickness/outer 0.195, hole 0.743), 31374 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:38:44.449498+00:00"
+    },
+    "ring_bronze": {
+      "name": "ring_bronze",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of antique bronze with green patina highlights, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.742,
+          "note": "hole horizontal 0.74, vertical 0.68, object bbox 894x536",
+          "file": "assets/generated/3d/ring_bronze/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_bronze/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of antique bronze with green patina highlights, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.742,
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e7-5854-7620-9d0d-5f580a0a8f84",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_bronze/ring_bronze_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19291,
+        "triangles": 31348,
+        "bbox_min": [
+          -0.9488,
+          -0.0511,
+          -0.9493
+        ],
+        "bbox_max": [
+          0.9475,
+          0.0506,
+          0.9461
+        ],
+        "size": [
+          1.8963,
+          0.1016,
+          1.8954
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 806452
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.951,
+        "inner_radius": 0.8475,
+        "tube_thickness_normal": 0.1016,
+        "tube_thickness_radial": 0.1034,
+        "ratio_thickness_over_outer": 0.107,
+        "ratio_radial_thickness_over_outer": 0.109,
+        "hole_fraction": 0.891,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e7-e15e-70ab-8b09-87fb61bd535a",
+      "retexture_request": {
+        "input_task_id": "01a0f7e7-5854-7620-9d0d-5f580a0a8f84",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_bronze/ring_bronze.glb",
+      "textures": [
+        "assets/generated/3d/ring_bronze/ring_bronze_base_color.png",
+        "assets/generated/3d/ring_bronze/ring_bronze_metallic.png",
+        "assets/generated/3d/ring_bronze/ring_bronze_roughness.png",
+        "assets/generated/3d/ring_bronze/ring_bronze_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_bronze/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19291,
+        "triangles": 31348,
+        "bbox_min": [
+          -0.9488,
+          -0.0511,
+          -0.9493
+        ],
+        "bbox_max": [
+          0.9475,
+          0.0506,
+          0.9461
+        ],
+        "size": [
+          1.8963,
+          0.1016,
+          1.8954
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 8267848
+      },
+      "texture_prompt": "antique dark bronze metal with green-blue patina in the recesses",
+      "qa_note": "thin torus OK (thickness/outer 0.107, hole 0.891), 31348 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:40:17.912032+00:00"
+    },
+    "ring_obsidian": {
+      "name": "ring_obsidian",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of glossy black volcanic obsidian glass, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.801,
+          "note": "hole horizontal 0.80, vertical 0.67, object bbox 800x540",
+          "file": "assets/generated/3d/ring_obsidian/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_obsidian/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of glossy black volcanic obsidian glass, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.801,
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e7-58af-74ff-8412-1b2d4dafbdcb",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_obsidian/ring_obsidian_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19031,
+        "triangles": 31390,
+        "bbox_min": [
+          -0.9488,
+          -0.1006,
+          -0.949
+        ],
+        "bbox_max": [
+          0.9451,
+          0.0969,
+          0.9451
+        ],
+        "size": [
+          1.894,
+          0.1975,
+          1.8941
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 798388
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 0.9983,
+        "inner_radius": 0.739,
+        "tube_thickness_normal": 0.1975,
+        "tube_thickness_radial": 0.2593,
+        "ratio_thickness_over_outer": 0.198,
+        "ratio_radial_thickness_over_outer": 0.26,
+        "hole_fraction": 0.74,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e7-e3a7-74d8-b7e9-6b242a0b0d5d",
+      "retexture_request": {
+        "input_task_id": "01a0f7e7-58af-74ff-8412-1b2d4dafbdcb",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_obsidian/ring_obsidian.glb",
+      "textures": [
+        "assets/generated/3d/ring_obsidian/ring_obsidian_base_color.png",
+        "assets/generated/3d/ring_obsidian/ring_obsidian_metallic.png",
+        "assets/generated/3d/ring_obsidian/ring_obsidian_roughness.png",
+        "assets/generated/3d/ring_obsidian/ring_obsidian_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_obsidian/thumbnail.png",
+      "glb_stats": {
+        "vertices": 19031,
+        "triangles": 31390,
+        "bbox_min": [
+          -0.9488,
+          -0.1006,
+          -0.949
+        ],
+        "bbox_max": [
+          0.9451,
+          0.0969,
+          0.9451
+        ],
+        "size": [
+          1.894,
+          0.1975,
+          1.8941
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 7123176
+      },
+      "texture_prompt": "glossy jet-black volcanic obsidian glass with faint sharp reflections",
+      "qa_note": "thin torus OK (thickness/outer 0.198, hole 0.74), 31390 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:40:18.232937+00:00"
+    },
+    "ring_pearl": {
+      "name": "ring_pearl",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of iridescent pearl mother-of-pearl ceramic, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.843,
+          "note": "hole horizontal 0.84, vertical 0.72, object bbox 804x556",
+          "file": "assets/generated/3d/ring_pearl/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_pearl/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of iridescent pearl mother-of-pearl ceramic, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.843,
+      "reference_ok": true,
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7e7-5880-7017-b7aa-02c2a6bb3792",
+      "credits_used": 45,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_pearl/ring_pearl_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 18910,
+        "triangles": 31373,
+        "bbox_min": [
+          -0.9501,
+          -0.1009,
+          -0.9503
+        ],
+        "bbox_max": [
+          0.9464,
+          0.0973,
+          0.9465
+        ],
+        "size": [
+          1.8965,
+          0.1982,
+          1.8969
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 794412
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 1.0018,
+        "inner_radius": 0.7353,
+        "tube_thickness_normal": 0.1982,
+        "tube_thickness_radial": 0.2666,
+        "ratio_thickness_over_outer": 0.198,
+        "ratio_radial_thickness_over_outer": 0.266,
+        "hole_fraction": 0.734,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e7-e1ed-7564-976c-d5cf525e979a",
+      "retexture_request": {
+        "input_task_id": "01a0f7e7-5880-7017-b7aa-02c2a6bb3792",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_pearl/ring_pearl.glb",
+      "textures": [
+        "assets/generated/3d/ring_pearl/ring_pearl_base_color.png",
+        "assets/generated/3d/ring_pearl/ring_pearl_metallic.png",
+        "assets/generated/3d/ring_pearl/ring_pearl_roughness.png",
+        "assets/generated/3d/ring_pearl/ring_pearl_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_pearl/thumbnail.png",
+      "glb_stats": {
+        "vertices": 18910,
+        "triangles": 31373,
+        "bbox_min": [
+          -0.9501,
+          -0.1009,
+          -0.9503
+        ],
+        "bbox_max": [
+          0.9464,
+          0.0973,
+          0.9465
+        ],
+        "size": [
+          1.8965,
+          0.1982,
+          1.8969
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 6348416
+      },
+      "texture_prompt": "iridescent white mother-of-pearl ceramic with soft rainbow sheen",
+      "qa_note": "thin torus OK (thickness/outer 0.198, hole 0.734), 31373 tris, 4 PBR maps",
+      "finished_at": "2026-10-01T14:40:16.864469+00:00"
+    },
+    "ring_lacquer": {
+      "name": "ring_lacquer",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "model": "flux2",
+          "prompt": "a thin circular hoop like a large keyring, the hoop surface made of glossy deep red urushi lacquer sprinkled with gold flakes, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.811,
+          "note": "hole horizontal 0.81, vertical 0.68, object bbox 806x536",
+          "file": "assets/generated/3d/ring_lacquer/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_lacquer/reference.png",
+      "prompt": "a thin circular hoop like a large keyring, the hoop surface made of glossy deep red urushi lacquer sprinkled with gold flakes, very slim uniform round tube, huge open hole in the middle, the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_model": "flux2",
+      "reference_hole_ratio": 0.811,
+      "reference_ok": true,
+      "status": "retexture_running",
+      "meshy_image_to_3d_task": "01a0f7e8-b4fc-7523-ac65-a4a61987c275",
+      "credits_used": 15,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 30000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_lacquer/ring_lacquer_mesh.glb",
+      "mesh_glb_stats": {
+        "vertices": 19642,
+        "triangles": 31344,
+        "bbox_min": [
+          -0.9513,
+          -0.0933,
+          -0.9513
+        ],
+        "bbox_max": [
+          0.9475,
+          0.0896,
+          0.9478
+        ],
+        "size": [
+          1.8988,
+          0.1828,
+          1.8991
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 817664
+      },
+      "torus_fit": {
+        "axis": "y",
+        "outer_radius": 1.024,
+        "inner_radius": 0.7424,
+        "tube_thickness_normal": 0.1828,
+        "tube_thickness_radial": 0.2816,
+        "ratio_thickness_over_outer": 0.179,
+        "ratio_radial_thickness_over_outer": 0.275,
+        "hole_fraction": 0.725,
+        "is_thin_torus": true
+      },
+      "meshy_retexture_task": "01a0f7e9-0347-75d4-82ab-7d59a5648a3b",
+      "retexture_request": {
+        "input_task_id": "01a0f7e8-b4fc-7523-ac65-a4a61987c275",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      }
     }
   }
 }

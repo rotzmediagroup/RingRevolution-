@@ -53,6 +53,11 @@ SHAPE_STONE = (
     "on a plain pure white background seen from above at a slight angle, product photography, studio lighting, "
     "high detail, no text, nothing else in the image"
 )
+SHAPE_HOOP = (
+    "a thin circular hoop like a large keyring, very slim uniform round tube, huge open hole in the middle, "
+    "the tube is only one tenth of the ring radius thick, perfectly circular, lying flat on a pure white background "
+    "seen from a three-quarter top view, product photography, studio lighting, high detail, no text"
+)
 NEG = ", no face, no decoration other than the surface material, single object only, no shadow, no other objects"
 
 RINGS = [
@@ -76,6 +81,19 @@ RINGS = [
      "texture": "iridescent white mother-of-pearl ceramic with soft rainbow sheen"},
     {"name": "ring_lacquer", "material": "made of glossy deep red urushi lacquer sprinkled with gold flakes", "stone": True,
      "texture": "glossy deep red urushi lacquer with scattered gold leaf flakes"},
+    # shape variants (still plain closed thin tori; gaps are cut in-engine). Only run with --only.
+    {"name": "ring_gold_rope", "variant": True,
+     "material": "made of polished gold twisted like a rope, twisted-rope texture along the whole tube",
+     "texture": "polished yellow gold with a twisted rope relief running along the tube"},
+    {"name": "ring_pearl_beaded", "variant": True,
+     "material": "made of a string of small round white pearls, beads touching each other all around the circle",
+     "texture": "iridescent white pearls with soft rainbow sheen, bead by bead"},
+    {"name": "ring_jade_bamboo", "variant": True,
+     "material": "made of green jade carved as bamboo segments with raised nodes around the tube",
+     "texture": "translucent green jade carved as bamboo stalk segments with raised nodes"},
+    {"name": "ring_silver_wave", "variant": True,
+     "material": "made of sterling silver with an engraved wave relief pattern along the tube",
+     "texture": "polished sterling silver with engraved curling wave relief"},
 ]
 
 POLYCOUNT = 30000
@@ -128,11 +146,11 @@ def hole_ratio(path):
     return round(best, 3), f"hole horizontal {best:.2f}, vertical {vert:.2f}, object bbox {x1 - x0}x{y1 - y0}"
 
 
-def gen_image(prompt, path, seed=None):
+def gen_image(prompt, path, seed=None, model="klein"):
     key = os.environ.get("IMAGE_API_KEY")
     if not key:
         sys.exit("IMAGE_API_KEY not set")
-    body = {"model": "klein", "prompt": prompt, "size": "1024x1024", "n": 1, "response_format": "b64_json"}
+    body = {"model": model, "prompt": prompt, "size": "1024x1024", "n": 1, "response_format": "b64_json"}
     if seed is not None:
         body["seed"] = seed
     for attempt in range(3):
@@ -155,20 +173,25 @@ def gen_reference(ring, outdir, m, strong=False, force=False):
         return path, rec["prompt"]
     attempts = rec.get("reference_attempts", [])
     for i in range(8):
-        shape = SHAPE_STRONG if (strong or i >= 2) else (SHAPE_STONE if ring.get('stone') else SHAPE)
-        prompt = f"{shape}, {ring['material']}{NEG}"
+        if ring.get("stone") or ring.get("variant") or strong:
+            # stone / fat-rerun: hoop phrasing, flux2 first then klein (both proven to give a wide hole)
+            shape, model = SHAPE_HOOP, ("flux2" if i % 2 == 0 else "klein")
+            prompt = f"{shape.replace('hoop like a large keyring', 'hoop like a large keyring, the hoop surface ' + ring['material'])}{NEG}"
+        else:
+            shape, model = (SHAPE_STRONG if i >= 2 else SHAPE), "klein"
+            prompt = f"{shape}, {ring['material']}{NEG}"
         seed = 1000 + 37 * len(attempts)
-        gen_image(prompt, path, seed)
+        gen_image(prompt, path, seed, model)
         ratio, note = hole_ratio(path)
         keep = outdir / f"reference_try{len(attempts)}.png"
         path.replace(keep) if ratio < MIN_HOLE else None
-        attempts.append({"seed": seed, "prompt": prompt, "hole_ratio": ratio, "note": note,
+        attempts.append({"seed": seed, "model": model, "prompt": prompt, "hole_ratio": ratio, "note": note,
                          "file": str((keep if ratio < MIN_HOLE else path).relative_to(ROOT))})
         update_ring(m, name, reference_attempts=attempts)
         log(f"{name}: reference try {len(attempts)} hole={ratio} ({note})")
         if ratio >= MIN_HOLE:
             update_ring(m, name, reference_image=str(path.relative_to(ROOT)), prompt=prompt,
-                        reference_seed=seed, reference_hole_ratio=ratio, reference_ok=True)
+                        reference_seed=seed, reference_model=model, reference_hole_ratio=ratio, reference_ok=True)
             return path, prompt
     raise RuntimeError(f"{name}: could not get a thin-ring reference after {len(attempts)} tries")
 
@@ -250,7 +273,8 @@ def run_ring(ring, m, force=False):
                     mesh_glb_stats=inspect_glb(mesh_glb), torus_fit=fit)
         log(f"{name}: mesh fit {fit}")
         if not fit["is_thin_torus"]:
-            update_ring(m, name, status="REJECTED_FAT", credits_used=credits,
+            rejected = rec.get("rejected_meshes", []) + [{"task": i23d_id, "fit": fit, "reference": str(ref.relative_to(ROOT))}]
+            update_ring(m, name, status="REJECTED_FAT", credits_used=credits, rejected_meshes=rejected,
                         qa_note=f"mesh too fat (ratio {fit['ratio_thickness_over_outer']}), re-run with stronger prompt")
             log(f"{name}: REJECTED (fat torus) - rerun will use the strong prompt")
             return
@@ -313,7 +337,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     m = g.load_manifest()
     m.setdefault("rings", {})
-    rings = [r for r in RINGS if not args.only or r["name"] in args.only]
+    rings = [r for r in RINGS if (args.only and r["name"] in args.only) or (not args.only and not r.get("variant"))]
     if args.measure:
         for r in rings:
             for key in ("glb", "mesh_glb"):
