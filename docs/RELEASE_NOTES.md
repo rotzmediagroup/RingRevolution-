@@ -2,7 +2,8 @@
 
 ### New in 1.1
 - The board is now rendered in real 3D (OpenGL ES 3.0): dough tubes with rounded ends, a true woven over/under profile at every crossing, per-world key/fill/rim lighting with specular highlights and soft contact shadows — overlapping rings finally read unambiguously
-- Meshy-generated 3D props for chopsticks, lantern gates and lantern arms, and a 3D dumpling pop on release (procedural fallbacks when a model is absent)
+- Every ring is now a premium Meshy AI 3D model with PBR textures: polished gold, brushed silver, rose gold, black onyx with gold inlay, jade and white marble in the campaign; bronze, obsidian, pearl and red urushi lacquer plus gold rope, beaded pearl, jade bamboo and silver wave as star-unlocked ring themes in the Collection
+- Metal, stone and lacquer show real lustre: studio environment reflections, normal-mapped surfaces, sRGB-correct colour, rim-light selection glow
 - Living backgrounds: slow camera drift, breathing light pool, sakura petals / lantern embers and fireflies / moon dust and snow, steam, vignette; combo bursts and sparkles on release
 - Colour-gate rings carry a stripe with a per-colour dash pattern (colour-blind safe)
 

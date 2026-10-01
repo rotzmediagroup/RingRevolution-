@@ -187,5 +187,9 @@
     <string name="cos_theme_obsidian">Obsidian-Ringthema</string>
     <string name="cos_theme_pearl">Perlen-Ringthema</string>
     <string name="cos_theme_lacquer">Rotlack-Ringthema</string>
+    <string name="cos_theme_gold_rope">Goldkordel-Ringthema</string>
+    <string name="cos_theme_pearl_beaded">Perlenketten-Ringthema</string>
+    <string name="cos_theme_jade_bamboo">Jadebambus-Ringthema</string>
+    <string name="cos_theme_silver_wave">Silberwellen-Ringthema</string>
     <string name="unlock_by_stars">%1$d Sterne</string>
 </resources>

@@ -24,9 +24,9 @@ Last updated: 2026-10-01 (end of the one-shot build). Status legend: ✅ built a
 - [ ] 15° step levels — supported by the engine, not used in the campaign (solver tractability); all campaign levels use 30°.
 
 ### Presentation
-- [x] **v1.1: real 3D board** — GLES 3.0 torus rings with a woven height profile at every crossing (over/under physically visible), PBR-lite lighting per world (warm morning / lantern amber / moonlight), GGX specular, Fresnel, projected soft shadows, selection glow discs, domed ring ends, colour-gate stripes with per-colour dash patterns; Meshy-generated props (chopsticks, lantern gates, lantern arms, dumpling) with procedural fallbacks; release lift-and-fly animation
+- [x] **v1.1: real 3D board** — GLES 3.0 board; **every ring is a Meshy-generated premium 3D model** (14 rings: gold, silver, rose gold, onyx, jade, marble, bronze, obsidian, pearl, red lacquer + gold rope, beaded pearl, jade bamboo, silver wave; `docs/MESHY_3D_REPORT.md`) dressed onto the level's radius/thickness/gaps in the vertex shader with a woven height profile at every crossing; full PBR (base colour, metallic/roughness, normal map), studio environment reflections, per-world key/fill/rim lighting, projected soft shadows, rim-light selection glow, domed ring ends, colour-gate stripes; obstacles (chopsticks, lantern arms, locks) are procedural capsules; release lift-and-fly animation. The procedural dough-tube renderer was removed — rings are Meshy models only.
 - [x] **v1.1: living background** — Ken-Burns drift, breathing light pool, world particles (petals / embers & fireflies / moon dust & snow), steam, vignette; combo bursts, sparkles and steam on release; all respect Reduce Motion and effect quality
-- [x] Procedural 2D ring renderer (v1.0, kept as reference) with hand-painted material tiles, bevels, gap notches, crossing over/under with contact shadows, selection glow, shake feedback, release fly-out + dumpling pop + sparkles + steam, blossom petals, tutorial hand
+- [x] Release fly-out + dumpling pop + sparkles + steam, shake feedback, blossom petals, tutorial hand (the v1.0 2D Canvas ring renderer was deleted in v1.1 — only Meshy rings ship)
 - [x] Drag-to-rotate (one drag = one move), snapping with ticks/haptics, arc clamping during drag, linked rings follow visually, accessibility rotate buttons
 - [x] Portrait phone layout; landscape/tablet layout with side panel; safe-area padding; board auto-fit
 - [x] Per-world backgrounds (portrait + landscape), world maps, chapter scenes, world intros, menu key art, app icon
@@ -38,7 +38,7 @@ Last updated: 2026-10-01 (end of the one-shot build). Status legend: ✅ built a
 - [x] Economy: coins, star bonuses, no farmable replays; booster shop (coins only); starting inventory 3/2/1/0
 - [x] Boosters: Steam Hint, Steam Peek, Chef's Twist, Golden Steamer — transactional/idempotent, solver-validated
 - [x] Daily puzzle: offline, calendar-seeded, solver-validated, streak, +25 coins, Premium free daily booster claim
-- [x] Collection: 15 characters, 15 decor/theme rewards + Premium ube theme; ring theme selection
+- [x] Collection: 15 characters, 15 decor/theme rewards + Premium ube theme + 8 star-unlocked Meshy ring themes (bronze, obsidian, pearl, lacquer, gold rope, beaded pearl, jade bamboo, silver wave); ring theme selection with Meshy thumbnails
 - [x] Statistics, credits, privacy screen, settings (music/sfx/haptics/motion/contrast/rotate buttons/quality/language)
 - [x] Save store: atomic writes, backup, corruption recovery, migrations, in-progress level
 - [x] AdsPolicy (caps, tutorial/chef/first-session/premium/consent exclusions), rewarded flow with idempotent grant, interstitial only between screens, no reserved ad space, Premium removes everything
@@ -55,4 +55,4 @@ Last updated: 2026-10-01 (end of the one-shot build). Status legend: ✅ built a
 3. Music rights depend on the sunoapi.org/Suno plan (docs/AUDIO_REPORT.md).
 4. iOS: `core` is Android-free and KMP-ready; the SwiftUI shell and renderer port are future work (scripts/build_ios.sh).
 5. Banner ads are intentionally not implemented beyond the policy flag (default OFF); the design has no banner slot.
-6. 3D (Meshy) assets were not needed for the 2D game and were not generated.
+6. Meshy credits: 280 used for the 14 rings (balance after run: 561). Re-running a ring costs ~15–40 credits (`tools/asset_generate/generate_rings.py --only <ring>`); props are intentionally NOT generated with Meshy.

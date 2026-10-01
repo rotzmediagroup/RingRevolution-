@@ -85,7 +85,8 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
             GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, capVbos[i]); GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, maxOf(cm.vertexCount, 1) * TorusMesh.FLOATS_PER_VERTEX * 4, cm.vertices, GLES30.GL_STATIC_DRAW)
             GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, capIbos[i]); GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, maxOf(cm.indexCount, 1) * 2, cm.indices, GLES30.GL_STATIC_DRAW)
         }
-        for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat))
+        // rings are ALWAYS the Meshy premium meshes (never the procedural dough tube); an unknown/missing asset falls back to the silver Meshy ring
+        for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat)) ?: loadRingModel("ring_silver")
         for ((i, r) in level.rings.withIndex()) {
             val m = TorusMesh.build(r); meshes.add(m)
             val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0); vbos[i] = ids[0]; ibos[i] = ids[1]
@@ -146,18 +147,12 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUseProgram(shadowProg)
         for ((i, rs) in s.rings.withIndex()) if (!rs.removed || rs.liftT < 1f) drawRing(shadowProg, i, rs, s, lights, shadow = true)
         GLES30.glDepthMask(true)
-        // --- rings (premium Meshy meshes when available, procedural dough otherwise)
+        // --- rings: premium Meshy meshes only
         for ((i, rs) in s.rings.withIndex()) {
             if (rs.removed && rs.liftT >= 1f) continue
-            val model = ringModels[materialOverride ?: level.rings[i].materialId]
-            if (model != null) {
-                drawGlbRing(model, i, rs, s, lights)
-                rs.ghostAngleDeg?.let { ga -> drawGlbRing(model, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, ghost = rs.ghostAlpha) }
-            } else {
-                GLES30.glUseProgram(ringProg)
-                drawRing(ringProg, i, rs, s, lights, shadow = false)
-                rs.ghostAngleDeg?.let { ga -> drawRing(ringProg, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, shadow = false, ghost = rs.ghostAlpha) }
-            }
+            val model = ringModels[materialOverride ?: level.rings[i].materialId] ?: continue
+            drawGlbRing(model, i, rs, s, lights)
+            rs.ghostAngleDeg?.let { ga -> drawGlbRing(model, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, ghost = rs.ghostAlpha) }
         }
         // --- obstacles / props
         GLES30.glUseProgram(propProg)

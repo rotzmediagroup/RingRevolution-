@@ -187,5 +187,9 @@
     <string name="cos_theme_obsidian">Obsidian ring theme</string>
     <string name="cos_theme_pearl">Pearl ring theme</string>
     <string name="cos_theme_lacquer">Red lacquer ring theme</string>
+    <string name="cos_theme_gold_rope">Gold rope ring theme</string>
+    <string name="cos_theme_pearl_beaded">Beaded pearl ring theme</string>
+    <string name="cos_theme_jade_bamboo">Jade bamboo ring theme</string>
+    <string name="cos_theme_silver_wave">Silver wave ring theme</string>
     <string name="unlock_by_stars">%1$d stars</string>
 </resources>

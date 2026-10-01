@@ -135,6 +135,18 @@
       ],
       "balance_after": 691,
       "finished_at": "2026-10-01T14:41:46.975348+00:00"
+    },
+    {
+      "started_at": "2026-10-01T14:57:02.545940+00:00",
+      "balance_before": 691,
+      "rings": [
+        "ring_gold_rope",
+        "ring_pearl_beaded",
+        "ring_jade_bamboo",
+        "ring_silver_wave"
+      ],
+      "balance_after": 631,
+      "finished_at": "2026-10-01T15:00:21.704349+00:00"
     }
   ],
   "rings": {
@@ -1508,8 +1520,8 @@
       "reference_model": "flux2",
       "reference_hole_ratio": 0.76,
       "reference_ok": true,
-      "status": "retexture_running",
-      "qa_note": "reference approved (thin torus), Meshy run NOT started: awaiting owner go-ahead (~15 credits each)",
+      "status": "SUCCEEDED",
+      "qa_note": "thin torus OK (thickness/outer 0.129, hole 0.877), 31200 tris, 4 PBR maps",
       "meshy_image_to_3d_task": "01a0f7f8-0da9-701a-ac20-5d1f8968149c",
       "credits_used": 30,
       "image_to_3d_request": {
@@ -1569,7 +1581,44 @@
         "target_formats": [
           "glb"
         ]
-      }
+      },
+      "glb": "assets/generated/3d/ring_gold_rope/ring_gold_rope.glb",
+      "textures": [
+        "assets/generated/3d/ring_gold_rope/ring_gold_rope_base_color.png",
+        "assets/generated/3d/ring_gold_rope/ring_gold_rope_metallic.png",
+        "assets/generated/3d/ring_gold_rope/ring_gold_rope_roughness.png",
+        "assets/generated/3d/ring_gold_rope/ring_gold_rope_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_gold_rope/thumbnail.png",
+      "glb_stats": {
+        "vertices": 39001,
+        "triangles": 31200,
+        "bbox_min": [
+          -0.9521,
+          -0.0633,
+          -0.9406
+        ],
+        "bbox_max": [
+          0.9489,
+          0.0598,
+          0.9372
+        ],
+        "size": [
+          1.9011,
+          0.1231,
+          1.8777
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 10444056
+      },
+      "texture_prompt": "polished yellow gold with a twisted rope relief running along the tube",
+      "finished_at": "2026-10-01T14:59:35.341574+00:00"
     },
     "ring_pearl_beaded": {
       "name": "ring_pearl_beaded",
@@ -1589,8 +1638,8 @@
       "reference_model": "flux2",
       "reference_hole_ratio": 0.837,
       "reference_ok": true,
-      "status": "retexture_running",
-      "qa_note": "reference approved (thin torus), Meshy run NOT started: awaiting owner go-ahead (~15 credits each)",
+      "status": "SUCCEEDED",
+      "qa_note": "thin torus OK (thickness/outer 0.155, hole 0.847), 31441 tris, 4 PBR maps",
       "meshy_image_to_3d_task": "01a0f7f8-0d60-71f6-a98f-b38b6679a752",
       "credits_used": 30,
       "image_to_3d_request": {
@@ -1650,7 +1699,44 @@
         "target_formats": [
           "glb"
         ]
-      }
+      },
+      "glb": "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded.glb",
+      "textures": [
+        "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded_base_color.png",
+        "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded_metallic.png",
+        "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded_roughness.png",
+        "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_pearl_beaded/thumbnail.png",
+      "glb_stats": {
+        "vertices": 55885,
+        "triangles": 31441,
+        "bbox_min": [
+          -0.9481,
+          -0.0753,
+          -0.9481
+        ],
+        "bbox_max": [
+          0.9442,
+          0.0724,
+          0.9441
+        ],
+        "size": [
+          1.8923,
+          0.1477,
+          1.8922
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 10052108
+      },
+      "texture_prompt": "iridescent white pearls with soft rainbow sheen, bead by bead",
+      "finished_at": "2026-10-01T15:00:21.103244+00:00"
     },
     "ring_jade_bamboo": {
       "name": "ring_jade_bamboo",
@@ -1670,8 +1756,8 @@
       "reference_model": "flux2",
       "reference_hole_ratio": 0.787,
       "reference_ok": true,
-      "status": "retexture_running",
-      "qa_note": "reference approved (thin torus), Meshy run NOT started: awaiting owner go-ahead (~15 credits each)",
+      "status": "SUCCEEDED",
+      "qa_note": "thin torus OK (thickness/outer 0.244, hole 0.75), 31401 tris, 4 PBR maps",
       "meshy_image_to_3d_task": "01a0f7f8-0e96-77bf-8e6e-9af1c9072538",
       "credits_used": 40,
       "image_to_3d_request": {
@@ -1731,7 +1817,44 @@
         "target_formats": [
           "glb"
         ]
-      }
+      },
+      "glb": "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo.glb",
+      "textures": [
+        "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo_base_color.png",
+        "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo_metallic.png",
+        "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo_roughness.png",
+        "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_jade_bamboo/thumbnail.png",
+      "glb_stats": {
+        "vertices": 24573,
+        "triangles": 31401,
+        "bbox_min": [
+          -0.9508,
+          -0.1208,
+          -0.9528
+        ],
+        "bbox_max": [
+          0.9471,
+          0.1189,
+          0.9493
+        ],
+        "size": [
+          1.8978,
+          0.2396,
+          1.9021
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 8902720
+      },
+      "texture_prompt": "translucent green jade carved as bamboo stalk segments with raised nodes",
+      "finished_at": "2026-10-01T14:59:34.725377+00:00"
     },
     "ring_silver_wave": {
       "name": "ring_silver_wave",
@@ -1751,8 +1874,8 @@
       "reference_model": "flux2",
       "reference_hole_ratio": 0.753,
       "reference_ok": true,
-      "status": "retexture_running",
-      "qa_note": "reference approved (thin torus), Meshy run NOT started: awaiting owner go-ahead (~15 credits each)",
+      "status": "SUCCEEDED",
+      "qa_note": "thin torus OK (thickness/outer 0.149, hole 0.821), 30970 tris, 4 PBR maps",
       "meshy_image_to_3d_task": "01a0f7f8-0ce7-7236-91f7-30c51bfc07a2",
       "credits_used": 30,
       "image_to_3d_request": {
@@ -1812,7 +1935,44 @@
         "target_formats": [
           "glb"
         ]
-      }
+      },
+      "glb": "assets/generated/3d/ring_silver_wave/ring_silver_wave.glb",
+      "textures": [
+        "assets/generated/3d/ring_silver_wave/ring_silver_wave_base_color.png",
+        "assets/generated/3d/ring_silver_wave/ring_silver_wave_metallic.png",
+        "assets/generated/3d/ring_silver_wave/ring_silver_wave_roughness.png",
+        "assets/generated/3d/ring_silver_wave/ring_silver_wave_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_silver_wave/thumbnail.png",
+      "glb_stats": {
+        "vertices": 34395,
+        "triangles": 30970,
+        "bbox_min": [
+          -0.9386,
+          -0.0742,
+          -0.9469
+        ],
+        "bbox_max": [
+          0.9354,
+          0.0706,
+          0.9435
+        ],
+        "size": [
+          1.874,
+          0.1448,
+          1.8904
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 10304964
+      },
+      "texture_prompt": "polished sterling silver with engraved curling wave relief",
+      "finished_at": "2026-10-01T14:59:18.371569+00:00"
     }
   }
 }

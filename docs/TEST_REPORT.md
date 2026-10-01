@@ -25,6 +25,8 @@ available** (no KVM); everything below ran on the JVM. A desktop/JVM run does no
 |---|---|---|---|
 | 2026-10-01 | `glslangValidator` on all 8 GLSL ES 3.00 shaders (extracted from Shaders.kt) | ✅ | ring/shadow/prop/quad vertex+fragment |
 | 2026-10-01 | `tools/level_preview/render_gles.py` (Mesa llvmpipe, EGL surfaceless, OpenGL ES 3.2) | ✅ | the app's exact shaders + mesh layout rendered levels 25/63/128 (`docs/screenshots/3d_*.png`); found and fixed: reversed end-cap angle sequence, cap normals, washed-out tone mapping, stripe placement |
+| 2026-10-01 | Meshy ring set: `generate_rings.py` thin-torus QA (hole ≥ 30 % of outer radius, tube/outer ≤ 0.30) | ✅ 14/14 | ratios 0.07–0.24; each GLB rendered through the real `GLBRING` shaders on llvmpipe (`docs/screenshots/meshy_ring_*.png`, `3d_level_*.png`); found and fixed: albedo sampled as linear (washed-out onyx/lacquer), flat additive selection glow turning black rings olive |
+| 2026-10-01 | `pack_runtime_assets.py` GLB optimiser (textures → 1024 px JPEG) | ✅ | 14 rings 104 MB → 22 MB in the APK; GLB re-parsed by `GlbLoader` path in the headless renderer |
 | 2026-10-01 | `./gradlew :app:testDebugUnitTest` | ✅ 14/14 | + `Board3DTest`: camera project/unproject round trip, torus wire segments & mesh never enter a gap, OBJ export for software render, GLB parser on a synthetic model |
 | 2026-10-01 | `./gradlew :app:lintDebug :app:assembleDebug` | ✅ | 0 lint errors |
 | — | GPU behaviour on real devices (fill rate, GLSurfaceView translucency over Compose, 60 fps) | ⛔ not verified | needs hardware; the renderer targets ≤ 12 rings × ~2.4k vertices with one draw call per ring |

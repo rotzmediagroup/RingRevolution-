@@ -59,7 +59,6 @@ import com.shiostudios.dumplingrings.core.systems.LevelReward
 import com.shiostudios.dumplingrings.core.systems.Progression
 import com.shiostudios.dumplingrings.game.GameController
 import com.shiostudios.dumplingrings.platform.RewardResult
-import com.shiostudios.dumplingrings.ui.board.BoardCanvas
 import com.shiostudios.dumplingrings.ui.components.*
 import com.shiostudios.dumplingrings.ui.theme.DR
 import com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion
@@ -141,7 +140,7 @@ fun GameBody(container: AppContainer, activity: ComponentActivity, controller: G
     val level = controller.level
     val reduce = LocalReduceMotion.current
     var explain by remember { mutableStateOf<String?>(null) }
-    val themeMaterial = save.selectedTheme.takeIf { it != "default" }?.let { when (it) { "theme_matcha" -> "dough_matcha"; "theme_beet" -> "dough_beet"; "theme_gold" -> "dough_gold"; "theme_premium_ube" -> "dough_ube"; "theme_bronze" -> "ring_bronze"; "theme_obsidian" -> "ring_obsidian"; "theme_pearl" -> "ring_pearl"; "theme_lacquer" -> "ring_lacquer"; else -> null } }
+    val themeMaterial = save.selectedTheme.takeIf { it != "default" }?.let { when (it) { "theme_matcha" -> "dough_matcha"; "theme_beet" -> "dough_beet"; "theme_gold" -> "dough_gold"; "theme_premium_ube" -> "dough_ube"; "theme_bronze" -> "ring_bronze"; "theme_obsidian" -> "ring_obsidian"; "theme_pearl" -> "ring_pearl"; "theme_lacquer" -> "ring_lacquer"; "theme_gold_rope" -> "ring_gold_rope"; "theme_pearl_beaded" -> "ring_pearl_beaded"; "theme_jade_bamboo" -> "ring_jade_bamboo"; "theme_silver_wave" -> "ring_silver_wave"; else -> null } }
     val stuck = controller.failedReleaseTaps >= 4 || (level.parMoves > 0 && controller.moves > level.parMoves * 3 + 4)
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val landscape = maxWidth > maxHeight

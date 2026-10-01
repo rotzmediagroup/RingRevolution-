@@ -187,5 +187,9 @@
     <string name="cos_theme_obsidian">Obsidiaan-ringthema</string>
     <string name="cos_theme_pearl">Parel-ringthema</string>
     <string name="cos_theme_lacquer">Rood lak-ringthema</string>
+    <string name="cos_theme_gold_rope">Gouden touw-ringthema</string>
+    <string name="cos_theme_pearl_beaded">Parelkralen-ringthema</string>
+    <string name="cos_theme_jade_bamboo">Jade bamboe-ringthema</string>
+    <string name="cos_theme_silver_wave">Zilveren golf-ringthema</string>
     <string name="unlock_by_stars">%1$d sterren</string>
 </resources>

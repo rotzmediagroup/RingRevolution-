@@ -8,7 +8,6 @@ import com.shiostudios.dumplingrings.DumplingRingsApp
 import com.shiostudios.dumplingrings.Nav
 import com.shiostudios.dumplingrings.Screen
 import com.shiostudios.dumplingrings.game.GameController
-import com.shiostudios.dumplingrings.ui.board.BoardCanvas
 import com.shiostudios.dumplingrings.ui.screens.*
 import com.shiostudios.dumplingrings.ui.theme.DumplingRingsTheme
 import kotlinx.coroutines.MainScope

@@ -313,5 +313,41 @@
    "stars": 330
   },
   "sprite": "3d/rings/ring_lacquer_thumb"
+ },
+ {
+  "id": "theme_gold_rope",
+  "kind": "theme",
+  "nameKey": "cos_theme_gold_rope",
+  "unlock": {
+   "stars": 90
+  },
+  "sprite": "3d/rings/ring_gold_rope_thumb"
+ },
+ {
+  "id": "theme_pearl_beaded",
+  "kind": "theme",
+  "nameKey": "cos_theme_pearl_beaded",
+  "unlock": {
+   "stars": 180
+  },
+  "sprite": "3d/rings/ring_pearl_beaded_thumb"
+ },
+ {
+  "id": "theme_jade_bamboo",
+  "kind": "theme",
+  "nameKey": "cos_theme_jade_bamboo",
+  "unlock": {
+   "stars": 270
+  },
+  "sprite": "3d/rings/ring_jade_bamboo_thumb"
+ },
+ {
+  "id": "theme_silver_wave",
+  "kind": "theme",
+  "nameKey": "cos_theme_silver_wave",
+  "unlock": {
+   "stars": 360
+  },
+  "sprite": "3d/rings/ring_silver_wave_thumb"
  }
 ]

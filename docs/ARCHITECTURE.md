@@ -25,7 +25,7 @@ docs/        this documentation set
 | AudioHaptics | `app/audio/AudioManager.kt` | SFX cooldown/limiting, looping music + ambience, focus handling, haptics |
 | AssetCatalog | `app/assets/AssetCatalog.kt` | LRU bitmap cache, low-memory downsampling |
 | AdsManager / ConsentManager / PurchaseManager | `app/DumplingRingsApp.kt`, `app/platform/*.kt` | adapters + fakes; feature flags default OFF; test ids only |
-| Presentation | `app/ui/board/BoardCanvas.kt` | procedural ring renderer (exact hitboxes), input, FX |
+| Presentation | `app/ui/board3d/` | GLES 3.0 board: Meshy ring models dressed per level (`RingModel`), PBR shaders, input via unproject, FX |
 | Screens | `app/ui/screens/*.kt`, `app/MainActivity.kt` | back-stack navigation, portrait/landscape layouts, safe areas |
 
 ## Key design rules
@@ -37,16 +37,20 @@ docs/        this documentation set
 
 ## iOS path
 `core` has no Android imports. Convert it to a Kotlin Multiplatform module (`commonMain`), expose `RuleEngine`,
-`GameSession`, `Solver`, `HintEngine`, `Systems` to Swift, and re-implement `BoardCanvas` (≈600 lines) in SwiftUI/Metal
+`GameSession`, `Solver`, `HintEngine`, `Systems` to Swift, and re-implement `Board3DRenderer` (GLES → Metal; same GLB rings, `RingModel` tube-space layout and shader logic)
 plus the screens. Content JSON, audio and art are shared as-is.
 
 ## 3D board renderer (v1.1)
-`app/ui/board3d/`: `BoardCamera` (shared perspective camera, project/unproject for overlay + touch), `TorusMesh` (procedural
-torus-arc meshes with domed ends, one per ring, built from the exact gap geometry), `Shaders` (GLSL ES 3.00: vertex-shader
-rotation + woven height profile at crossing angles, PBR-lite fragment lighting with key/fill/rim, GGX specular, Fresnel,
-hemisphere ambient, colour-gate stripe), `Board3DRenderer` (GLSurfaceView renderer: glow discs, projected soft shadows,
-rings, Meshy GLB props or procedural fallbacks, dumpling pop), `GlbLoader` (minimal GLB reader), `Board3D` (Compose host +
-touch via the camera), `BoardOverlay` (2D decorations/FX at projected positions). `app/ui/fx/Particles.kt` adds the living
-background (Ken-Burns drift, breathing light pool, world particles, vignette). The old Canvas renderer (`ui/board/BoardCanvas.kt`)
-is kept as a reference implementation. Headless verification: `tools/level_preview/render_gles.py` runs the exact shaders on
+`app/ui/board3d/`: `BoardCamera` (shared perspective camera, project/unproject for overlay + touch), `GlbLoader` (minimal GLB
+reader incl. PBR textures), `RingModel` (normalises any Meshy torus into tube space: angle, radial/height offset in tube radii,
+UV, local normal — so one model dresses every level ring), `TorusMesh` (procedural arcs used only for the projected shadow and the
+domed end caps that close the cut ring), `Shaders` (GLSL ES 3.00: `GLBRING` vertex-shader rebuild for the level's radius,
+thickness, rotation and woven height profile; in-shader gap cut; PBR metallic-roughness with normal map, studio environment
+reflection, key/fill/rim lights, rim-light selection glow, colour-gate stripe), `Board3DRenderer` (GLSurfaceView renderer: glow
+discs, projected soft shadows, Meshy rings only — a missing asset falls back to the silver Meshy ring — procedural capsule
+obstacles, dumpling pop), `Board3D` (Compose host + touch via the camera), `BoardOverlay` (2D decorations/FX at projected
+positions). `app/ui/fx/Particles.kt` adds the living background (Ken-Burns drift, breathing light pool, world particles,
+vignette). Rings are produced by `tools/asset_generate/generate_rings.py` (reference image → Meshy image-to-3D → Meshy PBR
+retexture → download) and packed with 1024 px textures by `pack_runtime_assets.py`. Headless verification:
+`tools/level_preview/render_gles.py` runs the exact shaders on
 Mesa (EGL surfaceless) and `glslangValidator` checks every shader.
