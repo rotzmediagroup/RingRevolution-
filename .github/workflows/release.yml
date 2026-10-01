@@ -5,8 +5,20 @@ name: release
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to create/publish (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+      verify:
+        description: 'Run the full verification (tests + 150-level validation) before building'
+        type: boolean
+        default: true
 permissions:
   contents: write
+env:
+  REL_TAG: ${{ github.event.inputs.tag || github.ref_name }}
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -16,7 +28,14 @@ jobs:
         with: { distribution: temurin, java-version: '21' }
       - uses: android-actions/setup-android@v3
       - run: pip install pillow numpy
+      - name: Create tag (manual dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --tags origin "refs/tags/$REL_TAG" | grep -q "$REL_TAG"; then echo "tag exists"; else git tag -a "$REL_TAG" -m "Dumpling Rings $REL_TAG" && git push origin "$REL_TAG"; fi
       - name: Verify
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.verify == 'true'
         run: |
           ./gradlew :core:test
           ./gradlew :tools:levels:installDist && tools/levels/build/install/levels/bin/levels validate
@@ -37,14 +56,15 @@ jobs:
         run: |
           ./gradlew :app:assembleDebug :app:assembleRelease :app:bundleRelease
           mkdir -p dist
-          cp app/build/outputs/apk/debug/app-debug.apk "dist/DumplingRings-${GITHUB_REF_NAME}-debug.apk"
-          cp app/build/outputs/apk/release/app-release*.apk "dist/DumplingRings-${GITHUB_REF_NAME}-release.apk"
-          cp app/build/outputs/bundle/release/app-release.aab "dist/DumplingRings-${GITHUB_REF_NAME}-release.aab"
-          cp content/qa/validation_report.md "dist/level-validation-${GITHUB_REF_NAME}.md"
+          cp app/build/outputs/apk/debug/app-debug.apk "dist/DumplingRings-${REL_TAG}-debug.apk"
+          cp app/build/outputs/apk/release/app-release*.apk "dist/DumplingRings-${REL_TAG}-release.apk"
+          cp app/build/outputs/bundle/release/app-release.aab "dist/DumplingRings-${REL_TAG}-release.aab"
+          cp content/qa/validation_report.md "dist/level-validation-${REL_TAG}.md"
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          name: "Dumpling Rings ${{ github.ref_name }}"
+          tag_name: ${{ env.REL_TAG }}
+          name: "Dumpling Rings ${{ env.REL_TAG }}"
           body_path: docs/RELEASE_NOTES.md
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          prerelease: ${{ contains(env.REL_TAG, '-') }}
           files: dist/*
