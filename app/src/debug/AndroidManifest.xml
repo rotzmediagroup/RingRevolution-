@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- host activity for JVM screenshot tests (debug builds only) -->
+        <activity android:name="androidx.activity.ComponentActivity" android:exported="false" android:theme="@style/Theme.DumplingRings" />
+    </application>
+</manifest>

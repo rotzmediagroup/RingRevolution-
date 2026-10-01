@@ -207,9 +207,9 @@
   "sprite": "sheet06/black_cat_idle"
  },
  {
-  "id": "char_fox",
+  "id": "char_white_fox",
   "kind": "character",
-  "nameKey": "char_fox",
+  "nameKey": "char_white_fox",
   "unlock": {
    "chapter": 8
   },
@@ -225,9 +225,9 @@
   "sprite": "sheet06/red_dragon_idle"
  },
  {
-  "id": "char_golden_bao",
+  "id": "char_golden_dumpling",
   "kind": "character",
-  "nameKey": "char_golden_bao",
+  "nameKey": "char_golden_dumpling",
   "unlock": {
    "chapter": 10
   },

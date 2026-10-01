@@ -47,6 +47,22 @@ import kotlin.math.min
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+/** Maps level coordinates (unit board) to the drawn board so the ring cluster fills it: x' = 0.5 + (x - cx) * k. */
+class BoardFit(val cx: Double, val cy: Double, val k: Float) {
+    fun px(x: Double, S: Float, ox: Float) = ox + (0.5f + (x - cx).toFloat() * k) * S
+    fun py(y: Double, S: Float, oy: Float) = oy + (1f - (0.5f + (y - cy).toFloat() * k)) * S
+    companion object {
+        fun of(level: com.shiostudios.dumplingrings.core.model.LevelDefinition): BoardFit {
+            var x0 = 1.0; var y0 = 1.0; var x1 = 0.0; var y1 = 0.0
+            for (r in level.rings) { val e = r.radius + r.thickness; x0 = minOf(x0, r.center[0] - e); x1 = maxOf(x1, r.center[0] + e); y0 = minOf(y0, r.center[1] - e); y1 = maxOf(y1, r.center[1] + e) }
+            for (o in level.obstacles) for (pt in listOf(o.from, o.to, o.center)) if (pt.size == 2) { x0 = minOf(x0, pt[0] - 0.03); x1 = maxOf(x1, pt[0] + 0.03); y0 = minOf(y0, pt[1] - 0.03); y1 = maxOf(y1, pt[1] + 0.03) }
+            val w = maxOf(x1 - x0, y1 - y0, 0.2)
+            val k = (0.92 / w).coerceIn(1.0, 1.8).toFloat()
+            return BoardFit((x0 + x1) / 2, (y0 + y1) / 2, k)
+        }
+    }
+}
+
 /** One crossing between two rings with the over/under decision resolved. */
 private class CrossInfo(val a: Int, val b: Int, val x: Double, val y: Double, val angleOnA: Double, val angleOnB: Double, val aOver: Boolean)
 
@@ -79,6 +95,8 @@ fun BoardCanvas(
         }
         out
     }
+    // auto-fit: map the level's bounding square onto the board so small clusters use the available space
+    val fit = remember(level.id) { BoardFit.of(level) }
     val materials = remember(level.id, themeMaterial) {
         level.rings.map { r -> assets.image(AssetCatalog.materialPath(themeMaterial ?: r.materialId)) }
     }
@@ -91,7 +109,7 @@ fun BoardCanvas(
             "petal" to (1..6).mapNotNull { assets.sprite("sheet03/petal_f0$it") },
         )
     }
-    var now by mutableLongStateOf(System.currentTimeMillis())
+    var now by remember { mutableLongStateOf(System.currentTimeMillis()) }
     LaunchedEffect(Unit) { while (true) { withFrameNanos { now = System.currentTimeMillis() }; controller.pruneAnimations(now) } }
     val touchSlop = with(density) { 22.dp.toPx() }
     val minHit = with(density) { 24.dp.toPx() }
@@ -109,10 +127,10 @@ fun BoardCanvas(
                         val S = min(size.width, size.height).toFloat()
                         val ox = (size.width - S) / 2f; val oy = (size.height - S) / 2f
                         val p = down.position
-                        val hit = hitRing(controller, p, S, ox, oy, minHit)
+                        val hit = hitRing(controller, p, S, ox, oy, minHit, fit)
                         if (hit == null) { onTapEmpty(); controller.select(null); continue }
                         val r = level.rings[hit]
-                        val cx = ox + r.center[0].toFloat() * S; val cy = oy + (1 - r.center[1].toFloat()) * S
+                        val cx = fit.px(r.center[0], S, ox); val cy = fit.py(r.center[1], S, oy)
                         var lastAngle = Math.toDegrees(atan2((cy - p.y).toDouble(), (p.x - cx).toDouble())).toFloat()
                         var total = 0f
                         var moved = false
@@ -136,14 +154,15 @@ fun BoardCanvas(
             },
     ) {
         controller.revision // read for invalidation
-        val S = min(size.width, size.height)
-        val ox = (size.width - S) / 2f; val oy = (size.height - S) / 2f
-        fun px(x: Double) = ox + x.toFloat() * S
-        fun py(y: Double) = oy + (1 - y.toFloat()) * S
+        val S0 = min(size.width, size.height)
+        val ox = (size.width - S0) / 2f; val oy = (size.height - S0) / 2f
+        fun px(x: Double) = fit.px(x, S0, ox)
+        fun py(y: Double) = fit.py(y, S0, oy)
+        val S = S0 * fit.k   // geometry scale (radii, thicknesses)
         val state = controller.state
         val angles = FloatArray(engine.n) { controller.visualAngleFor(it, now) }
 
-        if (!reduceMotion && petals.count > 0) petals.draw(this, now, S, ox, oy, sprites["petal"].orEmpty())
+        if (!reduceMotion && petals.count > 0) petals.draw(this, now, S0, ox, oy, sprites["petal"].orEmpty())
 
         drawIntoCanvas { canvas ->
             val c = canvas.nativeCanvas
@@ -208,7 +227,7 @@ fun BoardCanvas(
                 val drv = engine.obstacleDriver[oi]
                 if (drv >= 0 && controller.isRemoved(drv)) continue
                 val driverAngle = if (drv >= 0) angles[drv] else 0f
-                drawObstacle(c, o, driverAngle, S, ox, oy, paints, assets, highContrast)
+                drawObstacle(c, o, driverAngle, S, fit, S0, ox, oy, paints, assets, highContrast)
             }
             // ---- decorations: locks, link indicators, arc ranges, colour badges
             for (i in order) {
@@ -265,13 +284,14 @@ fun BoardCanvas(
 
 // ---------------------------------------------------------------- hit testing
 
-private fun hitRing(controller: GameController, p: Offset, S: Float, ox: Float, oy: Float, minHit: Float): Int? {
+private fun hitRing(controller: GameController, p: Offset, S0: Float, ox: Float, oy: Float, minHit: Float, fit: BoardFit): Int? {
     val level = controller.level
+    val S = S0 * fit.k
     var best: Int? = null; var bestD = Float.MAX_VALUE
     for (i in level.rings.indices) {
         if (controller.isRemoved(i)) continue
         val r = level.rings[i]
-        val cx = ox + r.center[0].toFloat() * S; val cy = oy + (1 - r.center[1].toFloat()) * S
+        val cx = fit.px(r.center[0], S0, ox); val cy = fit.py(r.center[1], S0, oy)
         val d = hypot(p.x - cx, p.y - cy)
         val band = abs(d - r.radius.toFloat() * S)
         val tol = maxOf(r.thickness.toFloat() * S * 0.75f, minHit)
@@ -292,7 +312,9 @@ private fun hitRing(controller: GameController, p: Offset, S: Float, ox: Float, 
 private class Paints {
     val shadow = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; color = 0x33000000; strokeCap = Paint.Cap.ROUND }
     val contactShadow = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; color = 0x55000000; strokeCap = Paint.Cap.BUTT }
-    val glow = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND; maskFilter = android.graphics.BlurMaskFilter(18f, android.graphics.BlurMaskFilter.Blur.NORMAL) }
+    val glow = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND; if (android.os.Build.VERSION.SDK_INT >= 28) maskFilter = android.graphics.BlurMaskFilter(18f, android.graphics.BlurMaskFilter.Blur.NORMAL) }
+    val shaders = HashMap<ImageBitmap, BitmapShader>()
+    val dashOk = android.os.Build.VERSION.SDK_INT >= 28
     val material = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND }
     val edgeDark = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND }
     val edgeLight = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND }
@@ -360,7 +382,7 @@ private fun materialArc(c: android.graphics.Canvas, cx: Float, cy: Float, rad: F
     p.edgeDark.strokeCap = p.material.strokeCap; p.edgeLight.strokeCap = p.material.strokeCap
     if (mat != null) {
         val bmp = mat.asAndroidBitmap()
-        val shader = BitmapShader(bmp, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR)
+        val shader = p.shaders.getOrPut(mat) { BitmapShader(bmp, Shader.TileMode.MIRROR, Shader.TileMode.MIRROR) }
         p.matrix.reset(); val sc = (t * 3.2f) / bmp.width; p.matrix.setScale(sc, sc); p.matrix.postTranslate(cx, cy)
         shader.setLocalMatrix(p.matrix)
         p.material.shader = shader; p.material.color = 0xFFFFFFFF.toInt()
@@ -401,9 +423,9 @@ private fun drawRing(c: android.graphics.Canvas, r: RingDef, angle: Float, cx: F
     if (locked) { p.fill.color = 0x66000000; p.fill.alpha = (90 * alpha).toInt(); for ((a, b) in wireSegments(r, angle)) arcStroke(c, cx, cy, rad, a, b, t, p.fill.apply { style = Paint.Style.STROKE; strokeWidth = t }); p.fill.style = Paint.Style.FILL }
 }
 
-private fun drawObstacle(c: android.graphics.Canvas, o: com.shiostudios.dumplingrings.core.model.ObstacleDef, driverAngle: Float, S: Float, ox: Float, oy: Float, p: Paints, assets: AssetCatalog, highContrast: Boolean) {
-    fun px(x: Double) = ox + x.toFloat() * S
-    fun py(y: Double) = oy + (1 - y.toFloat()) * S
+private fun drawObstacle(c: android.graphics.Canvas, o: com.shiostudios.dumplingrings.core.model.ObstacleDef, driverAngle: Float, S: Float, fit: BoardFit, S0: Float, ox: Float, oy: Float, p: Paints, assets: AssetCatalog, highContrast: Boolean) {
+    fun px(x: Double) = fit.px(x, S0, ox)
+    fun py(y: Double) = fit.py(y, S0, oy)
     val rot = Math.toRadians(o.baseAngleDeg + driverAngle.toDouble())
     fun rp(pt: List<Double>): Pair<Float, Float> {
         val x = pt[0] - o.center[0]; val y = pt[1] - o.center[1]
@@ -442,7 +464,7 @@ private fun drawObstacle(c: android.graphics.Canvas, o: com.shiostudios.dumpling
 private fun drawArcRange(c: android.graphics.Canvas, cx: Float, cy: Float, rad: Float, minDeg: Float, maxDeg: Float, angle: Float, t: Float, p: Paints) {
     val span = ((maxDeg - minDeg) % 360 + 360) % 360
     p.arcRange.strokeWidth = t * 0.22f
-    p.arcRange.pathEffect = DashPathEffect(floatArrayOf(t * 0.5f, t * 0.45f), 0f)
+    p.arcRange.pathEffect = if (p.dashOk) DashPathEffect(floatArrayOf(t * 0.5f, t * 0.45f), 0f) else null
     c.drawArc(RectF(cx - rad, cy - rad, cx + rad, cy + rad), -(minDeg + span), span, false, p.arcRange)
     p.arcRange.pathEffect = null
     // marker: the ring's local 0° (its reference) must stay inside the dashed range
@@ -460,7 +482,7 @@ private fun drawLock(c: android.graphics.Canvas, cx: Float, cy: Float, t: Float,
 
 private fun drawLink(c: android.graphics.Canvas, x0: Float, y0: Float, x1: Float, y1: Float, hinge: Boolean, t: Float, p: Paints) {
     p.link.strokeWidth = t * 0.22f
-    p.link.pathEffect = DashPathEffect(floatArrayOf(t * 0.35f, t * 0.35f), 0f)
+    p.link.pathEffect = if (p.dashOk) DashPathEffect(floatArrayOf(t * 0.35f, t * 0.35f), 0f) else null
     c.drawLine(x0, y0, x1, y1, p.link)
     p.link.pathEffect = null
     val mx = (x0 + x1) / 2; val my = (y0 + y1) / 2

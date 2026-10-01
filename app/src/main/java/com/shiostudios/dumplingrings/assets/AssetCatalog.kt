@@ -29,6 +29,7 @@ class AssetCatalog(private val context: Context, private val lowMemory: Boolean)
     }
 
     fun sprite(id: String): ImageBitmap? = image("sprites/$id.webp")
+    fun cached(path: String): ImageBitmap? = cache.get(path)
 
     private fun decode(path: String, allowDownsample: Boolean): Bitmap? = try {
         context.assets.open(path).use { s ->

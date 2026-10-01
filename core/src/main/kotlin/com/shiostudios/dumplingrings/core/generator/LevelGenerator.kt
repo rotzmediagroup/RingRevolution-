@@ -74,7 +74,7 @@ class LevelGenerator(private val maxAttempts: Int = 400, private val solverBudge
         12 -> Recipe(pegs = 0..1, doubleGaps = 2 + (k - 1) / 3, stacked = 1, gapWidth = 40..55, tags = listOf("overlap", "double_gap", "nested"))
         13 -> Recipe(pegs = 0..1, hinges = 1 + (k - 1) / 5, gapWidth = 50..70, tags = listOf("overlap", "hinge_link"))
         14 -> Recipe(pegs = 0..1, locks = 1, colours = 2, gates = 1, arcs = 1, chains = (k % 2), hinges = ((k + 1) % 2), doubleGaps = 1, rotors = (k - 1) / 5, gapWidth = 45..65, tags = listOf("overlap", "locked_order", "colour_gate", "restricted_arc", "rotation_chain", "hinge_link", "double_gap", "rotating_obstacle"))
-        else -> Recipe(pegs = 0..1, locks = 1, stacked = 1, colours = 2, gates = 1, arcs = 1, chains = 1, hinges = 1, doubleGaps = 1 + (k - 1) / 5, rotors = 1, gapWidth = 45..60, tags = listOf("overlap", "locked_order", "nested", "colour_gate", "restricted_arc", "rotation_chain", "hinge_link", "double_gap", "rotating_obstacle", "finale"))
+        else -> Recipe(pegs = 0..1, locks = 1, stacked = 1, colours = 2, gates = 1, arcs = 0, chains = k % 2, hinges = (k + 1) % 2, doubleGaps = 1 + (k - 1) / 5, rotors = (k - 1) / 5, gapWidth = 50..65, tags = listOf("overlap", "locked_order", "nested", "colour_gate", "rotation_chain", "hinge_link", "double_gap", "rotating_obstacle", "finale"))
     }
 
     private val materials = listOf("dough_sesame", "dough_matcha", "dough_beet", "dough_ube", "dough_gold", "dough_bamboo")

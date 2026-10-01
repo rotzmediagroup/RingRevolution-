@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 2,
+  "id": "L138",
+  "index": 138,
+  "worldId": "moonlit_mountain_kitchen",
+  "chapter": 14,
+  "chapterLevel": 8,
+  "seed": 13800176,
+  "name": "Sterrenkeuken 8",
+  "mechanicTags": [
+    "overlap",
+    "locked_order",
+    "colour_gate",
+    "restricted_arc",
+    "rotation_chain",
+    "hinge_link",
+    "double_gap",
+    "rotating_obstacle"
+  ],
+  "rings": [
+    {
+      "id": "r1",
+      "center": [
+        0.6164580405427692,
+        0.5007866341780951
+      ],
+      "radius": 0.09741614440270543,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 60.0
+        }
+      ],
+      "initialAngleDeg": 150,
+      "stepDeg": 30,
+      "exitAngleDeg": 0,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_sesame",
+      "colorId": "jade"
+    },
+    {
+      "id": "r2",
+      "center": [
+        0.5091472086931046,
+        0.40904753002215
+      ],
+      "radius": 0.11300841948236576,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 50.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 276,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": "red"
+    },
+    {
+      "id": "r3",
+      "center": [
+        0.6256869340248393,
+        0.36702938038952115
+      ],
+      "radius": 0.1097846493105859,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 57.0
+        }
+      ],
+      "initialAngleDeg": 180,
+      "stepDeg": 30,
+      "exitAngleDeg": 314,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": "jade"
+    },
+    {
+      "id": "r4",
+      "center": [
+        0.6523559759292937,
+        0.6400749268622323
+      ],
+      "radius": 0.09463316030063318,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 51.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 42,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": "red"
+    },
+    {
+      "id": "r5",
+      "center": [
+        0.35089511405328966,
+        0.39689169287076564
+      ],
+      "radius": 0.09330105598340145,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 61.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 215,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": "red"
+    },
+    {
+      "id": "r6",
+      "center": [
+        0.24430681409038693,
+        0.3916496324960364
+      ],
+      "radius": 0.08463326112779235,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 44.800000000000004
+        },
+        {
+          "startDeg": 180.0,
+          "widthDeg": 44.800000000000004
+        }
+      ],
+      "initialAngleDeg": 30,
+      "stepDeg": 30,
+      "exitAngleDeg": 203,
+      "arc": {
+        "minDeg": 330,
+        "maxDeg": 90
+      },
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_bamboo",
+      "colorId": "jade"
+    },
+    {
+      "id": "r7",
+      "center": [
+        0.5830233548640682,
+        0.7975338456198455
+      ],
+      "radius": 0.12185943369889421,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 47.0
+        }
+      ],
+      "initialAngleDeg": 330,
+      "stepDeg": 30,
+      "exitAngleDeg": 74,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": "g1",
+      "linkRatio": -1,
+      "materialId": "dough_sesame",
+      "colorId": "jade"
+    },
+    {
+      "id": "r8",
+      "center": [
+        0.4613370159782379,
+        0.8284231662912028
+      ],
+      "radius": 0.08757792742447593,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 57.0
+        }
+      ],
+      "initialAngleDeg": 300,
+      "stepDeg": 30,
+      "exitAngleDeg": 96,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": "g1",
+      "linkRatio": 1,
+      "materialId": "dough_matcha",
+      "colorId": "jade"
+    },
+    {
+      "id": "r9",
+      "center": [
+        0.21798689924649817,
+        0.3132845284656595
+      ],
+      "radius": 0.11193840792915434,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 57.0
+        }
+      ],
+      "initialAngleDeg": 240,
+      "stepDeg": 30,
+      "exitAngleDeg": 214,
+      "arc": null,
+      "lockedBy": [
+        "r7"
+      ],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_beet",
+      "colorId": "red"
+    },
+    {
+      "id": "r10",
+      "center": [
+        0.19767177741930658,
+        0.4621152083564443
+      ],
+      "radius": 0.11832033765466139,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 47.0
+        }
+      ],
+      "initialAngleDeg": 270,
+      "stepDeg": 30,
+      "exitAngleDeg": 188,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_ube",
+      "colorId": "jade"
+    },
+    {
+      "id": "r11",
+      "center": [
+        0.4078855014300664,
+        0.7623384376448251
+      ],
+      "radius": 0.10777752654391781,
+      "thickness": 0.034,
+      "gaps": [
+        {
+          "startDeg": 0.0,
+          "widthDeg": 61.0
+        }
+      ],
+      "initialAngleDeg": 330,
+      "stepDeg": 30,
+      "exitAngleDeg": 109,
+      "arc": null,
+      "lockedBy": [],
+      "linkGroup": null,
+      "linkRatio": 1,
+      "materialId": "dough_gold",
+      "colorId": "jade"
+    }
+  ],
+  "obstacles": [
+    {
+      "id": "o1",
+      "shape": "segment",
+      "center": [
+        0.43806092439399325,
+        0.9152907226852302
+      ],
+      "radius": 0.0,
+      "startDeg": 0.0,
+      "widthDeg": 0.0,
+      "from": [
+        0.44742597907521897,
+        0.880339862799235
+      ],
+      "to": [
+        0.4286958697127676,
+        0.9502415825712253
+      ],
+      "thickness": 0.028,
+      "colorId": "red",
+      "linkedRingId": null,
+      "baseAngleDeg": 0,
+      "visualId": "lantern_gate"
+    }
+  ],
+  "weaves": [
+    {
+      "a": "r1",
+      "b": "r2",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r1",
+      "b": "r3",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r1",
+      "b": "r4",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r2",
+      "b": "r3",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r2",
+      "b": "r5",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r4",
+      "b": "r7",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r5",
+      "b": "r6",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r5",
+      "b": "r9",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r5",
+      "b": "r10",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r6",
+      "b": "r9",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r6",
+      "b": "r10",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r7",
+      "b": "r8",
+      "pattern": "alt1"
+    },
+    {
+      "a": "r7",
+      "b": "r11",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r8",
+      "b": "r11",
+      "pattern": "alt2"
+    },
+    {
+      "a": "r9",
+      "b": "r10",
+      "pattern": "alt2"
+    }
+  ],
+  "winCondition": "remove_all_rings",
+  "parMoves": 13,
+  "goodMoves": 19,
+  "difficulty": 9,
+  "reward": {
+    "coins": 77,
+    "boosters": {}
+  },
+  "tutorialCueId": null,
+  "isChefLevel": false,
+  "canonicalSolution": [
+    "r1:180",
+    "r7:240",
+    "r1:0",
+    "r1:120",
+    "r2:180",
+    "r10:300",
+    "r7:180",
+    "r11:30",
+    "r11:90",
+    "r11:30",
+    "r5:180",
+    "r9:330",
+    "r9:90"
+  ],
+  "topologyHash": "b4bd96143ac517f4"
+}

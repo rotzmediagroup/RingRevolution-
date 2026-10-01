@@ -58,7 +58,6 @@ import com.shiostudios.dumplingrings.ui.components.*
 import com.shiostudios.dumplingrings.ui.theme.DR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 
 // ---------------------------------------------------------------- daily puzzle (offline, deterministic)
 
@@ -82,7 +81,7 @@ suspend fun buildDailyLevel(container: AppContainer, dayId: String, highestCompl
 @Composable
 fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
     val save by container.save.state.collectAsState()
-    val dayId = remember { LocalDate.now().toString() }
+    val dayId = remember { dayId() }
     val record = save.dailyHistory.firstOrNull { it.dayId == dayId }
     val scope = rememberCoroutineScope()
     var level by remember { mutableStateOf<LevelDefinition?>(null) }
@@ -233,7 +232,7 @@ fun PremiumScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
     val unavailable = stringResource(R.string.store_unavailable)
     Box(Modifier.fillMaxSize().background(DR.Indigo)) {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
-            ScreenHeader(stringResource(R.string.premium_title), { nav.pop() })
+            ScreenHeader(stringResource(R.string.premium_title), { nav.pop() }, titleColor = DR.Cream)
             Column(Modifier.fillMaxWidth().padding(20.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
                 WoodPanel(Modifier.widthIn(max = 480.dp)) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {

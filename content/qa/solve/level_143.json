@@ -1,0 +1,26 @@
+{
+  "levelId": "L143",
+  "solvable": true,
+  "optimalMoves": 12,
+  "optimalProven": false,
+  "statesExplored": 60032,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 431,
+  "solution": [
+    "r7:150",
+    "r9:270",
+    "r9:210",
+    "r9:150",
+    "r6:300",
+    "r3:60",
+    "r5:150",
+    "r5:180",
+    "r1:90",
+    "r2:210",
+    "r2:180",
+    "r5:0"
+  ],
+  "topologyHash": "942693c4196ce209",
+  "notes": []
+}

@@ -1,0 +1,23 @@
+{
+  "levelId": "L141",
+  "solvable": true,
+  "optimalMoves": 9,
+  "optimalProven": false,
+  "statesExplored": 60616,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 109,
+  "solution": [
+    "r2:300",
+    "r4:90",
+    "r7:90",
+    "r4:150",
+    "r6:300",
+    "r7:150",
+    "r4:180",
+    "r4:300",
+    "r6:240"
+  ],
+  "topologyHash": "31632c46397899ae",
+  "notes": []
+}

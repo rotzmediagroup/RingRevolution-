@@ -1,0 +1,30 @@
+{
+  "levelId": "L148",
+  "solvable": true,
+  "optimalMoves": 16,
+  "optimalProven": false,
+  "statesExplored": 60030,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 510,
+  "solution": [
+    "r5:150",
+    "r1:120",
+    "r7:0",
+    "r1:150",
+    "r10:330",
+    "r6:330",
+    "r8:240",
+    "r2:330",
+    "r6:60",
+    "r6:300",
+    "r1:60",
+    "r6:0",
+    "r1:90",
+    "r4:300",
+    "r1:240",
+    "r3:90"
+  ],
+  "topologyHash": "92efdf643da816f4",
+  "notes": []
+}

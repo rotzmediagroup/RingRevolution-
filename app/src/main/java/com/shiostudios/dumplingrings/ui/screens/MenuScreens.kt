@@ -142,9 +142,10 @@ fun SettingsScreen(container: AppContainer, nav: Nav, activity: ComponentActivit
                         WoodButton(stringResource(label), { set { it.copy(effectQuality = id) } }, Modifier.weight(1f), color = if (s.effectQuality == id) DR.SakuraDeep else DR.Wood, minHeight = 44.dp)
                 }
                 Text(stringResource(R.string.language), style = MaterialTheme.typography.titleMedium, color = DR.Ink, modifier = Modifier.padding(top = 6.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    for ((id, label) in listOf("system" to stringResource(R.string.lang_system), "en" to "English", "nl" to "Nederlands", "de" to "Deutsch"))
-                        WoodButton(label, { set { it.copy(language = id) }; applyLanguage(id) }, Modifier.weight(1f), color = if (s.language == id) DR.SakuraDeep else DR.Wood, minHeight = 44.dp, style = MaterialTheme.typography.labelMedium)
+                val langs = listOf("system" to stringResource(R.string.lang_system), "en" to "English", "nl" to "Nederlands", "de" to "Deutsch")
+                for (row in langs.chunked(2)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    for ((id, label) in row)
+                        WoodButton(label, { set { it.copy(language = id) }; applyLanguage(id) }, Modifier.weight(1f), color = if (s.language == id) DR.SakuraDeep else DR.Wood, minHeight = 44.dp)
                 }
                 Divider(Modifier.padding(vertical = 6.dp))
                 WoodButton(stringResource(R.string.privacy), { nav.push(Screen.Privacy) }, Modifier.fillMaxWidth(), color = DR.Indigo)
@@ -236,11 +237,18 @@ private fun StatRow(label: String, value: String) {
     }
 }
 
+/** Local calendar day id (yyyy-MM-dd) without java.time (minSdk 24). */
+fun dayId(offsetDays: Int = 0): String {
+    val cal = java.util.Calendar.getInstance()
+    cal.add(java.util.Calendar.DAY_OF_YEAR, offsetDays)
+    return "%04d-%02d-%02d".format(cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH))
+}
+
 fun dailyStreak(save: com.shiostudios.dumplingrings.core.systems.SaveData): Int {
     val done = save.dailyHistory.filter { it.completed }.map { it.dayId }.toSet()
     var streak = 0
-    var day = java.time.LocalDate.now()
-    if (day.toString() !in done) day = day.minusDays(1)
-    while (day.toString() in done) { streak++; day = day.minusDays(1) }
+    var offset = 0
+    if (dayId(0) !in done) offset = -1
+    while (dayId(offset) in done && streak < 400) { streak++; offset-- }
     return streak
 }

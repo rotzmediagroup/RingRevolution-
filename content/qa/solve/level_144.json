@@ -1,0 +1,27 @@
+{
+  "levelId": "L144",
+  "solvable": true,
+  "optimalMoves": 13,
+  "optimalProven": false,
+  "statesExplored": 60016,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 184,
+  "solution": [
+    "r2:30",
+    "r4:120",
+    "r8:0",
+    "r2:150",
+    "r10:30",
+    "r10:270",
+    "r2:30",
+    "r1:270",
+    "r6:240",
+    "r3:300",
+    "r3:0",
+    "r6:0",
+    "r6:300"
+  ],
+  "topologyHash": "63345c077a8a8efc",
+  "notes": []
+}

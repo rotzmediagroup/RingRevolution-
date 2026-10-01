@@ -394,8 +394,8 @@
     }
   ],
   "winCondition": "remove_all_rings",
-  "parMoves": 15,
-  "goodMoves": 22,
+  "parMoves": 14,
+  "goodMoves": 21,
   "difficulty": 8,
   "reward": {
     "coins": 93,
@@ -419,7 +419,6 @@
     "r3:150",
     "r1:30",
     "r2:120",
-    "r7:300",
     "r4:90",
     "r7:180"
   ],

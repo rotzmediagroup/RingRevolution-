@@ -1,0 +1,27 @@
+{
+  "levelId": "L147",
+  "solvable": true,
+  "optimalMoves": 13,
+  "optimalProven": false,
+  "statesExplored": 60093,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 1222,
+  "solution": [
+    "r2:30",
+    "r2:60",
+    "r4:90",
+    "r5:300",
+    "r3:150",
+    "r3:120",
+    "r2:30",
+    "r2:120",
+    "r8:270",
+    "r2:300",
+    "r1:180",
+    "r1:120",
+    "r6:270"
+  ],
+  "topologyHash": "47492f417ee5be5a",
+  "notes": []
+}

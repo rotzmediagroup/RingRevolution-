@@ -244,8 +244,8 @@
     }
   ],
   "winCondition": "remove_all_rings",
-  "parMoves": 6,
-  "goodMoves": 9,
+  "parMoves": 5,
+  "goodMoves": 7,
   "difficulty": 6,
   "reward": {
     "coins": 62,
@@ -254,12 +254,11 @@
   "tutorialCueId": null,
   "isChefLevel": false,
   "canonicalSolution": [
-    "r1:270",
-    "r5:120",
-    "r1:150",
     "r3:150",
-    "r6:240",
-    "r2:240"
+    "r4:180",
+    "r5:120",
+    "r5:0",
+    "r6:240"
   ],
   "topologyHash": "86d3656e29c2ee0"
 }

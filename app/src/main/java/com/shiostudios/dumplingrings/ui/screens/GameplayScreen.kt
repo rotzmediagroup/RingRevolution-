@@ -100,7 +100,7 @@ fun GameplayScreen(container: AppContainer, nav: Nav, activity: ComponentActivit
                 val ch = chapter
                 container.save.update { s ->
                     val inv = s.inventory.toMutableMap(); ch.rewardBoosters.forEach { (k, v) -> inv[k] = (inv[k] ?: 0) + v }
-                    val cos = (s.unlockedCosmetics + ch.rewardCosmetic + ("char_" + ch.rewardCharacter.substringAfter('/'))).distinct()
+                    val cos = (s.unlockedCosmetics + ch.rewardCosmetic + characterCosmeticId(container, ch.rewardCharacter)).distinct()
                     s.copy(coins = s.coins + ch.rewardCoins, inventory = inv, unlockedCosmetics = cos)
                 }
             }
@@ -195,7 +195,7 @@ private fun TopBar(container: AppContainer, controller: GameController, title: S
     Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         RoundIconButton(contentDescription = stringResource(R.string.pause), onClick = onPause) { Glyph("pause", Modifier.size(24.dp)) }
         Spacer(Modifier.width(10.dp))
-        Column(Modifier.weight(1f)) {
+        Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).background(DR.WoodDeep.copy(alpha = 0.55f)).padding(horizontal = 12.dp, vertical = 4.dp)) {
             Text(title + (if (level.isChefLevel) " ★" else ""), style = MaterialTheme.typography.titleLarge, color = DR.Cream)
             val par = if (level.parMoves > 0) "${stringResource(R.string.moves)} ${controller.moves} · ${stringResource(R.string.par)} ${level.parMoves}" else "${stringResource(R.string.moves)} ${controller.moves}"
             Text(par, style = MaterialTheme.typography.labelMedium, color = DR.Cream.copy(alpha = 0.9f))

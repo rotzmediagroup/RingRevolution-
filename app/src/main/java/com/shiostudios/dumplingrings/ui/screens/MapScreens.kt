@@ -157,7 +157,7 @@ fun ChapterScreen(container: AppContainer, nav: Nav, chapter: Int) {
     val world = container.content.world(ch.world)
     SceneBackground(world.map, dim = 0.3f) {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
-            ScreenHeader(stringResource(R.string.chapter_n, chapter) + " · " + chapterName(ch), { nav.pop() }) { CoinPill(save.coins) }
+            ScreenHeader(stringResource(R.string.chapter_n, chapter) + " · " + chapterName(ch), { nav.pop() }, titleColor = DR.Cream) { CoinPill(save.coins) }
             mechanicIntroRes(ch.mechanic)?.let { intro ->
                 Box(Modifier.padding(horizontal = 20.dp).widthIn(max = 560.dp)) { WoodPanel(padding = androidx.compose.foundation.layout.PaddingValues(14.dp)) { Text(stringResource(intro), style = MaterialTheme.typography.bodyMedium, color = DR.Ink) } }
             }
@@ -198,7 +198,7 @@ fun ChapterSceneScreen(container: AppContainer, chapter: Int, onDone: () -> Unit
                         CharSprite(ch.rewardCharacter, "cheer", Modifier.size(96.dp))
                         Spacer(Modifier.width(8.dp))
                         Column {
-                            Text(stringResource(R.string.unlocked_x, stringResource(cosmeticNameRes(container, "char_" + ch.rewardCharacter.substringAfter('/')))), style = MaterialTheme.typography.bodyLarge, color = DR.Ink)
+                            Text(stringResource(R.string.unlocked_x, stringResource(cosmeticNameRes(container, characterCosmeticId(container, ch.rewardCharacter)))), style = MaterialTheme.typography.bodyLarge, color = DR.Ink)
                             Text(stringResource(R.string.unlocked_x, stringResource(cosmeticNameRes(container, ch.rewardCosmetic))), style = MaterialTheme.typography.bodyLarge, color = DR.Ink)
                             Text(stringResource(R.string.coins_earned, ch.rewardCoins), style = MaterialTheme.typography.labelLarge, color = DR.GoldDeep)
                         }
@@ -230,6 +230,10 @@ fun WorldIntroScreen(container: AppContainer, world: Int, onDone: () -> Unit) {
         }
     }
 }
+
+/** Cosmetic id of the character sprite base (e.g. "sheet09/fox" -> "char_white_fox"). */
+fun characterCosmeticId(container: AppContainer, rewardCharacter: String): String =
+    container.content.cosmetics.firstOrNull { it.kind == "character" && it.sprite.startsWith("$rewardCharacter" + "_") }?.id ?: ("char_" + rewardCharacter.substringAfter('/'))
 
 fun cosmeticNameRes(container: AppContainer, id: String): Int {
     val ctx = container.context

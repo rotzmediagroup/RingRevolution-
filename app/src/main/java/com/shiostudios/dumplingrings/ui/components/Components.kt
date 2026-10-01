@@ -30,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,9 +62,17 @@ import com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion
 @Composable
 fun AssetImage(path: String, modifier: Modifier = Modifier, contentScale: ContentScale = ContentScale.Fit, contentDescription: String? = null, alpha: Float = 1f, downsample: Boolean = false) {
     val ctx = LocalContext.current
-    val img: ImageBitmap? = remember(path) { DumplingRingsApp.of(ctx).assets.image(path, downsample) }
-    if (img != null) Image(img, contentDescription, modifier, contentScale = contentScale, alpha = alpha)
-    else Box(modifier)
+    val assets = DumplingRingsApp.of(ctx).assets
+    androidx.compose.runtime.key(path) {
+        // cached images render immediately; first-time decodes happen off the main thread
+        var img by remember { androidx.compose.runtime.mutableStateOf(assets.cached(path)) }
+        androidx.compose.runtime.LaunchedEffect(path) {
+            if (img == null) img = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { assets.image(path, downsample) }
+        }
+        val i = img
+        if (i != null) Image(i, contentDescription, modifier, contentScale = contentScale, alpha = alpha)
+        else Box(modifier)
+    }
 }
 
 @Composable
@@ -219,19 +228,19 @@ fun CoinPill(coins: Int, modifier: Modifier = Modifier) {
 
 @Composable
 fun TitleText(text: String, modifier: Modifier = Modifier, color: Color = DR.WoodDeep, size: Int = 30) {
-    Box(modifier) {
-        Text(text, style = MaterialTheme.typography.displayMedium.copy(fontSize = size.sp, lineHeight = (size + 4).sp), color = Color.White.copy(alpha = 0.55f), modifier = Modifier.padding(top = 2.dp, start = 1.dp), textAlign = TextAlign.Center)
-        Text(text, style = MaterialTheme.typography.displayMedium.copy(fontSize = size.sp, lineHeight = (size + 4).sp), color = color, textAlign = TextAlign.Center)
-    }
+    val light = (color.red + color.green + color.blue) / 3f > 0.6f
+    val style = MaterialTheme.typography.displayMedium.copy(fontSize = size.sp, lineHeight = (size + 4).sp,
+        shadow = androidx.compose.ui.graphics.Shadow(if (light) DR.WoodDeep.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.6f), Offset(0f, if (light) 3f else 2f), if (light) 6f else 1f))
+    Text(text, style = style, color = color, modifier = modifier, textAlign = TextAlign.Center)
 }
 
 /** Top bar with a back button and a title; respects the status bar inset through the caller's padding. */
 @Composable
-fun ScreenHeader(title: String, onBack: () -> Unit, modifier: Modifier = Modifier, trailing: (@Composable () -> Unit)? = null) {
+fun ScreenHeader(title: String, onBack: () -> Unit, modifier: Modifier = Modifier, titleColor: Color = DR.WoodDeep, trailing: (@Composable () -> Unit)? = null) {
     Row(modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
         RoundIconButton(contentDescription = "back", onClick = onBack, sfx = "button_back") { Glyph("back", Modifier.size(26.dp)) }
         Spacer(Modifier.width(10.dp))
-        TitleText(title, Modifier.weight(1f), size = 24)
+        TitleText(title, Modifier.weight(1f), color = titleColor, size = 24)
         trailing?.invoke()
     }
 }

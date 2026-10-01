@@ -1,0 +1,30 @@
+{
+  "levelId": "L145",
+  "solvable": true,
+  "optimalMoves": 16,
+  "optimalProven": false,
+  "statesExplored": 60056,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 153,
+  "solution": [
+    "r1:270",
+    "r1:240",
+    "r7:180",
+    "r9:60",
+    "r10:120",
+    "r10:300",
+    "r6:30",
+    "r1:120",
+    "r6:180",
+    "r4:150",
+    "r6:150",
+    "r6:180",
+    "r7:210",
+    "r4:240",
+    "r8:0",
+    "r7:90"
+  ],
+  "topologyHash": "d1f60b8ff94977cf",
+  "notes": []
+}

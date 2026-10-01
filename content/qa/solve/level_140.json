@@ -1,0 +1,26 @@
+{
+  "levelId": "L140",
+  "solvable": true,
+  "optimalMoves": 12,
+  "optimalProven": false,
+  "statesExplored": 60015,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 848,
+  "solution": [
+    "r4:30",
+    "r9:330",
+    "r6:120",
+    "r2:90",
+    "r1:330",
+    "r7:150",
+    "r1:30",
+    "r2:0",
+    "r2:30",
+    "r3:0",
+    "r5:0",
+    "r7:330"
+  ],
+  "topologyHash": "a2b12d81731af0d1",
+  "notes": []
+}

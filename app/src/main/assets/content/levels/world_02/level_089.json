@@ -303,8 +303,8 @@
     }
   ],
   "winCondition": "remove_all_rings",
-  "parMoves": 10,
-  "goodMoves": 15,
+  "parMoves": 6,
+  "goodMoves": 9,
   "difficulty": 8,
   "reward": {
     "coins": 60,
@@ -315,14 +315,10 @@
   "canonicalSolution": [
     "r5:0",
     "r9:150",
-    "r8:270",
-    "r6:120",
-    "r1:300",
-    "r2:180",
-    "r1:240",
-    "r8:0",
+    "r1:210",
+    "r3:0",
     "r6:0",
-    "r6:300"
+    "r8:330"
   ],
   "topologyHash": "55d7141bd3a1e88c"
 }

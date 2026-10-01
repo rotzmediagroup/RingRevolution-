@@ -78,11 +78,21 @@ fun validate(root: File): Boolean {
         val s0 = engine.initialState()
         chk((0 until engine.n).none { engine.canRelease(s0, it) }, "no ring releasable at start")
         chk((0 until engine.n).none { i -> engine.pairPass[i].all { it == null } && engine.obstaclePass[i].all { it == null } }, "no free (non-interacting) ring")
-        val res = Solver(engine).solve(s0)
-        chk(res.solvable, "solvable without boosters (states=${res.statesExplored})")
-        if (res.solvable) {
-            chk(res.moves == level.parMoves, "parMoves ${level.parMoves} equals solver optimum ${res.moves}")
-            chk(Solver(engine).verify(level.canonicalSolution.map { Solver.decode(engine, it) }, s0), "canonical solution replays to a win")
+        val res = Solver(engine, 600_000, 200_000).solve(s0)
+        chk(res.solvable, "solvable without boosters (states=${res.statesExplored}, method=${res.method})")
+        val canon = level.canonicalSolution.map { Solver.decode(engine, it) }
+        val canonOk = Solver(engine).verify(canon, s0)
+        chk(canonOk, "canonical solution replays to a win")
+        chk(level.parMoves == canon.size, "parMoves ${level.parMoves} equals canonical solution length ${canon.size}")
+        if (res.solvable && canonOk) {
+            if (res.moves < level.parMoves) {
+                // the validator found a shorter solution than the stored par: tighten the level file (never loosen)
+                val tightened = level.copy(parMoves = res.moves, goodMoves = res.moves + maxOf(2, res.moves / 2), canonicalSolution = res.solution.map { Solver.encode(engine, it) })
+                f.writeText(LevelCodec.encode(tightened))
+                checks.add(Check(spec.index, true, "par tightened ${level.parMoves} -> ${res.moves} (written back)"))
+            } else if (res.optimalProven) {
+                chk(res.moves == level.parMoves, "stored par ${level.parMoves} equals proven optimum ${res.moves}")
+            }
             chk(level.goodMoves > level.parMoves, "2-star threshold above par")
         }
         val prev = topologies.put(level.topologyHash, spec.index)

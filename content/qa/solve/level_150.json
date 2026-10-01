@@ -1,0 +1,31 @@
+{
+  "levelId": "L150",
+  "solvable": true,
+  "optimalMoves": 17,
+  "optimalProven": false,
+  "statesExplored": 60022,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 305,
+  "solution": [
+    "r10:90",
+    "r11:330",
+    "r1:0",
+    "r2:0",
+    "r4:60",
+    "r3:0",
+    "r7:150",
+    "r1:300",
+    "r1:180",
+    "r2:90",
+    "r4:330",
+    "r4:240",
+    "r8:240",
+    "r12:330",
+    "r12:270",
+    "r11:270",
+    "r11:300"
+  ],
+  "topologyHash": "9ebd072477f2acd2",
+  "notes": []
+}

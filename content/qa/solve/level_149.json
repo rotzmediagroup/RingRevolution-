@@ -1,0 +1,32 @@
+{
+  "levelId": "L149",
+  "solvable": true,
+  "optimalMoves": 18,
+  "optimalProven": false,
+  "statesExplored": 62086,
+  "avgBranching": 0.0,
+  "deadEndRatio": 0.0,
+  "solveMillis": 854,
+  "solution": [
+    "r7:270",
+    "r4:90",
+    "r10:120",
+    "r2:300",
+    "r4:240",
+    "r3:90",
+    "r6:120",
+    "r3:270",
+    "r3:330",
+    "r1:210",
+    "r10:60",
+    "r9:210",
+    "r2:150",
+    "r1:180",
+    "r1:90",
+    "r9:30",
+    "r3:180",
+    "r3:0"
+  ],
+  "topologyHash": "4459a82a2743b65e",
+  "notes": []
+}
