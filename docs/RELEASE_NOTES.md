@@ -1,3 +1,8 @@
+## Dumpling Rings 1.1.3 — cinematic lighting
+
+- Three-point cinematic rig per world (hot low key that slowly sweeps, dim complementary fill, strong rim from behind, dark ambient): warm morning in the teahouse, amber lantern and deep blue in the night market, moonlight on the mountain
+- Clear-coat highlight lobe and a sharper softbox reflection for lustre on metal, stone and lacquer; filmic (ACES) tone mapping
+
 ## Dumpling Rings 1.1.2 — fix: board empty from the second level on
 
 - The GL board view kept the first level's renderer (a GLSurfaceView takes one renderer); it is now recreated per level and theme

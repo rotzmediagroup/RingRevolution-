@@ -160,10 +160,13 @@ vec3 env(vec3 d, float rough) {
   // studio environment: warm sky/ground gradient, a soft window reflection band and the key light as a bright blob
   float up = d.z * 0.5 + 0.5;
   vec3 e = mix(uAmbientGround * 1.4, uAmbientSky * 1.6, up);
-  float band = smoothstep(0.35, 0.55, d.z) * (1.0 - smoothstep(0.75, 0.95, d.z));
-  e += band * vec3(1.0, 0.98, 0.95) * 0.9 * (1.0 - rough * 0.7);
-  float sun = pow(max(dot(d, normalize(uKeyDir)), 0.0), mix(60.0, 6.0, rough));
-  e += sun * uKeyCol * 1.3;
+  // softbox window: a sharp bright band for lustre on polished surfaces, broad on rough ones
+  float band = smoothstep(0.42, 0.52, d.z) * (1.0 - smoothstep(0.66, 0.80, d.z));
+  e += band * vec3(1.0, 0.98, 0.95) * mix(1.6, 0.4, rough);
+  float sun = pow(max(dot(d, normalize(uKeyDir)), 0.0), mix(90.0, 8.0, rough));
+  e += sun * uKeyCol * 1.8;
+  float rimGlow = pow(max(dot(d, normalize(uRimDir)), 0.0), mix(40.0, 6.0, rough));
+  e += rimGlow * uRimCol * 0.9;
   return e;
 }
 void main() {
@@ -197,7 +200,9 @@ void main() {
     vec3 l = normalize(lights[i]); float ndl = max(dot(n, l), 0.0); vec3 h = normalize(l + v);
     vec3 F = F0 + (1.0 - F0) * pow(1.0 - max(dot(h, v), 0.0), 5.0);
     vec3 spec = ggx(n, h, a) * geo(ndv, ndl, a) * F / (4.0 * ndv * ndl + 1e-4);
-    col += (diffCol / 3.14159 + spec) * ndl * lcols[i] * 2.2;
+    // clear-coat lobe: a tight second highlight that reads as polish/lacquer
+    float cc = ggx(n, h, 0.05) * geo(ndv, ndl, 0.05) * (0.04 + 0.96 * pow(1.0 - max(dot(h, v), 0.0), 5.0)) / (4.0 * ndv * ndl + 1e-4);
+    col += (diffCol / 3.14159 + spec + cc * 0.6) * ndl * lcols[i] * 2.4;
   }
   // environment reflection (the premium look of metal/stone/lacquer)
   vec3 r = reflect(-v, n);
@@ -207,7 +212,10 @@ void main() {
   col = mix(col, col * 0.45, uDarken);
   // selection / ghost glow as a warm rim light (reads on black onyx as well as on gold)
   col += uEmissive * (0.08 + 2.4 * pow(1.0 - ndv, 2.0));
-  col = col / (col + 0.75) * 1.45; col = (col - 0.5) * 1.12 + 0.5;
+  // filmic (ACES fitted) tone map keeps hot highlights and deep darks without clipping
+  col *= 0.95;
+  col = (col * (2.51 * col + 0.03)) / (col * (2.43 * col + 0.59) + 0.14);
+  col = (col - 0.5) * 1.08 + 0.5;
   fragColor = vec4(pow(max(col, 0.0), vec3(1.0 / 2.2)), uAlpha);
 }
 """

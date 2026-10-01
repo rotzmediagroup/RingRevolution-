@@ -147,7 +147,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT or GLES30.GL_DEPTH_BUFFER_BIT)
         val s = snapshot ?: return
         camera.update()
-        val lights = lighting(s.world)
+        val lights = lighting(s.world, s.timeMs)
         // --- glow discs under selected rings (additive-ish)
         GLES30.glDepthMask(false)
         GLES30.glUseProgram(quadProg)
@@ -177,10 +177,16 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     }
 
     private class Lights(val key: FloatArray, val keyCol: FloatArray, val fill: FloatArray, val fillCol: FloatArray, val rim: FloatArray, val rimCol: FloatArray, val sky: FloatArray, val ground: FloatArray)
-    private fun lighting(world: Int): Lights = when (world) {
-        2 -> Lights(floatArrayOf(-0.35f, 0.3f, 0.85f), floatArrayOf(1.15f, 0.78f, 0.45f), floatArrayOf(0.6f, -0.3f, 0.5f), floatArrayOf(0.35f, 0.3f, 0.6f), floatArrayOf(0.1f, -0.9f, 0.35f), floatArrayOf(1.0f, 0.45f, 0.35f), floatArrayOf(0.45f, 0.35f, 0.6f), floatArrayOf(0.25f, 0.12f, 0.08f))
-        3 -> Lights(floatArrayOf(-0.4f, 0.35f, 0.85f), floatArrayOf(0.85f, 0.95f, 1.2f), floatArrayOf(0.6f, -0.3f, 0.5f), floatArrayOf(0.35f, 0.45f, 0.5f), floatArrayOf(0.2f, -0.9f, 0.35f), floatArrayOf(0.7f, 0.9f, 1.0f), floatArrayOf(0.5f, 0.6f, 0.9f), floatArrayOf(0.12f, 0.15f, 0.25f))
-        else -> Lights(floatArrayOf(-0.45f, 0.35f, 0.82f), floatArrayOf(1.2f, 1.05f, 0.85f), floatArrayOf(0.6f, -0.2f, 0.5f), floatArrayOf(0.4f, 0.45f, 0.6f), floatArrayOf(0.2f, -0.9f, 0.3f), floatArrayOf(1.0f, 0.75f, 0.55f), floatArrayOf(0.75f, 0.8f, 0.95f), floatArrayOf(0.35f, 0.25f, 0.15f))
+    /** Cinematic three-point rig per world: strong low warm/cool key, dim complementary fill, hot rim from behind, dark ambient; the key sweeps slowly. */
+    private fun lighting(world: Int, timeMs: Long): Lights {
+        val base = when (world) {
+            2 -> Lights(floatArrayOf(-0.50f, 0.25f, 0.65f), floatArrayOf(1.75f, 0.95f, 0.42f), floatArrayOf(0.70f, -0.35f, 0.40f), floatArrayOf(0.14f, 0.17f, 0.45f), floatArrayOf(0.15f, -0.85f, 0.50f), floatArrayOf(1.45f, 0.50f, 0.28f), floatArrayOf(0.20f, 0.15f, 0.32f), floatArrayOf(0.09f, 0.05f, 0.04f))
+            3 -> Lights(floatArrayOf(-0.55f, 0.30f, 0.65f), floatArrayOf(1.20f, 1.35f, 1.75f), floatArrayOf(0.70f, -0.30f, 0.40f), floatArrayOf(0.18f, 0.22f, 0.40f), floatArrayOf(0.25f, -0.85f, 0.45f), floatArrayOf(0.90f, 1.10f, 1.45f), floatArrayOf(0.26f, 0.32f, 0.55f), floatArrayOf(0.06f, 0.08f, 0.14f))
+            else -> Lights(floatArrayOf(-0.55f, 0.30f, 0.70f), floatArrayOf(1.65f, 1.35f, 1.00f), floatArrayOf(0.70f, -0.25f, 0.40f), floatArrayOf(0.20f, 0.27f, 0.42f), floatArrayOf(0.25f, -0.85f, 0.45f), floatArrayOf(1.30f, 1.00f, 0.80f), floatArrayOf(0.42f, 0.48f, 0.62f), floatArrayOf(0.16f, 0.11f, 0.07f))
+        }
+        val sw = sin(timeMs / 4200.0).toFloat() * 0.14f
+        val k = base.key; val c = cos(sw); val sn = sin(sw)
+        return Lights(floatArrayOf(k[0] * c - k[1] * sn, k[0] * sn + k[1] * c, k[2]), base.keyCol, base.fill, base.fillCol, base.rim, base.rimCol, base.sky, base.ground)
     }
 
     private fun setLights(prog: Int, l: Lights) {
