@@ -1,3 +1,7 @@
+## Dumpling Rings 1.1.6 — fix: black board background
+
+- The GL board now renders into a translucent TextureView on its own EGL thread instead of a SurfaceView. A SurfaceView punches a hole in the window, so the painted scene behind it was never visible (black). The painted world scene, particles and vignette now show under the rings and the HUD stays on top
+
 ## Dumpling Rings 1.1.5 — image-based lighting (artefact-viewer quality)
 
 - Each world has an HDR studio environment (shoji window and sun; paper lanterns and neon; moon and snow bounce), GGX-prefiltered at six roughness levels plus a cosine irradiance map (`tools/asset_generate/make_env_maps.py`)

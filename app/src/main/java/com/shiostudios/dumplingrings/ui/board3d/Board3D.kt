@@ -1,7 +1,5 @@
 package com.shiostudios.dumplingrings.ui.board3d
 
-import android.graphics.PixelFormat
-import android.opengl.GLSurfaceView
 import android.view.MotionEvent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +23,7 @@ import kotlin.math.atan2
 import kotlin.math.hypot
 
 /**
- * 3D puzzle board: a translucent GLSurfaceView (rings, shadows, props) under a Compose overlay (decorations, FX, hints,
+ * 3D puzzle board: a translucent GL TextureView (rings, shadows, props) over the painted scene and under a Compose overlay (decorations, FX, hints,
  * tutorial hand). Touch is handled on the GL view with the shared camera so hit-testing matches the rendered geometry.
  */
 @Composable
@@ -58,20 +56,15 @@ fun Board3D(
     }
 
     Box(modifier) {
-        // a GLSurfaceView accepts setRenderer() once: recreate the view whenever the level or theme (and thus the renderer) changes
+        // one GL view per renderer: recreate it whenever the level or theme changes
         androidx.compose.runtime.key(level.id, themeMaterial) {
         AndroidView(
             modifier = Modifier.fillMaxSize(),
             factory = { c ->
-                object : GLSurfaceView(c) {
-                    init {
-                        setEGLContextClientVersion(3)
-                        setEGLConfigChooser(8, 8, 8, 8, 16, 0)
-                        holder.setFormat(PixelFormat.TRANSLUCENT)
-                        setZOrderMediaOverlay(true)
-                        setRenderer(renderer)
-                        renderMode = RENDERMODE_CONTINUOUSLY
-                    }
+                // Robolectric (JVM screenshot tests) has no hardware renderer for a TextureView: host an empty view there
+                if (android.os.Build.FINGERPRINT.contains("robolectric")) android.view.View(c) else
+                object : GLTextureView(c) {
+                    init { setRenderer(renderer) }
                     private var dragRing: Int? = null
                     private var lastAngle = 0f; private var total = 0f; private var moved = false
                     private var downX = 0f; private var downY = 0f
@@ -111,7 +104,7 @@ fun Board3D(
                     }
                 }
             },
-            onRelease = { it.onPause() },
+            onRelease = { (it as? GLTextureView)?.onPause() },
         )
         }
         BoardOverlay(controller, camera, fit, now, reduceMotion, highContrast, effectQuality, Modifier.fillMaxSize())
