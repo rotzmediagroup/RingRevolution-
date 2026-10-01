@@ -165,6 +165,122 @@
       "reference_seed": 1037,
       "reference_hole_ratio": 0.718,
       "reference_ok": true
+    },
+    "ring_rose_gold": {
+      "name": "ring_rose_gold",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished rose gold, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.664,
+          "note": "hole horizontal 0.66, vertical 0.66, object bbox 822x546",
+          "file": "assets/generated/3d/ring_rose_gold/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_rose_gold/reference.png",
+      "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished rose gold, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1000,
+      "reference_hole_ratio": 0.664,
+      "reference_ok": true
+    },
+    "ring_onyx": {
+      "name": "ring_onyx",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.211,
+          "note": "hole horizontal 0.21, vertical 0.16, object bbox 946x688",
+          "file": "assets/generated/3d/ring_onyx/reference_try0.png"
+        },
+        {
+          "seed": 1037,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.439,
+          "note": "hole horizontal 0.44, vertical 0.35, object bbox 896x836",
+          "file": "assets/generated/3d/ring_onyx/reference_try1.png"
+        },
+        {
+          "seed": 1074,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.205,
+          "note": "hole horizontal 0.21, vertical 0.20, object bbox 1022x1022",
+          "file": "assets/generated/3d/ring_onyx/reference_try2.png"
+        },
+        {
+          "seed": 1111,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.411,
+          "note": "hole horizontal 0.41, vertical 0.45, object bbox 920x650",
+          "file": "assets/generated/3d/ring_onyx/reference_try3.png"
+        },
+        {
+          "seed": 1148,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.453,
+          "note": "hole horizontal 0.45, vertical 0.24, object bbox 574x540",
+          "file": "assets/generated/3d/ring_onyx/reference_try4.png"
+        },
+        {
+          "seed": 1185,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.666,
+          "note": "hole horizontal 0.67, vertical 0.40, object bbox 698x578",
+          "file": "assets/generated/3d/ring_onyx/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_onyx/reference.png",
+      "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1185,
+      "reference_hole_ratio": 0.666,
+      "reference_ok": true
+    },
+    "ring_jade": {
+      "name": "ring_jade",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.186,
+          "note": "hole horizontal 0.19, vertical 0.23, object bbox 960x798",
+          "file": "assets/generated/3d/ring_jade/reference_try0.png"
+        },
+        {
+          "seed": 1037,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.474,
+          "note": "hole horizontal 0.47, vertical 0.35, object bbox 886x846",
+          "file": "assets/generated/3d/ring_jade/reference_try1.png"
+        },
+        {
+          "seed": 1074,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.454,
+          "note": "hole horizontal 0.45, vertical 0.40, object bbox 1002x792",
+          "file": "assets/generated/3d/ring_jade/reference_try2.png"
+        },
+        {
+          "seed": 1111,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.353,
+          "note": "hole horizontal 0.35, vertical 0.26, object bbox 876x878",
+          "file": "assets/generated/3d/ring_jade/reference_try3.png"
+        },
+        {
+          "seed": 1148,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.395,
+          "note": "hole horizontal 0.40, vertical 0.27, object bbox 592x528",
+          "file": "assets/generated/3d/ring_jade/reference_try4.png"
+        },
+        {
+          "seed": 1185,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of translucent green jade stone with fine carved relief, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.475,
+          "note": "hole horizontal 0.47, vertical 0.26, object bbox 714x682",
+          "file": "assets/generated/3d/ring_jade/reference_try5.png"
+        }
+      ]
     }
   }
 }

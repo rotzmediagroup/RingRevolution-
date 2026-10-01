@@ -56,19 +56,19 @@ RINGS = [
      "texture": "brushed sterling silver metal with fine linear brush marks and a polished mirror rim"},
     {"name": "ring_rose_gold", "material": "made of polished rose gold",
      "texture": "polished reflective rose gold metal, warm pink-copper tint"},
-    {"name": "ring_onyx", "material": "made of polished black onyx stone with a thin inlaid gold line running around it",
+    {"name": "ring_onyx", "material": "made of polished black onyx stone with a thin inlaid gold line running around it", "stone": True,
      "texture": "polished glossy black onyx stone with a thin inlaid gold line"},
-    {"name": "ring_jade", "material": "made of translucent green jade stone with fine carved relief",
+    {"name": "ring_jade", "material": "made of translucent green jade stone with a fine shallow carved line pattern on the surface", "stone": True,
      "texture": "translucent green jade stone with subtle veining and fine carved relief"},
-    {"name": "ring_marble", "material": "made of polished white marble with grey veins",
+    {"name": "ring_marble", "material": "made of polished white marble with grey veins", "stone": True,
      "texture": "polished white marble with soft grey veins"},
-    {"name": "ring_bronze", "material": "made of antique bronze with green patina highlights",
+    {"name": "ring_bronze", "material": "made of antique bronze with green patina highlights", "stone": True,
      "texture": "antique dark bronze metal with green-blue patina in the recesses"},
-    {"name": "ring_obsidian", "material": "made of glossy black volcanic obsidian glass",
+    {"name": "ring_obsidian", "material": "made of glossy black volcanic obsidian glass", "stone": True,
      "texture": "glossy jet-black volcanic obsidian glass with faint sharp reflections"},
-    {"name": "ring_pearl", "material": "made of iridescent pearl mother-of-pearl ceramic",
+    {"name": "ring_pearl", "material": "made of iridescent pearl mother-of-pearl ceramic", "stone": True,
      "texture": "iridescent white mother-of-pearl ceramic with soft rainbow sheen"},
-    {"name": "ring_lacquer", "material": "made of glossy deep red urushi lacquer sprinkled with gold flakes",
+    {"name": "ring_lacquer", "material": "made of glossy deep red urushi lacquer sprinkled with gold flakes", "stone": True,
      "texture": "glossy deep red urushi lacquer with scattered gold leaf flakes"},
 ]
 
@@ -90,7 +90,9 @@ def hole_ratio(path):
     im = Image.open(path).convert("L")
     w, h = im.size
     px = im.load()
-    thr = 235
+    # background-adaptive threshold: the backdrop is "white" but often slightly grey
+    corners = sorted(px[x, y] for x in (8, w - 9) for y in (8, h - 9))
+    thr = min(235, corners[1] - 18)
     xs, ys = [], []
     for y in range(0, h, 2):
         for x in range(0, w, 2):
@@ -146,8 +148,8 @@ def gen_reference(ring, outdir, m, strong=False, force=False):
     if path.exists() and not force and rec.get("reference_ok"):
         return path, rec["prompt"]
     attempts = rec.get("reference_attempts", [])
-    for i in range(4):
-        shape = SHAPE_STRONG if (strong or i >= 2) else SHAPE
+    for i in range(8):
+        shape = SHAPE_STRONG if (strong or i >= 2) else (SHAPE_STONE if ring.get('stone') else SHAPE)
         prompt = f"{shape}, {ring['material']}{NEG}"
         seed = 1000 + 37 * len(attempts)
         gen_image(prompt, path, seed)
