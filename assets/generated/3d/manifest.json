@@ -227,6 +227,48 @@
           "hole_ratio": 0.666,
           "note": "hole horizontal 0.67, vertical 0.40, object bbox 698x578",
           "file": "assets/generated/3d/ring_onyx/reference.png"
+        },
+        {
+          "seed": 1222,
+          "prompt": "a slim thin round bangle ring, a thin torus with a very wide open hole, the tube is slim like a thick wire: tube thickness about one eighth of the ring radius, uniform round tube, perfectly circular, lying flat on a plain pure white background seen from above at a slight angle, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.509,
+          "note": "hole horizontal 0.51, vertical 0.59, object bbox 802x674",
+          "file": "assets/generated/3d/ring_onyx/reference_try6.png"
+        },
+        {
+          "seed": 1259,
+          "prompt": "a slim thin round bangle ring, a thin torus with a very wide open hole, the tube is slim like a thick wire: tube thickness about one eighth of the ring radius, uniform round tube, perfectly circular, lying flat on a plain pure white background seen from above at a slight angle, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.191,
+          "note": "hole horizontal 0.19, vertical 0.24, object bbox 880x784",
+          "file": "assets/generated/3d/ring_onyx/reference_try7.png"
+        },
+        {
+          "seed": 1296,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.205,
+          "note": "hole horizontal 0.21, vertical 0.29, object bbox 896x598",
+          "file": "assets/generated/3d/ring_onyx/reference_try8.png"
+        },
+        {
+          "seed": 1333,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.346,
+          "note": "hole horizontal 0.35, vertical 0.38, object bbox 952x772",
+          "file": "assets/generated/3d/ring_onyx/reference_try9.png"
+        },
+        {
+          "seed": 1370,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.18,
+          "note": "hole horizontal 0.18, vertical 0.26, object bbox 890x728",
+          "file": "assets/generated/3d/ring_onyx/reference_try10.png"
+        },
+        {
+          "seed": 1407,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished black onyx stone with a thin inlaid gold line running around it, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.468,
+          "note": "hole horizontal 0.47, vertical 0.35, object bbox 864x750",
+          "file": "assets/generated/3d/ring_onyx/reference_try11.png"
         }
       ],
       "reference_image": "assets/generated/3d/ring_onyx/reference.png",

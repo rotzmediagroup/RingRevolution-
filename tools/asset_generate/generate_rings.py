@@ -47,6 +47,12 @@ SHAPE_STRONG = (
     "pure white background seen from a three-quarter top view, product photography, studio lighting, "
     "high detail, no text, nothing else in the image"
 )
+SHAPE_STONE = (
+    "a slim thin round bangle ring, a thin torus with a very wide open hole, the tube is slim like a thick wire: "
+    "tube thickness about one eighth of the ring radius, uniform round tube, perfectly circular, lying flat "
+    "on a plain pure white background seen from above at a slight angle, product photography, studio lighting, "
+    "high detail, no text, nothing else in the image"
+)
 NEG = ", no face, no decoration other than the surface material, single object only, no shadow, no other objects"
 
 RINGS = [
