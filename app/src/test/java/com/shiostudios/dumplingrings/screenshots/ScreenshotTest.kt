@@ -54,6 +54,11 @@ class ScreenshotTest {
     }
     private fun show(name: String, c: @androidx.compose.runtime.Composable () -> Unit) { content.value = c; shoot(name) }
 
+    @Test fun splash() {
+        val c = container(); host()
+        show("00_splash") { com.shiostudios.dumplingrings.ui.screens.SplashScreen({}, holdMs = 60_000) }
+    }
+
     @Test fun mainMenu() {
         val c = container(); host()
         show("01_main_menu") { MainMenuScreen(c, Nav(Screen.Menu)) }

@@ -1,3 +1,8 @@
+## Dumpling Rings 1.1.8 — splash screen
+
+- Owner key art (Ring Revolution logo, rings and the three dumpling friends) as an animated splash: fade in, gentle zoom, hold, fade out; tap to skip; portrait uses a 4:5 centre crop over a dimmed copy, landscape the full painting; respects Reduce Motion
+- Source art kept in assets/imported/brand (key art) and assets/imported/sheets/sheet19 (logo + character sheet)
+
 ## Dumpling Rings 1.1.7 — new app icon
 
 - Owner-supplied icon (three dumpling friends on interlocked rings in a bamboo steamer): legacy launcher icon with transparent corners, full-bleed adaptive foreground, cream adaptive background; store icon at docs/store_icon_512.png

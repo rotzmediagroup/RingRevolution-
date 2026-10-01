@@ -87,6 +87,20 @@ for w in (1, 2, 3):
 for c in range(1, 16):
     webp(f"{G}/scenes/chapter_{c:02d}.png", f"scenes/chapter_{c:02d}.webp", 768, 576, 82, note="chapter scene", world=(c - 1) // 5 + 1)
 webp(f"{G}/menu/menu_keyart.png", "menu/keyart.webp", 1024, 1536, 84, note="main menu key art")
+B = os.path.join(ROOT, "assets/imported/brand")
+if os.path.exists(f"{B}/ring_revolution_keyart.png"):
+    webp(f"{B}/ring_revolution_keyart.png", "splash/keyart.webp", 1536, 1024, 88, note="splash key art (owner art, landscape 3:2)")
+    # portrait splash: a square centre crop keeps the whole logo, the rings and all three characters;
+    # plus a heavily blurred, darkened copy that fills the bands above/below on tall phones
+    dst = os.path.join(OUT, "splash/keyart_portrait.webp"); dstb = os.path.join(OUT, "splash/keyart_blur.webp")
+    if FORCE or not os.path.exists(dstb) or os.path.getmtime(dstb) < os.path.getmtime(f"{B}/ring_revolution_keyart.png"):
+        im = Image.open(f"{B}/ring_revolution_keyart.png").convert("RGB"); w, h = im.size; cw = h
+        im.crop(((w - cw) // 2, 0, (w + cw) // 2, h)).save(dst, "WEBP", quality=88, method=6)
+        from PIL import ImageFilter, ImageEnhance
+        blur = ImageEnhance.Brightness(im.resize((96, 64), Image.LANCZOS).filter(ImageFilter.GaussianBlur(6)).resize((768, 512), Image.BICUBIC)).enhance(0.45)
+        blur.save(dstb, "WEBP", quality=80, method=6)
+    put("splash/keyart_blur.webp", f"{B}/ring_revolution_keyart.png", "splash backdrop, blurred + darkened")
+    put("splash/keyart_portrait.webp", f"{B}/ring_revolution_keyart.png", "splash key art, portrait crop")
 for m in ("sesame_dough", "matcha", "beet_pink", "ube_purple", "gold", "bamboo"):
     webp(f"{G}/materials/mat_{m}.png", f"materials/{m}.webp", 512, 512, 90, note="ring material tile")
 webp(f"{G}/ui/ui_sign_board_alpha.png", "ui/sign_board.webp", 1024, 1024, 88, note="wooden sign panel (alpha)")

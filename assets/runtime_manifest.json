@@ -252,6 +252,33 @@
   "sha1": "f1d238618544fcfa1ff460bdc81d07b952e18621"
  },
  {
+  "id": "splash/keyart.webp",
+  "file": "app/src/main/assets/splash/keyart.webp",
+  "source": "assets/imported/brand/ring_revolution_keyart.png",
+  "usage": "splash key art (owner art, landscape 3:2)",
+  "world": null,
+  "bytes": 327510,
+  "sha1": "228a78674a65af4541f8076f60772d4221026ec5"
+ },
+ {
+  "id": "splash/keyart_blur.webp",
+  "file": "app/src/main/assets/splash/keyart_blur.webp",
+  "source": "assets/imported/brand/ring_revolution_keyart.png",
+  "usage": "splash backdrop, blurred + darkened",
+  "world": null,
+  "bytes": 2988,
+  "sha1": "5d7bc52b9944ccbf37ad36e4bd7c7b041bd0c749"
+ },
+ {
+  "id": "splash/keyart_portrait.webp",
+  "file": "app/src/main/assets/splash/keyart_portrait.webp",
+  "source": "assets/imported/brand/ring_revolution_keyart.png",
+  "usage": "splash key art, portrait crop",
+  "world": null,
+  "bytes": 184404,
+  "sha1": "876a328a8a47b3b980ea6f37f87ca1ec774b8164"
+ },
+ {
   "id": "materials/sesame_dough.webp",
   "file": "app/src/main/assets/materials/sesame_dough.webp",
   "source": "assets/generated/materials/mat_sesame_dough.png",

@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 
 /** Screens of the game (bible §21). Navigation is a simple back stack; no network, no login wall. */
 sealed class Screen {
+    object Splash : Screen()
     object Menu : Screen()
     data class WorldMap(val world: Int) : Screen()
     data class Chapter(val chapter: Int) : Screen()
@@ -74,7 +75,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
 @Composable
 fun AppRoot(container: AppContainer, activity: ComponentActivity) {
     val save by container.save.state.collectAsState()
-    val nav = remember { Nav(if (save.firstRunDone) Screen.Menu else Screen.Welcome) }
+    val nav = remember { Nav(Screen.Splash) }
     val palette = remember(nav.current) {
         val world = when (val s = nav.current) {
             is Screen.WorldMap -> s.world; is Screen.Chapter -> (s.chapter - 1) / 5 + 1; is Screen.Play -> LevelCodec.worldNumber(s.level)
@@ -104,6 +105,7 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
         CompositionLocalProvider(LocalWorldPalette provides palette, LocalReduceMotion provides save.settings.reduceMotion, LocalHighContrast provides save.settings.highContrast) {
             Box(Modifier.fillMaxSize()) {
                 when (val s = nav.current) {
+                    Screen.Splash -> SplashScreen({ nav.reset(if (save.firstRunDone) Screen.Menu else Screen.Welcome) })
                     Screen.Welcome -> WelcomeScreen(container) { container.save.update { it.copy(firstRunDone = true) }; nav.reset(Screen.Menu) }
                     Screen.Menu -> MainMenuScreen(container, nav)
                     is Screen.WorldMap -> WorldMapScreen(container, nav, s.world)
