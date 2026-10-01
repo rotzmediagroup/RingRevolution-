@@ -17,37 +17,25 @@ uniform float uRot;        // ring rotation (rad)
 uniform float uLift;       // z lift (release animation)
 uniform vec2 uSlide;       // xy offset (release animation)
 uniform float uScale;      // uniform scale (release animation)
-uniform int uBumpCount;
-uniform vec2 uBumps[$MAX_BUMPS]; // (worldAngleRad, sign*height)
-uniform float uBumpSigma;        // rad
+uniform mat3 uTilt;        // rigid tilt of the whole ring (interlocked rings lean, they never bend)
+uniform float uZ0;         // ring centre height
 out vec3 vPos; out vec3 vNormal; out vec2 vUv; out float vCap;
-float bumpAt(float wa) {
-  float z = 0.0;
-  for (int i = 0; i < $MAX_BUMPS; i++) { if (i >= uBumpCount) break;
-    float d = wa - uBumps[i].x; d = d - 6.2831853 * floor((d + 3.14159265) / 6.2831853);
-    z += uBumps[i].y * exp(-0.5 * (d * d) / (uBumpSigma * uBumpSigma)); }
-  return z;
-}
 void main() {
   float la = aData.x; float ta = aData.y;
   float capScale = abs(aCap); float capDir = aCap < 0.0 ? -1.0 : 1.0; float vv = aData.w;
   float wa = la + uRot;
   float r = uMinor * capScale;
-  // centreline point and frame
   vec2 radial = vec2(cos(wa), sin(wa));
-  float z0 = uMinor * 1.02 + bumpAt(wa);
-  // slope of the bump for the normal tilt
-  float dz = (bumpAt(wa + 0.01) - bumpAt(wa - 0.01)) / 0.02 / max(uMajor, 1e-4);
-  vec3 tangent = normalize(vec3(-radial.y, radial.x, dz));
+  vec3 tangent = vec3(-radial.y, radial.x, 0.0);
   vec3 up = vec3(0.0, 0.0, 1.0);
   vec3 radial3 = vec3(radial, 0.0);
   vec3 n = normalize(cos(ta) * radial3 + sin(ta) * up);
-  // make the normal orthogonal to the tilted tangent
-  n = normalize(n - tangent * dot(n, tangent));
-  vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r;
+  vec3 pl = vec3(radial * uMajor, 0.0) + n * r;   // local: a perfect flat torus around the origin
   // dome caps: blend the normal towards the tube axis so the rounded end shades as a dome, not an open pipe
   float axial = sqrt(max(0.0, 1.0 - capScale * capScale));
   n = normalize(n * capScale + tangent * capDir * axial);
+  vec3 p = uTilt * pl + vec3(uCenter, uZ0);
+  n = normalize(uTilt * n);
   p.xy = (p.xy - uCenter) * uScale + uCenter + uSlide; p.z = p.z * uScale + uLift;
   vPos = p; vNormal = n; vUv = vec2(aData.z, vv); vCap = capScale;
   gl_Position = uViewProj * vec4(p, 1.0);
@@ -118,24 +106,18 @@ layout(location = 2) in vec3 aNrm;    // normal in (radial, tangent, up) frame
 uniform mat4 uViewProj;
 uniform vec2 uCenter; uniform float uMajor; uniform float uMinor; uniform float uRot;
 uniform float uLift; uniform vec2 uSlide; uniform float uScale;
-uniform int uBumpCount; uniform vec2 uBumps[$MAX_BUMPS]; uniform float uBumpSigma;
+uniform mat3 uTilt; uniform float uZ0;
 out vec3 vPos; out vec3 vNormal; out vec2 vUv; out float vLocal;
-float bumpAt(float wa) {
-  float z = 0.0;
-  for (int i = 0; i < $MAX_BUMPS; i++) { if (i >= uBumpCount) break;
-    float d = wa - uBumps[i].x; d = d - 6.2831853 * floor((d + 3.14159265) / 6.2831853);
-    z += uBumps[i].y * exp(-0.5 * (d * d) / (uBumpSigma * uBumpSigma)); }
-  return z;
-}
 void main() {
   float la = aTube.x; float wa = la + uRot;
   vec2 radial = vec2(cos(wa), sin(wa));
-  float z0 = uMinor * 1.02 + bumpAt(wa);
-  float dz = (bumpAt(wa + 0.01) - bumpAt(wa - 0.01)) / 0.02 / max(uMajor, 1e-4);
-  vec3 tangent = normalize(vec3(-radial.y, radial.x, dz));
+  vec3 tangent = vec3(-radial.y, radial.x, 0.0);
   vec3 radial3 = vec3(radial, 0.0); vec3 up = vec3(0.0, 0.0, 1.0);
-  vec3 p = vec3(uCenter + radial * (uMajor + aTube.y * uMinor), z0 + aTube.z * uMinor);
+  // the Meshy model, uniformly scaled (uMinor/uMajor = the model's own tube ratio) and rigidly placed: never deformed
+  vec3 pl = vec3(radial * (uMajor + aTube.y * uMinor), aTube.z * uMinor);
   vec3 n = normalize(aNrm.x * radial3 + aNrm.y * tangent + aNrm.z * up);
+  vec3 p = uTilt * pl + vec3(uCenter, uZ0);
+  n = normalize(uTilt * n);
   p.xy = (p.xy - uCenter) * uScale + uCenter + uSlide; p.z = p.z * uScale + uLift;
   vPos = p; vNormal = n; vUv = aUv; vLocal = la;
   gl_Position = uViewProj * vec4(p, 1.0);

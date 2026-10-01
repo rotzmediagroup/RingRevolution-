@@ -1,3 +1,9 @@
+## Dumpling Rings 1.1.4 — rings are rigid Meshy models
+
+- No more per-vertex bending: every ring is the Meshy GLB placed as a rigid body (position, uniform scale, rotation) and therefore perfectly round
+- Over/under at crossings is shown by a rigid lean of the whole ring (least-squares plane through the crossing heights), like interlocked bangles; shadows and end caps follow the same transform
+- Ready for a free-camera 3D mode: the ring transform is a plain model matrix
+
 ## Dumpling Rings 1.1.3 — cinematic lighting
 
 - Three-point cinematic rig per world (hot low key that slowly sweeps, dim complementary fill, strong rim from behind, dark ambient): warm morning in the teahouse, amber lantern and deep blue in the night market, moonlight on the mountain

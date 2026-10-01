@@ -17,7 +17,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 def shaders():
     s = open(os.path.join(ROOT, "app/src/main/java/com/shiostudios/dumplingrings/ui/board3d/Shaders.kt")).read()
     d = {n: b.replace("$MAX_BUMPS", "24") for n, b in re.findall(r'val (\w+) = """(.*?)"""', s, flags=re.S)}
-    d["SHADOW_VS"] = d["RING_VS"].replace("vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r;", "vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r * 1.8; p.xy += vec2(0.35, -0.25) * p.z; p.z = 0.0015;")
+    d["SHADOW_VS"] = d["RING_VS"].replace("+ n * r;   // local", "+ n * r * 1.8;   // local").replace("vec3 p = uTilt * pl + vec3(uCenter, uZ0);", "vec3 p = uTilt * pl + vec3(uCenter, uZ0); p.xy += vec2(0.35, -0.25) * p.z; p.z = 0.0015;")
     return d
 
 # ---------------- camera (mirror of BoardCamera)
@@ -253,9 +253,17 @@ def main():
         glUniform2f(u("uCenter"), 0.5 + (r["center"][0] - cx) * k, 0.5 + (r["center"][1] - cy) * k)
         glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["thickness"] * k * 0.5)
         glUniform1f(u("uRot"), math.radians(r["initialAngleDeg"])); glUniform1f(u("uLift"), 0); glUniform2f(u("uSlide"), 0, 0); glUniform1f(u("uScale"), 1)
-        bl = bumps[r["id"]][:24]; arr = np.zeros(48, np.float32)
-        for bi, (ba, bh) in enumerate(bl): arr[bi * 2] = ba; arr[bi * 2 + 1] = bh
-        glUniform1i(u("uBumpCount"), len(bl)); glUniform2fv(u("uBumps"), 24, arr); glUniform1f(u("uBumpSigma"), min(max(r["thickness"] * 0.5 * 2.6 / r["radius"], 0.12), 0.5))
+        R = r["radius"] * k; mn = r["thickness"] * k * 0.5
+        pts = [(math.cos(ba) * R, math.sin(ba) * R, bh) for ba, bh in bumps[r["id"]]]
+        sxx = sum(x * x for x, y, z in pts); syy = sum(y * y for x, y, z in pts); sxy = sum(x * y for x, y, z in pts); sxz = sum(x * z for x, y, z in pts); syz = sum(y * z for x, y, z in pts)
+        det = sxx * syy - sxy * sxy; a = b = 0.0
+        if det > 1e-12: a = (sxz * syy - syz * sxy) / det; b = (syz * sxx - sxz * sxy) / det
+        elif sxx + syy > 1e-12: g = (sxz + syz) / max(sxx + syy + 2 * sxy, 1e-12); a = b = g
+        ms = 1.6 * mn / R; mag = math.hypot(a, b)
+        if mag > ms: a *= ms / mag; b *= ms / mag
+        nx, ny = -a, -b; l = math.sqrt(nx * nx + ny * ny + 1.0); x, y, z = nx / l, ny / l, 1.0 / l; kk = 1.0 / (1.0 + z)
+        m = np.array([[1 - x * x * kk, -x * y * kk, x], [-x * y * kk, 1 - y * y * kk, y], [-x, -y, z]], np.float32)   # GL row-major view
+        glUniformMatrix3fv(u("uTilt"), 1, True, m); glUniform1f(u("uZ0"), mn * 1.02 + 0.55 * math.hypot(a, b) * R)
     white = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, white); glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes([255] * 12)); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     def draw_ring(p, i, r, shadow, sel=False):
         v, ix = meshes[i]
@@ -268,9 +276,17 @@ def main():
         glUniform2f(u("uCenter"), 0.5 + (r["center"][0] - cx) * k, 0.5 + (r["center"][1] - cy) * k)
         glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["thickness"] * k * 0.5)
         glUniform1f(u("uRot"), math.radians(r["initialAngleDeg"])); glUniform1f(u("uLift"), 0); glUniform2f(u("uSlide"), 0, 0); glUniform1f(u("uScale"), 1)
-        bl = bumps[r["id"]][:24]; arr = np.zeros(48, np.float32)
-        for bi, (ba, bh) in enumerate(bl): arr[bi * 2] = ba; arr[bi * 2 + 1] = bh
-        glUniform1i(u("uBumpCount"), len(bl)); glUniform2fv(u("uBumps"), 24, arr); glUniform1f(u("uBumpSigma"), min(max(r["thickness"] * 0.5 * 2.6 / r["radius"], 0.12), 0.5))
+        R = r["radius"] * k; mn = r["thickness"] * k * 0.5
+        pts = [(math.cos(ba) * R, math.sin(ba) * R, bh) for ba, bh in bumps[r["id"]]]
+        sxx = sum(x * x for x, y, z in pts); syy = sum(y * y for x, y, z in pts); sxy = sum(x * y for x, y, z in pts); sxz = sum(x * z for x, y, z in pts); syz = sum(y * z for x, y, z in pts)
+        det = sxx * syy - sxy * sxy; a = b = 0.0
+        if det > 1e-12: a = (sxz * syy - syz * sxy) / det; b = (syz * sxx - sxz * sxy) / det
+        elif sxx + syy > 1e-12: g = (sxz + syz) / max(sxx + syy + 2 * sxy, 1e-12); a = b = g
+        ms = 1.6 * mn / R; mag = math.hypot(a, b)
+        if mag > ms: a *= ms / mag; b *= ms / mag
+        nx, ny = -a, -b; l = math.sqrt(nx * nx + ny * ny + 1.0); x, y, z = nx / l, ny / l, 1.0 / l; kk = 1.0 / (1.0 + z)
+        m = np.array([[1 - x * x * kk, -x * y * kk, x], [-x * y * kk, 1 - y * y * kk, y], [-x, -y, z]], np.float32)   # GL row-major view
+        glUniformMatrix3fv(u("uTilt"), 1, True, m); glUniform1f(u("uZ0"), mn * 1.02 + 0.55 * math.hypot(a, b) * R)
         if shadow: glUniform1f(u("uAlpha"), 0.32)
         else:
             set_lights(p); glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, textures.get(r["materialId"], textures["dough_sesame"])); glUniform1i(u("uAlbedo"), 0)

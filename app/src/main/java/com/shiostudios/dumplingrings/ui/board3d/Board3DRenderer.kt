@@ -49,7 +49,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     private val centers = Array(level.rings.size) { FloatArray(2) }
     private val radii = FloatArray(level.rings.size); private val minors = FloatArray(level.rings.size)
     private val crossings = ArrayList<Crossing>()
-    private val bumpBuf = FloatArray(Shaders.MAX_BUMPS * 2)
+    private val tiltBuf = FloatArray(9)
     private var whiteTex = 0
 
     private class Crossing(val a: Int, val b: Int, val angA: Float, val angB: Float, val aOver: Boolean)
@@ -136,7 +136,8 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     } catch (e: Exception) { Log.i("Board3D", "ring model $name not available: ${e.message}"); null }
 
     private fun shadowVs() = Shaders.RING_VS
-        .replace("vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r;", "vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r * 1.8; p.xy += vec2(0.35, -0.25) * p.z; p.z = 0.0015;")
+        .replace("+ n * r;   // local", "+ n * r * 1.8;   // local")
+        .replace("vec3 p = uTilt * pl + vec3(uCenter, uZ0);", "vec3 p = uTilt * pl + vec3(uCenter, uZ0); p.xy += vec2(0.35, -0.25) * p.z; p.z = 0.0015;")
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
         GLES30.glViewport(0, 0, width, height)
@@ -213,19 +214,6 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform1f(u(prog, "uLift"), if (shadow) 0f else e * 0.35f)
         GLES30.glUniform2f(u(prog, "uSlide"), ex * 0.22f * e, ey * 0.22f * e)
         GLES30.glUniform1f(u(prog, "uScale"), 1f + 0.15f * e)
-        // weave bumps: only crossings whose partner is still on the table
-        var n = 0
-        for (c in crossings) {
-            val me = if (c.a == i) 0 else if (c.b == i) 1 else -1
-            if (me < 0) continue
-            val partner = if (me == 0) c.b else c.a
-            if (s.rings[partner].removed) continue
-            val over = if (me == 0) c.aOver else !c.aOver
-            if (n < Shaders.MAX_BUMPS) { bumpBuf[n * 2] = if (me == 0) c.angA else c.angB; bumpBuf[n * 2 + 1] = (if (over) 1f else -1f) * minors[i] * 1.15f; n++ }
-        }
-        GLES30.glUniform1i(u(prog, "uBumpCount"), n)
-        GLES30.glUniform2fv(u(prog, "uBumps"), Shaders.MAX_BUMPS, bumpBuf, 0)
-        GLES30.glUniform1f(u(prog, "uBumpSigma"), (minors[i] * 2.6f / radii[i]).coerceIn(0.12f, 0.5f))
         if (shadow) {
             GLES30.glUniform1f(u(prog, "uAlpha"), 0.32f * (1f - e))
         } else {
@@ -258,18 +246,27 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform1f(u(prog, "uLift"), if (shadow) 0f else e * 0.35f)
         GLES30.glUniform2f(u(prog, "uSlide"), ex * 0.22f * e, ey * 0.22f * e)
         GLES30.glUniform1f(u(prog, "uScale"), 1f + 0.15f * e)
-        var n = 0
+        // rigid tilt: least-squares plane through the desired over/under heights at every live crossing (interlocked rings lean like chain links)
+        var sxx = 0.0; var syy = 0.0; var sxy = 0.0; var sxz = 0.0; var syz = 0.0
         for (c in crossings) {
             val me = if (c.a == i) 0 else if (c.b == i) 1 else -1
             if (me < 0) continue
             val partner = if (me == 0) c.b else c.a
             if (s.rings[partner].removed) continue
             val over = if (me == 0) c.aOver else !c.aOver
-            if (n < Shaders.MAX_BUMPS) { bumpBuf[n * 2] = if (me == 0) c.angA else c.angB; bumpBuf[n * 2 + 1] = (if (over) 1f else -1f) * minors[i] * 1.15f; n++ }
+            val ang = (if (me == 0) c.angA else c.angB).toDouble()
+            val x = cos(ang) * radii[i]; val y = sin(ang) * radii[i]; val z = (if (over) 1.0 else -1.0) * minors[i] * 1.15
+            sxx += x * x; syy += y * y; sxy += x * y; sxz += x * z; syz += y * z
         }
-        GLES30.glUniform1i(u(prog, "uBumpCount"), n)
-        GLES30.glUniform2fv(u(prog, "uBumps"), Shaders.MAX_BUMPS, bumpBuf, 0)
-        GLES30.glUniform1f(u(prog, "uBumpSigma"), (minors[i] * 2.6f / radii[i]).coerceIn(0.12f, 0.5f))
+        val det = sxx * syy - sxy * sxy
+        var a = 0.0; var b = 0.0
+        if (det > 1e-12) { a = (sxz * syy - syz * sxy) / det; b = (syz * sxx - sxz * sxy) / det }
+        else if (sxx + syy > 1e-12) { val g = (sxz + syz) / (sxx + syy + 2 * sxy).coerceAtLeast(1e-12); a = g; b = g }
+        val maxSlope = 1.6 * minors[i] / radii[i]; val mag = Math.hypot(a, b)
+        if (mag > maxSlope) { a *= maxSlope / mag; b *= maxSlope / mag }
+        tiltMatrix(a, b, tiltBuf)
+        GLES30.glUniformMatrix3fv(u(prog, "uTilt"), 1, false, tiltBuf, 0)
+        GLES30.glUniform1f(u(prog, "uZ0"), minors[i] * 1.02f + (0.55 * Math.hypot(a, b) * radii[i]).toFloat())
         return e
     }
 
@@ -315,6 +312,16 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform1f(u(ringProg, "uStripeOn"), 0f)
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, capMeshes[i].indexCount, GLES30.GL_UNSIGNED_SHORT, 0)
         GLES30.glDisableVertexAttribArray(1)
+    }
+
+    /** Rotation that maps +z onto the normal of the plane z = a·x + b·y (Rodrigues), column-major for GL. */
+    private fun tiltMatrix(a: Double, b: Double, out: FloatArray) {
+        val nx = -a; val ny = -b; val l = Math.sqrt(nx * nx + ny * ny + 1.0)
+        val x = nx / l; val y = ny / l; val z = 1.0 / l
+        val k = 1.0 / (1.0 + z)
+        out[0] = (1 - x * x * k).toFloat(); out[1] = (-x * y * k).toFloat(); out[2] = (-x).toFloat()   // column 0 = image of x axis
+        out[3] = (-x * y * k).toFloat(); out[4] = (1 - y * y * k).toFloat(); out[5] = (-y).toFloat()   // column 1 = image of y axis
+        out[6] = x.toFloat(); out[7] = y.toFloat(); out[8] = z.toFloat()                                 // column 2 = n
     }
 
     private fun colorOf(id: String?): FloatArray = when (id) { "red" -> floatArrayOf(0.88f, 0.32f, 0.28f); "jade" -> floatArrayOf(0.3f, 0.72f, 0.56f); "ube" -> floatArrayOf(0.6f, 0.45f, 0.82f); else -> floatArrayOf(0.4f, 0.25f, 0.15f) }
