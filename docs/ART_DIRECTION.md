@@ -1,4 +1,4 @@
-# Dumpling Rings — Art Direction Brief
+# Ring Revolution — Art Direction Brief
 
 Shared visual universe with Dumpling Diner (see `assets/imported/sheets/`). All generated art must match these sheets.
 

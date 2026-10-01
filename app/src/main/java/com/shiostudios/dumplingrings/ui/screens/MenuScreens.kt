@@ -95,7 +95,7 @@ fun MainMenuScreen(container: AppContainer, nav: Nav) {
                     RoundIconButton(contentDescription = stringResource(R.string.settings), onClick = { nav.push(Screen.Settings) }) { Glyph("gear", Modifier.size(26.dp)) }
                 }
                 Spacer(Modifier.height(if (landscape) 4.dp else 24.dp))
-                Box(Modifier.scale(if (reduce) 1f else 1f + bob * 0.02f)) { TitleText("Dumpling Rings", size = if (landscape) 36 else 44, color = DR.Cream) }
+                Box(Modifier.scale(if (reduce) 1f else 1f + bob * 0.02f)) { TitleText("Ring Revolution", size = if (landscape) 36 else 44, color = DR.Cream) }
                 Text("Shio Studios", style = MaterialTheme.typography.labelLarge, color = DR.Cream.copy(alpha = 0.85f))
                 Spacer(Modifier.weight(1f))
                 Column(Modifier.widthIn(max = 420.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(10.dp)) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dumpling Rings</string>
+    <string name="app_name">Ring Revolution</string>
     <string name="tap_to_start">Tippe zum Starten</string>
     <string name="play">Spielen</string>
     <string name="continue_">Weiter</string>
@@ -68,9 +68,9 @@
     <string name="privacy">Datenschutz &amp; Werbung</string>
     <string name="privacy_options">Datenschutzoptionen</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
-    <string name="privacy_text">Dumpling Rings funktioniert komplett offline und speichert deinen Fortschritt nur auf diesem Gerät. Werbung ist standardmäßig aus und wird nur mit deiner Zustimmung gezeigt; ein einmaliger Premium-Kauf entfernt alle nicht-optionalen Anzeigen dauerhaft.</string>
+    <string name="privacy_text">Ring Revolution funktioniert komplett offline und speichert deinen Fortschritt nur auf diesem Gerät. Werbung ist standardmäßig aus und wird nur mit deiner Zustimmung gezeigt; ein einmaliger Premium-Kauf entfernt alle nicht-optionalen Anzeigen dauerhaft.</string>
     <string name="ads_disabled_build">Werbung ist in diesem Build deaktiviert.</string>
-    <string name="premium_title">Dumpling Rings Premium</string>
+    <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">Ein Kauf, für immer: keine Interstitials, keine Banner, ein goldenes Ube-Ringthema und täglich ein kostenloser Booster.</string>
     <string name="buy_premium">Premium kaufen %1$s</string>
     <string name="restore_purchases">Käufe wiederherstellen</string>
@@ -95,7 +95,7 @@
     <string name="stat_moves">Züge gesamt</string>
     <string name="stat_best_combo">Beste Combo</string>
     <string name="stat_releases">Ringe befreit</string>
-    <string name="credits_text">Shio Studios · Dumpling Rings\nDesign, Code, Art Direction und Audio-Pipeline von Shio Studios.\nMusik generiert mit Suno; Soundeffekte intern synthetisiert.\nSchriften: Nunito und Baloo 2 (SIL Open Font License).</string>
+    <string name="credits_text">Shio Studios · Ring Revolution\nDesign, Code, Art Direction und Audio-Pipeline von Shio Studios.\nMusik generiert mit Suno; Soundeffekte intern synthetisiert.\nSchriften: Nunito und Baloo 2 (SIL Open Font License).</string>
     <string name="back">Zurück</string>
     <string name="close">Schließen</string>
     <string name="ok">OK</string>

@@ -1,4 +1,4 @@
-# Implementation status — Dumpling Rings (Android first)
+# Implementation status — Ring Revolution (Android first)
 
 Last updated: 2026-10-01 (end of the one-shot build). Status legend: ✅ built and tested · 🟡 built, verified on JVM only · ⛔ needs owner action.
 

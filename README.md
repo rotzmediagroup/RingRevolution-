@@ -1,4 +1,4 @@
-# Dumpling Rings
+# Ring Revolution
 
 Premium-cozy rotate-rings puzzle game by Shio Studios — 3 worlds, 15 chapters, 150 solver-validated levels, fully offline.
 Native Android (Kotlin + Jetpack Compose) with a pure-Kotlin puzzle core ready for iOS via Kotlin Multiplatform.
