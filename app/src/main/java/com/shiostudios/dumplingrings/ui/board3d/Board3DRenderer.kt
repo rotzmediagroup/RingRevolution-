@@ -35,7 +35,12 @@ class SceneSnapshot(val rings: List<RingState>, val obstacleDriverAngles: FloatA
 class Board3DRenderer(private val context: Context, private val level: LevelDefinition, private val fit: BoardFit, val camera: BoardCamera,
                       private val materialOverride: String?) : GLSurfaceView.Renderer {
     @Volatile var snapshot: SceneSnapshot? = null
-    private var ringProg = 0; private var shadowProg = 0; private var propProg = 0; private var quadProg = 0
+    private var ringProg = 0; private var shadowProg = 0; private var propProg = 0; private var quadProg = 0; private var glbRingProg = 0
+    /** Meshy ring meshes per material id (premium materials); null => procedural dough torus fallback */
+    private val ringModels = HashMap<String, GlRingModel?>()
+    private val capMeshes = ArrayList<TorusMesh>(); private val capVbos = IntArray(level.rings.size); private val capIbos = IntArray(level.rings.size)
+    private val gapBuf = FloatArray(8)
+    private class GlRingModel(val vbo: Int, val ibo: Int, val indexType: Int, val indexCount: Int, val base: Int, val mr: Int, val nrm: Int, val metal: Float, val rough: Float, val avgColor: FloatArray)
     private val meshes = ArrayList<TorusMesh>()
     private val vbos = IntArray(level.rings.size); private val ibos = IntArray(level.rings.size)
     private val textures = HashMap<String, Int>()
@@ -72,7 +77,15 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         shadowProg = program(shadowVs(), Shaders.SHADOW_FS)
         propProg = program(Shaders.PROP_VS, Shaders.PROP_FS)
         quadProg = program(Shaders.QUAD_VS, Shaders.QUAD_FS)
-        meshes.clear()
+        glbRingProg = program(Shaders.GLBRING_VS, Shaders.GLBRING_FS)
+        meshes.clear(); capMeshes.clear(); ringModels.clear()
+        for ((i, r) in level.rings.withIndex()) {
+            val cm = TorusMesh.buildCaps(r); capMeshes.add(cm)
+            val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0); capVbos[i] = ids[0]; capIbos[i] = ids[1]
+            GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, capVbos[i]); GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, maxOf(cm.vertexCount, 1) * TorusMesh.FLOATS_PER_VERTEX * 4, cm.vertices, GLES30.GL_STATIC_DRAW)
+            GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, capIbos[i]); GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, maxOf(cm.indexCount, 1) * 2, cm.indices, GLES30.GL_STATIC_DRAW)
+        }
+        for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat))
         for ((i, r) in level.rings.withIndex()) {
             val m = TorusMesh.build(r); meshes.add(m)
             val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0); vbos[i] = ids[0]; ibos[i] = ids[1]
@@ -86,6 +99,28 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         for (name in listOf("sesame_dough", "matcha", "beet_pink", "ube_purple", "gold", "bamboo")) loadTexture("materials/$name.webp")
         for (p in listOf("chopstick", "lantern_gate", "lantern_arm", "dumpling", "bamboo_basket")) loadProp(p)
     }
+
+    /** Campaign materials map onto the premium Meshy ring set; themes map directly. */
+    private fun ringAsset(materialId: String): String = when (materialId) {
+        "dough_sesame" -> "ring_gold"; "dough_matcha" -> "ring_jade"; "dough_beet" -> "ring_rose_gold"; "dough_ube" -> "ring_onyx"
+        "dough_gold" -> "ring_silver"; "dough_bamboo" -> "ring_marble"
+        else -> materialId
+    }
+
+    private fun loadRingModel(name: String): GlRingModel? = try {
+        val bytes = context.assets.open("3d/rings/$name.glb").use { it.readBytes() }
+        val glb = GlbLoader.load(bytes) ?: return null
+        val rm = RingModel.from(glb)
+        val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0)
+        GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, ids[0]); GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, rm.vertexCount * RingModel.FLOATS_PER_VERTEX * 4, rm.vertices, GLES30.GL_STATIC_DRAW)
+        GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, ids[1]); GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, rm.indexCount * (if (rm.indexType == GLES30.GL_UNSIGNED_INT) 4 else 2), rm.indices, GLES30.GL_STATIC_DRAW)
+        val base = glb.baseColor?.let { texture(it, repeat = true) } ?: whiteTex
+        val mr = glb.metallicRoughness?.let { texture(it, repeat = true) } ?: 0
+        val nm = glb.normalMap?.let { texture(it, repeat = true) } ?: 0
+        val avg = glb.baseColor?.let { b -> val sm = Bitmap.createScaledBitmap(b, 8, 8, true); var r = 0f; var g = 0f; var bl = 0f; for (y in 0 until 8) for (x in 0 until 8) { val px = sm.getPixel(x, y); r += (px shr 16 and 255) / 255f; g += (px shr 8 and 255) / 255f; bl += (px and 255) / 255f }; floatArrayOf(r / 64, g / 64, bl / 64) } ?: floatArrayOf(0.8f, 0.7f, 0.5f)
+        Log.i("Board3D", "ring model $name: ${rm.vertexCount} verts, thickness ratio ${rm.thicknessRatio}")
+        GlRingModel(ids[0], ids[1], rm.indexType, rm.indexCount, base, mr, nm, glb.metallicFactor, glb.roughnessFactor, avg)
+    } catch (e: Exception) { Log.i("Board3D", "ring model $name not available: ${e.message}"); null }
 
     private fun shadowVs() = Shaders.RING_VS
         .replace("vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r;", "vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r * 1.8; p.xy += vec2(0.35, -0.25) * p.z; p.z = 0.0015;")
@@ -111,12 +146,18 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUseProgram(shadowProg)
         for ((i, rs) in s.rings.withIndex()) if (!rs.removed || rs.liftT < 1f) drawRing(shadowProg, i, rs, s, lights, shadow = true)
         GLES30.glDepthMask(true)
-        // --- rings
-        GLES30.glUseProgram(ringProg)
+        // --- rings (premium Meshy meshes when available, procedural dough otherwise)
         for ((i, rs) in s.rings.withIndex()) {
             if (rs.removed && rs.liftT >= 1f) continue
-            drawRing(ringProg, i, rs, s, lights, shadow = false)
-            rs.ghostAngleDeg?.let { ga -> drawRing(ringProg, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, shadow = false, ghost = rs.ghostAlpha) }
+            val model = ringModels[materialOverride ?: level.rings[i].materialId]
+            if (model != null) {
+                drawGlbRing(model, i, rs, s, lights)
+                rs.ghostAngleDeg?.let { ga -> drawGlbRing(model, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, ghost = rs.ghostAlpha) }
+            } else {
+                GLES30.glUseProgram(ringProg)
+                drawRing(ringProg, i, rs, s, lights, shadow = false)
+                rs.ghostAngleDeg?.let { ga -> drawRing(ringProg, i, RingState(ga, false, 0f, rs.exitDeg, false, false, null, 0f), s, lights, shadow = false, ghost = rs.ghostAlpha) }
+            }
         }
         // --- obstacles / props
         GLES30.glUseProgram(propProg)
@@ -190,6 +231,75 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
             GLES30.glUniform3fv(u(prog, "uStripe"), 1, stripe, 0); GLES30.glUniform1f(u(prog, "uStripeOn"), if (r.colorId != null) 1f else 0f)
         }
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, m.indexCount, GLES30.GL_UNSIGNED_SHORT, 0)
+        GLES30.glDisableVertexAttribArray(1)
+    }
+
+    /** Common ring-placement uniforms (rotation, release animation, weave bumps) for any ring program. */
+    private fun setRingPlacement(prog: Int, i: Int, rs: RingState, s: SceneSnapshot, shadow: Boolean): Float {
+        GLES30.glUniformMatrix4fv(u(prog, "uViewProj"), 1, false, camera.viewProj, 0)
+        GLES30.glUniform2f(u(prog, "uCenter"), centers[i][0], centers[i][1])
+        GLES30.glUniform1f(u(prog, "uMajor"), radii[i]); GLES30.glUniform1f(u(prog, "uMinor"), minors[i])
+        GLES30.glUniform1f(u(prog, "uRot"), Math.toRadians(rs.angleDeg.toDouble()).toFloat())
+        val t = rs.liftT.coerceIn(0f, 1f); val e = 1f - (1f - t) * (1f - t)
+        val ex = cos(Math.toRadians(rs.exitDeg.toDouble())).toFloat(); val ey = sin(Math.toRadians(rs.exitDeg.toDouble())).toFloat()
+        GLES30.glUniform1f(u(prog, "uLift"), if (shadow) 0f else e * 0.35f)
+        GLES30.glUniform2f(u(prog, "uSlide"), ex * 0.22f * e, ey * 0.22f * e)
+        GLES30.glUniform1f(u(prog, "uScale"), 1f + 0.15f * e)
+        var n = 0
+        for (c in crossings) {
+            val me = if (c.a == i) 0 else if (c.b == i) 1 else -1
+            if (me < 0) continue
+            val partner = if (me == 0) c.b else c.a
+            if (s.rings[partner].removed) continue
+            val over = if (me == 0) c.aOver else !c.aOver
+            if (n < Shaders.MAX_BUMPS) { bumpBuf[n * 2] = if (me == 0) c.angA else c.angB; bumpBuf[n * 2 + 1] = (if (over) 1f else -1f) * minors[i] * 1.15f; n++ }
+        }
+        GLES30.glUniform1i(u(prog, "uBumpCount"), n)
+        GLES30.glUniform2fv(u(prog, "uBumps"), Shaders.MAX_BUMPS, bumpBuf, 0)
+        GLES30.glUniform1f(u(prog, "uBumpSigma"), (minors[i] * 2.6f / radii[i]).coerceIn(0.12f, 0.5f))
+        return e
+    }
+
+    private fun drawGlbRing(model: GlRingModel, i: Int, rs: RingState, s: SceneSnapshot, l: Lights, ghost: Float = 0f) {
+        val r = level.rings[i]
+        val prog = glbRingProg
+        GLES30.glUseProgram(prog)
+        GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, model.vbo); GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, model.ibo)
+        val stride = RingModel.FLOATS_PER_VERTEX * 4
+        GLES30.glEnableVertexAttribArray(0); GLES30.glVertexAttribPointer(0, 3, GLES30.GL_FLOAT, false, stride, 0)
+        GLES30.glEnableVertexAttribArray(1); GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, stride, 12)
+        GLES30.glEnableVertexAttribArray(2); GLES30.glVertexAttribPointer(2, 3, GLES30.GL_FLOAT, false, stride, 20)
+        val e = setRingPlacement(prog, i, rs, s, false)
+        setLights(prog, l)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, model.base); GLES30.glUniform1i(u(prog, "uAlbedo"), 0)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE1); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, if (model.mr != 0) model.mr else whiteTex); GLES30.glUniform1i(u(prog, "uMetalRough"), 1)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE2); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, if (model.nrm != 0) model.nrm else whiteTex); GLES30.glUniform1i(u(prog, "uNormalMap"), 2)
+        GLES30.glUniform1f(u(prog, "uHasMR"), if (model.mr != 0) 1f else 0f); GLES30.glUniform1f(u(prog, "uHasNormal"), if (model.nrm != 0) 1f else 0f)
+        GLES30.glUniform1f(u(prog, "uMetalFactor"), model.metal); GLES30.glUniform1f(u(prog, "uRoughFactor"), model.rough)
+        val pulse = 0.5f + 0.5f * sin(s.timeMs / 320.0).toFloat()
+        val em = when { ghost > 0f -> floatArrayOf(0.45f, 0.35f, 0.1f); rs.selected -> floatArrayOf(0.22f * pulse + 0.08f, 0.17f * pulse + 0.05f, 0.03f); else -> floatArrayOf(0f, 0f, 0f) }
+        GLES30.glUniform3fv(u(prog, "uEmissive"), 1, em, 0)
+        GLES30.glUniform1f(u(prog, "uAlpha"), if (ghost > 0f) ghost else 1f - e)
+        GLES30.glUniform1f(u(prog, "uDarken"), if (rs.locked) 1f else 0f)
+        val stripe = colorOf(r.colorId); GLES30.glUniform3fv(u(prog, "uStripe"), 1, stripe, 0); GLES30.glUniform1f(u(prog, "uStripeOn"), if (r.colorId != null) 1f else 0f)
+        // gaps in local radians, widened by the dome length so the caps own the edge
+        val capRad = (r.thickness * 0.5 / r.radius * 0.95).toFloat()
+        var g = 0
+        for (gap in r.gaps.take(4)) { gapBuf[g * 2] = Math.toRadians(gap.startDeg).toFloat() + capRad; gapBuf[g * 2 + 1] = (Math.toRadians(gap.widthDeg).toFloat() - 2 * capRad).coerceAtLeast(0f); g++ }
+        GLES30.glUniform1i(u(prog, "uGapCount"), g); GLES30.glUniform2fv(u(prog, "uGaps"), 4, gapBuf, 0); GLES30.glUniform1f(u(prog, "uCapRad"), capRad)
+        GLES30.glDrawElements(GLES30.GL_TRIANGLES, model.indexCount, model.indexType, 0)
+        GLES30.glDisableVertexAttribArray(1); GLES30.glDisableVertexAttribArray(2)
+        // domed caps at the gap edges, shaded with the model's average colour via the dough ring program
+        GLES30.glUseProgram(ringProg)
+        GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, capVbos[i]); GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, capIbos[i])
+        GLES30.glEnableVertexAttribArray(0); GLES30.glVertexAttribPointer(0, 4, GLES30.GL_FLOAT, false, 20, 0)
+        GLES30.glEnableVertexAttribArray(1); GLES30.glVertexAttribPointer(1, 1, GLES30.GL_FLOAT, false, 20, 16)
+        setRingPlacement(ringProg, i, rs, s, false); setLights(ringProg, l)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, whiteTex); GLES30.glUniform1i(u(ringProg, "uAlbedo"), 0)
+        GLES30.glUniform3fv(u(ringProg, "uTint"), 1, model.avgColor, 0); GLES30.glUniform1f(u(ringProg, "uRough"), (model.rough * 0.6f).coerceIn(0.15f, 0.8f))
+        GLES30.glUniform3fv(u(ringProg, "uEmissive"), 1, em, 0); GLES30.glUniform1f(u(ringProg, "uAlpha"), if (ghost > 0f) ghost else 1f - e); GLES30.glUniform1f(u(ringProg, "uDarken"), if (rs.locked) 1f else 0f)
+        GLES30.glUniform1f(u(ringProg, "uStripeOn"), 0f)
+        GLES30.glDrawElements(GLES30.GL_TRIANGLES, capMeshes[i].indexCount, GLES30.GL_UNSIGNED_SHORT, 0)
         GLES30.glDisableVertexAttribArray(1)
     }
 

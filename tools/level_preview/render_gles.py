@@ -70,6 +70,23 @@ def build(r, seg_per_deg=0.45, sides=16):
                 idx += [a, b, a + 1, a + 1, b, b + 1]
     return np.array(verts, np.float32), np.array(idx, np.uint16)
 
+def build_caps(r, sides=16):
+    verts = []; idx = []; uscale = 2 * math.pi * r["radius"] / (r["thickness"] * 3.2); capRings = 5
+    capDeg = math.degrees(r["thickness"] * 0.5 / r["radius"]) * 0.95
+    for a0, a1 in wire_segments(r):
+        for end in (0, 1):
+            base = len(verts) // 5
+            for i in range(capRings + 1):
+                capT = i / capRings; ang = a0 + capT * capDeg if end == 0 else a1 - capT * capDeg
+                cs = math.sqrt(max(0.0, 1 - (1 - capT) ** 2)); signed = 1.0 if capT >= 1 else (-cs if end == 0 else cs)
+                u = math.radians(ang) * uscale / (2 * math.pi)
+                for s_ in range(sides + 1): verts += [math.radians(ang), 2 * math.pi * s_ / sides, u, s_ / sides, signed]
+            stride = sides + 1
+            for i in range(capRings):
+                for s_ in range(sides):
+                    a = base + i * stride + s_; b = a + stride; idx += [a, b, a + 1, a + 1, b, b + 1]
+    return np.array(verts, np.float32), np.array(idx, np.uint16)
+
 def crossings(a, b):
     dx, dy = b["center"][0]-a["center"][0], b["center"][1]-a["center"][1]; d = math.hypot(dx, dy)
     if d < 1e-9 or d > a["radius"]+b["radius"] or d < abs(a["radius"]-b["radius"]): return []
@@ -79,6 +96,42 @@ def crossings(a, b):
     pts = [(px-uy*h, py+ux*h), (px+uy*h, py-ux*h)]
     out = [(math.atan2(p[1]-a["center"][1], p[0]-a["center"][0]) % (2*math.pi), math.atan2(p[1]-b["center"][1], p[0]-b["center"][0]) % (2*math.pi)) for p in pts]
     return sorted(out)
+
+# ---------------- Meshy ring meshes (mirror of GlbLoader + RingModel)
+import struct, io
+def load_glb(path):
+    b = open(path, "rb").read(); ln = struct.unpack("<I", b[12:16])[0]; j = json.loads(b[20:20 + ln]); bl = struct.unpack("<I", b[20 + ln:24 + ln])[0]; bin_ = b[28 + ln:28 + ln + bl]
+    acc = j["accessors"]; views = j["bufferViews"]
+    def accf(i):
+        a = acc[i]; v = views[a["bufferView"]]; comps = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4}[a["type"]]
+        off = v.get("byteOffset", 0) + a.get("byteOffset", 0); stride = v.get("byteStride", comps * 4)
+        if stride == comps * 4: return np.frombuffer(bin_, np.float32, a["count"] * comps, off).reshape(-1, comps)
+        return np.array([[struct.unpack_from("<f", bin_, off + i * stride + c * 4)[0] for c in range(comps)] for i in range(a["count"])], np.float32)
+    prim = j["meshes"][0]["primitives"][0]; at = prim["attributes"]
+    pos = accf(at["POSITION"]); nrm = accf(at["NORMAL"]) if "NORMAL" in at else None; uv = accf(at["TEXCOORD_0"]) if "TEXCOORD_0" in at else np.zeros((len(pos), 2), np.float32)
+    ia = acc[prim["indices"]]; iv = views[ia["bufferView"]]; ioff = iv.get("byteOffset", 0) + ia.get("byteOffset", 0)
+    idx = np.frombuffer(bin_, np.uint32 if ia["componentType"] == 5125 else np.uint16, ia["count"], ioff).astype(np.uint32)
+    imgs = {}
+    mat = j["materials"][prim["material"]] if "material" in prim else {}
+    def img(ref):
+        if not ref: return None
+        src = j["textures"][ref["index"]]["source"]; im = j["images"][src]; v = views[im["bufferView"]]
+        return Image.open(io.BytesIO(bin_[v.get("byteOffset", 0):v.get("byteOffset", 0) + v["byteLength"]])).convert("RGB")
+    pbr = mat.get("pbrMetallicRoughness", {})
+    return pos, nrm, uv, idx, img(pbr.get("baseColorTexture")), img(pbr.get("metallicRoughnessTexture")), img(mat.get("normalTexture")), pbr.get("metallicFactor", 1.0), pbr.get("roughnessFactor", 1.0)
+
+def ring_model(pos, nrm, uv):
+    mn = pos.min(0); mx = pos.max(0); ext = mx - mn; axis = int(np.argmin(ext)); c = (mn + mx) / 2
+    ax = {0: [1, 2, 0], 1: [0, 2, 1], 2: [0, 1, 2]}[axis]
+    p = pos - c; px, py, pz = p[:, ax[0]], p[:, ax[1]], p[:, ax[2]]
+    rho = np.hypot(px, py); major = (rho.max() + rho.min()) / 2; minor = max((rho.max() - rho.min()) / 2, ext[axis] / 2, 1e-4)
+    phi = np.arctan2(py, px); rN = (rho - major) / minor; zN = pz / minor
+    if nrm is not None:
+        nx, ny, nz = nrm[:, ax[0]], nrm[:, ax[1]], nrm[:, ax[2]]; cr, sr = np.cos(phi), np.sin(phi)
+        nR = nx * cr + ny * sr; nT = -nx * sr + ny * cr; nZ = nz
+    else: nR = np.zeros_like(phi); nT = np.zeros_like(phi); nZ = np.ones_like(phi)
+    v = np.stack([phi, rN, zN, uv[:, 0], uv[:, 1], nR, nT, nZ, np.zeros_like(phi)], 1).astype(np.float32)
+    return v, minor / rho.max()
 
 def compile_prog(vs, fs):
     def sh(t, src):
@@ -107,7 +160,17 @@ def main():
     eglMakeCurrent(dpy, surf, surf, ctx)
     print("GL:", glGetString(GL_VERSION).decode())
     S = shaders()
-    ringP = compile_prog(S["RING_VS"], S["RING_FS"]); shadowP = compile_prog(S["SHADOW_VS"], S["SHADOW_FS"]); propP = compile_prog(S["PROP_VS"], S["PROP_FS"])
+    ringP = compile_prog(S["RING_VS"], S["RING_FS"]); shadowP = compile_prog(S["SHADOW_VS"], S["SHADOW_FS"]); propP = compile_prog(S["PROP_VS"], S["PROP_FS"]); glbP = compile_prog(S["GLBRING_VS"], S["GLBRING_FS"])
+    RINGS = os.environ.get("RING_GLB")   # optional: path to a Meshy ring GLB used for all rings
+    glb = None
+    if RINGS and os.path.exists(RINGS):
+        pos, nrm, uv, idx, base, mr, nm, mf, rf = load_glb(RINGS); rv, ratio = ring_model(pos, nrm, uv); print("ring glb:", len(pos), "verts, thickness ratio %.3f" % ratio)
+        def tex(im, repeat=True):
+            if im is None: return 0
+            im = im.resize((1024, 1024)); t = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, t)
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, np.array(im, np.uint8).tobytes()); glGenerateMipmap(GL_TEXTURE_2D)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); return t
+        glb = dict(v=rv, idx=idx, base=tex(base), mr=tex(mr), nm=tex(nm), mf=mf, rf=rf, avg=(np.array(base.resize((8, 8))).reshape(-1, 3).mean(0) / 255 if base else np.array([0.8, 0.7, 0.5])))
     glViewport(0, 0, W, H); glEnable(GL_DEPTH_TEST); glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glClearColor(0.80, 0.62, 0.42, 1.0); glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     vp, eye = camera(W, H)
@@ -140,6 +203,49 @@ def main():
         for name, val in zip(["uKeyDir", "uKeyCol", "uFillDir", "uFillCol", "uRimDir", "uRimCol", "uAmbientSky", "uAmbientGround"], L): glUniform3f(glGetUniformLocation(p, name), *val)
         glUniform3f(glGetUniformLocation(p, "uEye"), *eye)
     meshes = [build(r) for r in rings]
+    caps = [build_caps(r) for r in rings]
+    def draw_glb_ring(i, r, sel=False):
+        p = glbP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
+        v = glb["v"]; ix = glb["idx"].astype(np.uint32)
+        vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, v.nbytes, v, GL_STATIC_DRAW)
+        ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, ix.nbytes, ix, GL_STATIC_DRAW)
+        glEnableVertexAttribArray(0); glVertexAttribPointer(0, 3, GL_FLOAT, False, 36, ctypes.c_void_p(0))
+        glEnableVertexAttribArray(1); glVertexAttribPointer(1, 2, GL_FLOAT, False, 36, ctypes.c_void_p(12))
+        glEnableVertexAttribArray(2); glVertexAttribPointer(2, 3, GL_FLOAT, False, 36, ctypes.c_void_p(20))
+        placement(p, r); set_lights(p)
+        for unit, (name, t) in enumerate([("uAlbedo", glb["base"]), ("uMetalRough", glb["mr"]), ("uNormalMap", glb["nm"])]):
+            glActiveTexture(GL_TEXTURE0 + unit); glBindTexture(GL_TEXTURE_2D, t); glUniform1i(u(name), unit)
+        glUniform1f(u("uHasMR"), 1.0 if glb["mr"] else 0.0); glUniform1f(u("uHasNormal"), 1.0 if glb["nm"] else 0.0)
+        glUniform1f(u("uMetalFactor"), glb["mf"]); glUniform1f(u("uRoughFactor"), glb["rf"])
+        glUniform3f(u("uEmissive"), *((0.2, 0.15, 0.03) if sel else (0, 0, 0))); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0); glUniform3f(u("uStripe"), 0, 0, 0)
+        capRad = r["thickness"] * 0.5 / r["radius"] * 0.95
+        gaps = np.zeros(8, np.float32)
+        for gi, g in enumerate(r["gaps"][:4]): gaps[gi * 2] = math.radians(g["startDeg"]) + capRad; gaps[gi * 2 + 1] = max(0.0, math.radians(g["widthDeg"]) - 2 * capRad)
+        glUniform1i(u("uGapCount"), min(4, len(r["gaps"]))); glUniform2fv(u("uGaps"), 4, gaps); glUniform1f(u("uCapRad"), capRad)
+        glDrawElements(GL_TRIANGLES, len(ix), GL_UNSIGNED_INT, ctypes.c_void_p(0))
+        glDisableVertexAttribArray(1); glDisableVertexAttribArray(2)
+        # caps
+        p = ringP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
+        cv, cix = caps[i]
+        vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, cv.nbytes, cv, GL_STATIC_DRAW)
+        ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, cix.nbytes, cix, GL_STATIC_DRAW)
+        glEnableVertexAttribArray(0); glVertexAttribPointer(0, 4, GL_FLOAT, False, 20, ctypes.c_void_p(0))
+        glEnableVertexAttribArray(1); glVertexAttribPointer(1, 1, GL_FLOAT, False, 20, ctypes.c_void_p(16))
+        placement(p, r); set_lights(p)
+        glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, white); glUniform1i(u("uAlbedo"), 0)
+        glUniform3f(u("uTint"), *glb["avg"]); glUniform1f(u("uRough"), min(max(glb["rf"] * 0.6, 0.15), 0.8))
+        glUniform3f(u("uEmissive"), 0, 0, 0); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0)
+        glDrawElements(GL_TRIANGLES, len(cix), GL_UNSIGNED_SHORT, ctypes.c_void_p(0))
+    def placement(p, r):
+        u = lambda n: glGetUniformLocation(p, n)
+        glUniformMatrix4fv(u("uViewProj"), 1, True, vp)
+        glUniform2f(u("uCenter"), 0.5 + (r["center"][0] - cx) * k, 0.5 + (r["center"][1] - cy) * k)
+        glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["thickness"] * k * 0.5)
+        glUniform1f(u("uRot"), math.radians(r["initialAngleDeg"])); glUniform1f(u("uLift"), 0); glUniform2f(u("uSlide"), 0, 0); glUniform1f(u("uScale"), 1)
+        bl = bumps[r["id"]][:24]; arr = np.zeros(48, np.float32)
+        for bi, (ba, bh) in enumerate(bl): arr[bi * 2] = ba; arr[bi * 2 + 1] = bh
+        glUniform1i(u("uBumpCount"), len(bl)); glUniform2fv(u("uBumps"), 24, arr); glUniform1f(u("uBumpSigma"), min(max(r["thickness"] * 0.5 * 2.6 / r["radius"], 0.12), 0.5))
+    white = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, white); glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, bytes([255] * 12)); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
     def draw_ring(p, i, r, shadow, sel=False):
         v, ix = meshes[i]
         vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, v.nbytes, v, GL_STATIC_DRAW)
@@ -165,7 +271,9 @@ def main():
     glDepthMask(GL_FALSE); glUseProgram(shadowP)
     for i, r in enumerate(rings): draw_ring(shadowP, i, r, True)
     glDepthMask(GL_TRUE); glUseProgram(ringP)
-    for i, r in enumerate(rings): draw_ring(ringP, i, r, False, sel=(i == 0))
+    for i, r in enumerate(rings):
+        if glb: draw_glb_ring(i, r, sel=(i == 0))
+        else: draw_ring(ringP, i, r, False, sel=(i == 0))
     glFinish()
     data = glReadPixels(0, 0, W, H, GL_RGBA, GL_UNSIGNED_BYTE)
     img = Image.frombytes("RGBA", (W, H), data).transpose(Image.FLIP_TOP_BOTTOM)

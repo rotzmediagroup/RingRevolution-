@@ -102,5 +102,69 @@
       "balance_after": 841,
       "finished_at": "2026-10-01T13:27:49.826341+00:00"
     }
-  ]
+  ],
+  "rings": {
+    "ring_gold": {
+      "name": "ring_gold",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.567,
+          "note": "hole horizontal 0.57, vertical 0.50, object bbox 812x572",
+          "file": "assets/generated/3d/ring_gold/reference_try0.png"
+        },
+        {
+          "seed": 1037,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.484,
+          "note": "hole horizontal 0.48, vertical 0.40, object bbox 886x802",
+          "file": "assets/generated/3d/ring_gold/reference_try1.png"
+        },
+        {
+          "seed": 1074,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.44,
+          "note": "hole horizontal 0.44, vertical 0.52, object bbox 1002x710",
+          "file": "assets/generated/3d/ring_gold/reference_try2.png"
+        },
+        {
+          "seed": 1111,
+          "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.754,
+          "note": "hole horizontal 0.75, vertical 0.66, object bbox 920x896",
+          "file": "assets/generated/3d/ring_gold/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_gold/reference.png",
+      "prompt": "a very thin delicate circular bangle bracelet ring (slim torus) with a very large open hole, the tube is slim like a wire: tube thickness about one eighth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, nothing else in the image, made of polished 24k gold with a subtle engraved cloud pattern on the surface, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1111,
+      "reference_hole_ratio": 0.754,
+      "reference_ok": true
+    },
+    "ring_silver": {
+      "name": "ring_silver",
+      "reference_attempts": [
+        {
+          "seed": 1000,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of brushed sterling silver with a polished mirror rim, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.527,
+          "note": "hole horizontal 0.53, vertical 0.52, object bbox 946x750",
+          "file": "assets/generated/3d/ring_silver/reference_try0.png"
+        },
+        {
+          "seed": 1037,
+          "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of brushed sterling silver with a polished mirror rim, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+          "hole_ratio": 0.718,
+          "note": "hole horizontal 0.72, vertical 0.54, object bbox 952x898",
+          "file": "assets/generated/3d/ring_silver/reference.png"
+        }
+      ],
+      "reference_image": "assets/generated/3d/ring_silver/reference.png",
+      "prompt": "a thin smooth circular ring (torus) like a bracelet, the hole is wide: tube thickness about one sixth of the ring radius, perfectly round, lying flat on a plain pure white background seen from a three-quarter top view, product photography, studio lighting, high detail, no text, made of brushed sterling silver with a polished mirror rim, no face, no decoration other than the surface material, single object only, no shadow, no other objects",
+      "reference_seed": 1037,
+      "reference_hole_ratio": 0.718,
+      "reference_ok": true
+    }
+  }
 }

@@ -95,8 +95,8 @@ if os.path.isdir(D3):
     for name in sorted(os.listdir(D3)):
         d = os.path.join(D3, name)
         glb = next((os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".glb")), None) if os.path.isdir(d) else None
-        if glb and name in ("chopstick", "lantern_gate", "lantern_arm", "dumpling", "bamboo_basket"):
-            copy(glb, f"3d/{name}.glb", "3D prop (Meshy)")
+        if glb and name.startswith("ring_"):
+            copy(glb, f"3d/rings/{name}.glb", "premium ring mesh + PBR textures (Meshy)")
 
 # --- audio
 A = os.path.join(ROOT, "assets/audio")

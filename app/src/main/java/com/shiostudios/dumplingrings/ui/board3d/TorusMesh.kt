@@ -66,6 +66,37 @@ class TorusMesh private constructor(val vertices: FloatBuffer, val indices: Shor
             return TorusMesh(vb, ib, verts.size / FLOATS_PER_VERTEX, idx.size)
         }
 
+        /**
+         * Dome caps only (for Meshy ring meshes whose gaps are cut in the shader): one dome at each wire-segment end,
+         * built with the same signed-cap layout as [build] so the ring shader renders them unchanged.
+         */
+        fun buildCaps(ring: RingDef, tubeSides: Int = 16): TorusMesh {
+            val segs = wireSegments(ring)
+            val verts = ArrayList<Float>(); val idx = ArrayList<Short>()
+            val uScale = (2 * PI * ring.radius / (ring.thickness * 3.2)).toFloat()
+            val capRings = 5
+            val capDeg = Math.toDegrees(ring.thickness * 0.5 / ring.radius) * 0.95
+            for ((a0, a1) in segs) for (end in 0..1) {
+                val base = verts.size / FLOATS_PER_VERTEX
+                for (i in 0..capRings) {
+                    val capT = i / capRings.toFloat()
+                    val ang = if (end == 0) a0 + capT * capDeg else a1 - capT * capDeg
+                    val capScale = kotlin.math.sqrt((1f - (1f - capT) * (1f - capT)).coerceIn(0f, 1f))
+                    val signed = if (capT >= 1f) 1f else if (end == 0) -capScale else capScale
+                    val u = (Math.toRadians(ang) * uScale / (2 * PI)).toFloat()
+                    for (s in 0..tubeSides) { val tAng = 2 * PI * s / tubeSides; verts.add(Math.toRadians(ang).toFloat()); verts.add(tAng.toFloat()); verts.add(u); verts.add(s / tubeSides.toFloat()); verts.add(signed) }
+                }
+                val stride = tubeSides + 1
+                for (i in 0 until capRings) for (s in 0 until tubeSides) {
+                    val a = base + i * stride + s; val b = a + stride
+                    idx.add(a.toShort()); idx.add(b.toShort()); idx.add((a + 1).toShort()); idx.add((a + 1).toShort()); idx.add(b.toShort()); idx.add((b + 1).toShort())
+                }
+            }
+            val vb = ByteBuffer.allocateDirect(maxOf(verts.size, 1) * 4).order(ByteOrder.nativeOrder()).asFloatBuffer(); verts.forEach { vb.put(it) }; vb.position(0)
+            val ib = ByteBuffer.allocateDirect(maxOf(idx.size, 1) * 2).order(ByteOrder.nativeOrder()).asShortBuffer(); idx.forEach { ib.put(it) }; ib.position(0)
+            return TorusMesh(vb, ib, verts.size / FLOATS_PER_VERTEX, idx.size)
+        }
+
         /** Local wire intervals in degrees (complement of the gaps), unwrapped and merged. */
         fun wireSegments(r: RingDef): List<Pair<Double, Double>> {
             val gaps = r.gaps.map { Geometry.normDeg(it.startDeg) to it.widthDeg }.sortedBy { it.first }

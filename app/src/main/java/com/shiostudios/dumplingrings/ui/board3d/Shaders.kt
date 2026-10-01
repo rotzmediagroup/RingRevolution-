@@ -108,6 +108,109 @@ void main() {
 }
 """
 
+
+    /** Meshy ring mesh in tube space (see RingModel): rebuilt for the level ring, rotated, woven; gaps cut by angle. */
+    val GLBRING_VS = """#version 300 es
+precision highp float;
+layout(location = 0) in vec3 aTube;   // phi, rhoN, zN
+layout(location = 1) in vec2 aUv;
+layout(location = 2) in vec3 aNrm;    // normal in (radial, tangent, up) frame
+uniform mat4 uViewProj;
+uniform vec2 uCenter; uniform float uMajor; uniform float uMinor; uniform float uRot;
+uniform float uLift; uniform vec2 uSlide; uniform float uScale;
+uniform int uBumpCount; uniform vec2 uBumps[$MAX_BUMPS]; uniform float uBumpSigma;
+out vec3 vPos; out vec3 vNormal; out vec2 vUv; out float vLocal;
+float bumpAt(float wa) {
+  float z = 0.0;
+  for (int i = 0; i < $MAX_BUMPS; i++) { if (i >= uBumpCount) break;
+    float d = wa - uBumps[i].x; d = d - 6.2831853 * floor((d + 3.14159265) / 6.2831853);
+    z += uBumps[i].y * exp(-0.5 * (d * d) / (uBumpSigma * uBumpSigma)); }
+  return z;
+}
+void main() {
+  float la = aTube.x; float wa = la + uRot;
+  vec2 radial = vec2(cos(wa), sin(wa));
+  float z0 = uMinor * 1.02 + bumpAt(wa);
+  float dz = (bumpAt(wa + 0.01) - bumpAt(wa - 0.01)) / 0.02 / max(uMajor, 1e-4);
+  vec3 tangent = normalize(vec3(-radial.y, radial.x, dz));
+  vec3 radial3 = vec3(radial, 0.0); vec3 up = vec3(0.0, 0.0, 1.0);
+  vec3 p = vec3(uCenter + radial * (uMajor + aTube.y * uMinor), z0 + aTube.z * uMinor);
+  vec3 n = normalize(aNrm.x * radial3 + aNrm.y * tangent + aNrm.z * up);
+  p.xy = (p.xy - uCenter) * uScale + uCenter + uSlide; p.z = p.z * uScale + uLift;
+  vPos = p; vNormal = n; vUv = aUv; vLocal = la;
+  gl_Position = uViewProj * vec4(p, 1.0);
+}
+"""
+
+    /** PBR metallic-roughness with normal map (screen-space TBN), analytic studio environment for reflections, gap discard. */
+    val GLBRING_FS = """#version 300 es
+precision highp float;
+in vec3 vPos; in vec3 vNormal; in vec2 vUv; in float vLocal;
+uniform sampler2D uAlbedo; uniform sampler2D uMetalRough; uniform sampler2D uNormalMap;
+uniform float uHasMR; uniform float uHasNormal; uniform float uMetalFactor; uniform float uRoughFactor;
+uniform vec3 uEye; uniform vec3 uKeyDir; uniform vec3 uKeyCol; uniform vec3 uFillDir; uniform vec3 uFillCol; uniform vec3 uRimDir; uniform vec3 uRimCol;
+uniform vec3 uAmbientSky; uniform vec3 uAmbientGround; uniform vec3 uEmissive; uniform float uAlpha; uniform float uDarken;
+uniform vec3 uStripe; uniform float uStripeOn;
+uniform int uGapCount; uniform vec2 uGaps[4];   // (startRad, widthRad) in the ring's local frame
+uniform float uCapRad;                            // dome length in radians: gaps are widened by this so the dome cap owns the edge
+out vec4 fragColor;
+float ggx(vec3 n, vec3 h, float a) { float a2 = a * a; float ndh = max(dot(n, h), 0.0); float d = ndh * ndh * (a2 - 1.0) + 1.0; return a2 / (3.14159 * d * d + 1e-5); }
+float geo(float ndv, float ndl, float a) { float k = (a + 1.0) * (a + 1.0) / 8.0; return (ndv / (ndv * (1.0 - k) + k)) * (ndl / (ndl * (1.0 - k) + k)); }
+vec3 env(vec3 d, float rough) {
+  // studio environment: warm sky/ground gradient, a soft window reflection band and the key light as a bright blob
+  float up = d.z * 0.5 + 0.5;
+  vec3 e = mix(uAmbientGround * 1.4, uAmbientSky * 1.6, up);
+  float band = smoothstep(0.35, 0.55, d.z) * (1.0 - smoothstep(0.75, 0.95, d.z));
+  e += band * vec3(1.0, 0.98, 0.95) * 0.9 * (1.0 - rough * 0.7);
+  float sun = pow(max(dot(d, normalize(uKeyDir)), 0.0), mix(60.0, 6.0, rough));
+  e += sun * uKeyCol * 1.3;
+  return e;
+}
+void main() {
+  // gap cut (local angle): fragment inside any gap, widened by the dome length, is discarded (the domed caps cover the edges)
+  float la = vLocal - 6.2831853 * floor(vLocal / 6.2831853);
+  for (int i = 0; i < 4; i++) { if (i >= uGapCount) break;
+    float rel = la - uGaps[i].x; rel = rel - 6.2831853 * floor(rel / 6.2831853);
+    if (rel < uGaps[i].y) discard; }
+  vec4 albedoA = texture(uAlbedo, vUv); vec3 albedo = albedoA.rgb;
+  float metal = uMetalFactor; float rough = uRoughFactor;
+  if (uHasMR > 0.5) { vec3 mr = texture(uMetalRough, vUv).rgb; rough *= mr.g; metal *= mr.b; }
+  rough = clamp(rough, 0.06, 1.0);
+  vec3 n = normalize(vNormal);
+  if (uHasNormal > 0.5) {
+    vec3 tn = texture(uNormalMap, vUv).xyz * 2.0 - 1.0;
+    vec3 dp1 = dFdx(vPos); vec3 dp2 = dFdy(vPos); vec2 duv1 = dFdx(vUv); vec2 duv2 = dFdy(vUv);
+    vec3 dp2perp = cross(dp2, n); vec3 dp1perp = cross(n, dp1);
+    vec3 T = dp2perp * duv1.x + dp1perp * duv2.x; vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
+    float invmax = inversesqrt(max(dot(T, T), dot(B, B)) + 1e-9);
+    mat3 tbn = mat3(T * invmax, B * invmax, n);
+    n = normalize(tbn * vec3(tn.xy * 0.8, tn.z));
+  }
+  vec3 v = normalize(uEye - vPos);
+  float ndv = max(dot(n, v), 1e-3);
+  vec3 F0 = mix(vec3(0.04), albedo, metal);
+  vec3 diffCol = albedo * (1.0 - metal);
+  float a = rough * rough;
+  vec3 col = diffCol * mix(uAmbientGround, uAmbientSky, n.z * 0.5 + 0.5) * 0.35;
+  vec3 lights[3]; vec3 lcols[3]; lights[0] = uKeyDir; lcols[0] = uKeyCol; lights[1] = uFillDir; lcols[1] = uFillCol; lights[2] = uRimDir; lcols[2] = uRimCol;
+  for (int i = 0; i < 3; i++) {
+    vec3 l = normalize(lights[i]); float ndl = max(dot(n, l), 0.0); vec3 h = normalize(l + v);
+    vec3 F = F0 + (1.0 - F0) * pow(1.0 - max(dot(h, v), 0.0), 5.0);
+    vec3 spec = ggx(n, h, a) * geo(ndv, ndl, a) * F / (4.0 * ndv * ndl + 1e-4);
+    col += (diffCol / 3.14159 + spec) * ndl * lcols[i] * 2.2;
+  }
+  // environment reflection (the premium look of metal/stone/lacquer)
+  vec3 r = reflect(-v, n);
+  vec3 Fenv = F0 + (max(vec3(1.0 - rough), F0) - F0) * pow(1.0 - ndv, 5.0);
+  col += env(r, rough) * Fenv * mix(0.9, 0.35, rough);
+  if (uStripeOn > 0.5) { float band = smoothstep(0.17, 0.21, fract(vUv.y)) * (1.0 - smoothstep(0.29, 0.33, fract(vUv.y))); col = mix(col, uStripe * 1.15, band * 0.0); }
+  col = mix(col, col * 0.45, uDarken);
+  col += uEmissive;
+  col = col / (col + 0.8) * 1.5; col = (col - 0.5) * 1.1 + 0.5;
+  fragColor = vec4(pow(max(col, 0.0), vec3(1.0 / 2.2)), uAlpha);
+}
+"""
+
     /** Flat soft shadow: the ring mesh re-projected onto the table, blurred radially via alpha falloff by tube angle. */
     val SHADOW_FS = """#version 300 es
 precision highp float;
