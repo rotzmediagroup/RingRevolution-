@@ -41,13 +41,11 @@ jobs:
           ./gradlew :tools:levels:installDist && tools/levels/build/install/levels/bin/levels validate
           python3 tools/asset_import/check_runtime_assets.py
           ./gradlew :app:testDebugUnitTest :app:lintDebug
-      - name: Restore keystore (optional)
-        if: ${{ secrets.ANDROID_KEYSTORE_B64 != '' }}
-        run: echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 -d > "$RUNNER_TEMP/upload.jks" && echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+      - name: Restore keystore (optional, only when the secret is configured)
         env:
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks" && echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"; else echo "no keystore secret: release APK will be unsigned"; fi
       - name: Build
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
