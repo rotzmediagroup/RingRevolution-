@@ -5040,6 +5040,204 @@
   "sha1": "df00d9228fd1ce1f17bf2cbba261161f36cd723e"
  },
  {
+  "id": "3d/rings/ring_bronze.glb",
+  "file": "app/src/main/assets/3d/rings/ring_bronze.glb",
+  "source": "assets/generated/3d/ring_bronze/ring_bronze.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1372252,
+  "sha1": "d1f6707610f2b1446b82b8f575535946451b0548"
+ },
+ {
+  "id": "3d/rings/ring_bronze_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_bronze_thumb.webp",
+  "source": "assets/generated/3d/ring_bronze/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5918,
+  "sha1": "6975fde1888c5e10cbb441805cf29126856cf088"
+ },
+ {
+  "id": "3d/rings/ring_gold.glb",
+  "file": "app/src/main/assets/3d/rings/ring_gold.glb",
+  "source": "assets/generated/3d/ring_gold/ring_gold.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1100144,
+  "sha1": "ce4e7117335b44752da12a65f3a4a09d0d4cc394"
+ },
+ {
+  "id": "3d/rings/ring_gold_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_gold_thumb.webp",
+  "source": "assets/generated/3d/ring_gold/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 6550,
+  "sha1": "55e634ff31555b18540c4b4790f459d84aac40ca"
+ },
+ {
+  "id": "3d/rings/ring_jade.glb",
+  "file": "app/src/main/assets/3d/rings/ring_jade.glb",
+  "source": "assets/generated/3d/ring_jade/ring_jade.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1205116,
+  "sha1": "a9a2d619b59a64954521dcf58d52b3c023280053"
+ },
+ {
+  "id": "3d/rings/ring_jade_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_jade_thumb.webp",
+  "source": "assets/generated/3d/ring_jade/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5006,
+  "sha1": "a57c6c49bd8f061e68ab8ce81d2980816cb37224"
+ },
+ {
+  "id": "3d/rings/ring_lacquer.glb",
+  "file": "app/src/main/assets/3d/rings/ring_lacquer.glb",
+  "source": "assets/generated/3d/ring_lacquer/ring_lacquer.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1616168,
+  "sha1": "272e8c3911e227291efd17cdb7474efa4ac63ec2"
+ },
+ {
+  "id": "3d/rings/ring_lacquer_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_lacquer_thumb.webp",
+  "source": "assets/generated/3d/ring_lacquer/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 7106,
+  "sha1": "56359e2b272131daae2fa6393fac829f9216a797"
+ },
+ {
+  "id": "3d/rings/ring_marble.glb",
+  "file": "app/src/main/assets/3d/rings/ring_marble.glb",
+  "source": "assets/generated/3d/ring_marble/ring_marble.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1282472,
+  "sha1": "549dbe2de9fa5d8384e273a24c726a84efa4d5f2"
+ },
+ {
+  "id": "3d/rings/ring_marble_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_marble_thumb.webp",
+  "source": "assets/generated/3d/ring_marble/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5310,
+  "sha1": "0482f53b9f68c3624a229251e2e2226491447b37"
+ },
+ {
+  "id": "3d/rings/ring_obsidian.glb",
+  "file": "app/src/main/assets/3d/rings/ring_obsidian.glb",
+  "source": "assets/generated/3d/ring_obsidian/ring_obsidian.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1236548,
+  "sha1": "531e6d7ad54546e08f3a55bb0b41b72bf42cf7a4"
+ },
+ {
+  "id": "3d/rings/ring_obsidian_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_obsidian_thumb.webp",
+  "source": "assets/generated/3d/ring_obsidian/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 4858,
+  "sha1": "73693bb92b6cdfb484c205926fde11db33c62510"
+ },
+ {
+  "id": "3d/rings/ring_onyx.glb",
+  "file": "app/src/main/assets/3d/rings/ring_onyx.glb",
+  "source": "assets/generated/3d/ring_onyx/ring_onyx.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1319952,
+  "sha1": "bcd7229a6928162176d1f1abdac6c8b8b3f78290"
+ },
+ {
+  "id": "3d/rings/ring_onyx_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_onyx_thumb.webp",
+  "source": "assets/generated/3d/ring_onyx/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5270,
+  "sha1": "cceedcef69ff3b913bb69a463bf4378535f4993a"
+ },
+ {
+  "id": "3d/rings/ring_pearl.glb",
+  "file": "app/src/main/assets/3d/rings/ring_pearl.glb",
+  "source": "assets/generated/3d/ring_pearl/ring_pearl.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1165600,
+  "sha1": "4282b034655733cd2fed063716f95b5112a15480"
+ },
+ {
+  "id": "3d/rings/ring_pearl_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_pearl_thumb.webp",
+  "source": "assets/generated/3d/ring_pearl/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5068,
+  "sha1": "af3b3f35ac09865c95216f1d12d564e3b9bcc19f"
+ },
+ {
+  "id": "3d/rings/ring_rose_gold.glb",
+  "file": "app/src/main/assets/3d/rings/ring_rose_gold.glb",
+  "source": "assets/generated/3d/ring_rose_gold/ring_rose_gold.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1327360,
+  "sha1": "ca20894dd5dc3591a2472c54afafdb5b09222d6f"
+ },
+ {
+  "id": "3d/rings/ring_rose_gold_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_rose_gold_thumb.webp",
+  "source": "assets/generated/3d/ring_rose_gold/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 6250,
+  "sha1": "97513cea78417b0ad5be2b166b6c994bcd78c747"
+ },
+ {
+  "id": "3d/rings/ring_sesame.glb",
+  "file": "app/src/main/assets/3d/rings/ring_sesame.glb",
+  "source": "assets/generated/3d/ring_sesame/ring_sesame.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 598188,
+  "sha1": "cb32db6201d87075b25fe405b687de0d269cbae0"
+ },
+ {
+  "id": "3d/rings/ring_sesame_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_sesame_thumb.webp",
+  "source": "assets/generated/3d/ring_sesame/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 7122,
+  "sha1": "fb1a03c39b38dbf30b430dc3754502e2ecd828ef"
+ },
+ {
+  "id": "3d/rings/ring_silver.glb",
+  "file": "app/src/main/assets/3d/rings/ring_silver.glb",
+  "source": "assets/generated/3d/ring_silver/ring_silver.glb",
+  "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
+  "world": null,
+  "bytes": 1285768,
+  "sha1": "0752a740e52040404b045757f794674b9e658050"
+ },
+ {
+  "id": "3d/rings/ring_silver_thumb.webp",
+  "file": "app/src/main/assets/3d/rings/ring_silver_thumb.webp",
+  "source": "assets/generated/3d/ring_silver/thumbnail.png",
+  "usage": "ring theme thumbnail (Meshy)",
+  "world": null,
+  "bytes": 5742,
+  "sha1": "c6527ee99a622e66fa7d87a95385e4b405860e92"
+ },
+ {
   "id": "audio/music/chapter_complete_fanfare.ogg",
   "file": "app/src/main/assets/audio/music/chapter_complete_fanfare.ogg",
   "source": "assets/audio/music/chapter_complete_fanfare.ogg",
@@ -6782,8 +6980,8 @@
   "source": "content/cosmetics.json",
   "usage": "content table",
   "world": null,
-  "bytes": 4970,
-  "sha1": "26a521e71373de903cfe0f1afc286a97fe315e97"
+  "bytes": 5643,
+  "sha1": "42245de407a0c038ad8eefa32062f1d014a8a7ea"
  },
  {
   "id": "content/economy.json",

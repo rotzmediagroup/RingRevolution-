@@ -163,7 +163,7 @@ fun CollectionScreen(container: AppContainer, nav: Nav) {
                                 .clickable(enabled = unlocked && kind == "theme") { container.save.update { it.copy(selectedTheme = if (it.selectedTheme == c.id) "default" else c.id) }; container.audio.sfx("button_tap") }
                                 .padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                                 Box(Modifier.size(80.dp), contentAlignment = Alignment.Center) {
-                                    if (c.sprite.startsWith("materials/")) AssetImage(c.sprite.replace("materials/", "materials/") + ".webp", Modifier.size(64.dp).clip(RoundedCornerShape(50)).alpha(if (unlocked) 1f else 0.3f))
+                                    if (c.sprite.startsWith("materials/") || c.sprite.startsWith("3d/")) AssetImage(c.sprite + ".webp", Modifier.size(64.dp).clip(RoundedCornerShape(50)).alpha(if (unlocked) 1f else 0.3f))
                                     else Sprite(c.sprite, Modifier.size(78.dp).alpha(if (unlocked) 1f else 0.25f))
                                     if (!unlocked) Glyph("lock", Modifier.size(26.dp), DR.WoodDeep)
                                 }

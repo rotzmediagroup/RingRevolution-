@@ -161,16 +161,23 @@ def main():
     print("GL:", glGetString(GL_VERSION).decode())
     S = shaders()
     ringP = compile_prog(S["RING_VS"], S["RING_FS"]); shadowP = compile_prog(S["SHADOW_VS"], S["SHADOW_FS"]); propP = compile_prog(S["PROP_VS"], S["PROP_FS"]); glbP = compile_prog(S["GLBRING_VS"], S["GLBRING_FS"])
-    RINGS = os.environ.get("RING_GLB")   # optional: path to a Meshy ring GLB used for all rings
-    glb = None
+    RINGS = os.environ.get("RING_GLB")   # optional: one Meshy ring GLB for all rings; default = the app's per-material mapping
+    RING_MAP = {"dough_sesame": "ring_silver", "dough_matcha": "ring_jade", "dough_beet": "ring_rose_gold", "dough_ube": "ring_onyx", "dough_gold": "ring_gold", "dough_bamboo": "ring_marble"}
+    def tex(im, repeat=True):
+        if im is None: return 0
+        im = im.resize((1024, 1024)); t = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, t)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, np.array(im, np.uint8).tobytes()); glGenerateMipmap(GL_TEXTURE_2D)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); return t
+    def load_ring(path):
+        pos, nrm, uv, idx, base, mr, nm, mf, rf = load_glb(path); rv, ratio = ring_model(pos, nrm, uv); print("ring glb:", os.path.basename(path), len(pos), "verts, thickness ratio %.3f" % ratio)
+        return dict(v=rv, idx=idx, base=tex(base), mr=tex(mr), nm=tex(nm), mf=mf, rf=rf, avg=(np.array(base.resize((8, 8))).reshape(-1, 3).mean(0) / 255 if base else np.array([0.8, 0.7, 0.5])))
+    glbs = {}
     if RINGS and os.path.exists(RINGS):
-        pos, nrm, uv, idx, base, mr, nm, mf, rf = load_glb(RINGS); rv, ratio = ring_model(pos, nrm, uv); print("ring glb:", len(pos), "verts, thickness ratio %.3f" % ratio)
-        def tex(im, repeat=True):
-            if im is None: return 0
-            im = im.resize((1024, 1024)); t = glGenTextures(1); glBindTexture(GL_TEXTURE_2D, t)
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, np.array(im, np.uint8).tobytes()); glGenerateMipmap(GL_TEXTURE_2D)
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); return t
-        glb = dict(v=rv, idx=idx, base=tex(base), mr=tex(mr), nm=tex(nm), mf=mf, rf=rf, avg=(np.array(base.resize((8, 8))).reshape(-1, 3).mean(0) / 255 if base else np.array([0.8, 0.7, 0.5])))
+        one = load_ring(RINGS); glbs = {m: one for m in RING_MAP}
+    elif not os.environ.get("NO_GLB"):
+        for m, name in RING_MAP.items():
+            path = os.path.join(ROOT, "app/src/main/assets/3d/rings", name + ".glb")
+            if os.path.exists(path): glbs[m] = load_ring(path)
     glViewport(0, 0, W, H); glEnable(GL_DEPTH_TEST); glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     glClearColor(0.80, 0.62, 0.42, 1.0); glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     vp, eye = camera(W, H)
@@ -206,6 +213,7 @@ def main():
     caps = [build_caps(r) for r in rings]
     def draw_glb_ring(i, r, sel=False):
         p = glbP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
+        glb = glbs[r["materialId"]]
         v = glb["v"]; ix = glb["idx"].astype(np.uint32)
         vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, v.nbytes, v, GL_STATIC_DRAW)
         ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, ix.nbytes, ix, GL_STATIC_DRAW)
@@ -272,7 +280,7 @@ def main():
     for i, r in enumerate(rings): draw_ring(shadowP, i, r, True)
     glDepthMask(GL_TRUE); glUseProgram(ringP)
     for i, r in enumerate(rings):
-        if glb: draw_glb_ring(i, r, sel=(i == 0))
+        if r["materialId"] in glbs: draw_glb_ring(i, r, sel=(i == 0))
         else: draw_ring(ringP, i, r, False, sel=(i == 0))
     glFinish()
     data = glReadPixels(0, 0, W, H, GL_RGBA, GL_UNSIGNED_BYTE)

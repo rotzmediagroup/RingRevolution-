@@ -41,6 +41,39 @@ def copy(src, rel, note, world=None):
         shutil.copyfile(src, dst)
     put(rel, src, note, world)
 
+
+def glb_opt(src, rel, note, max_tex=1024, quality=88):
+    """Copy a GLB with every embedded image downscaled to max_tex and re-encoded as JPEG (rings are thin on screen)."""
+    import struct, io
+    dst = os.path.join(OUT, rel)
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    if not FORCE and os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
+        put(rel, src, note); return
+    b = open(src, "rb").read()
+    jl = struct.unpack_from("<I", b, 12)[0]; j = json.loads(b[20:20 + jl]); bl = struct.unpack_from("<I", b, 20 + jl)[0]
+    bin_ = b[28 + jl:28 + jl + bl]
+    views = j["bufferViews"]; images = j.get("images", [])
+    img_views = {im["bufferView"]: i for i, im in enumerate(images) if "bufferView" in im}
+    out = bytearray()
+    for vi, v in enumerate(views):
+        off = v.get("byteOffset", 0); data = bin_[off:off + v["byteLength"]]
+        if vi in img_views:
+            im = Image.open(io.BytesIO(data)).convert("RGB")
+            if max(im.size) > max_tex: im.thumbnail((max_tex, max_tex), Image.LANCZOS)
+            buf = io.BytesIO(); im.save(buf, "JPEG", quality=quality, optimize=True); data = buf.getvalue()
+            images[img_views[vi]]["mimeType"] = "image/jpeg"
+        while len(out) % 4: out.append(0)
+        v["byteOffset"] = len(out); v["byteLength"] = len(data); out += data
+    while len(out) % 4: out.append(0)
+    j["buffers"][0]["byteLength"] = len(out)
+    js = json.dumps(j, separators=(",", ":")).encode()
+    while len(js) % 4: js += b" "
+    total = 12 + 8 + len(js) + 8 + len(out)
+    with open(dst, "wb") as f:
+        f.write(struct.pack("<III", 0x46546C67, 2, total)); f.write(struct.pack("<II", len(js), 0x4E4F534A)); f.write(js)
+        f.write(struct.pack("<II", len(out), 0x004E4942)); f.write(out)
+    put(rel, src, note)
+
 G = os.path.join(ROOT, "assets/generated")
 S = os.path.join(ROOT, "assets/imported/sprites")
 
@@ -96,7 +129,9 @@ if os.path.isdir(D3):
         d = os.path.join(D3, name)
         glb = next((os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".glb")), None) if os.path.isdir(d) else None
         if glb and name.startswith("ring_"):
-            copy(glb, f"3d/rings/{name}.glb", "premium ring mesh + PBR textures (Meshy)")
+            glb_opt(glb, f"3d/rings/{name}.glb", "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)")
+            thumb = os.path.join(d, "thumbnail.png")
+            if os.path.exists(thumb): webp(thumb, f"3d/rings/{name}_thumb.webp", 256, 256, 86, note="ring theme thumbnail (Meshy)")
 
 # --- audio
 A = os.path.join(ROOT, "assets/audio")

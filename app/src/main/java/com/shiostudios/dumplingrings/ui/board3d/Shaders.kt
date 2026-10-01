@@ -172,7 +172,7 @@ void main() {
   for (int i = 0; i < 4; i++) { if (i >= uGapCount) break;
     float rel = la - uGaps[i].x; rel = rel - 6.2831853 * floor(rel / 6.2831853);
     if (rel < uGaps[i].y) discard; }
-  vec4 albedoA = texture(uAlbedo, vUv); vec3 albedo = albedoA.rgb;
+  vec4 albedoA = texture(uAlbedo, vUv); vec3 albedo = pow(albedoA.rgb, vec3(2.2));   // sRGB texture -> linear light
   float metal = uMetalFactor; float rough = uRoughFactor;
   if (uHasMR > 0.5) { vec3 mr = texture(uMetalRough, vUv).rgb; rough *= mr.g; metal *= mr.b; }
   rough = clamp(rough, 0.06, 1.0);
@@ -205,8 +205,9 @@ void main() {
   col += env(r, rough) * Fenv * mix(0.9, 0.35, rough);
   if (uStripeOn > 0.5) { float band = smoothstep(0.17, 0.21, fract(vUv.y)) * (1.0 - smoothstep(0.29, 0.33, fract(vUv.y))); col = mix(col, uStripe * 1.15, band * 0.0); }
   col = mix(col, col * 0.45, uDarken);
-  col += uEmissive;
-  col = col / (col + 0.8) * 1.5; col = (col - 0.5) * 1.1 + 0.5;
+  // selection / ghost glow as a warm rim light (reads on black onyx as well as on gold)
+  col += uEmissive * (0.08 + 2.4 * pow(1.0 - ndv, 2.0));
+  col = col / (col + 0.75) * 1.45; col = (col - 0.5) * 1.12 + 0.5;
   fragColor = vec4(pow(max(col, 0.0), vec3(1.0 / 2.2)), uAlpha);
 }
 """

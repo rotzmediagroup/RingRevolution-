@@ -42,7 +42,7 @@
   "unlock": {
    "chapter": 5
   },
-  "sprite": "materials/matcha"
+  "sprite": "3d/rings/ring_jade_thumb"
  },
  {
   "id": "deco_balloon_lantern",
@@ -87,7 +87,7 @@
   "unlock": {
    "chapter": 10
   },
-  "sprite": "materials/beet_pink"
+  "sprite": "3d/rings/ring_rose_gold_thumb"
  },
  {
   "id": "deco_stone_lantern",
@@ -132,7 +132,7 @@
   "unlock": {
    "chapter": 15
   },
-  "sprite": "materials/gold"
+  "sprite": "3d/rings/ring_gold_thumb"
  },
  {
   "id": "theme_premium_ube",
@@ -141,7 +141,7 @@
   "unlock": {
    "premium": true
   },
-  "sprite": "materials/ube_purple"
+  "sprite": "3d/rings/ring_onyx_thumb"
  },
  {
   "id": "char_tanuki",
@@ -277,5 +277,41 @@
    "chapter": 15
   },
   "sprite": "sheet06/cloud_dragon_idle"
+ },
+ {
+  "id": "theme_bronze",
+  "kind": "theme",
+  "nameKey": "cos_theme_bronze",
+  "unlock": {
+   "stars": 60
+  },
+  "sprite": "3d/rings/ring_bronze_thumb"
+ },
+ {
+  "id": "theme_obsidian",
+  "kind": "theme",
+  "nameKey": "cos_theme_obsidian",
+  "unlock": {
+   "stars": 150
+  },
+  "sprite": "3d/rings/ring_obsidian_thumb"
+ },
+ {
+  "id": "theme_pearl",
+  "kind": "theme",
+  "nameKey": "cos_theme_pearl",
+  "unlock": {
+   "stars": 240
+  },
+  "sprite": "3d/rings/ring_pearl_thumb"
+ },
+ {
+  "id": "theme_lacquer",
+  "kind": "theme",
+  "nameKey": "cos_theme_lacquer",
+  "unlock": {
+   "stars": 330
+  },
+  "sprite": "3d/rings/ring_lacquer_thumb"
  }
 ]

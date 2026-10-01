@@ -102,8 +102,8 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
 
     /** Campaign materials map onto the premium Meshy ring set; themes map directly. */
     private fun ringAsset(materialId: String): String = when (materialId) {
-        "dough_sesame" -> "ring_gold"; "dough_matcha" -> "ring_jade"; "dough_beet" -> "ring_rose_gold"; "dough_ube" -> "ring_onyx"
-        "dough_gold" -> "ring_silver"; "dough_bamboo" -> "ring_marble"
+        "dough_sesame" -> "ring_silver"; "dough_matcha" -> "ring_jade"; "dough_beet" -> "ring_rose_gold"; "dough_ube" -> "ring_onyx"
+        "dough_gold" -> "ring_gold"; "dough_bamboo" -> "ring_marble"
         else -> materialId
     }
 
