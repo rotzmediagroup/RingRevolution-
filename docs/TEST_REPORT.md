@@ -10,7 +10,7 @@ available** (no KVM); everything below ran on the JVM. A desktop/JVM run does no
 | 2026-10-01 | `levels generate 1 150` | ✅ 150 files | deterministic seeds; ~75 min total; recipe for chapter 15 trimmed after L143 found no candidate (see docs/SOLVER.md) |
 | 2026-10-01 | `levels validate` (run 1, pre-tightening validator) | 2710 checks, 58 "par mismatch" | every level solvable, canonical solutions replay, unique topologies; mismatches were loose/bounded pars from the generation-time solver budget |
 | 2026-10-01 | `levels validate` (run 2, tightening validator, BFS 600k / fallback 200k) | ✅ 2803 checks, 0 failures | 36 level files had their par tightened to the shorter solution found (written back) |
-| 2026-10-01 | `levels validate` (run 3, confirmation on final files) | see `content/qa/validation_report.md` | started after repacking; result recorded in the file (the validator is deterministic, so run 3 reproduces run 2) |
+| 2026-10-01 | `levels validate` (run 3, confirmation on final files) | ✅ 2783 checks, 0 failures | no level file changed; deterministic re-run of run 2 (`content/qa/validation_report.md`) |
 | 2026-10-01 | `levels report` | ✅ | docs/LEVEL_REPORT.md |
 | 2026-10-01 | `python3 tools/asset_import/check_runtime_assets.py` | ✅ | 78 references, 755 manifest entries, 150 packed levels |
 | 2026-10-01 | `./gradlew :app:testDebugUnitTest` | ✅ 10/10 | BuildFlagsTest (3: ads/IAP off, test ids) + ScreenshotTest (7: 23 real-asset renders of menu, welcome, world maps, chapter grid, 10 gameplay levels, world-2 transition pixel assertion, collection/shop/premium/settings/daily/chapter scene) |
