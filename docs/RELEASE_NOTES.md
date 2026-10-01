@@ -1,3 +1,8 @@
+## Dumpling Rings 1.1.1 — Meshy rings drawn as modelled
+
+- Every ring is the Meshy GLB drawn uniformly scaled to the level radius (its own tube thickness and surface detail, no re-sculpting); gaps are cut in-shader and closed with matte end caps in the model's colour
+- Tag v1.1.0 was created by a cancelled build and has no release; v1.1.1 supersedes it
+
 ## Dumpling Rings 1.1.0 — real 3D rings, dramatic lighting, particles
 
 ### New in 1.1

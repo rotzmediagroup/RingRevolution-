@@ -40,7 +40,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     private val ringModels = HashMap<String, GlRingModel?>()
     private val capMeshes = ArrayList<TorusMesh>(); private val capVbos = IntArray(level.rings.size); private val capIbos = IntArray(level.rings.size)
     private val gapBuf = FloatArray(8)
-    private class GlRingModel(val vbo: Int, val ibo: Int, val indexType: Int, val indexCount: Int, val base: Int, val mr: Int, val nrm: Int, val metal: Float, val rough: Float, val avgColor: FloatArray)
+    private class GlRingModel(val vbo: Int, val ibo: Int, val indexType: Int, val indexCount: Int, val base: Int, val mr: Int, val nrm: Int, val metal: Float, val rough: Float, val avgColor: FloatArray, val tubeRatio: Float)
     private val meshes = ArrayList<TorusMesh>()
     private val vbos = IntArray(level.rings.size); private val ibos = IntArray(level.rings.size)
     private val textures = HashMap<String, Int>()
@@ -79,14 +79,14 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         quadProg = program(Shaders.QUAD_VS, Shaders.QUAD_FS)
         glbRingProg = program(Shaders.GLBRING_VS, Shaders.GLBRING_FS)
         meshes.clear(); capMeshes.clear(); ringModels.clear()
+        // rings are ALWAYS the Meshy premium meshes, drawn uniformly scaled (the model's own tube thickness); an unknown/missing asset falls back to the silver Meshy ring
+        for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat)) ?: loadRingModel("ring_silver")
         for ((i, r) in level.rings.withIndex()) {
-            val cm = TorusMesh.buildCaps(r); capMeshes.add(cm)
+            val cm = TorusMesh.buildCaps(r.copy(thickness = visualThickness(i))); capMeshes.add(cm)
             val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0); capVbos[i] = ids[0]; capIbos[i] = ids[1]
             GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, capVbos[i]); GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER, maxOf(cm.vertexCount, 1) * TorusMesh.FLOATS_PER_VERTEX * 4, cm.vertices, GLES30.GL_STATIC_DRAW)
             GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, capIbos[i]); GLES30.glBufferData(GLES30.GL_ELEMENT_ARRAY_BUFFER, maxOf(cm.indexCount, 1) * 2, cm.indices, GLES30.GL_STATIC_DRAW)
         }
-        // rings are ALWAYS the Meshy premium meshes (never the procedural dough tube); an unknown/missing asset falls back to the silver Meshy ring
-        for (mat in level.rings.map { materialOverride ?: it.materialId }.toSet()) ringModels[mat] = loadRingModel(ringAsset(mat)) ?: loadRingModel("ring_silver")
         for ((i, r) in level.rings.withIndex()) {
             val m = TorusMesh.build(r); meshes.add(m)
             val ids = IntArray(2); GLES30.glGenBuffers(2, ids, 0); vbos[i] = ids[0]; ibos[i] = ids[1]
@@ -108,6 +108,12 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         else -> materialId
     }
 
+    /** Visual tube diameter of ring i: the Meshy model's own proportions scaled to the level radius (never the level's abstract thickness). */
+    private fun visualThickness(i: Int): Double {
+        val r = level.rings[i]; val m = ringModels[materialOverride ?: r.materialId] ?: return r.thickness
+        return 2.0 * r.radius * m.tubeRatio
+    }
+
     private fun loadRingModel(name: String): GlRingModel? = try {
         val bytes = context.assets.open("3d/rings/$name.glb").use { it.readBytes() }
         val glb = GlbLoader.load(bytes) ?: return null
@@ -118,9 +124,15 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         val base = glb.baseColor?.let { texture(it, repeat = true) } ?: whiteTex
         val mr = glb.metallicRoughness?.let { texture(it, repeat = true) } ?: 0
         val nm = glb.normalMap?.let { texture(it, repeat = true) } ?: 0
-        val avg = glb.baseColor?.let { b -> val sm = Bitmap.createScaledBitmap(b, 8, 8, true); var r = 0f; var g = 0f; var bl = 0f; for (y in 0 until 8) for (x in 0 until 8) { val px = sm.getPixel(x, y); r += (px shr 16 and 255) / 255f; g += (px shr 8 and 255) / 255f; bl += (px and 255) / 255f }; floatArrayOf(r / 64, g / 64, bl / 64) } ?: floatArrayOf(0.8f, 0.7f, 0.5f)
+        // cap colour = per-channel median of the texels the mesh actually uses (robust against inlays/atlas padding)
+        val avg = glb.baseColor?.let { b -> val uvs = glb.uvs ?: return@let null; val cnt = glb.positions.capacity() / 3
+            val rs = ArrayList<Float>(); val gs = ArrayList<Float>(); val bs = ArrayList<Float>()
+            for (i in 0 until cnt step maxOf(1, cnt / 400)) {
+                val x = ((uvs.get(i * 2) % 1f + 1f) % 1f * (b.width - 1)).toInt(); val y = ((uvs.get(i * 2 + 1) % 1f + 1f) % 1f * (b.height - 1)).toInt()
+                val px = b.getPixel(x, y); rs.add((px shr 16 and 255) / 255f); gs.add((px shr 8 and 255) / 255f); bs.add((px and 255) / 255f) }
+            if (rs.isEmpty()) null else floatArrayOf(rs.sorted()[rs.size / 2], gs.sorted()[gs.size / 2], bs.sorted()[bs.size / 2]) } ?: floatArrayOf(0.8f, 0.7f, 0.5f)
         Log.i("Board3D", "ring model $name: ${rm.vertexCount} verts, thickness ratio ${rm.thicknessRatio}")
-        GlRingModel(ids[0], ids[1], rm.indexType, rm.indexCount, base, mr, nm, glb.metallicFactor, glb.roughnessFactor, avg)
+        GlRingModel(ids[0], ids[1], rm.indexType, rm.indexCount, base, mr, nm, glb.metallicFactor, glb.roughnessFactor, avg, rm.minorRadius / rm.majorRadius)
     } catch (e: Exception) { Log.i("Board3D", "ring model $name not available: ${e.message}"); null }
 
     private fun shadowVs() = Shaders.RING_VS
@@ -265,6 +277,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glEnableVertexAttribArray(1); GLES30.glVertexAttribPointer(1, 2, GLES30.GL_FLOAT, false, stride, 12)
         GLES30.glEnableVertexAttribArray(2); GLES30.glVertexAttribPointer(2, 3, GLES30.GL_FLOAT, false, stride, 20)
         val e = setRingPlacement(prog, i, rs, s, false)
+        val minorVis = radii[i] * model.tubeRatio; GLES30.glUniform1f(u(prog, "uMinor"), minorVis)   // uniform scale of the Meshy model
         setLights(prog, l)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, model.base); GLES30.glUniform1i(u(prog, "uAlbedo"), 0)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE1); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, if (model.mr != 0) model.mr else whiteTex); GLES30.glUniform1i(u(prog, "uMetalRough"), 1)
@@ -278,7 +291,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform1f(u(prog, "uDarken"), if (rs.locked) 1f else 0f)
         val stripe = colorOf(r.colorId); GLES30.glUniform3fv(u(prog, "uStripe"), 1, stripe, 0); GLES30.glUniform1f(u(prog, "uStripeOn"), if (r.colorId != null) 1f else 0f)
         // gaps in local radians, widened by the dome length so the caps own the edge
-        val capRad = (r.thickness * 0.5 / r.radius * 0.95).toFloat()
+        val capRad = model.tubeRatio * 0.95f
         var g = 0
         for (gap in r.gaps.take(4)) { gapBuf[g * 2] = Math.toRadians(gap.startDeg).toFloat() + capRad; gapBuf[g * 2 + 1] = (Math.toRadians(gap.widthDeg).toFloat() - 2 * capRad).coerceAtLeast(0f); g++ }
         GLES30.glUniform1i(u(prog, "uGapCount"), g); GLES30.glUniform2fv(u(prog, "uGaps"), 4, gapBuf, 0); GLES30.glUniform1f(u(prog, "uCapRad"), capRad)
@@ -289,9 +302,9 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER, capVbos[i]); GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER, capIbos[i])
         GLES30.glEnableVertexAttribArray(0); GLES30.glVertexAttribPointer(0, 4, GLES30.GL_FLOAT, false, 20, 0)
         GLES30.glEnableVertexAttribArray(1); GLES30.glVertexAttribPointer(1, 1, GLES30.GL_FLOAT, false, 20, 16)
-        setRingPlacement(ringProg, i, rs, s, false); setLights(ringProg, l)
+        setRingPlacement(ringProg, i, rs, s, false); GLES30.glUniform1f(u(ringProg, "uMinor"), minorVis); setLights(ringProg, l)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0); GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, whiteTex); GLES30.glUniform1i(u(ringProg, "uAlbedo"), 0)
-        GLES30.glUniform3fv(u(ringProg, "uTint"), 1, model.avgColor, 0); GLES30.glUniform1f(u(ringProg, "uRough"), (model.rough * 0.6f).coerceIn(0.15f, 0.8f))
+        GLES30.glUniform3fv(u(ringProg, "uTint"), 1, model.avgColor, 0); GLES30.glUniform1f(u(ringProg, "uRough"), 0.72f)   // matte cut end in the model's own colour
         GLES30.glUniform3fv(u(ringProg, "uEmissive"), 1, em, 0); GLES30.glUniform1f(u(ringProg, "uAlpha"), if (ghost > 0f) ghost else 1f - e); GLES30.glUniform1f(u(ringProg, "uDarken"), if (rs.locked) 1f else 0f)
         GLES30.glUniform1f(u(ringProg, "uStripeOn"), 0f)
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, capMeshes[i].indexCount, GLES30.GL_UNSIGNED_SHORT, 0)

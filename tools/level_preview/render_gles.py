@@ -170,7 +170,8 @@ def main():
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT); return t
     def load_ring(path):
         pos, nrm, uv, idx, base, mr, nm, mf, rf = load_glb(path); rv, ratio = ring_model(pos, nrm, uv); print("ring glb:", os.path.basename(path), len(pos), "verts, thickness ratio %.3f" % ratio)
-        return dict(v=rv, idx=idx, base=tex(base), mr=tex(mr), nm=tex(nm), mf=mf, rf=rf, avg=(np.array(base.resize((8, 8))).reshape(-1, 3).mean(0) / 255 if base else np.array([0.8, 0.7, 0.5])))
+        tube = float(rv[:, 1].max() - rv[:, 1].min()) / 2.0  # tube radius in tube units (~1)
+        return dict(v=rv, idx=idx, base=tex(base), mr=tex(mr), nm=tex(nm), mf=mf, rf=rf, ratio=ratio, avg=(np.array(base.convert('RGB'))[(np.mod(uv[::50, 1], 1.0) * (base.height - 1)).astype(int), (np.mod(uv[::50, 0], 1.0) * (base.width - 1)).astype(int)]) if False else (np.median(np.array(base.convert('RGB'))[(np.mod(uv[::50, 1], 1.0) * (base.height - 1)).astype(int), (np.mod(uv[::50, 0], 1.0) * (base.width - 1)).astype(int)], axis=0) / 255 if base is not None and uv is not None else np.array([0.8, 0.7, 0.5])))
     glbs = {}
     if RINGS and os.path.exists(RINGS):
         one = load_ring(RINGS); glbs = {m: one for m in RING_MAP}
@@ -210,23 +211,25 @@ def main():
         for name, val in zip(["uKeyDir", "uKeyCol", "uFillDir", "uFillCol", "uRimDir", "uRimCol", "uAmbientSky", "uAmbientGround"], L): glUniform3f(glGetUniformLocation(p, name), *val)
         glUniform3f(glGetUniformLocation(p, "uEye"), *eye)
     meshes = [build(r) for r in rings]
-    caps = [build_caps(r) for r in rings]
+    def tube_ratio(r):
+        g = glbs.get(r["materialId"]); return g["ratio"] / (1.0 - g["ratio"]) if g else r["thickness"] * 0.5 / r["radius"]   # tube radius / major radius
+    caps = [build_caps(dict(r, thickness=2.0 * r["radius"] * tube_ratio(r))) for r in rings]
     def draw_glb_ring(i, r, sel=False):
         p = glbP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
-        glb = glbs[r["materialId"]]
+        glb = glbs[r["materialId"]]; tr = tube_ratio(r)
         v = glb["v"]; ix = glb["idx"].astype(np.uint32)
         vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, v.nbytes, v, GL_STATIC_DRAW)
         ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, ix.nbytes, ix, GL_STATIC_DRAW)
         glEnableVertexAttribArray(0); glVertexAttribPointer(0, 3, GL_FLOAT, False, 36, ctypes.c_void_p(0))
         glEnableVertexAttribArray(1); glVertexAttribPointer(1, 2, GL_FLOAT, False, 36, ctypes.c_void_p(12))
         glEnableVertexAttribArray(2); glVertexAttribPointer(2, 3, GL_FLOAT, False, 36, ctypes.c_void_p(20))
-        placement(p, r); set_lights(p)
+        placement(p, r); glUniform1f(u("uMinor"), r["radius"] * k * tr); set_lights(p)   # uniform scale of the Meshy model
         for unit, (name, t) in enumerate([("uAlbedo", glb["base"]), ("uMetalRough", glb["mr"]), ("uNormalMap", glb["nm"])]):
             glActiveTexture(GL_TEXTURE0 + unit); glBindTexture(GL_TEXTURE_2D, t); glUniform1i(u(name), unit)
         glUniform1f(u("uHasMR"), 1.0 if glb["mr"] else 0.0); glUniform1f(u("uHasNormal"), 1.0 if glb["nm"] else 0.0)
         glUniform1f(u("uMetalFactor"), glb["mf"]); glUniform1f(u("uRoughFactor"), glb["rf"])
         glUniform3f(u("uEmissive"), *((0.2, 0.15, 0.03) if sel else (0, 0, 0))); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0); glUniform3f(u("uStripe"), 0, 0, 0)
-        capRad = r["thickness"] * 0.5 / r["radius"] * 0.95
+        capRad = tr * 0.95
         gaps = np.zeros(8, np.float32)
         for gi, g in enumerate(r["gaps"][:4]): gaps[gi * 2] = math.radians(g["startDeg"]) + capRad; gaps[gi * 2 + 1] = max(0.0, math.radians(g["widthDeg"]) - 2 * capRad)
         glUniform1i(u("uGapCount"), min(4, len(r["gaps"]))); glUniform2fv(u("uGaps"), 4, gaps); glUniform1f(u("uCapRad"), capRad)
@@ -239,9 +242,9 @@ def main():
         ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, cix.nbytes, cix, GL_STATIC_DRAW)
         glEnableVertexAttribArray(0); glVertexAttribPointer(0, 4, GL_FLOAT, False, 20, ctypes.c_void_p(0))
         glEnableVertexAttribArray(1); glVertexAttribPointer(1, 1, GL_FLOAT, False, 20, ctypes.c_void_p(16))
-        placement(p, r); set_lights(p)
+        placement(p, r); glUniform1f(u("uMinor"), r["radius"] * k * tr); set_lights(p)
         glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, white); glUniform1i(u("uAlbedo"), 0)
-        glUniform3f(u("uTint"), *glb["avg"]); glUniform1f(u("uRough"), min(max(glb["rf"] * 0.6, 0.15), 0.8))
+        glUniform3f(u("uTint"), *glb["avg"]); glUniform1f(u("uRough"), 0.72)
         glUniform3f(u("uEmissive"), 0, 0, 0); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0)
         glDrawElements(GL_TRIANGLES, len(cix), GL_UNSIGNED_SHORT, ctypes.c_void_p(0))
     def placement(p, r):
