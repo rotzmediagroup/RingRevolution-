@@ -1,3 +1,7 @@
+## Dumpling Rings 1.1.2 — fix: board empty from the second level on
+
+- The GL board view kept the first level's renderer (a GLSurfaceView takes one renderer); it is now recreated per level and theme
+
 ## Dumpling Rings 1.1.1 — Meshy rings drawn as modelled
 
 - Every ring is the Meshy GLB drawn uniformly scaled to the level radius (its own tube thickness and surface detail, no re-sculpting); gaps are cut in-shader and closed with matte end caps in the model's colour

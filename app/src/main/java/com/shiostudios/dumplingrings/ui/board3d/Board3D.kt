@@ -58,6 +58,8 @@ fun Board3D(
     }
 
     Box(modifier) {
+        // a GLSurfaceView accepts setRenderer() once: recreate the view whenever the level or theme (and thus the renderer) changes
+        androidx.compose.runtime.key(level.id, themeMaterial) {
         AndroidView(
             modifier = Modifier.fillMaxSize(),
             factory = { c ->
@@ -111,6 +113,7 @@ fun Board3D(
             },
             onRelease = { it.onPause() },
         )
+        }
         BoardOverlay(controller, camera, fit, now, reduceMotion, highContrast, effectQuality, Modifier.fillMaxSize())
     }
 }
