@@ -1,0 +1,163 @@
+package com.shiostudios.dumplingrings.ui.board3d
+
+/** GLSL ES 3.00 shaders for the 3D board. Lighting: key (warm, casts the contact shadow) + fill (cool) + rim, GGX specular,
+ *  Fresnel, hemisphere ambient, dough albedo tile + procedural micro-normal, emissive glow for selection/hints. */
+object Shaders {
+    const val MAX_BUMPS = 24
+
+    val RING_VS = """#version 300 es
+precision highp float;
+layout(location = 0) in vec4 aData;        // localAngle, tubeAngle, u, v
+layout(location = 1) in float aCap;        // dome cap scale 0..1
+uniform mat4 uViewProj;
+uniform vec2 uCenter;      // board space
+uniform float uMajor;      // major radius
+uniform float uMinor;      // tube radius
+uniform float uRot;        // ring rotation (rad)
+uniform float uLift;       // z lift (release animation)
+uniform vec2 uSlide;       // xy offset (release animation)
+uniform float uScale;      // uniform scale (release animation)
+uniform int uBumpCount;
+uniform vec2 uBumps[$MAX_BUMPS]; // (worldAngleRad, sign*height)
+uniform float uBumpSigma;        // rad
+out vec3 vPos; out vec3 vNormal; out vec2 vUv; out float vCap;
+float bumpAt(float wa) {
+  float z = 0.0;
+  for (int i = 0; i < $MAX_BUMPS; i++) { if (i >= uBumpCount) break;
+    float d = wa - uBumps[i].x; d = d - 6.2831853 * floor((d + 3.14159265) / 6.2831853);
+    z += uBumps[i].y * exp(-0.5 * (d * d) / (uBumpSigma * uBumpSigma)); }
+  return z;
+}
+void main() {
+  float la = aData.x; float ta = aData.y;
+  float capScale = abs(aCap); float capDir = aCap < 0.0 ? -1.0 : 1.0; float vv = aData.w;
+  float wa = la + uRot;
+  float r = uMinor * capScale;
+  // centreline point and frame
+  vec2 radial = vec2(cos(wa), sin(wa));
+  float z0 = uMinor * 1.02 + bumpAt(wa);
+  // slope of the bump for the normal tilt
+  float dz = (bumpAt(wa + 0.01) - bumpAt(wa - 0.01)) / 0.02 / max(uMajor, 1e-4);
+  vec3 tangent = normalize(vec3(-radial.y, radial.x, dz));
+  vec3 up = vec3(0.0, 0.0, 1.0);
+  vec3 radial3 = vec3(radial, 0.0);
+  vec3 n = normalize(cos(ta) * radial3 + sin(ta) * up);
+  // make the normal orthogonal to the tilted tangent
+  n = normalize(n - tangent * dot(n, tangent));
+  vec3 p = vec3(uCenter + radial * uMajor, z0) + n * r;
+  // dome caps: blend the normal towards the tube axis so the rounded end shades as a dome, not an open pipe
+  float axial = sqrt(max(0.0, 1.0 - capScale * capScale));
+  n = normalize(n * capScale + tangent * capDir * axial);
+  p.xy = (p.xy - uCenter) * uScale + uCenter + uSlide; p.z = p.z * uScale + uLift;
+  vPos = p; vNormal = n; vUv = vec2(aData.z, vv); vCap = capScale;
+  gl_Position = uViewProj * vec4(p, 1.0);
+}
+"""
+
+    val RING_FS = """#version 300 es
+precision highp float;
+in vec3 vPos; in vec3 vNormal; in vec2 vUv; in float vCap;
+uniform sampler2D uAlbedo;
+uniform vec3 uTint;        // material tint multiplier
+uniform float uRough;
+uniform vec3 uEye;
+uniform vec3 uKeyDir; uniform vec3 uKeyCol;
+uniform vec3 uFillDir; uniform vec3 uFillCol;
+uniform vec3 uRimDir; uniform vec3 uRimCol;
+uniform vec3 uAmbientSky; uniform vec3 uAmbientGround;
+uniform vec3 uEmissive;    // selection / hint glow
+uniform float uAlpha;
+uniform float uDarken;     // locked rings
+uniform vec3 uStripe;      // colour-id stripe colour (a=0 none)
+uniform float uStripeOn;
+out vec4 fragColor;
+float ggx(vec3 n, vec3 h, float a) { float a2 = a * a; float ndh = max(dot(n, h), 0.0); float d = ndh * ndh * (a2 - 1.0) + 1.0; return a2 / (3.14159 * d * d + 1e-5); }
+void main() {
+  vec3 albedo = texture(uAlbedo, vUv * vec2(1.0, 1.0)).rgb * uTint;
+  // procedural micro-bumps (dough grain) perturb the normal slightly
+  float g1 = sin(vUv.x * 97.0 + vUv.y * 31.0) * sin(vUv.y * 53.0 - vUv.x * 17.0);
+  vec3 n = normalize(vNormal + 0.06 * vec3(g1, -g1 * 0.7, 0.0));
+  vec3 v = normalize(uEye - vPos);
+  float rough = clamp(uRough, 0.08, 1.0); float a = rough * rough;
+  vec3 col = albedo * mix(uAmbientGround, uAmbientSky, n.z * 0.5 + 0.5) * 0.32;
+  vec3 lights[3]; vec3 lcols[3]; lights[0] = uKeyDir; lcols[0] = uKeyCol; lights[1] = uFillDir; lcols[1] = uFillCol; lights[2] = uRimDir; lcols[2] = uRimCol;
+  for (int i = 0; i < 3; i++) {
+    vec3 l = normalize(lights[i]); float ndl = max(dot(n, l), 0.0);
+    vec3 h = normalize(l + v);
+    float spec = ggx(n, h, a) * 0.1 * (1.0 - rough * 0.6);
+    // soft wrap diffuse for dough
+    float wrap = max((dot(n, l) + 0.18) / 1.18, 0.0); wrap *= wrap * 0.5 + 0.5 * wrap;
+    col += (albedo * wrap * 0.85 + spec * ndl * 3.0) * lcols[i];
+  }
+  float fres = pow(1.0 - max(dot(n, v), 0.0), 3.0);
+  col += fres * 0.12 * uKeyCol;
+  // colour stripe on the outer top edge of the tube (colour-gate id)
+  if (uStripeOn > 0.5) {
+    // stripe along the top of the tube (tube angle ~90deg => v ~0.25); dash pattern differs per colour for colour-blind players
+    float band = smoothstep(0.17, 0.21, vUv.y) * (1.0 - smoothstep(0.29, 0.33, vUv.y));
+    float dash = 1.0;
+    if (uStripe.g > uStripe.r && uStripe.g > uStripe.b) dash = step(0.5, fract(vUv.x * 3.0));          // jade: dashed
+    else if (uStripe.b > uStripe.r) dash = step(0.65, fract(vUv.x * 6.0));                               // ube: dotted
+    col = mix(col, uStripe * 1.15, band * dash * 0.95);
+  }
+  col = mix(col, col * 0.45, uDarken);
+  col += uEmissive * (0.6 + 0.4 * fres);
+  // filmic-ish tone map with a little contrast
+  col = col / (col + 0.75) * 1.45; col = (col - 0.5) * 1.12 + 0.5;
+  fragColor = vec4(pow(col, vec3(1.0 / 2.2)), uAlpha);
+}
+"""
+
+    /** Flat soft shadow: the ring mesh re-projected onto the table, blurred radially via alpha falloff by tube angle. */
+    val SHADOW_FS = """#version 300 es
+precision highp float;
+in vec3 vPos; in vec3 vNormal; in vec2 vUv; in float vCap;
+uniform float uAlpha;
+out vec4 fragColor;
+void main() { float a = uAlpha * smoothstep(0.0, 1.0, vCap) ; fragColor = vec4(0.12, 0.06, 0.02, a); }
+"""
+
+    val PROP_VS = """#version 300 es
+precision highp float;
+layout(location = 0) in vec3 aPos; layout(location = 1) in vec3 aNormal; layout(location = 2) in vec2 aUv;
+uniform mat4 uViewProj; uniform mat4 uModel; uniform mat3 uNormalM;
+out vec3 vPos; out vec3 vNormal; out vec2 vUv;
+void main() { vec4 p = uModel * vec4(aPos, 1.0); vPos = p.xyz; vNormal = normalize(uNormalM * aNormal); vUv = aUv; gl_Position = uViewProj * p; }
+"""
+
+    val PROP_FS = """#version 300 es
+precision highp float;
+in vec3 vPos; in vec3 vNormal; in vec2 vUv;
+uniform sampler2D uAlbedo; uniform float uHasTex; uniform vec3 uTint; uniform float uRough;
+uniform vec3 uEye; uniform vec3 uKeyDir; uniform vec3 uKeyCol; uniform vec3 uFillDir; uniform vec3 uFillCol; uniform vec3 uRimDir; uniform vec3 uRimCol;
+uniform vec3 uAmbientSky; uniform vec3 uAmbientGround; uniform vec3 uEmissive; uniform float uAlpha;
+out vec4 fragColor;
+float ggx(vec3 n, vec3 h, float a) { float a2 = a * a; float ndh = max(dot(n, h), 0.0); float d = ndh * ndh * (a2 - 1.0) + 1.0; return a2 / (3.14159 * d * d + 1e-5); }
+void main() {
+  vec3 albedo = mix(uTint, texture(uAlbedo, vUv).rgb * uTint, uHasTex);
+  vec3 n = normalize(vNormal); vec3 v = normalize(uEye - vPos);
+  float rough = clamp(uRough, 0.08, 1.0); float a = rough * rough;
+  vec3 col = albedo * mix(uAmbientGround, uAmbientSky, n.z * 0.5 + 0.5) * 0.32;
+  vec3 lights[3]; vec3 lcols[3]; lights[0] = uKeyDir; lcols[0] = uKeyCol; lights[1] = uFillDir; lcols[1] = uFillCol; lights[2] = uRimDir; lcols[2] = uRimCol;
+  for (int i = 0; i < 3; i++) { vec3 l = normalize(lights[i]); float ndl = max(dot(n, l), 0.0); vec3 h = normalize(l + v);
+    col += (albedo * max((dot(n, l) + 0.15) / 1.15, 0.0) * 0.85 + ggx(n, h, a) * 0.1 * ndl * 3.0) * lcols[i]; }
+  col += pow(1.0 - max(dot(n, v), 0.0), 3.0) * 0.1 * uKeyCol + uEmissive;
+  col = col / (col + 0.75) * 1.45; col = (col - 0.5) * 1.12 + 0.5;
+  fragColor = vec4(pow(col, vec3(1.0 / 2.2)), uAlpha);
+}
+"""
+
+    /** Screen-aligned textured quad on the board plane (glow discs, light pools). */
+    val QUAD_VS = """#version 300 es
+precision highp float;
+layout(location = 0) in vec4 aPosUv;
+uniform mat4 uViewProj; uniform vec3 uCenter; uniform vec2 uSize;
+out vec2 vUv;
+void main() { vec3 p = uCenter + vec3(aPosUv.x * uSize.x, aPosUv.y * uSize.y, 0.0); vUv = aPosUv.zw; gl_Position = uViewProj * vec4(p, 1.0); }
+"""
+    val QUAD_FS = """#version 300 es
+precision highp float;
+in vec2 vUv; uniform vec4 uColor; out vec4 fragColor;
+void main() { vec2 d = vUv * 2.0 - 1.0; float r = length(d); float a = smoothstep(1.0, 0.0, r); fragColor = vec4(uColor.rgb, uColor.a * a * a); }
+"""
+}

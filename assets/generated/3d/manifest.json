@@ -1,0 +1,106 @@
+{
+  "props": {
+    "ring_sesame": {
+      "name": "ring_sesame",
+      "reference_image": "assets/generated/3d/ring_sesame/reference.png",
+      "prompt": "a plain smooth torus ring shaped like a thin donut, pale golden steamed dough dusted with black and white sesame seeds, thin tube and large hole, ratio of ring radius to tube radius about six to one, perfectly symmetric, no face, no decoration, hand-painted cozy mobile game prop, chibi kawaii proportions, smooth painterly shading, warm soft colors, clean readable silhouette, single object only, centered, three-quarter view, plain pure white background, soft even studio light, no shadow on ground, no text, no letters, no watermark, no logo",
+      "status": "SUCCEEDED",
+      "meshy_image_to_3d_task": "01a0f7a5-3dda-7128-9530-be3948d85805",
+      "credits_used": 15,
+      "image_to_3d_request": {
+        "model_type": "standard",
+        "ai_model": "meshy-6-lite",
+        "should_texture": false,
+        "should_remesh": true,
+        "topology": "triangle",
+        "target_polycount": 3000,
+        "symmetry_mode": "auto",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "mesh_glb": "assets/generated/3d/ring_sesame/ring_sesame_mesh.glb",
+      "meshy_retexture_task": "01a0f7a5-c887-756d-b85e-73578fc47280",
+      "retexture_request": {
+        "input_task_id": "01a0f7a5-3dda-7128-9530-be3948d85805",
+        "ai_model": "latest",
+        "enable_original_uv": true,
+        "enable_pbr": true,
+        "texture_resolution": "2k",
+        "target_formats": [
+          "glb"
+        ]
+      },
+      "glb": "assets/generated/3d/ring_sesame/ring_sesame.glb",
+      "textures": [
+        "assets/generated/3d/ring_sesame/ring_sesame_base_color.png",
+        "assets/generated/3d/ring_sesame/ring_sesame_metallic.png",
+        "assets/generated/3d/ring_sesame/ring_sesame_roughness.png",
+        "assets/generated/3d/ring_sesame/ring_sesame_normal.png"
+      ],
+      "thumbnail": "assets/generated/3d/ring_sesame/thumbnail.png",
+      "glb_stats": {
+        "vertices": 5602,
+        "triangles": 3119,
+        "bbox_min": [
+          -0.951,
+          -0.3882,
+          -0.9508
+        ],
+        "bbox_max": [
+          0.942,
+          0.3866,
+          0.9476
+        ],
+        "size": [
+          1.893,
+          0.7747,
+          1.8984
+        ],
+        "meshes": 1,
+        "materials": 1,
+        "images": [
+          "image/jpeg",
+          "image/jpeg",
+          "image/jpeg"
+        ],
+        "file_bytes": 6047808
+      },
+      "finished_at": "2026-10-01T13:27:49.156229+00:00",
+      "mesh_glb_stats": {
+        "vertices": 5602,
+        "triangles": 3119,
+        "bbox_min": [
+          -0.951,
+          -0.3882,
+          -0.9508
+        ],
+        "bbox_max": [
+          0.942,
+          0.3866,
+          0.9476
+        ],
+        "size": [
+          1.893,
+          0.7747,
+          1.8984
+        ],
+        "meshes": 1,
+        "materials": 0,
+        "images": [],
+        "file_bytes": 199024
+      }
+    }
+  },
+  "runs": [
+    {
+      "started_at": "2026-10-01T13:26:09.875061+00:00",
+      "balance_before": 856,
+      "props": [
+        "ring_sesame"
+      ],
+      "balance_after": 841,
+      "finished_at": "2026-10-01T13:27:49.826341+00:00"
+    }
+  ]
+}

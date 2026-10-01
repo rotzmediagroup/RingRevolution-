@@ -39,3 +39,14 @@ docs/        this documentation set
 `core` has no Android imports. Convert it to a Kotlin Multiplatform module (`commonMain`), expose `RuleEngine`,
 `GameSession`, `Solver`, `HintEngine`, `Systems` to Swift, and re-implement `BoardCanvas` (≈600 lines) in SwiftUI/Metal
 plus the screens. Content JSON, audio and art are shared as-is.
+
+## 3D board renderer (v1.1)
+`app/ui/board3d/`: `BoardCamera` (shared perspective camera, project/unproject for overlay + touch), `TorusMesh` (procedural
+torus-arc meshes with domed ends, one per ring, built from the exact gap geometry), `Shaders` (GLSL ES 3.00: vertex-shader
+rotation + woven height profile at crossing angles, PBR-lite fragment lighting with key/fill/rim, GGX specular, Fresnel,
+hemisphere ambient, colour-gate stripe), `Board3DRenderer` (GLSurfaceView renderer: glow discs, projected soft shadows,
+rings, Meshy GLB props or procedural fallbacks, dumpling pop), `GlbLoader` (minimal GLB reader), `Board3D` (Compose host +
+touch via the camera), `BoardOverlay` (2D decorations/FX at projected positions). `app/ui/fx/Particles.kt` adds the living
+background (Ken-Burns drift, breathing light pool, world particles, vignette). The old Canvas renderer (`ui/board/BoardCanvas.kt`)
+is kept as a reference implementation. Headless verification: `tools/level_preview/render_gles.py` runs the exact shaders on
+Mesa (EGL surfaceless) and `glslangValidator` checks every shader.

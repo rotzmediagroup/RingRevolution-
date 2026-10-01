@@ -146,21 +146,21 @@ fun GameBody(container: AppContainer, activity: ComponentActivity, controller: G
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val landscape = maxWidth > maxHeight
         val bg = com.shiostudios.dumplingrings.assets.AssetCatalog.backgroundFor(world, landscape)
-        SceneBackground(bg) {
+        com.shiostudios.dumplingrings.ui.fx.AnimatedSceneBackground(bg, world, save.settings.reduceMotion, save.settings.effectQuality) {
             Box(Modifier.fillMaxSize().safeDrawingPadding()) {
                 if (!landscape) {
                     Column(Modifier.fillMaxSize()) {
                         TopBar(container, controller, title, onPause)
-                        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 6.dp), contentAlignment = Alignment.Center) {
-                            Board(controller, save.settings.reduceMotion, save.settings.highContrast, save.settings.effectQuality, themeMaterial, Modifier.aspectRatio(1f).fillMaxSize())
+                        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            Board(controller, save.settings.reduceMotion, save.settings.highContrast, save.settings.effectQuality, themeMaterial, world, Modifier.fillMaxSize())
                         }
                         StatusLine(controller, explain, stuck)
                         Controls(container, activity, controller, rotateButtons, Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)) { explain = it }
                     }
                 } else {
                     Row(Modifier.fillMaxSize()) {
-                        Box(Modifier.weight(1f).fillMaxHeight().padding(8.dp), contentAlignment = Alignment.Center) {
-                            Board(controller, save.settings.reduceMotion, save.settings.highContrast, save.settings.effectQuality, themeMaterial, Modifier.aspectRatio(1f).fillMaxSize())
+                        Box(Modifier.weight(1f).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                            Board(controller, save.settings.reduceMotion, save.settings.highContrast, save.settings.effectQuality, themeMaterial, world, Modifier.fillMaxSize())
                         }
                         Column(Modifier.width(300.dp).fillMaxHeight().padding(8.dp), verticalArrangement = Arrangement.SpaceBetween) {
                             TopBar(container, controller, title, onPause, compact = true)
@@ -182,9 +182,9 @@ fun GameBody(container: AppContainer, activity: ComponentActivity, controller: G
 }
 
 @Composable
-private fun Board(controller: GameController, reduce: Boolean, hc: Boolean, quality: String, themeMaterial: String?, modifier: Modifier) {
+private fun Board(controller: GameController, reduce: Boolean, hc: Boolean, quality: String, themeMaterial: String?, world: Int, modifier: Modifier) {
     Box(modifier) {
-        BoardCanvas(controller, Modifier.fillMaxSize(), reduce, hc, quality, themeMaterial)
+        com.shiostudios.dumplingrings.ui.board3d.Board3D(controller, Modifier.fillMaxSize(), reduce, hc, quality, themeMaterial, world)
     }
 }
 
