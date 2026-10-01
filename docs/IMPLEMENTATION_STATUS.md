@@ -24,7 +24,9 @@ Last updated: 2026-10-01 (end of the one-shot build). Status legend: ✅ built a
 - [ ] 15° step levels — supported by the engine, not used in the campaign (solver tractability); all campaign levels use 30°.
 
 ### Presentation
-- [x] Procedural ring renderer with hand-painted material tiles, bevels, gap notches, crossing over/under with contact shadows, selection glow, shake feedback, release fly-out + dumpling pop + sparkles + steam, blossom petals, tutorial hand
+- [x] **v1.1: real 3D board** — GLES 3.0 torus rings with a woven height profile at every crossing (over/under physically visible), PBR-lite lighting per world (warm morning / lantern amber / moonlight), GGX specular, Fresnel, projected soft shadows, selection glow discs, domed ring ends, colour-gate stripes with per-colour dash patterns; Meshy-generated props (chopsticks, lantern gates, lantern arms, dumpling) with procedural fallbacks; release lift-and-fly animation
+- [x] **v1.1: living background** — Ken-Burns drift, breathing light pool, world particles (petals / embers & fireflies / moon dust & snow), steam, vignette; combo bursts, sparkles and steam on release; all respect Reduce Motion and effect quality
+- [x] Procedural 2D ring renderer (v1.0, kept as reference) with hand-painted material tiles, bevels, gap notches, crossing over/under with contact shadows, selection glow, shake feedback, release fly-out + dumpling pop + sparkles + steam, blossom petals, tutorial hand
 - [x] Drag-to-rotate (one drag = one move), snapping with ticks/haptics, arc clamping during drag, linked rings follow visually, accessibility rotate buttons
 - [x] Portrait phone layout; landscape/tablet layout with side panel; safe-area padding; board auto-fit
 - [x] Per-world backgrounds (portrait + landscape), world maps, chapter scenes, world intros, menu key art, app icon

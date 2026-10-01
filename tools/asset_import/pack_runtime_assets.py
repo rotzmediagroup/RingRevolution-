@@ -89,6 +89,15 @@ for e in imp:
     count += 1
 print("sprites packed:", count)
 
+# --- 3D props (Meshy pipeline output: assets/generated/3d/<name>/model.glb)
+D3 = os.path.join(ROOT, "assets/generated/3d")
+if os.path.isdir(D3):
+    for name in sorted(os.listdir(D3)):
+        d = os.path.join(D3, name)
+        glb = next((os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".glb")), None) if os.path.isdir(d) else None
+        if glb and name in ("chopstick", "lantern_gate", "lantern_arm", "dumpling", "bamboo_basket"):
+            copy(glb, f"3d/{name}.glb", "3D prop (Meshy)")
+
 # --- audio
 A = os.path.join(ROOT, "assets/audio")
 for sub in ("music", "sfx", "ambience"):

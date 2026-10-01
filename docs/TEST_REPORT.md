@@ -20,6 +20,15 @@ available** (no KVM); everything below ran on the JVM. A desktop/JVM run does no
 | — | Instrumented tests / device smoke tests | ⛔ not run | no emulator/device in the environment |
 | — | Live test-ad impressions, sandbox purchases, UMP form | ⛔ not run | requires device + Play/AdMob accounts; adapters compile and are policy-tested with fakes |
 
+## v1.1 — 3D renderer verification
+| Date (UTC) | Command | Result | Notes |
+|---|---|---|---|
+| 2026-10-01 | `glslangValidator` on all 8 GLSL ES 3.00 shaders (extracted from Shaders.kt) | ✅ | ring/shadow/prop/quad vertex+fragment |
+| 2026-10-01 | `tools/level_preview/render_gles.py` (Mesa llvmpipe, EGL surfaceless, OpenGL ES 3.2) | ✅ | the app's exact shaders + mesh layout rendered levels 25/63/128 (`docs/screenshots/3d_*.png`); found and fixed: reversed end-cap angle sequence, cap normals, washed-out tone mapping, stripe placement |
+| 2026-10-01 | `./gradlew :app:testDebugUnitTest` | ✅ 14/14 | + `Board3DTest`: camera project/unproject round trip, torus wire segments & mesh never enter a gap, OBJ export for software render, GLB parser on a synthetic model |
+| 2026-10-01 | `./gradlew :app:lintDebug :app:assembleDebug` | ✅ | 0 lint errors |
+| — | GPU behaviour on real devices (fill rate, GLSurfaceView translucency over Compose, 60 fps) | ⛔ not verified | needs hardware; the renderer targets ≤ 12 rings × ~2.4k vertices with one draw call per ring |
+
 ## Property-based coverage (bible §27)
 * every generated puzzle is solvable without boosters; solver actions are legal; replay of the canonical solution ends in a win; undo restores the exact previous state — `PropertyTest`
 * rotation around 0°/360°, gap intervals, locks, dependencies, release, win condition, undo, reset — `RulesTest`

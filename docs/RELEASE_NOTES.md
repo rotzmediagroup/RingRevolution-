@@ -1,3 +1,11 @@
+## Dumpling Rings 1.1.0 — real 3D rings, dramatic lighting, particles
+
+### New in 1.1
+- The board is now rendered in real 3D (OpenGL ES 3.0): dough tubes with rounded ends, a true woven over/under profile at every crossing, per-world key/fill/rim lighting with specular highlights and soft contact shadows — overlapping rings finally read unambiguously
+- Meshy-generated 3D props for chopsticks, lantern gates and lantern arms, and a 3D dumpling pop on release (procedural fallbacks when a model is absent)
+- Living backgrounds: slow camera drift, breathing light pool, sakura petals / lantern embers and fireflies / moon dust and snow, steam, vignette; combo bursts and sparkles on release
+- Colour-gate rings carry a stripe with a per-colour dash pattern (colour-blind safe)
+
 ## Dumpling Rings 1.0.0 — Android release candidate
 
 Premium-cozy rotate-rings puzzle by Shio Studios: 3 worlds, 15 chapters, 150 solver-validated levels, fully offline.
