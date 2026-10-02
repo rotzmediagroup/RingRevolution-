@@ -5069,11 +5069,11 @@
  {
   "id": "3d/rings/ring_bronze.glb",
   "file": "app/src/main/assets/3d/rings/ring_bronze.glb",
-  "source": "assets/generated/3d/ring_bronze/ring_bronze.glb",
+  "source": "assets/generated/3d/ring_bronze/ring_bronze_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1372252,
-  "sha1": "d1f6707610f2b1446b82b8f575535946451b0548"
+  "bytes": 735236,
+  "sha1": "d2c9583905a1ba68cc7d25b22defaa0ebdc7612d"
  },
  {
   "id": "3d/rings/ring_bronze_thumb.webp",
@@ -5087,11 +5087,11 @@
  {
   "id": "3d/rings/ring_gold.glb",
   "file": "app/src/main/assets/3d/rings/ring_gold.glb",
-  "source": "assets/generated/3d/ring_gold/ring_gold.glb",
+  "source": "assets/generated/3d/ring_gold/ring_gold_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1100144,
-  "sha1": "ce4e7117335b44752da12a65f3a4a09d0d4cc394"
+  "bytes": 453808,
+  "sha1": "4e49edc74970fa806e21a5ba059136083729d22f"
  },
  {
   "id": "3d/rings/ring_gold_thumb.webp",
@@ -5105,11 +5105,11 @@
  {
   "id": "3d/rings/ring_gold_rope.glb",
   "file": "app/src/main/assets/3d/rings/ring_gold_rope.glb",
-  "source": "assets/generated/3d/ring_gold_rope/ring_gold_rope.glb",
+  "source": "assets/generated/3d/ring_gold_rope/ring_gold_rope_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 2175032,
-  "sha1": "2c0edc7d28cb1e53af84d71c0ad9ef685e2ebbef"
+  "bytes": 1220800,
+  "sha1": "d7ad65c2b07f60fb9e07691262db3a91ddfbfeb5"
  },
  {
   "id": "3d/rings/ring_gold_rope_thumb.webp",
@@ -5123,11 +5123,11 @@
  {
   "id": "3d/rings/ring_jade.glb",
   "file": "app/src/main/assets/3d/rings/ring_jade.glb",
-  "source": "assets/generated/3d/ring_jade/ring_jade.glb",
+  "source": "assets/generated/3d/ring_jade/ring_jade_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1205116,
-  "sha1": "a9a2d619b59a64954521dcf58d52b3c023280053"
+  "bytes": 562308,
+  "sha1": "894ac0f4256cf1a1d52c2ad9fcfde1fbd3a79a79"
  },
  {
   "id": "3d/rings/ring_jade_thumb.webp",
@@ -5141,11 +5141,11 @@
  {
   "id": "3d/rings/ring_jade_bamboo.glb",
   "file": "app/src/main/assets/3d/rings/ring_jade_bamboo.glb",
-  "source": "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo.glb",
+  "source": "assets/generated/3d/ring_jade_bamboo/ring_jade_bamboo_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1588828,
-  "sha1": "8a3d39f8a043b33277a462108d57192ada0891ab"
+  "bytes": 851948,
+  "sha1": "feba8664d796fe6f57d626caeda27b68fd040e38"
  },
  {
   "id": "3d/rings/ring_jade_bamboo_thumb.webp",
@@ -5159,11 +5159,11 @@
  {
   "id": "3d/rings/ring_lacquer.glb",
   "file": "app/src/main/assets/3d/rings/ring_lacquer.glb",
-  "source": "assets/generated/3d/ring_lacquer/ring_lacquer.glb",
+  "source": "assets/generated/3d/ring_lacquer/ring_lacquer_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1616168,
-  "sha1": "272e8c3911e227291efd17cdb7474efa4ac63ec2"
+  "bytes": 971480,
+  "sha1": "6ba5167ec5b2ca6fe406f09496df07c3f1c2a718"
  },
  {
   "id": "3d/rings/ring_lacquer_thumb.webp",
@@ -5177,11 +5177,11 @@
  {
   "id": "3d/rings/ring_marble.glb",
   "file": "app/src/main/assets/3d/rings/ring_marble.glb",
-  "source": "assets/generated/3d/ring_marble/ring_marble.glb",
+  "source": "assets/generated/3d/ring_marble/ring_marble_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1282472,
-  "sha1": "549dbe2de9fa5d8384e273a24c726a84efa4d5f2"
+  "bytes": 638628,
+  "sha1": "3b4e8b05a1037f55ba2b485d8ea75d49a224d2ec"
  },
  {
   "id": "3d/rings/ring_marble_thumb.webp",
@@ -5195,11 +5195,11 @@
  {
   "id": "3d/rings/ring_obsidian.glb",
   "file": "app/src/main/assets/3d/rings/ring_obsidian.glb",
-  "source": "assets/generated/3d/ring_obsidian/ring_obsidian.glb",
+  "source": "assets/generated/3d/ring_obsidian/ring_obsidian_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1236548,
-  "sha1": "531e6d7ad54546e08f3a55bb0b41b72bf42cf7a4"
+  "bytes": 593072,
+  "sha1": "24adb0670ef851b692dfb496f0638a4b4f091115"
  },
  {
   "id": "3d/rings/ring_obsidian_thumb.webp",
@@ -5213,11 +5213,11 @@
  {
   "id": "3d/rings/ring_onyx.glb",
   "file": "app/src/main/assets/3d/rings/ring_onyx.glb",
-  "source": "assets/generated/3d/ring_onyx/ring_onyx.glb",
+  "source": "assets/generated/3d/ring_onyx/ring_onyx_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1319952,
-  "sha1": "bcd7229a6928162176d1f1abdac6c8b8b3f78290"
+  "bytes": 678996,
+  "sha1": "a806bedd895479a9c103d001401fc0fb6e85d67a"
  },
  {
   "id": "3d/rings/ring_onyx_thumb.webp",
@@ -5231,11 +5231,11 @@
  {
   "id": "3d/rings/ring_pearl.glb",
   "file": "app/src/main/assets/3d/rings/ring_pearl.glb",
-  "source": "assets/generated/3d/ring_pearl/ring_pearl.glb",
+  "source": "assets/generated/3d/ring_pearl/ring_pearl_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1165600,
-  "sha1": "4282b034655733cd2fed063716f95b5112a15480"
+  "bytes": 523640,
+  "sha1": "72be6ff1cc52457bcd3c6432fa33462b05c68f0b"
  },
  {
   "id": "3d/rings/ring_pearl_thumb.webp",
@@ -5249,11 +5249,11 @@
  {
   "id": "3d/rings/ring_pearl_beaded.glb",
   "file": "app/src/main/assets/3d/rings/ring_pearl_beaded.glb",
-  "source": "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded.glb",
+  "source": "assets/generated/3d/ring_pearl_beaded/ring_pearl_beaded_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 2654984,
-  "sha1": "5ac646365dc0398a120ba75824ba562a59c733ca"
+  "bytes": 1453008,
+  "sha1": "5e6ed2b6d8f1f712c0edca92e61c8c6ea1c69ea5"
  },
  {
   "id": "3d/rings/ring_pearl_beaded_thumb.webp",
@@ -5267,11 +5267,11 @@
  {
   "id": "3d/rings/ring_rose_gold.glb",
   "file": "app/src/main/assets/3d/rings/ring_rose_gold.glb",
-  "source": "assets/generated/3d/ring_rose_gold/ring_rose_gold.glb",
+  "source": "assets/generated/3d/ring_rose_gold/ring_rose_gold_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1327360,
-  "sha1": "ca20894dd5dc3591a2472c54afafdb5b09222d6f"
+  "bytes": 617144,
+  "sha1": "381f97b7fc9d7f7d1ffdc9aa121ec7594b2cfe8d"
  },
  {
   "id": "3d/rings/ring_rose_gold_thumb.webp",
@@ -5285,11 +5285,11 @@
  {
   "id": "3d/rings/ring_sesame.glb",
   "file": "app/src/main/assets/3d/rings/ring_sesame.glb",
-  "source": "assets/generated/3d/ring_sesame/ring_sesame.glb",
+  "source": "assets/generated/3d/ring_sesame/ring_sesame_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 598188,
-  "sha1": "cb32db6201d87075b25fe405b687de0d269cbae0"
+  "bytes": 577676,
+  "sha1": "def849042124f2c1a75572b7ad8f9ccca95bfa56"
  },
  {
   "id": "3d/rings/ring_sesame_thumb.webp",
@@ -5303,11 +5303,11 @@
  {
   "id": "3d/rings/ring_silver.glb",
   "file": "app/src/main/assets/3d/rings/ring_silver.glb",
-  "source": "assets/generated/3d/ring_silver/ring_silver.glb",
+  "source": "assets/generated/3d/ring_silver/ring_silver_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 1285768,
-  "sha1": "0752a740e52040404b045757f794674b9e658050"
+  "bytes": 644116,
+  "sha1": "dcc0e5c3610c505ad8a6b91de04b883868276d79"
  },
  {
   "id": "3d/rings/ring_silver_thumb.webp",
@@ -5321,11 +5321,11 @@
  {
   "id": "3d/rings/ring_silver_wave.glb",
   "file": "app/src/main/assets/3d/rings/ring_silver_wave.glb",
-  "source": "assets/generated/3d/ring_silver_wave/ring_silver_wave.glb",
+  "source": "assets/generated/3d/ring_silver_wave/ring_silver_wave_game.glb",
   "usage": "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)",
   "world": null,
-  "bytes": 2036176,
-  "sha1": "a87a390482e67d239b0d1c8460ddbc6f497f33f2"
+  "bytes": 1162740,
+  "sha1": "353267f9eac7f56f4cd2e76f970514a0225cbd15"
  },
  {
   "id": "3d/rings/ring_silver_wave_thumb.webp",

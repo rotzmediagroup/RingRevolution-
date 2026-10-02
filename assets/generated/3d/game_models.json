@@ -1,0 +1,92 @@
+{
+ "ring_bronze": {
+  "tris_in": 31348,
+  "tris_out": 12000,
+  "minor": 0.057817024945913786,
+  "height": 0.1132197231054306
+ },
+ "ring_gold": {
+  "tris_in": 31476,
+  "tris_out": 12000,
+  "minor": 0.05674411969242382,
+  "height": 0.07485496997833252
+ },
+ "ring_gold_rope": {
+  "tris_in": 31200,
+  "tris_out": 12000,
+  "minor": 0.06710526147388968,
+  "height": 0.13773178309202194
+ },
+ "ring_jade": {
+  "tris_in": 31358,
+  "tris_out": 12000,
+  "minor": 0.16606488450967494,
+  "height": 0.2790750563144684
+ },
+ "ring_jade_bamboo": {
+  "tris_in": 31401,
+  "tris_out": 11999,
+  "minor": 0.13997769324420178,
+  "height": 0.27978865802288055
+ },
+ "ring_lacquer": {
+  "tris_in": 31344,
+  "tris_out": 12000,
+  "minor": 0.15295668894910003,
+  "height": 0.20708730071783066
+ },
+ "ring_marble": {
+  "tris_in": 31374,
+  "tris_out": 12000,
+  "minor": 0.15111927970126926,
+  "height": 0.22474060207605362
+ },
+ "ring_obsidian": {
+  "tris_in": 31390,
+  "tris_out": 12000,
+  "minor": 0.15985461272262963,
+  "height": 0.22876865416765213
+ },
+ "ring_onyx": {
+  "tris_in": 31120,
+  "tris_out": 12000,
+  "minor": 0.15889879601567553,
+  "height": 0.2876492887735367
+ },
+ "ring_pearl": {
+  "tris_in": 31373,
+  "tris_out": 11999,
+  "minor": 0.15730171884145816,
+  "height": 0.22911816835403442
+ },
+ "ring_pearl_beaded": {
+  "tris_in": 31441,
+  "tris_out": 11999,
+  "minor": 0.0819117974872306,
+  "height": 0.1751273348927498
+ },
+ "ring_rose_gold": {
+  "tris_in": 30290,
+  "tris_out": 12000,
+  "minor": 0.14405774140501165,
+  "height": 0.17579536139965057
+ },
+ "ring_sesame": {
+  "tris_in": 3119,
+  "tris_out": 3119,
+  "minor": 0.5748238448322083,
+  "height": 1.3226121664047241
+ },
+ "ring_silver": {
+  "tris_in": 31415,
+  "tris_out": 11999,
+  "minor": 0.17159627953344864,
+  "height": 0.1716252639889717
+ },
+ "ring_silver_wave": {
+  "tris_in": 30970,
+  "tris_out": 12000,
+  "minor": 0.093651137122167,
+  "height": 0.16387620568275452
+ }
+}

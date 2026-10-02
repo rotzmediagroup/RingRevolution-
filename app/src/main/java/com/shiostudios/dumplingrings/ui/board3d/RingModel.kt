@@ -18,6 +18,15 @@ import kotlin.math.sqrt
  */
 class RingModel(val vertices: FloatBuffer, val vertexCount: Int, val indices: java.nio.Buffer, val indexType: Int, val indexCount: Int,
                 val model: GlbModel, val majorRadius: Float, val minorRadius: Float, val thicknessRatio: Float) {
+    /** CPU copies for per-level gap cutting (RingCutter). */
+    val vertexArray: FloatArray by lazy { FloatArray(vertexCount * FLOATS_PER_VERTEX).also { vertices.position(0); vertices.get(it); vertices.position(0) } }
+    val indexArray: IntArray by lazy {
+        when (val b = indices) {
+            is java.nio.IntBuffer -> IntArray(indexCount).also { b.position(0); b.get(it); b.position(0) }
+            is java.nio.ShortBuffer -> IntArray(indexCount) { b.get(it).toInt() and 0xFFFF }
+            else -> IntArray(0)
+        }
+    }
     companion object {
         const val FLOATS_PER_VERTEX = 9
 

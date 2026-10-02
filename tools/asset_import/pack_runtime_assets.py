@@ -141,7 +141,11 @@ D3 = os.path.join(ROOT, "assets/generated/3d")
 if os.path.isdir(D3):
     for name in sorted(os.listdir(D3)):
         d = os.path.join(D3, name)
-        glb = next((os.path.join(d, f) for f in sorted(os.listdir(d)) if f.endswith(".glb")), None) if os.path.isdir(d) else None
+        # prefer the Blender-prepared game model (tools/blender/prepare_rings.py), else the raw Meshy download
+        glb = None
+        if os.path.isdir(d):
+            game = os.path.join(d, name + "_game.glb"); raw = os.path.join(d, name + ".glb")
+            glb = game if os.path.exists(game) else (raw if os.path.exists(raw) else None)
         if glb and name.startswith("ring_"):
             glb_opt(glb, f"3d/rings/{name}.glb", "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)")
             thumb = os.path.join(d, "thumbnail.png")

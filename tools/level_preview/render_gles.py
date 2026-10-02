@@ -133,6 +133,59 @@ def ring_model(pos, nrm, uv):
     v = np.stack([phi, rN, zN, uv[:, 0], uv[:, 1], nR, nT, nZ, np.zeros_like(phi)], 1).astype(np.float32)
     return v, minor / rho.max()
 
+
+def ring_cut(v, idx, gaps):
+    """Python mirror of RingCutter.kt: clip triangles exactly at each gap edge and close every edge with a cut face."""
+    if not gaps: return v, idx
+    TWO = 2 * math.pi
+    def in_gap(phi):
+        for s0, w in gaps:
+            if (phi - s0) % TWO < w: return True
+        return False
+    def unwrap(a, ref):
+        while a - ref > math.pi: a -= TWO
+        while ref - a > math.pi: a += TWO
+        return a
+    planes = []
+    for s0, w in gaps: planes += [(s0, True), (s0 + w, False)]
+    segs = [[] for _ in planes]; out = []; tris = []
+    V = v.tolist()
+    for t in range(len(idx) // 3):
+        tri = [list(V[idx[t * 3 + k]]) for k in range(3)]
+        for k in (1, 2): tri[k][0] = unwrap(tri[k][0], tri[0][0])
+        ins = [in_gap(q[0]) for q in tri]
+        if all(ins): continue
+        if not any(ins): b = len(out); out += tri; tris += [b, b + 1, b + 2]; continue
+        pin = tri[ins.index(True)][0]; pout = tri[ins.index(False)][0]; best = -1
+        for pi, (ang, kb) in enumerate(planes):
+            a = unwrap(ang, (pin + pout) / 2)
+            if (a - pin) * (a - pout) <= 0: best = pi; bang = a; break
+        if best < 0: continue
+        kb = planes[best][1]; d = (lambda q: bang - q[0]) if kb else (lambda q: q[0] - bang)
+        res = []; cut = []
+        for i in range(3):
+            a = tri[i]; b = tri[(i + 1) % 3]; da = d(a); db = d(b)
+            if da >= 0: res.append(a)
+            if (da >= 0) != (db >= 0):
+                tt = da / (da - db); q = [a[j] + (b[j] - a[j]) * tt for j in range(9)]; q[0] = bang
+                nl = max(math.sqrt(q[5] ** 2 + q[6] ** 2 + q[7] ** 2), 1e-6); q[5] /= nl; q[6] /= nl; q[7] /= nl
+                res.append(q); cut.append(q)
+        if len(cut) == 2: segs[best] += cut
+        if len(res) < 3: continue
+        b = len(out); out += res
+        for k in range(1, len(res) - 1): tris += [b, b + k, b + k + 1]
+    for pi, (ang, kb) in enumerate(planes):
+        L = segs[pi]
+        if len(L) < 2: continue
+        cr = sum(q[1] for q in L) / len(L); cz = sum(q[2] for q in L) / len(L); nT = 1.0 if kb else -1.0
+        for k in range(len(L) // 2):
+            p_, q_ = L[2 * k], L[2 * k + 1]
+            c = [p_[0], cr, cz, (p_[3] + q_[3]) / 2, (p_[4] + q_[4]) / 2, 0, nT, 0, 0]
+            b = len(out)
+            for w_ in (c, list(p_), list(q_)): w_[5] = 0.0; w_[6] = nT; w_[7] = 0.0; out.append(w_)
+            tris += [b, b + 1, b + 2]
+    return np.array(out, np.float32), np.array(tris, np.uint32)
+
 def compile_prog(vs, fs):
     def sh(t, src):
         s = glCreateShader(t); glShaderSource(s, src); glCompileShader(s)
@@ -188,6 +241,8 @@ def main():
     y0 = min(r["center"][1] - r["radius"] - r["thickness"] for r in rings); y1 = max(r["center"][1] + r["radius"] + r["thickness"] for r in rings)
     k = min(max(0.92 / max(x1 - x0, y1 - y0, 0.2), 1.0), 1.8); cx = (x0 + x1) / 2; cy = (y0 + y1) / 2
     weaves = {(w["a"], w["b"]): w["pattern"] for w in lv.get("weaves", [])}
+    def _tr(r):
+        g = glbs.get(r["materialId"]); return g["ratio"] / (1.0 - g["ratio"]) if g else r["thickness"] * 0.5 / r["radius"]
     bumps = {r["id"]: [] for r in rings}
     for i, a in enumerate(rings):
         for j, b in enumerate(rings):
@@ -197,8 +252,8 @@ def main():
             pat = weaves.get((a["id"], b["id"]), "alt1")
             for idx, (angA, angB) in enumerate(cr):
                 a_over = {"alt1": idx == 0, "alt2": idx == 1, "a_over": True, "b_over": False}[pat]
-                bumps[a["id"]].append((angA, (1 if a_over else -1) * a["thickness"] * k * 0.5 * 1.15))
-                bumps[b["id"]].append((angB, (-1 if a_over else 1) * b["thickness"] * k * 0.5 * 1.15))
+                bumps[a["id"]].append((angA, (1 if a_over else -1) * a["radius"] * k * _tr(a) * 1.15))
+                bumps[b["id"]].append((angB, (-1 if a_over else 1) * b["radius"] * k * _tr(b) * 1.15))
     textures = {}
     for mid, name in MATTEX.items():
         im = Image.open(os.path.join(ROOT, f"assets/generated/materials/mat_{name}.png")).convert("RGB").resize((256, 256))
@@ -217,7 +272,8 @@ def main():
     def draw_glb_ring(i, r, sel=False):
         p = glbP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
         glb = glbs[r["materialId"]]; tr = tube_ratio(r)
-        v = glb["v"]; ix = glb["idx"].astype(np.uint32)
+        gl_gaps = [(math.radians(g["startDeg"]), math.radians(g["widthDeg"])) for g in r["gaps"]]
+        v, ix = ring_cut(glb["v"], glb["idx"].astype(np.uint32).tolist(), gl_gaps)
         vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, v.nbytes, v, GL_STATIC_DRAW)
         ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, ix.nbytes, ix, GL_STATIC_DRAW)
         glEnableVertexAttribArray(0); glVertexAttribPointer(0, 3, GL_FLOAT, False, 36, ctypes.c_void_p(0))
@@ -229,31 +285,16 @@ def main():
         glUniform1f(u("uHasMR"), 1.0 if glb["mr"] else 0.0); glUniform1f(u("uHasNormal"), 1.0 if glb["nm"] else 0.0)
         glUniform1f(u("uMetalFactor"), glb["mf"]); glUniform1f(u("uRoughFactor"), glb["rf"])
         glUniform3f(u("uEmissive"), *((0.2, 0.15, 0.03) if sel else (0, 0, 0))); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0); glUniform3f(u("uStripe"), 0, 0, 0)
-        capRad = tr * 0.95
-        gaps = np.zeros(8, np.float32)
-        for gi, g in enumerate(r["gaps"][:4]): gaps[gi * 2] = math.radians(g["startDeg"]) + capRad; gaps[gi * 2 + 1] = max(0.0, math.radians(g["widthDeg"]) - 2 * capRad)
-        glUniform1i(u("uGapCount"), min(4, len(r["gaps"]))); glUniform2fv(u("uGaps"), 4, gaps); glUniform1f(u("uCapRad"), capRad)
+        glUniform1i(u("uGapCount"), 0); glUniform1f(u("uCapRad"), 0.0)   # gaps are real geometry now
         glDrawElements(GL_TRIANGLES, len(ix), GL_UNSIGNED_INT, ctypes.c_void_p(0))
         glDisableVertexAttribArray(1); glDisableVertexAttribArray(2)
-        # caps
-        p = ringP; glUseProgram(p); u = lambda n: glGetUniformLocation(p, n)
-        cv, cix = caps[i]
-        vbo = glGenBuffers(1); glBindBuffer(GL_ARRAY_BUFFER, vbo); glBufferData(GL_ARRAY_BUFFER, cv.nbytes, cv, GL_STATIC_DRAW)
-        ibo = glGenBuffers(1); glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo); glBufferData(GL_ELEMENT_ARRAY_BUFFER, cix.nbytes, cix, GL_STATIC_DRAW)
-        glEnableVertexAttribArray(0); glVertexAttribPointer(0, 4, GL_FLOAT, False, 20, ctypes.c_void_p(0))
-        glEnableVertexAttribArray(1); glVertexAttribPointer(1, 1, GL_FLOAT, False, 20, ctypes.c_void_p(16))
-        placement(p, r); glUniform1f(u("uMinor"), r["radius"] * k * tr); set_lights(p)
-        glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, white); glUniform1i(u("uAlbedo"), 0)
-        glUniform3f(u("uTint"), *glb["avg"]); glUniform1f(u("uRough"), 0.72)
-        glUniform3f(u("uEmissive"), 0, 0, 0); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0)
-        glDrawElements(GL_TRIANGLES, len(cix), GL_UNSIGNED_SHORT, ctypes.c_void_p(0))
     def placement(p, r):
         u = lambda n: glGetUniformLocation(p, n)
         glUniformMatrix4fv(u("uViewProj"), 1, True, vp)
         glUniform2f(u("uCenter"), 0.5 + (r["center"][0] - cx) * k, 0.5 + (r["center"][1] - cy) * k)
-        glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["thickness"] * k * 0.5)
+        glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["radius"] * k * tube_ratio(r))
         glUniform1f(u("uRot"), math.radians(r["initialAngleDeg"])); glUniform1f(u("uLift"), 0); glUniform2f(u("uSlide"), 0, 0); glUniform1f(u("uScale"), 1)
-        R = r["radius"] * k; mn = r["thickness"] * k * 0.5
+        R = r["radius"] * k; mn = R * tube_ratio(r)
         pts = [(math.cos(ba) * R, math.sin(ba) * R, bh) for ba, bh in bumps[r["id"]]]
         sxx = sum(x * x for x, y, z in pts); syy = sum(y * y for x, y, z in pts); sxy = sum(x * y for x, y, z in pts); sxz = sum(x * z for x, y, z in pts); syz = sum(y * z for x, y, z in pts)
         det = sxx * syy - sxy * sxy; a = b = 0.0
@@ -280,9 +321,9 @@ def main():
         u = lambda n: glGetUniformLocation(p, n)
         glUniformMatrix4fv(u("uViewProj"), 1, True, vp)
         glUniform2f(u("uCenter"), 0.5 + (r["center"][0] - cx) * k, 0.5 + (r["center"][1] - cy) * k)
-        glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["thickness"] * k * 0.5)
+        glUniform1f(u("uMajor"), r["radius"] * k); glUniform1f(u("uMinor"), r["radius"] * k * tube_ratio(r))
         glUniform1f(u("uRot"), math.radians(r["initialAngleDeg"])); glUniform1f(u("uLift"), 0); glUniform2f(u("uSlide"), 0, 0); glUniform1f(u("uScale"), 1)
-        R = r["radius"] * k; mn = r["thickness"] * k * 0.5
+        R = r["radius"] * k; mn = R * tube_ratio(r)
         pts = [(math.cos(ba) * R, math.sin(ba) * R, bh) for ba, bh in bumps[r["id"]]]
         sxx = sum(x * x for x, y, z in pts); syy = sum(y * y for x, y, z in pts); sxy = sum(x * y for x, y, z in pts); sxz = sum(x * z for x, y, z in pts); syz = sum(y * z for x, y, z in pts)
         det = sxx * syy - sxy * sxy; a = b = 0.0

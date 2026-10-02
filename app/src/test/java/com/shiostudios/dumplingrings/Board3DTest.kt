@@ -7,6 +7,7 @@ import com.shiostudios.dumplingrings.ui.board3d.BoardCamera
 import com.shiostudios.dumplingrings.ui.board3d.GlbLoader
 import com.shiostudios.dumplingrings.ui.board3d.TorusMesh
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -96,5 +97,37 @@ class Board3DTest {
         assertNotNull(model)
         assertEquals(3, model!!.indexCount); assertEquals(9, model.positions.capacity())
         assertEquals(1f, model.bounds[3], 1e-6f); assertEquals(1f, model.bounds[4], 1e-6f)
+    }
+
+    @Test fun ringCutterCutsRealGapsWithClosedFaces() {
+        // synthetic tube-space torus: 96 segments around, 12 around the tube
+        val segs = 96; val sides = 12; val F = com.shiostudios.dumplingrings.ui.board3d.RingModel.FLOATS_PER_VERTEX
+        val v = FloatArray(segs * sides * F); val idx = ArrayList<Int>()
+        for (a in 0 until segs) for (b in 0 until sides) {
+            val o = (a * sides + b) * F; val phi = (2 * Math.PI * a / segs - Math.PI).toFloat(); val t = (2 * Math.PI * b / sides).toFloat()
+            v[o] = phi; v[o + 1] = kotlin.math.cos(t); v[o + 2] = kotlin.math.sin(t); v[o + 3] = a / segs.toFloat(); v[o + 4] = b / sides.toFloat()
+            v[o + 5] = kotlin.math.cos(t); v[o + 7] = kotlin.math.sin(t)
+        }
+        for (a in 0 until segs) for (b in 0 until sides) {
+            val p0 = a * sides + b; val p1 = ((a + 1) % segs) * sides + b; val p2 = ((a + 1) % segs) * sides + (b + 1) % sides; val p3 = a * sides + (b + 1) % sides
+            idx += listOf(p0, p1, p2, p0, p2, p3)
+        }
+        val gaps = listOf(Math.toRadians(10.0).toFloat() to Math.toRadians(62.0).toFloat(), Math.toRadians(200.0).toFloat() to Math.toRadians(40.0).toFloat())
+        val r = com.shiostudios.dumplingrings.ui.board3d.RingCutter.cut(v, idx.toIntArray(), gaps)
+        val shrunk = gaps.map { (s, w) -> (s + 1e-3f) to (w - 2e-3f) }
+        for (k in 0 until r.vertexCount) assertFalse("vertex inside a gap", com.shiostudios.dumplingrings.ui.board3d.RingCutter.inGap(r.vertices[k * F], shrunk))
+        // every triangle of the result is referenced in range
+        assertTrue(r.indices.all { it in 0 until r.vertexCount })
+        // 4 gap edges; each tube quad = 2 triangles crossing the edge -> 2 * sides outline segments per closed cut face
+        assertEquals(4 * 2 * sides, r.capTriangles)
+        // each cut face's outline is closed: every outline point (fan vertices 2 and 3) occurs an even number of times
+        val capStart = r.indices.size - r.capTriangles * 3
+        val counts = HashMap<String, Int>()
+        for (t in 0 until r.capTriangles) for (k in 1..2) {
+            val vi = r.indices[capStart + t * 3 + k]
+            val key = "%.4f/%.4f/%.4f".format(r.vertices[vi * F], r.vertices[vi * F + 1], r.vertices[vi * F + 2])
+            counts[key] = (counts[key] ?: 0) + 1
+        }
+        assertTrue("open cut outline", counts.values.all { it % 2 == 0 })
     }
 }

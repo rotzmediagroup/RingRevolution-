@@ -1,3 +1,9 @@
+## Ring Revolution 1.2.0 — real gaps, Blender-prepared rings
+
+- Every Meshy ring goes through Blender (`tools/blender/prepare_rings.py`): welded, principal-axis aligned and centred, decimated from ~31k to 12k triangles with UV seams kept, exported as a clean game GLB (ring assets 22 MB -> 12 MB)
+- Gaps are real geometry: at level load each ring is clipped exactly at its gap edges and every edge gets a closed cut face that continues the ring's own material (`RingCutter`). The shader discard and the flat-colour end caps are gone
+- Shadows, lean and crossing heights use the model's own tube thickness
+
 ## Ring Revolution 1.1.9 — the game is called Ring Revolution
 
 - App name, main-menu title, Premium name, privacy and credits texts (EN/NL/DE), README, docs and release asset names now say Ring Revolution. Package id `com.shiostudios.dumplingrings` stays (changing it would break updates)
