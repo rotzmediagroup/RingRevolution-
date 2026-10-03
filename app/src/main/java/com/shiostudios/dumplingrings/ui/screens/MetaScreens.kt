@@ -246,7 +246,7 @@ fun PremiumScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
                         Sprite("sheet06/cloud_dragon_cheer", Modifier.size(96.dp))
                         Text(stringResource(R.string.premium_pitch), style = MaterialTheme.typography.bodyLarge, color = DR.Ink, textAlign = TextAlign.Center)
                         Spacer(Modifier.height(10.dp))
-                        AssetImage("materials/ube_purple.webp", Modifier.size(72.dp).clip(RoundedCornerShape(50)))
+                        TurntableImage("3d/rings/ring_onyx_turn.webp", Modifier.size(110.dp), animate = !LocalReduceMotion.current)
                         Spacer(Modifier.height(14.dp))
                         if (save.premium || ent.premium) Text(stringResource(R.string.premium_active), style = MaterialTheme.typography.titleLarge, color = DR.Bamboo, textAlign = TextAlign.Center)
                         else {

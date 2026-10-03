@@ -71,7 +71,7 @@
     <string name="privacy_text">Ring Revolution werkt volledig offline en bewaart je voortgang alleen op dit apparaat. Advertenties staan standaard uit en worden alleen met je toestemming getoond; een eenmalige Premium-aankoop verwijdert alle niet-optionele advertenties permanent.</string>
     <string name="ads_disabled_build">Advertenties staan uit in deze build.</string>
     <string name="premium_title">Ring Revolution Premium</string>
-    <string name="premium_pitch">Eén aankoop, voor altijd: geen interstitials, geen banners, een gouden ube-ringthema en elke dag een gratis booster.</string>
+    <string name="premium_pitch">Eén aankoop, voor altijd: geen interstitials, geen banners, een exclusief onyx-ringthema met gouden inleg en elke dag een gratis booster.</string>
     <string name="buy_premium">Koop Premium %1$s</string>
     <string name="restore_purchases">Aankopen herstellen</string>
     <string name="premium_active">Premium is actief. Bedankt!</string>
@@ -162,7 +162,7 @@
     <string name="cos_deco_cloud">Wolkje</string>
     <string name="cos_deco_star_jelly">Sterrenjelly</string>
     <string name="cos_theme_gold">Gouden ringthema</string>
-    <string name="cos_theme_premium_ube">Ube-ringthema (Premium)</string>
+    <string name="cos_theme_premium_ube">Onyx-ringthema (Premium)</string>
     <string name="char_tanuki">Tanuki</string>
     <string name="char_rabbit">Maankonijn</string>
     <string name="char_panda">Bamboepanda</string>

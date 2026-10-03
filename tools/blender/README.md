@@ -13,4 +13,7 @@ Scripts here are run with plain `python3` and use `bpy` directly.
 
 - `prepare_rings.py [ring ...]`: Meshy ring -> clean game model (`<ring>_game.glb`): weld, align to +Z, centre, scale to major radius 1, decimate to 12k tris, export. The packer prefers these. Gaps are cut per level at runtime by `RingCutter.kt` (and mirrored in `render_gles.py`).
 
+- `turntables.py [ring ...]`: Cycles studio turntable (16 frames, transparent) + still per ring for the Collection.
+- `hero_shot.py [samples]`: the whole collection on velvet with depth of field -> Premium hero and Play Store feature graphic.
+
 Planned: normal-map rebake from the full-res mesh, Draco/KTX2 export, and HDRI turntable renders for the store and the Collection.

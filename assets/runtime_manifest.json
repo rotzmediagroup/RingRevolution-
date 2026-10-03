@@ -5085,6 +5085,24 @@
   "sha1": "6975fde1888c5e10cbb441805cf29126856cf088"
  },
  {
+  "id": "3d/rings/ring_bronze_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_bronze_turn.webp",
+  "source": "assets/generated/3d/ring_bronze/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 57986,
+  "sha1": "b27c6e0d872fed0ef5d0cc5d74abc79062f285ce"
+ },
+ {
+  "id": "3d/rings/ring_bronze_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_bronze_still.webp",
+  "source": "assets/generated/3d/ring_bronze/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 10834,
+  "sha1": "2badd310b402ca91b84edf521ec37a5eaf944553"
+ },
+ {
   "id": "3d/rings/ring_gold.glb",
   "file": "app/src/main/assets/3d/rings/ring_gold.glb",
   "source": "assets/generated/3d/ring_gold/ring_gold_game.glb",
@@ -5101,6 +5119,24 @@
   "world": null,
   "bytes": 6550,
   "sha1": "55e634ff31555b18540c4b4790f459d84aac40ca"
+ },
+ {
+  "id": "3d/rings/ring_gold_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_gold_turn.webp",
+  "source": "assets/generated/3d/ring_gold/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 61804,
+  "sha1": "e88a4abaca50f55c093026027ffeb82e275a5560"
+ },
+ {
+  "id": "3d/rings/ring_gold_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_gold_still.webp",
+  "source": "assets/generated/3d/ring_gold/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 11178,
+  "sha1": "8aadf4d46e4f95e46d92715150291adb3e0a23c1"
  },
  {
   "id": "3d/rings/ring_gold_rope.glb",
@@ -5121,6 +5157,24 @@
   "sha1": "4ab7f056e10da86a57a563b4f26f9df825e2d1fb"
  },
  {
+  "id": "3d/rings/ring_gold_rope_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_gold_rope_turn.webp",
+  "source": "assets/generated/3d/ring_gold_rope/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 81028,
+  "sha1": "2dda2b0a979cc8787127eca11a518039d2479e64"
+ },
+ {
+  "id": "3d/rings/ring_gold_rope_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_gold_rope_still.webp",
+  "source": "assets/generated/3d/ring_gold_rope/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 14152,
+  "sha1": "6c87a52d2dbb241b11fe8e7f00bbe1c3293f815a"
+ },
+ {
   "id": "3d/rings/ring_jade.glb",
   "file": "app/src/main/assets/3d/rings/ring_jade.glb",
   "source": "assets/generated/3d/ring_jade/ring_jade_game.glb",
@@ -5137,6 +5191,24 @@
   "world": null,
   "bytes": 5006,
   "sha1": "a57c6c49bd8f061e68ab8ce81d2980816cb37224"
+ },
+ {
+  "id": "3d/rings/ring_jade_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_jade_turn.webp",
+  "source": "assets/generated/3d/ring_jade/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 57716,
+  "sha1": "8663d00b7c85d89a74a64b6a83094ad5aaea0044"
+ },
+ {
+  "id": "3d/rings/ring_jade_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_jade_still.webp",
+  "source": "assets/generated/3d/ring_jade/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 11526,
+  "sha1": "42424a673111c58228bb5a703ef99f9823448f32"
  },
  {
   "id": "3d/rings/ring_jade_bamboo.glb",
@@ -5157,6 +5229,24 @@
   "sha1": "8fd7299b639e09c31b15529f94c4f9fd8fe3d5d2"
  },
  {
+  "id": "3d/rings/ring_jade_bamboo_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_jade_bamboo_turn.webp",
+  "source": "assets/generated/3d/ring_jade_bamboo/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 79208,
+  "sha1": "7c67bdbba387be51c4eb56721b337e1c7a838906"
+ },
+ {
+  "id": "3d/rings/ring_jade_bamboo_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_jade_bamboo_still.webp",
+  "source": "assets/generated/3d/ring_jade_bamboo/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 14364,
+  "sha1": "cdd3213ac034b81a80104ea2749c50e0888351ef"
+ },
+ {
   "id": "3d/rings/ring_lacquer.glb",
   "file": "app/src/main/assets/3d/rings/ring_lacquer.glb",
   "source": "assets/generated/3d/ring_lacquer/ring_lacquer_game.glb",
@@ -5173,6 +5263,24 @@
   "world": null,
   "bytes": 7106,
   "sha1": "56359e2b272131daae2fa6393fac829f9216a797"
+ },
+ {
+  "id": "3d/rings/ring_lacquer_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_lacquer_turn.webp",
+  "source": "assets/generated/3d/ring_lacquer/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 79718,
+  "sha1": "e0f4c6eed8773d354926be6387dc32cf71153ed5"
+ },
+ {
+  "id": "3d/rings/ring_lacquer_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_lacquer_still.webp",
+  "source": "assets/generated/3d/ring_lacquer/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 14130,
+  "sha1": "1878acf995189a67683fcaca5a47d9489c05a4b7"
  },
  {
   "id": "3d/rings/ring_marble.glb",
@@ -5193,6 +5301,24 @@
   "sha1": "0482f53b9f68c3624a229251e2e2226491447b37"
  },
  {
+  "id": "3d/rings/ring_marble_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_marble_turn.webp",
+  "source": "assets/generated/3d/ring_marble/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 54470,
+  "sha1": "6bdfe92003d2d05475fedc6ff114f3f1391d2311"
+ },
+ {
+  "id": "3d/rings/ring_marble_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_marble_still.webp",
+  "source": "assets/generated/3d/ring_marble/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 11472,
+  "sha1": "c72ee08c2170fbe311a5a5ebd920f091535271d0"
+ },
+ {
   "id": "3d/rings/ring_obsidian.glb",
   "file": "app/src/main/assets/3d/rings/ring_obsidian.glb",
   "source": "assets/generated/3d/ring_obsidian/ring_obsidian_game.glb",
@@ -5209,6 +5335,24 @@
   "world": null,
   "bytes": 4858,
   "sha1": "73693bb92b6cdfb484c205926fde11db33c62510"
+ },
+ {
+  "id": "3d/rings/ring_obsidian_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_obsidian_turn.webp",
+  "source": "assets/generated/3d/ring_obsidian/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 60082,
+  "sha1": "b05ba49811d4cf61017f13b30117c7d1865955ae"
+ },
+ {
+  "id": "3d/rings/ring_obsidian_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_obsidian_still.webp",
+  "source": "assets/generated/3d/ring_obsidian/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 10760,
+  "sha1": "9be9bec1d1851791d52c820e3699380aad73c065"
  },
  {
   "id": "3d/rings/ring_onyx.glb",
@@ -5229,6 +5373,24 @@
   "sha1": "cceedcef69ff3b913bb69a463bf4378535f4993a"
  },
  {
+  "id": "3d/rings/ring_onyx_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_onyx_turn.webp",
+  "source": "assets/generated/3d/ring_onyx/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 68808,
+  "sha1": "afedfe0aebc3eba7f18b69a69d4b10691ce23274"
+ },
+ {
+  "id": "3d/rings/ring_onyx_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_onyx_still.webp",
+  "source": "assets/generated/3d/ring_onyx/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 12402,
+  "sha1": "31b3967c2d75f80b50907c5937e4822050b4d006"
+ },
+ {
   "id": "3d/rings/ring_pearl.glb",
   "file": "app/src/main/assets/3d/rings/ring_pearl.glb",
   "source": "assets/generated/3d/ring_pearl/ring_pearl_game.glb",
@@ -5245,6 +5407,24 @@
   "world": null,
   "bytes": 5068,
   "sha1": "af3b3f35ac09865c95216f1d12d564e3b9bcc19f"
+ },
+ {
+  "id": "3d/rings/ring_pearl_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_pearl_turn.webp",
+  "source": "assets/generated/3d/ring_pearl/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 51736,
+  "sha1": "233caef908b6a5f5ac5b89eaaa0c294a34a72121"
+ },
+ {
+  "id": "3d/rings/ring_pearl_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_pearl_still.webp",
+  "source": "assets/generated/3d/ring_pearl/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 10572,
+  "sha1": "b912f45cf0758a22188c83e744757d88cb814cd9"
  },
  {
   "id": "3d/rings/ring_pearl_beaded.glb",
@@ -5265,6 +5445,24 @@
   "sha1": "70829260c08fcee23b8508d6668e4f12a8bc259b"
  },
  {
+  "id": "3d/rings/ring_pearl_beaded_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_pearl_beaded_turn.webp",
+  "source": "assets/generated/3d/ring_pearl_beaded/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 74714,
+  "sha1": "61bbb2cc51c2d820d36f3775528ee7e2abfb57c2"
+ },
+ {
+  "id": "3d/rings/ring_pearl_beaded_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_pearl_beaded_still.webp",
+  "source": "assets/generated/3d/ring_pearl_beaded/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 14240,
+  "sha1": "015fb358531d6034e34f4bf5c8558caa91274d62"
+ },
+ {
   "id": "3d/rings/ring_rose_gold.glb",
   "file": "app/src/main/assets/3d/rings/ring_rose_gold.glb",
   "source": "assets/generated/3d/ring_rose_gold/ring_rose_gold_game.glb",
@@ -5281,6 +5479,24 @@
   "world": null,
   "bytes": 6250,
   "sha1": "97513cea78417b0ad5be2b166b6c994bcd78c747"
+ },
+ {
+  "id": "3d/rings/ring_rose_gold_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_rose_gold_turn.webp",
+  "source": "assets/generated/3d/ring_rose_gold/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 72486,
+  "sha1": "4e3ead6f6fdd8b82b5bebe9e87c6c5ecc348eb7c"
+ },
+ {
+  "id": "3d/rings/ring_rose_gold_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_rose_gold_still.webp",
+  "source": "assets/generated/3d/ring_rose_gold/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 12732,
+  "sha1": "db43429c35fae44cd1c667c84f9da663d7238b76"
  },
  {
   "id": "3d/rings/ring_sesame.glb",
@@ -5301,6 +5517,24 @@
   "sha1": "fb1a03c39b38dbf30b430dc3754502e2ecd828ef"
  },
  {
+  "id": "3d/rings/ring_sesame_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_sesame_turn.webp",
+  "source": "assets/generated/3d/ring_sesame/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 99160,
+  "sha1": "b48ca864d7911086491204530c6dbfc22bbe5eb5"
+ },
+ {
+  "id": "3d/rings/ring_sesame_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_sesame_still.webp",
+  "source": "assets/generated/3d/ring_sesame/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 15988,
+  "sha1": "7bfeb9ebf01da381fcab0ba40a6fc5c8a236de09"
+ },
+ {
   "id": "3d/rings/ring_silver.glb",
   "file": "app/src/main/assets/3d/rings/ring_silver.glb",
   "source": "assets/generated/3d/ring_silver/ring_silver_game.glb",
@@ -5319,6 +5553,24 @@
   "sha1": "c6527ee99a622e66fa7d87a95385e4b405860e92"
  },
  {
+  "id": "3d/rings/ring_silver_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_silver_turn.webp",
+  "source": "assets/generated/3d/ring_silver/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 60046,
+  "sha1": "5175ac5a8dc0de799cb822d3c60544c7adce0b51"
+ },
+ {
+  "id": "3d/rings/ring_silver_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_silver_still.webp",
+  "source": "assets/generated/3d/ring_silver/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 10932,
+  "sha1": "05a88a09a1dd0e650221eb2998e78b2b90ed53a3"
+ },
+ {
   "id": "3d/rings/ring_silver_wave.glb",
   "file": "app/src/main/assets/3d/rings/ring_silver_wave.glb",
   "source": "assets/generated/3d/ring_silver_wave/ring_silver_wave_game.glb",
@@ -5335,6 +5587,33 @@
   "world": null,
   "bytes": 6578,
   "sha1": "70d10fc1813a537b2787e1395c0c5863a9f3d9b5"
+ },
+ {
+  "id": "3d/rings/ring_silver_wave_turn.webp",
+  "file": "app/src/main/assets/3d/rings/ring_silver_wave_turn.webp",
+  "source": "assets/generated/3d/ring_silver_wave/turntable.png",
+  "usage": "Cycles studio turntable strip, 16 frames (Blender)",
+  "world": null,
+  "bytes": 66470,
+  "sha1": "1887a75269859067c5264d7d6ebf0fa0d0fd79e5"
+ },
+ {
+  "id": "3d/rings/ring_silver_wave_still.webp",
+  "file": "app/src/main/assets/3d/rings/ring_silver_wave_still.webp",
+  "source": "assets/generated/3d/ring_silver_wave/still.png",
+  "usage": "Cycles studio still (Blender)",
+  "world": null,
+  "bytes": 12090,
+  "sha1": "67aba383ba6bb0f9ef0c4f199d6df3f5ec2aed57"
+ },
+ {
+  "id": "hero/rings_hero.webp",
+  "file": "app/src/main/assets/hero/rings_hero.webp",
+  "source": "assets/generated/hero/rings_hero.png",
+  "usage": "Cycles hero shot of the ring collection",
+  "world": null,
+  "bytes": 54676,
+  "sha1": "561f8129376db84f723ed9bc46acfc6ec9266cf6"
  },
  {
   "id": "env/world1_env.png",

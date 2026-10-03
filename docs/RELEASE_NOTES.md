@@ -1,3 +1,12 @@
+## Ring Revolution 1.3.0 — premium polish
+
+- **Glint sweep:** every few seconds a fine band of light travels across the board; polished gold, silver, onyx and lacquer catch it, matte jade and marble barely do (off with Reduce Motion)
+- **Tactile selection:** a selected ring eases up off the board and its shadow spreads and softens
+- **Release light:** a warm bloom and an expanding ring of light when a ring comes free (off with Reduce Motion / low effects)
+- **Blender studio turntables:** every ring rendered in Cycles under a three-light studio, 16 frames; ring themes spin in the Collection (`tools/blender/turntables.py`)
+- **Hero shot:** the whole collection on dark velvet with depth of field, at the top of the Premium screen and as the Play Store feature graphic `docs/store_feature_1024x500.png` (`tools/blender/hero_shot.py`)
+- Premium theme renamed to what it is: the gold-inlaid onyx ring (EN/NL/DE), shown as a spinning ring
+
 ## Ring Revolution 1.2.1 — ring shadows visible on device
 
 - The translucent board layer is composited premultiplied over the painted scene; colour and alpha are now blended separately (`glBlendFuncSeparate`), so soft shadows no longer fade to ~10 % (before/after: docs/screenshots/shadow_blend_fix.png)
