@@ -135,6 +135,7 @@ uniform vec3 uAmbientSky; uniform vec3 uAmbientGround; uniform vec3 uEmissive; u
 uniform vec3 uStripe; uniform float uStripeOn;
 uniform int uGapCount; uniform vec2 uGaps[4];   // (startRad, widthRad) in the ring's local frame
 uniform float uCapRad;                            // dome length in radians: gaps are widened by this so the dome cap owns the edge
+uniform float uSweep;                             // glint sweep position along the board diagonal (board units); < -5 = off
 out vec4 fragColor;
 float ggx(vec3 n, vec3 h, float a) { float a2 = a * a; float ndh = max(dot(n, h), 0.0); float d = ndh * ndh * (a2 - 1.0) + 1.0; return a2 / (3.14159 * d * d + 1e-5); }
 float geo(float ndv, float ndl, float a) { float k = (a + 1.0) * (a + 1.0) / 8.0; return (ndv / (ndv * (1.0 - k) + k)) * (ndl / (ndl * (1.0 - k) + k)); }
@@ -196,6 +197,10 @@ void main() {
   col += envSpecular(r, rough) * (F0 * ab.x + ab.y);
   if (uStripeOn > 0.5) { float band = smoothstep(0.17, 0.21, fract(vUv.y)) * (1.0 - smoothstep(0.29, 0.33, fract(vUv.y))); col = mix(col, uStripe * 1.15, band * 0.0); }
   col = mix(col, col * 0.45, uDarken);
+  // glint sweep: a narrow band of light travels across the board every few seconds; only polished surfaces catch it
+  float sweepD = dot(vPos.xy, vec2(0.857, 0.514)) - uSweep;
+  float glint = exp(-sweepD * sweepD / 0.00018) * pow(1.0 - rough, 3.0) * (0.25 + 0.75 * pow(1.0 - ndv, 2.0));
+  col += glint * mix(vec3(1.0, 0.96, 0.9), albedo * 1.4 + 0.25, metal) * 1.1;
   // selection / ghost glow as a warm rim light (reads on black onyx as well as on gold)
   col += uEmissive * (0.08 + 2.4 * pow(1.0 - ndv, 2.0));
   // filmic (ACES fitted) tone map keeps hot highlights and deep darks without clipping

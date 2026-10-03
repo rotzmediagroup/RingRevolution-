@@ -52,6 +52,8 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
     private val radii = FloatArray(level.rings.size); private val minors = FloatArray(level.rings.size)
     private val crossings = ArrayList<Crossing>()
     private val tiltBuf = FloatArray(9)
+    /** eased 0..1 per ring: a selected ring rises off the board and its shadow spreads */
+    private val selT = FloatArray(level.rings.size); private var lastFrameMs = 0L
     private var whiteTex = 0
 
     private class Crossing(val a: Int, val b: Int, val angA: Float, val angB: Float, val aOver: Boolean)
@@ -158,6 +160,8 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         val s = snapshot ?: return
         camera.update()
         val lights = lighting(s.world, s.timeMs)
+        val dt = if (lastFrameMs == 0L) 0f else ((s.timeMs - lastFrameMs) / 1000f).coerceIn(0f, 0.1f); lastFrameMs = s.timeMs
+        for ((i, rs) in s.rings.withIndex()) { val target = if (rs.selected && !rs.removed) 1f else 0f; selT[i] += (target - selT[i]) * (if (s.reduceMotion) 1f else (dt * 9f).coerceAtMost(1f)) }
         // --- glow discs under selected rings (additive-ish)
         GLES30.glDepthMask(false)
         GLES30.glUseProgram(quadProg)
@@ -224,7 +228,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform2f(u(prog, "uSlide"), ex * 0.22f * e, ey * 0.22f * e)
         GLES30.glUniform1f(u(prog, "uScale"), 1f + 0.15f * e)
         if (shadow) {
-            GLES30.glUniform1f(u(prog, "uAlpha"), 0.28f * (1f - e))
+            GLES30.glUniform1f(u(prog, "uAlpha"), 0.28f * (1f - e) * (1f - 0.35f * selT[i]))
         } else {
             setLights(prog, l)
             val mat = materialOverride ?: r.materialId
@@ -275,7 +279,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         if (mag > maxSlope) { a *= maxSlope / mag; b *= maxSlope / mag }
         tiltMatrix(a, b, tiltBuf)
         GLES30.glUniformMatrix3fv(u(prog, "uTilt"), 1, false, tiltBuf, 0)
-        GLES30.glUniform1f(u(prog, "uZ0"), minors[i] * 1.02f + (0.55 * Math.hypot(a, b) * radii[i]).toFloat())
+        GLES30.glUniform1f(u(prog, "uZ0"), minors[i] * 1.02f + (0.55 * Math.hypot(a, b) * radii[i]).toFloat() + selT[i] * minors[i] * 2.6f)
         return e
     }
 
@@ -305,6 +309,9 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         val stripe = colorOf(r.colorId); GLES30.glUniform3fv(u(prog, "uStripe"), 1, stripe, 0); GLES30.glUniform1f(u(prog, "uStripeOn"), if (r.colorId != null) 1f else 0f)
         // gaps are real geometry (cut at load time): nothing to discard, no caps to add
         GLES30.glUniform1i(u(prog, "uGapCount"), 0); GLES30.glUniform1f(u(prog, "uCapRad"), 0f)
+        // glint sweep: every 6.5 s a band crosses the board (off with Reduce Motion)
+        val cyc = (s.timeMs % 6500L) / 6500f
+        GLES30.glUniform1f(u(prog, "uSweep"), if (s.reduceMotion || ghost > 0f) -10f else -0.6f + cyc * 3.4f)
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, cutCounts[i], GLES30.GL_UNSIGNED_INT, 0)
         GLES30.glDisableVertexAttribArray(1); GLES30.glDisableVertexAttribArray(2)
     }

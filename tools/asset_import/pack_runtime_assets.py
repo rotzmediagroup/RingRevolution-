@@ -150,6 +150,12 @@ if os.path.isdir(D3):
             glb_opt(glb, f"3d/rings/{name}.glb", "premium ring mesh + PBR textures (Meshy, textures 1024 JPEG)")
             thumb = os.path.join(d, "thumbnail.png")
             if os.path.exists(thumb): webp(thumb, f"3d/rings/{name}_thumb.webp", 256, 256, 86, note="ring theme thumbnail (Meshy)")
+            tt = os.path.join(d, "turntable.png"); st = os.path.join(d, "still.png")
+            if os.path.exists(tt): webp(tt, f"3d/rings/{name}_turn.webp", None, None, 84, note="Cycles studio turntable strip, 16 frames (Blender)")
+            if os.path.exists(st): webp(st, f"3d/rings/{name}_still.webp", 384, 384, 88, note="Cycles studio still (Blender)")
+
+# --- Blender hero shot (tools/blender/hero_shot.py)
+if os.path.exists(f"{G}/hero/rings_hero.png"): webp(f"{G}/hero/rings_hero.png", "hero/rings_hero.webp", 1200, 800, 86, note="Cycles hero shot of the ring collection")
 
 # --- image-based lighting atlases (tools/asset_generate/make_env_maps.py)
 for w in (1, 2, 3):

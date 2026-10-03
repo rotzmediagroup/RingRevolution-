@@ -75,6 +75,34 @@ fun AssetImage(path: String, modifier: Modifier = Modifier, contentScale: Conten
     }
 }
 
+/**
+ * Plays a Blender turntable strip (N square frames side by side, tools/blender/turntables.py) as a slowly spinning ring.
+ * Shows frame 0 when [animate] is false (locked items, Reduce Motion).
+ */
+@Composable
+fun TurntableImage(path: String, modifier: Modifier = Modifier, frames: Int = 16, fps: Float = 10f, animate: Boolean = true, alpha: Float = 1f) {
+    val ctx = LocalContext.current
+    val assets = DumplingRingsApp.of(ctx).assets
+    androidx.compose.runtime.key(path) {
+        var img by remember { androidx.compose.runtime.mutableStateOf(assets.cached(path)) }
+        androidx.compose.runtime.LaunchedEffect(path) {
+            if (img == null) img = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { assets.image(path, false) }
+        }
+        var frame by remember { androidx.compose.runtime.mutableIntStateOf(0) }
+        if (animate) androidx.compose.runtime.LaunchedEffect(path) {
+            while (true) { kotlinx.coroutines.delay((1000f / fps).toLong()); frame = (frame + 1) % frames }
+        }
+        val i = img
+        androidx.compose.foundation.Canvas(modifier) {
+            if (i == null) return@Canvas
+            val fw = i.width / frames
+            drawImage(i, srcOffset = androidx.compose.ui.unit.IntOffset(fw * (if (animate) frame else 0), 0), srcSize = androidx.compose.ui.unit.IntSize(fw, i.height),
+                dstSize = androidx.compose.ui.unit.IntSize(size.width.toInt(), size.height.toInt()), alpha = alpha,
+                filterQuality = androidx.compose.ui.graphics.FilterQuality.Medium)
+        }
+    }
+}
+
 @Composable
 fun Sprite(id: String, modifier: Modifier = Modifier, contentDescription: String? = null, alpha: Float = 1f) =
     AssetImage("sprites/$id.webp", modifier, ContentScale.Fit, contentDescription, alpha)

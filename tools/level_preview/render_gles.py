@@ -290,6 +290,7 @@ def main():
         glUniform1f(u("uMetalFactor"), glb["mf"]); glUniform1f(u("uRoughFactor"), glb["rf"])
         glUniform3f(u("uEmissive"), *((0.2, 0.15, 0.03) if sel else (0, 0, 0))); glUniform1f(u("uAlpha"), 1); glUniform1f(u("uDarken"), 0); glUniform1f(u("uStripeOn"), 0); glUniform3f(u("uStripe"), 0, 0, 0)
         glUniform1i(u("uGapCount"), 0); glUniform1f(u("uCapRad"), 0.0)   # gaps are real geometry now
+        glUniform1f(u("uSweep"), float(os.environ.get("SWEEP", "-10")))
         glDrawElements(GL_TRIANGLES, len(ix), GL_UNSIGNED_INT, ctypes.c_void_p(0))
         glDisableVertexAttribArray(1); glDisableVertexAttribArray(2)
     def placement(p, r):

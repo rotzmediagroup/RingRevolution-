@@ -105,6 +105,16 @@ fun BoardOverlay(controller: GameController, camera: BoardCamera, fit: BoardFit,
                 camera.project(bx(r.center[0]), by(r.center[1]), 0.2f + tA * 0.3f, tmp)
                 val sp = sprites["sparkle"].orEmpty(); val st = sprites["steam"].orEmpty()
                 val s = r.radius.toFloat() * fit.k * ppu
+                if (!reduceMotion && effectQuality != "low") {
+                    // light flash: a warm bloom that blooms and fades, plus a thin ring of light expanding outwards
+                    val fa = (1f - tA) * (1f - tA)
+                    p.fill.shader = android.graphics.RadialGradient(tmp[0], tmp[1], s * (0.9f + tA * 0.9f),
+                        intArrayOf(android.graphics.Color.argb((200 * fa).toInt(), 255, 244, 214), android.graphics.Color.argb((90 * fa).toInt(), 255, 196, 110), 0),
+                        floatArrayOf(0f, 0.45f, 1f), android.graphics.Shader.TileMode.CLAMP)
+                    c.drawCircle(tmp[0], tmp[1], s * (0.9f + tA * 0.9f), p.fill); p.fill.shader = null
+                    p.arrow.strokeWidth = ppu * 0.012f * (1f - tA); p.arrow.alpha = (220 * fa).toInt()
+                    c.drawCircle(tmp[0], tmp[1], s * (1f + tA * 0.8f), p.arrow); p.arrow.alpha = 255
+                }
                 if (!reduceMotion && effectQuality != "low" && sp.isNotEmpty()) drawSprite(c, sp[(tA * (sp.size - 1)).toInt()], tmp[0], tmp[1] - s * 0.3f, s * 1.2f * (0.6f + tA), (255 * (1 - tA)).toInt())
                 if (!reduceMotion && st.isNotEmpty()) drawSprite(c, st[(tA * (st.size - 1)).toInt()], tmp[0], tmp[1] + s * 0.2f - tA * s * 0.6f, s * (0.8f + tA * 0.6f), (200 * (1 - tA)).toInt())
                 if (anim.combo >= 2 && anim.wave == 0 && tA < 0.6f) sprites["combo"]?.firstOrNull()?.let { drawSprite(c, it, tmp[0], tmp[1] - s * 1.2f, s * 2.2f * (0.8f + tA * 0.5f), (255 * (1 - tA / 0.6f)).toInt()) }
