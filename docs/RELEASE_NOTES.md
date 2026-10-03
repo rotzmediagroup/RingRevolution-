@@ -1,3 +1,8 @@
+## Ring Revolution 1.2.1 — ring shadows visible on device
+
+- The translucent board layer is composited premultiplied over the painted scene; colour and alpha are now blended separately (`glBlendFuncSeparate`), so soft shadows no longer fade to ~10 % (before/after: docs/screenshots/shadow_blend_fix.png)
+- The headless renderer now composites like the device (transparent layer over the world background), so this class of bug shows up in QA renders
+
 ## Ring Revolution 1.2.0 — real gaps, Blender-prepared rings
 
 - Every Meshy ring goes through Blender (`tools/blender/prepare_rings.py`): welded, principal-axis aligned and centred, decimated from ~31k to 12k triangles with UV seams kept, exported as a clean game GLB (ring assets 22 MB -> 12 MB)

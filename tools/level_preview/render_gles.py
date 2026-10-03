@@ -232,8 +232,12 @@ def main():
         for m, name in RING_MAP.items():
             path = os.path.join(ROOT, "app/src/main/assets/3d/rings", name + ".glb")
             if os.path.exists(path): glbs[m] = load_ring(path)
-    glViewport(0, 0, W, H); glEnable(GL_DEPTH_TEST); glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-    glClearColor(0.80, 0.62, 0.42, 1.0); glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glViewport(0, 0, W, H); glEnable(GL_DEPTH_TEST); glEnable(GL_BLEND)
+    # like the device: a translucent layer composited (premultiplied) over the painted world scene
+    SEP = os.environ.get("BLEND", "separate") == "separate"
+    if SEP: glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA)
+    else: glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    glClearColor(0, 0, 0, 0); glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     vp, eye = camera(W, H)
     rings = lv["rings"]
     # fit
@@ -334,7 +338,7 @@ def main():
         nx, ny = -a, -b; l = math.sqrt(nx * nx + ny * ny + 1.0); x, y, z = nx / l, ny / l, 1.0 / l; kk = 1.0 / (1.0 + z)
         m = np.array([[1 - x * x * kk, -x * y * kk, x], [-x * y * kk, 1 - y * y * kk, y], [-x, -y, z]], np.float32)   # GL row-major view
         glUniformMatrix3fv(u("uTilt"), 1, True, m); glUniform1f(u("uZ0"), mn * 1.02 + 0.55 * math.hypot(a, b) * R)
-        if shadow: glUniform1f(u("uAlpha"), 0.32)
+        if shadow: glUniform1f(u("uAlpha"), 0.28)
         else:
             set_lights(p); glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, textures.get(r["materialId"], textures["dough_sesame"])); glUniform1i(u("uAlbedo"), 0)
             glUniform3f(u("uTint"), 1, 1, 1); glUniform1f(u("uRough"), 0.28 if r["materialId"] == "dough_gold" else 0.58)
@@ -350,7 +354,10 @@ def main():
         else: draw_ring(ringP, i, r, False, sel=(i == 0))
     glFinish()
     data = glReadPixels(0, 0, W, H, GL_RGBA, GL_UNSIGNED_BYTE)
-    img = Image.frombytes("RGBA", (W, H), data).transpose(Image.FLIP_TOP_BOTTOM)
-    img.save(out); print(out)
+    layer = np.asarray(Image.frombytes("RGBA", (W, H), data).transpose(Image.FLIP_TOP_BOTTOM)).astype(np.float32) / 255
+    bgp = os.path.join(ROOT, "app/src/main/assets/bg", f"world{world}_portrait.webp")
+    bg = np.asarray(Image.open(bgp).convert("RGB").resize((W, H))).astype(np.float32) / 255 if os.path.exists(bgp) else np.full((H, W, 3), (0.80, 0.62, 0.42), np.float32)
+    comp = layer[..., :3] + bg * (1 - layer[..., 3:4])          # SurfaceFlinger: premultiplied src-over
+    Image.fromarray((np.clip(comp, 0, 1) * 255).astype(np.uint8)).save(out); print(out)
 
 if __name__ == "__main__": main()

@@ -73,7 +73,10 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
         GLES30.glClearColor(0f, 0f, 0f, 0f)
-        GLES30.glEnable(GLES30.GL_DEPTH_TEST); GLES30.glEnable(GLES30.GL_BLEND); GLES30.glBlendFunc(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE_MINUS_SRC_ALPHA)
+        GLES30.glEnable(GLES30.GL_DEPTH_TEST); GLES30.glEnable(GLES30.GL_BLEND)
+        // the board is a translucent layer composited premultiplied over the painted scene: blend colour and alpha separately,
+        // otherwise a shadow's alpha gets multiplied by itself (0.3 -> 0.09) and it vanishes on the device
+        GLES30.glBlendFuncSeparate(GLES30.GL_SRC_ALPHA, GLES30.GL_ONE_MINUS_SRC_ALPHA, GLES30.GL_ONE, GLES30.GL_ONE_MINUS_SRC_ALPHA)
         GLES30.glDisable(GLES30.GL_CULL_FACE) // tubes/caps are closed; dome caps at the two ends have opposite winding
         ringProg = program(Shaders.RING_VS, Shaders.RING_FS)
         shadowProg = program(shadowVs(), Shaders.SHADOW_FS)
@@ -221,7 +224,7 @@ class Board3DRenderer(private val context: Context, private val level: LevelDefi
         GLES30.glUniform2f(u(prog, "uSlide"), ex * 0.22f * e, ey * 0.22f * e)
         GLES30.glUniform1f(u(prog, "uScale"), 1f + 0.15f * e)
         if (shadow) {
-            GLES30.glUniform1f(u(prog, "uAlpha"), 0.32f * (1f - e))
+            GLES30.glUniform1f(u(prog, "uAlpha"), 0.28f * (1f - e))
         } else {
             setLights(prog, l)
             val mat = materialOverride ?: r.materialId
