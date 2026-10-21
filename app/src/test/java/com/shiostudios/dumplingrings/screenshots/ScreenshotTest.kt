@@ -127,6 +127,19 @@ class ScreenshotTest {
         }
     }
 
+    @Test fun festivalVictory() {
+        val c = container(); host()
+        val reward = com.shiostudios.dumplingrings.core.systems.LevelReward(3, 25, emptyMap(), true, true)
+        show("34_festival_victory") {
+            LevelCompleteOverlay(c, rule.activity, c.content.level(1), 4, reward, false, {}, {}, {})
+        }
+        show("35_festival_reduced_motion") {
+            androidx.compose.runtime.CompositionLocalProvider(com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion provides true) {
+                LevelCompleteOverlay(c, rule.activity, c.content.level(1), 4, reward, false, {}, {}, {})
+            }
+        }
+    }
+
     @Test fun metaScreens() {
         val c = container(); host()
         show("20_collection") { CollectionScreen(c, Nav(Screen.Collection)) }
