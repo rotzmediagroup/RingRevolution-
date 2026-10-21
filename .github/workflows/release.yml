@@ -5,12 +5,13 @@ name: release
 on:
   push:
     tags: ['v*']
+    branches: ['release/v*']
   workflow_dispatch:
     inputs:
       tag:
         description: 'Release tag to create/publish (e.g. v1.0.0)'
         required: true
-        default: 'v1.0.0'
+        default: 'v1.4.0'
       verify:
         description: 'Run the full verification (tests + 150-level validation) before building'
         type: boolean
@@ -24,6 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Resolve release version
+        run: |
+          release_tag="${REL_TAG#release/}"
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.-]+)?$ ]]; then echo "Invalid release version"; exit 1; fi
+          echo "REL_TAG=$release_tag" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '21' }
       - name: Android SDK packages (runner ships the SDK at $ANDROID_HOME)
@@ -98,12 +104,20 @@ jobs:
           cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"
           cp app/build/outputs/bundle/release/app-release.aab "dist/RingRevolution-${REL_TAG}-release.aab"
           cp content/qa/validation_report.md "dist/level-validation-${REL_TAG}.md"
+          python3 tools/validation/package_console_handoff.py
+          cp ../ring-revolution-console-handoff.zip "dist/RingRevolution-${REL_TAG}-console-setup.zip"
+          if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
+            echo "Release APK/AAB signed using the configured repository keystore." > dist/SIGNING-STATUS.txt
+          else
+            echo "Release APK/AAB are UNSIGNED. Sign with the existing app upload key before Play Console upload. The debug APK is signed with a debug key." > dist/SIGNING-STATUS.txt
+          fi
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.REL_TAG }}
+          target_commitish: ${{ github.sha }}
           name: "Ring Revolution ${{ env.REL_TAG }}"
-          body_path: docs/RELEASE_NOTES.md
+          body_path: docs/releases/${{ env.REL_TAG }}.md
           prerelease: ${{ contains(env.REL_TAG, '-') }}
           files: dist/*
 
