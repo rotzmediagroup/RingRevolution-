@@ -114,6 +114,19 @@ class ScreenshotTest {
         show("32_ar_games") { GamesScreen(c, Nav(Screen.Games), rule.activity) }
     }
 
+    @Test fun allAchievementArtwork() {
+        host()
+        show("33_all_achievement_art") {
+            androidx.compose.foundation.layout.Column {
+                for (row in com.shiostudios.dumplingrings.core.systems.Achievements.all.chunked(5)) {
+                    androidx.compose.foundation.layout.Row {
+                        row.forEach { com.shiostudios.dumplingrings.ui.components.MedalArt(it.art, androidx.compose.ui.Modifier.size(78.dp)) }
+                    }
+                }
+            }
+        }
+    }
+
     @Test fun metaScreens() {
         val c = container(); host()
         show("20_collection") { CollectionScreen(c, Nav(Screen.Collection)) }

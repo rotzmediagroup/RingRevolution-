@@ -118,8 +118,186 @@
         512,
         512
       ]
+    },
+    {
+      "key": "teahouse_regular",
+      "art_index": 12,
+      "cell": 0,
+      "atlas": "milestones",
+      "upload_file": "teahouse_regular.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "halfway_home",
+      "art_index": 13,
+      "cell": 1,
+      "atlas": "milestones",
+      "upload_file": "halfway_home.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "century_club",
+      "art_index": 14,
+      "cell": 2,
+      "atlas": "milestones",
+      "upload_file": "century_club.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "mountain_keeper",
+      "art_index": 15,
+      "cell": 3,
+      "atlas": "milestones",
+      "upload_file": "mountain_keeper.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "chef_apprentice",
+      "art_index": 16,
+      "cell": 4,
+      "atlas": "milestones",
+      "upload_file": "chef_apprentice.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "chef_specialist",
+      "art_index": 17,
+      "cell": 5,
+      "atlas": "milestones",
+      "upload_file": "chef_specialist.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "chef_grandmaster",
+      "art_index": 18,
+      "cell": 6,
+      "atlas": "milestones",
+      "upload_file": "chef_grandmaster.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "star_seed",
+      "art_index": 19,
+      "cell": 7,
+      "atlas": "milestones",
+      "upload_file": "star_seed.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "star_orchard",
+      "art_index": 20,
+      "cell": 8,
+      "atlas": "milestones",
+      "upload_file": "star_orchard.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "perfect_ten",
+      "art_index": 21,
+      "cell": 9,
+      "atlas": "milestones",
+      "upload_file": "perfect_ten.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "perfect_fifty",
+      "art_index": 22,
+      "cell": 10,
+      "atlas": "milestones",
+      "upload_file": "perfect_fifty.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "first_daily",
+      "art_index": 23,
+      "cell": 11,
+      "atlas": "milestones",
+      "upload_file": "first_daily.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "daily_devotee",
+      "art_index": 24,
+      "cell": 12,
+      "atlas": "milestones",
+      "upload_file": "daily_devotee.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "hundred_rings",
+      "art_index": 25,
+      "cell": 13,
+      "atlas": "milestones",
+      "upload_file": "hundred_rings.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "cascade_master",
+      "art_index": 26,
+      "cell": 14,
+      "atlas": "milestones",
+      "upload_file": "cascade_master.png",
+      "size": [
+        512,
+        512
+      ]
     }
   ],
   "direction": "Bespoke cozy hand-painted teahouse medals. Gold, porcelain, jade and sakura. Distinct scenes for every milestone; no stock trophies. Premium is an onyx ring and cloud dragon. Cloud save is a jade teapot in clouds.",
-  "note": "Console PNGs are individual atlas cells resized for the required upload dimensions. Original artwork is 362px per cell; no missing-detail claims are made."
+  "note": "Console PNGs are individual atlas cells resized for the required upload dimensions. Original artwork is 362px per cell; no missing-detail claims are made.",
+  "additional_runtime": "app/src/main/assets/art/milestones.webp",
+  "additional_source_size": [
+    1448,
+    1086
+  ],
+  "additional_normalized_size": [
+    1448,
+    1448
+  ],
+  "additional_grid": [
+    4,
+    4
+  ]
 }

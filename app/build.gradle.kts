@@ -17,12 +17,12 @@ val adMobDefaults = Properties().apply {
     rootProject.file("admob.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
 }
 fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: adMobDefaults.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
-val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
+val useTestAds = cfg("ADS_USE_TEST_IDS", "false")
 val admobAppId = cfg("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")          // Google sample app id
 val adUnitRewarded = if (useTestAds == "true") "ca-app-pub-3940256099942544/5224354917" else cfg("ADMOB_REWARDED_ID", "")   // official test unit
 val adUnitInterstitial = if (useTestAds == "true") "ca-app-pub-3940256099942544/1033173712" else cfg("ADMOB_INTERSTITIAL_ID", "")
 val adUnitBanner = if (useTestAds == "true") "ca-app-pub-3940256099942544/6300978111" else cfg("ADMOB_BANNER_ID", "")
-val adsEnabled = cfg("ADS_ENABLED", "false")
+val adsEnabled = cfg("ADS_ENABLED", "true")
 val iapEnabled = cfg("IAP_ENABLED", "false")
 val premiumSku = cfg("PREMIUM_PRODUCT_ID", "dumpling_rings_premium")
 val pgsEnabled = cfg("PGS_ENABLED", "false")
@@ -31,7 +31,7 @@ val billingKey = cfg("PLAY_BILLING_PUBLIC_KEY", "")
 val gameKeys = listOf("achievement_first_clear", "achievement_first_chapter", "achievement_blossom_master",
     "achievement_lantern_master", "achievement_mountain_master", "achievement_star_garden",
     "achievement_perfect_constellation", "achievement_triple_release", "achievement_daily_ritual",
-    "achievement_thousand_rings", "leaderboard_stars", "leaderboard_campaign")
+    "achievement_thousand_rings", "achievement_teahouse_regular", "achievement_halfway_home", "achievement_century_club", "achievement_mountain_keeper", "achievement_chef_apprentice", "achievement_chef_specialist", "achievement_chef_grandmaster", "achievement_star_seed", "achievement_star_orchard", "achievement_perfect_ten", "achievement_perfect_fifty", "achievement_first_daily", "achievement_daily_devotee", "achievement_hundred_rings", "achievement_cascade_master", "leaderboard_stars", "leaderboard_campaign")
 fun literal(value: String) = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r") + "\""
 require(listOf(adsEnabled, iapEnabled, useTestAds, pgsEnabled).all { it == "true" || it == "false" }) { "Service flags must be true or false" }
 require(pgsEnabled != "true" || gameKeys.all { cfg("PGS_" + it.uppercase(), "").isNotBlank() }) { "Configure all PGS achievement and leaderboard IDs before enabling PGS" }
@@ -83,7 +83,15 @@ android {
     }
 
     buildTypes {
-        debug { isMinifyEnabled = false }
+        debug {
+            isMinifyEnabled = false
+            // Development APKs never serve live impressions. Release uses the owner live units.
+            buildConfigField("boolean", "ADS_ENABLED", "false")
+            buildConfigField("boolean", "ADS_USE_TEST_IDS", "true")
+            buildConfigField("String", "AD_UNIT_REWARDED", literal("ca-app-pub-3940256099942544/5224354917"))
+            buildConfigField("String", "AD_UNIT_INTERSTITIAL", literal("ca-app-pub-3940256099942544/1033173712"))
+            buildConfigField("String", "AD_UNIT_BANNER", literal("ca-app-pub-3940256099942544/6300978111"))
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true

@@ -15,6 +15,21 @@ object Achievements {
         Achievement("triple_release", 7, 3) { it.bestCombo },
         Achievement("daily_ritual", 8, 7) { s -> s.dailyHistory.filter { it.completed }.map { it.dayId }.distinct().size },
         Achievement("thousand_rings", 9, 1000) { it.totalReleases.coerceAtMost(Int.MAX_VALUE.toLong()).toInt() },
+        Achievement("teahouse_regular", 12, 25) { s -> s.levels.count { it.value.completed } },
+        Achievement("halfway_home", 13, 75) { s -> s.levels.count { it.value.completed } },
+        Achievement("century_club", 14, 100) { s -> s.levels.count { it.value.completed } },
+        Achievement("mountain_keeper", 15, 50) { s -> (101..150).count { s.levels["L" + it.toString().padStart(3, '0')]?.completed == true } },
+        Achievement("chef_apprentice", 16, 1) { s -> (1..15).count { s.levels["L" + (it * 10).toString().padStart(3, '0')]?.completed == true } },
+        Achievement("chef_specialist", 17, 5) { s -> (1..15).count { s.levels["L" + (it * 10).toString().padStart(3, '0')]?.completed == true } },
+        Achievement("chef_grandmaster", 18, 15) { s -> (1..15).count { s.levels["L" + (it * 10).toString().padStart(3, '0')]?.completed == true } },
+        Achievement("star_seed", 19, 30) { s -> s.totalStars },
+        Achievement("star_orchard", 20, 300) { s -> s.totalStars },
+        Achievement("perfect_ten", 21, 10) { s -> s.levels.count { it.value.completed && it.value.stars == 3 } },
+        Achievement("perfect_fifty", 22, 50) { s -> s.levels.count { it.value.completed && it.value.stars == 3 } },
+        Achievement("first_daily", 23, 1) { s -> s.dailyHistory.filter { it.completed }.map { it.dayId }.distinct().size },
+        Achievement("daily_devotee", 24, 30) { s -> s.dailyHistory.filter { it.completed }.map { it.dayId }.distinct().size },
+        Achievement("hundred_rings", 25, 100) { s -> s.totalReleases.coerceAtMost(Int.MAX_VALUE.toLong()).toInt() },
+        Achievement("cascade_master", 26, 5) { s -> s.bestCombo },
     )
 
     fun reconcile(save: SaveData): SaveData {

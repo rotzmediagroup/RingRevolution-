@@ -19,14 +19,14 @@ See `docs/ARCHITECTURE.md`. Highlights: `core/` (engine + solver + generator), `
 asset manifest, ad configuration, privacy, test report, release checklist, implementation status).
 
 ## Monetisation safety
-Ads and in-app purchases are **off by default** and use Google test identifiers only; see `docs/AD_CONFIGURATION.md`.
+Release ads use the owner live AdMob units with consent and placement caps. Debug ads are disabled and use test IDs. In-app purchases and Play Games require owner configuration; see `docs/GAME_SERVICES_SETUP.md`.
 No API keys or signing secrets are stored in the repository (`secrets.properties` is git-ignored; pipelines read env vars).
 
 ## Game services, artwork and languages
 
 See [owner setup and acceptance checks](docs/GAME_SERVICES_SETUP.md) and
 [configuration template](services.properties.example) for Play Games, achievements, leaderboards,
-Saved Games, Play Billing and AdMob. All services remain off until configured.
+Saved Games, Play Billing and AdMob. Release ads are enabled; Play Games and billing remain off until configured.
 Custom achievement and Premium upload art is in [play-console-art](docs/play-console-art/).
 
 The app supports English, Spanish, Brazilian Portuguese, German, French, Japanese, Korean, Hindi,

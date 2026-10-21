@@ -13,4 +13,4 @@ When ads are enabled, UMP obtains applicable privacy choices before Mobile Ads l
 
 The owner must complete Play Data Safety, target-audience declarations, AdMob/UMP configuration and app-ads.txt using the actual enabled SDKs and their current disclosures. Do not claim no data collection merely because game code has no custom analytics. The current implementation is not an age gate or a child-directed/mixed-audience configuration.
 
-All online features are disabled in the default build. See GAME_SERVICES_SETUP.md for activation and device acceptance checks.
+Release ads are enabled with the owner live units and remain consent-gated. Debug ads, Play Games and purchases are disabled by default; the latter two require owner configuration. See GAME_SERVICES_SETUP.md for activation and device acceptance checks.

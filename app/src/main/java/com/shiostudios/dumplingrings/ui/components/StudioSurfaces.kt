@@ -45,14 +45,16 @@ fun StudioBackdrop(dark: Boolean = false, content: @Composable BoxScope.() -> Un
 @Composable
 fun MedalArt(index: Int, modifier: Modifier = Modifier, description: String? = null) {
     val catalog = DumplingRingsApp.of(LocalContext.current).assets
-    var bitmap by remember { mutableStateOf(catalog.cached("art/medals.webp")) }
-    LaunchedEffect(Unit) { bitmap = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { catalog.image("art/medals.webp", false) } }
+    val path = if (index < 12) "art/medals.webp" else "art/milestones.webp"
+    val tile = if (index < 12) index else index - 12
+    var bitmap by remember(path) { mutableStateOf(catalog.cached(path)) }
+    LaunchedEffect(path) { bitmap = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) { catalog.image(path, false) } }
     val art = bitmap
     val semantics = if (description == null) modifier else modifier.then(Modifier.semanticsDescription(description))
     Canvas(semantics.clip(RoundedCornerShape(20.dp))) {
         if (art != null) {
             val cell = art.width / 4
-            drawImage(art, srcOffset = IntOffset((index % 4) * cell, (index / 4) * cell), srcSize = IntSize(cell, cell),
+            drawImage(art, srcOffset = IntOffset((tile % 4) * cell, (tile / 4) * cell), srcSize = IntSize(cell, cell),
                 dstSize = IntSize(size.width.toInt(), size.height.toInt()))
         }
     }

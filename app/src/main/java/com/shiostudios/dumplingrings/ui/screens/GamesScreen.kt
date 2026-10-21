@@ -21,6 +21,34 @@ import com.shiostudios.dumplingrings.platform.CloudSaveService
 import com.shiostudios.dumplingrings.ui.components.*
 import com.shiostudios.dumplingrings.ui.theme.DR
 
+private val achievementText = mapOf(
+    "first_clear" to (R.string.ach_first_clear to R.string.ach_first_clear_desc),
+    "first_chapter" to (R.string.ach_first_chapter to R.string.ach_first_chapter_desc),
+    "blossom_master" to (R.string.ach_blossom_master to R.string.ach_blossom_master_desc),
+    "lantern_master" to (R.string.ach_lantern_master to R.string.ach_lantern_master_desc),
+    "mountain_master" to (R.string.ach_mountain_master to R.string.ach_mountain_master_desc),
+    "star_garden" to (R.string.ach_star_garden to R.string.ach_star_garden_desc),
+    "perfect_constellation" to (R.string.ach_perfect_constellation to R.string.ach_perfect_constellation_desc),
+    "triple_release" to (R.string.ach_triple_release to R.string.ach_triple_release_desc),
+    "daily_ritual" to (R.string.ach_daily_ritual to R.string.ach_daily_ritual_desc),
+    "thousand_rings" to (R.string.ach_thousand_rings to R.string.ach_thousand_rings_desc),
+    "teahouse_regular" to (R.string.ach_teahouse_regular to R.string.ach_teahouse_regular_desc),
+    "halfway_home" to (R.string.ach_halfway_home to R.string.ach_halfway_home_desc),
+    "century_club" to (R.string.ach_century_club to R.string.ach_century_club_desc),
+    "mountain_keeper" to (R.string.ach_mountain_keeper to R.string.ach_mountain_keeper_desc),
+    "chef_apprentice" to (R.string.ach_chef_apprentice to R.string.ach_chef_apprentice_desc),
+    "chef_specialist" to (R.string.ach_chef_specialist to R.string.ach_chef_specialist_desc),
+    "chef_grandmaster" to (R.string.ach_chef_grandmaster to R.string.ach_chef_grandmaster_desc),
+    "star_seed" to (R.string.ach_star_seed to R.string.ach_star_seed_desc),
+    "star_orchard" to (R.string.ach_star_orchard to R.string.ach_star_orchard_desc),
+    "perfect_ten" to (R.string.ach_perfect_ten to R.string.ach_perfect_ten_desc),
+    "perfect_fifty" to (R.string.ach_perfect_fifty to R.string.ach_perfect_fifty_desc),
+    "first_daily" to (R.string.ach_first_daily to R.string.ach_first_daily_desc),
+    "daily_devotee" to (R.string.ach_daily_devotee to R.string.ach_daily_devotee_desc),
+    "hundred_rings" to (R.string.ach_hundred_rings to R.string.ach_hundred_rings_desc),
+    "cascade_master" to (R.string.ach_cascade_master to R.string.ach_cascade_master_desc),
+)
+
 @Composable
 fun GamesScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
     val save by container.save.state.collectAsState()
@@ -76,24 +104,18 @@ fun GamesScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
                     }
                 }
                 item {
-                    Text(stringResource(R.string.achievement_progress, save.achievements.size, Achievements.all.size), style = MaterialTheme.typography.headlineSmall, color = DR.Ink)
+                    Text(stringResource(R.string.achievement_progress, Achievements.all.count { it.key in save.achievements }, Achievements.all.size), style = MaterialTheme.typography.headlineSmall, color = DR.Ink)
                 }
                 items(Achievements.all, key = { it.key }) { achievement ->
                     val unlocked = achievement.key in save.achievements
                     val current = achievement.progress(save).coerceIn(0, achievement.target)
-                    // Name/description are compile-time resource IDs; the index also selects its unique artwork.
-                    val names = listOf(R.string.ach_first_clear, R.string.ach_first_chapter, R.string.ach_blossom_master, R.string.ach_lantern_master,
-                        R.string.ach_mountain_master, R.string.ach_star_garden, R.string.ach_perfect_constellation, R.string.ach_triple_release,
-                        R.string.ach_daily_ritual, R.string.ach_thousand_rings)
-                    val descriptions = listOf(R.string.ach_first_clear_desc, R.string.ach_first_chapter_desc, R.string.ach_blossom_master_desc,
-                        R.string.ach_lantern_master_desc, R.string.ach_mountain_master_desc, R.string.ach_star_garden_desc,
-                        R.string.ach_perfect_constellation_desc, R.string.ach_triple_release_desc, R.string.ach_daily_ritual_desc, R.string.ach_thousand_rings_desc)
+                    val (nameRes, descriptionRes) = achievementText.getValue(achievement.key)
                     Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(if (unlocked) DR.Gold.copy(alpha = .24f) else DR.CreamDark.copy(alpha = .6f)).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         MedalArt(achievement.art, Modifier.size(82.dp))
                         Spacer(Modifier.width(14.dp))
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(stringResource(names[achievement.art]), style = MaterialTheme.typography.titleLarge, color = DR.Ink)
-                            Text(stringResource(descriptions[achievement.art]), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
+                            Text(stringResource(nameRes), style = MaterialTheme.typography.titleLarge, color = DR.Ink)
+                            Text(stringResource(descriptionRes), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
                             LinearProgressIndicator(progress = { current.toFloat() / achievement.target }, modifier = Modifier.fillMaxWidth(), color = DR.Bamboo, trackColor = DR.Wood.copy(alpha = .15f))
                             Text(if (unlocked) stringResource(R.string.achievement_unlocked) else stringResource(R.string.achievement_progress, current, achievement.target), style = MaterialTheme.typography.labelMedium, color = DR.InkSoft)
                         }

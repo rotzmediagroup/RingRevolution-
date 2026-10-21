@@ -250,5 +250,35 @@
     <string name="cloud_upload_confirm">Replace cloud with device</string>
     <string name="cloud_upload_warning">Back up this device? The existing cloud save will be replaced.</string>
     <string name="cloud_upload_cancel">Keep existing cloud save</string>
+    <string name="ach_teahouse_regular">A familiar welcome</string>
+    <string name="ach_teahouse_regular_desc">Complete 25 campaign puzzles.</string>
+    <string name="ach_halfway_home">Across the jade bridge</string>
+    <string name="ach_halfway_home_desc">Complete 75 campaign puzzles.</string>
+    <string name="ach_century_club">A banquet of puzzles</string>
+    <string name="ach_century_club_desc">Complete 100 campaign puzzles.</string>
+    <string name="ach_mountain_keeper">Keeper of moonlight</string>
+    <string name="ach_mountain_keeper_desc">Complete all 50 Moonlit Mountain Kitchen puzzles.</string>
+    <string name="ach_chef_apprentice">First chef special</string>
+    <string name="ach_chef_apprentice_desc">Complete one chef level.</string>
+    <string name="ach_chef_specialist">Wok of wonders</string>
+    <string name="ach_chef_specialist_desc">Complete five chef levels.</string>
+    <string name="ach_chef_grandmaster">Grandmaster of the kitchen</string>
+    <string name="ach_chef_grandmaster_desc">Complete all 15 chef levels.</string>
+    <string name="ach_star_seed">A star takes root</string>
+    <string name="ach_star_seed_desc">Collect 30 campaign stars.</string>
+    <string name="ach_star_orchard">The celestial orchard</string>
+    <string name="ach_star_orchard_desc">Collect 300 campaign stars.</string>
+    <string name="ach_perfect_ten">Ten pearls of precision</string>
+    <string name="ach_perfect_ten_desc">Earn three stars on 10 different campaign puzzles.</string>
+    <string name="ach_perfect_fifty">Flawless blossom</string>
+    <string name="ach_perfect_fifty_desc">Earn three stars on 50 different campaign puzzles.</string>
+    <string name="ach_first_daily">Tea at sunrise</string>
+    <string name="ach_first_daily_desc">Complete your first daily puzzle.</string>
+    <string name="ach_daily_devotee">A month of little rituals</string>
+    <string name="ach_daily_devotee_desc">Complete daily puzzles on 30 different days.</string>
+    <string name="ach_hundred_rings">A hundred open doors</string>
+    <string name="ach_hundred_rings_desc">Release a total of 100 rings.</string>
+    <string name="ach_cascade_master">Fivefold cascade</string>
+    <string name="ach_cascade_master_desc">Release five rings in one move.</string>
 </resources>
 

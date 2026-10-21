@@ -49,9 +49,9 @@ jobs:
           if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks" && echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"; else echo "no keystore secret: release APK will be unsigned"; fi
       - name: Build
         env:
-          ADS_ENABLED: ${{ vars.ADS_ENABLED }}
+          ADS_ENABLED: 'true'
           IAP_ENABLED: ${{ vars.IAP_ENABLED }}
-          ADS_USE_TEST_IDS: ${{ vars.ADS_USE_TEST_IDS }}
+          ADS_USE_TEST_IDS: 'false'
           ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
           ADMOB_REWARDED_ID: ${{ vars.ADMOB_REWARDED_ID }}
           ADMOB_INTERSTITIAL_ID: ${{ vars.ADMOB_INTERSTITIAL_ID }}
@@ -70,6 +70,21 @@ jobs:
           PGS_ACHIEVEMENT_TRIPLE_RELEASE: ${{ vars.PGS_ACHIEVEMENT_TRIPLE_RELEASE }}
           PGS_ACHIEVEMENT_DAILY_RITUAL: ${{ vars.PGS_ACHIEVEMENT_DAILY_RITUAL }}
           PGS_ACHIEVEMENT_THOUSAND_RINGS: ${{ vars.PGS_ACHIEVEMENT_THOUSAND_RINGS }}
+          PGS_ACHIEVEMENT_TEAHOUSE_REGULAR: ${{ vars.PGS_ACHIEVEMENT_TEAHOUSE_REGULAR }}
+          PGS_ACHIEVEMENT_HALFWAY_HOME: ${{ vars.PGS_ACHIEVEMENT_HALFWAY_HOME }}
+          PGS_ACHIEVEMENT_CENTURY_CLUB: ${{ vars.PGS_ACHIEVEMENT_CENTURY_CLUB }}
+          PGS_ACHIEVEMENT_MOUNTAIN_KEEPER: ${{ vars.PGS_ACHIEVEMENT_MOUNTAIN_KEEPER }}
+          PGS_ACHIEVEMENT_CHEF_APPRENTICE: ${{ vars.PGS_ACHIEVEMENT_CHEF_APPRENTICE }}
+          PGS_ACHIEVEMENT_CHEF_SPECIALIST: ${{ vars.PGS_ACHIEVEMENT_CHEF_SPECIALIST }}
+          PGS_ACHIEVEMENT_CHEF_GRANDMASTER: ${{ vars.PGS_ACHIEVEMENT_CHEF_GRANDMASTER }}
+          PGS_ACHIEVEMENT_STAR_SEED: ${{ vars.PGS_ACHIEVEMENT_STAR_SEED }}
+          PGS_ACHIEVEMENT_STAR_ORCHARD: ${{ vars.PGS_ACHIEVEMENT_STAR_ORCHARD }}
+          PGS_ACHIEVEMENT_PERFECT_TEN: ${{ vars.PGS_ACHIEVEMENT_PERFECT_TEN }}
+          PGS_ACHIEVEMENT_PERFECT_FIFTY: ${{ vars.PGS_ACHIEVEMENT_PERFECT_FIFTY }}
+          PGS_ACHIEVEMENT_FIRST_DAILY: ${{ vars.PGS_ACHIEVEMENT_FIRST_DAILY }}
+          PGS_ACHIEVEMENT_DAILY_DEVOTEE: ${{ vars.PGS_ACHIEVEMENT_DAILY_DEVOTEE }}
+          PGS_ACHIEVEMENT_HUNDRED_RINGS: ${{ vars.PGS_ACHIEVEMENT_HUNDRED_RINGS }}
+          PGS_ACHIEVEMENT_CASCADE_MASTER: ${{ vars.PGS_ACHIEVEMENT_CASCADE_MASTER }}
           PGS_LEADERBOARD_STARS: ${{ vars.PGS_LEADERBOARD_STARS }}
           PGS_LEADERBOARD_CAMPAIGN: ${{ vars.PGS_LEADERBOARD_CAMPAIGN }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
@@ -77,6 +92,7 @@ jobs:
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           ./gradlew :app:assembleDebug :app:assembleRelease :app:bundleRelease
+          python3 tools/validation/check_release_ads.py
           mkdir -p dist
           cp app/build/outputs/apk/debug/app-debug.apk "dist/RingRevolution-${REL_TAG}-debug.apk"
           cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"

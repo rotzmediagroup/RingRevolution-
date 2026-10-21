@@ -1,0 +1,122 @@
+[
+  {
+    "key": "teahouse_regular",
+    "art": 12,
+    "target": 25,
+    "name": "A familiar welcome",
+    "description": "Complete 25 campaign puzzles.",
+    "metric": "campaign"
+  },
+  {
+    "key": "halfway_home",
+    "art": 13,
+    "target": 75,
+    "name": "Across the jade bridge",
+    "description": "Complete 75 campaign puzzles.",
+    "metric": "campaign"
+  },
+  {
+    "key": "century_club",
+    "art": 14,
+    "target": 100,
+    "name": "A banquet of puzzles",
+    "description": "Complete 100 campaign puzzles.",
+    "metric": "campaign"
+  },
+  {
+    "key": "mountain_keeper",
+    "art": 15,
+    "target": 50,
+    "name": "Keeper of moonlight",
+    "description": "Complete all 50 Moonlit Mountain Kitchen puzzles.",
+    "metric": "mountain"
+  },
+  {
+    "key": "chef_apprentice",
+    "art": 16,
+    "target": 1,
+    "name": "First chef special",
+    "description": "Complete one chef level.",
+    "metric": "chef"
+  },
+  {
+    "key": "chef_specialist",
+    "art": 17,
+    "target": 5,
+    "name": "Wok of wonders",
+    "description": "Complete five chef levels.",
+    "metric": "chef"
+  },
+  {
+    "key": "chef_grandmaster",
+    "art": 18,
+    "target": 15,
+    "name": "Grandmaster of the kitchen",
+    "description": "Complete all 15 chef levels.",
+    "metric": "chef"
+  },
+  {
+    "key": "star_seed",
+    "art": 19,
+    "target": 30,
+    "name": "A star takes root",
+    "description": "Collect 30 campaign stars.",
+    "metric": "stars"
+  },
+  {
+    "key": "star_orchard",
+    "art": 20,
+    "target": 300,
+    "name": "The celestial orchard",
+    "description": "Collect 300 campaign stars.",
+    "metric": "stars"
+  },
+  {
+    "key": "perfect_ten",
+    "art": 21,
+    "target": 10,
+    "name": "Ten pearls of precision",
+    "description": "Earn three stars on 10 different campaign puzzles.",
+    "metric": "perfect"
+  },
+  {
+    "key": "perfect_fifty",
+    "art": 22,
+    "target": 50,
+    "name": "Flawless blossom",
+    "description": "Earn three stars on 50 different campaign puzzles.",
+    "metric": "perfect"
+  },
+  {
+    "key": "first_daily",
+    "art": 23,
+    "target": 1,
+    "name": "Tea at sunrise",
+    "description": "Complete your first daily puzzle.",
+    "metric": "daily"
+  },
+  {
+    "key": "daily_devotee",
+    "art": 24,
+    "target": 30,
+    "name": "A month of little rituals",
+    "description": "Complete daily puzzles on 30 different days.",
+    "metric": "daily"
+  },
+  {
+    "key": "hundred_rings",
+    "art": 25,
+    "target": 100,
+    "name": "A hundred open doors",
+    "description": "Release a total of 100 rings.",
+    "metric": "rings"
+  },
+  {
+    "key": "cascade_master",
+    "art": 26,
+    "target": 5,
+    "name": "Fivefold cascade",
+    "description": "Release five rings in one move.",
+    "metric": "combo"
+  }
+]

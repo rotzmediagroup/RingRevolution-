@@ -5,9 +5,9 @@ from io import BytesIO
 from PIL import Image, ImageOps, ImageDraw
 
 names = ['01_main_menu', '02_world_map', '03_chapter_1', '20_collection', '21_shop', '22_premium',
-         '23_settings', '24_daily', '27_achievements', '30_ar_menu', '31_ar_shop', '32_ar_games']
+         '23_settings', '24_daily', '27_achievements', '30_ar_menu', '31_ar_shop', '32_ar_games', '33_all_achievement_art']
 root = Path('app/build/screenshots')
-sheet = Image.new('RGB', (4 * 240, 3 * 550), '#102b32')
+sheet = Image.new('RGB', (4 * 240, ((len(names) + 3) // 4) * 550), '#102b32')
 for i, name in enumerate(names):
     path = root / (name + '.png')
     if not path.exists(): continue

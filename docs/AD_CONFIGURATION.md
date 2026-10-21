@@ -1,46 +1,9 @@
-# Ad, consent and purchase configuration checklist
+# AdMob release configuration
 
-## Defaults shipped in git (safe)
-| Flag / id | Default | Where |
-|---|---|---|
-| `ADS_ENABLED` | `false` | `app/build.gradle.kts` → `BuildConfig.ADS_ENABLED` |
-| `ADS_USE_TEST_IDS` | `true` | same |
-| `IAP_ENABLED` | `false` | same |
-| AdMob app id | Google sample `ca-app-pub-3940256099942544~3347511713` | manifest placeholder `admobAppId` |
-| Rewarded / interstitial / banner units | Google **test** units | `BuildConfig.AD_UNIT_*` |
-| Premium product id | `dumpling_rings_premium` | `BuildConfig.PREMIUM_PRODUCT_ID` |
-| Banner | disabled (`AdsConfig.bannerEnabled=false`) | `AppContainer.adsConfig` |
+The owner requested live ads for the Play Store release. Release defaults are `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`. Public app/unit IDs are in `admob.properties`; environment variables and `secrets.properties` can override IDs. Release CI verifies the actual generated BuildConfig against the owner IDs, and the release workflow explicitly selects live ads.
 
-With the defaults the Google Mobile Ads SDK is **never initialised**, no consent form is requested, no ad space is
-reserved anywhere (`NoAdsProvider`, `NoConsentProvider`), and the Premium screen shows "store unavailable".
+Debug APKs disable ads and force official test ad units. Release builds initialize AdMob only after UMP permits ad requests. Existing placement rules, rewarded-grant idempotency, daily limits and interstitial spacing remain active. Banners remain disabled; their owner ID is configured for future use.
 
-## Enabling test ads (development)
-Create `secrets.properties` in the repo root (git-ignored) or export env vars:
-```
-ADS_ENABLED=true
-ADS_USE_TEST_IDS=true
-```
-Rebuild. The UMP consent flow runs at launch (`AdsManager.initIfAllowed`); rewarded ads are offered only after an explicit
-tap on an empty-booster dialog or the "double coins" button; interstitials follow `AdsPolicy` (never in levels 1–10, never on
-chef levels, never in the first session, ≥ 4 completed levels and ≥ 8 minutes apart, ≤ 3 per session, never for Premium, never
-without consent, only between screens). No-fill or offline ⇒ the UI returns immediately with a friendly note.
+See [GAME_SERVICES_SETUP.md](GAME_SERVICES_SETUP.md) for all four identifiers, consent setup, acceptance checks and the 25 achievement definitions. Play Games and billing still require their console IDs/public key and remain disabled until supplied.
 
-## Production (owner actions)
-1. Create the AdMob app + rewarded/interstitial ad units; set `ADMOB_APP_ID`, `ADMOB_REWARDED_ID`, `ADMOB_INTERSTITIAL_ID`,
-   `ADS_USE_TEST_IDS=false` in CI secrets / `secrets.properties`.
-2. Publish `app-ads.txt` on the developer domain; fill Play Data Safety with: Advertising ID (ads), no personal data collected by the game itself.
-3. Decide `ADS_ENABLED=true` only after a release decision; keep the banner off unless the menu layout has room.
-4. In Play Console create the in-app product `dumpling_rings_premium` (one-time, non-consumable); set `IAP_ENABLED=true`.
-   Set `PLAY_BILLING_PUBLIC_KEY` from the app licensing settings before enabling billing.
-   Prices are fetched from the store at runtime; nothing is hard-coded.
-5. Test with license testers: purchase, cancel, interrupted purchase, restore on a second device, airplane mode (cached
-   entitlement is kept; it is only cleared by a verified "not owned" answer from the store).
-
-## Verified in this build
-* Unit tests cover `AdsPolicy` caps and the idempotent reward ledger (`core/src/test/.../SystemsTest.kt`).
-* `FakeAdsProvider` / `FakePurchaseProvider` exist for instrumented/manual tests (`app/platform/*.kt`).
-* SDK integration compiles against play-services-ads 24.7.0, UMP 3.2.0 and billing-ktx 8.0.0. Real test-ad impressions and sandbox
-  purchases could not be exercised in the build environment (no device/emulator) — see docs/TEST_REPORT.md.
-
-
-The current end-to-end setup and acceptance matrix is in [GAME_SERVICES_SETUP.md](GAME_SERVICES_SETUP.md).
+Live ad impressions cannot be validated by CI. Test the signed Play-track build on a device after configuring applicable AdMob consent messages. SDK versions: Mobile Ads 24.7.0, UMP 3.2.0 and Billing 8.0.0.
