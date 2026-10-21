@@ -70,7 +70,7 @@
     <string name="privacy_options">Privacyopties</string>
     <string name="privacy_policy">Privacybeleid</string>
     <string name="privacy_text">Ring Revolution kun je offline spelen. Voortgang wordt op dit apparaat bewaard. Als je je aanmeldt bij Play Games, worden prestaties en scores gedeeld met Google. Cloudback-ups zijn optioneel. Google Play verwerkt aankopen. AdMob toont advertenties volgens je privacykeuzes. Premium verwijdert interstitials en banners. Lees ons privacybeleid voor details.</string>
-    <string name="ads_disabled_build">Advertenties staan uit in deze build.</string>
+    <string name="ads_disabled_build">Advertenties zijn momenteel niet beschikbaar.</string>
     <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">Eén aankoop, voor altijd: geen interstitials, geen banners, een exclusief onyx-ringthema met gouden inleg en elke dag een gratis booster.</string>
     <string name="buy_premium">Koop Premium %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d sterren</string>
     <string name="games_title">Prestaties en cloud</string>
     <string name="games_subtitle">Je reis door het theehuis</string>
-    <string name="games_unconfigured">Prestaties worden op dit apparaat bewaard. Online diensten komen beschikbaar na de lanceringsinstellingen.</string>
+    <string name="games_unconfigured">Prestaties worden op dit apparaat bewaard. Online diensten zijn momenteel niet beschikbaar.</string>
     <string name="games_connected">Verbonden met Google Play Games</string>
     <string name="games_offline">Meld je aan bij Google Play Games om prestaties te synchroniseren, ranglijsten te bekijken en cloudopslag te gebruiken. Offline spelen blijft beschikbaar.</string>
     <string name="games_sign_in">Aanmelden bij Play Games</string>

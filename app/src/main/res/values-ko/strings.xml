@@ -70,7 +70,7 @@
     <string name="privacy_options">개인정보 옵션</string>
     <string name="privacy_policy">개인정보처리방침</string>
     <string name="privacy_text">Ring Revolution은 오프라인으로 즐길 수 있으며 진행 상황은 기기에 저장됩니다. Play Games 로그인 시 업적과 점수가 Google과 공유됩니다. 클라우드 백업은 선택 사항입니다. 구매는 Google Play에서 처리합니다. AdMob 광고는 개인정보 설정에 따릅니다. 프리미엄은 전면 및 배너 광고를 제거합니다. 자세한 내용은 개인정보처리방침을 확인하세요.</string>
-    <string name="ads_disabled_build">이 빌드에서는 광고가 비활성화되어 있습니다.</string>
+    <string name="ads_disabled_build">현재 광고를 이용할 수 없습니다.</string>
     <string name="premium_title">Ring Revolution 프리미엄</string>
     <string name="premium_pitch">한 번 구매로 영구 이용: 전면 및 배너 광고 제거, 금 장식 오닉스 전용 테마, 매일 무료 부스터.</string>
     <string name="buy_premium">프리미엄 구매 %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">별 %1$d개</string>
     <string name="games_title">업적 및 클라우드</string>
     <string name="games_subtitle">나의 찻집 여정</string>
-    <string name="games_unconfigured">업적은 이 기기에 저장됩니다. 출시 설정 후 온라인 서비스를 이용할 수 있습니다.</string>
+    <string name="games_unconfigured">업적은 이 기기에 저장됩니다. 현재 온라인 서비스를 이용할 수 없습니다.</string>
     <string name="games_connected">Google Play Games에 연결됨</string>
     <string name="games_offline">Google Play Games에 로그인하면 업적 동기화, 순위표, 클라우드 저장을 이용할 수 있습니다. 오프라인 플레이도 가능합니다.</string>
     <string name="games_sign_in">Play Games 로그인</string>

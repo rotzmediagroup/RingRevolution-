@@ -132,7 +132,7 @@ fun SettingsScreen(container: AppContainer, nav: Nav, activity: ComponentActivit
     StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.settings), { nav.pop() })
-            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp).widthIn(max = 560.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().align(Alignment.CenterHorizontally).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ToggleRow(stringResource(R.string.music), s.music) { set { it.copy(music = !it.music) } }
                 SliderRow(stringResource(R.string.music), s.musicVolume, s.music) { v -> set { it.copy(musicVolume = v) } }
                 ToggleRow(stringResource(R.string.sfx), s.sfx) { set { it.copy(sfx = !it.sfx) } }

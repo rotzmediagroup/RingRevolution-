@@ -70,7 +70,7 @@
     <string name="privacy_options">गोपनीयता विकल्प</string>
     <string name="privacy_policy">गोपनीयता नीति</string>
     <string name="privacy_text">Ring Revolution ऑफ़लाइन खेल सकते हैं। प्रगति इस डिवाइस में रहती है। Play Games में साइन इन करने पर उपलब्धियाँ और स्कोर Google से साझा होते हैं। क्लाउड बैकअप वैकल्पिक हैं। Google Play खरीदारी संभालता है। AdMob आपके गोपनीयता विकल्पों के अनुसार विज्ञापन दिखाता है। प्रीमियम से इंटरस्टिशियल और बैनर विज्ञापन हटते हैं। विवरण गोपनीयता नीति में पढ़ें।</string>
-    <string name="ads_disabled_build">इस संस्करण में विज्ञापन बंद हैं।</string>
+    <string name="ads_disabled_build">अभी विज्ञापन उपलब्ध नहीं हैं।</string>
     <string name="premium_title">Ring Revolution प्रीमियम</string>
     <string name="premium_pitch">एक बार खरीदें, हमेशा पाएँ: इंटरस्टिशियल और बैनर विज्ञापन बंद, सोने जड़ा खास ओनिक्स थीम और रोज़ मुफ़्त बूस्टर।</string>
     <string name="buy_premium">प्रीमियम खरीदें %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d सितारे</string>
     <string name="games_title">उपलब्धियाँ और क्लाउड</string>
     <string name="games_subtitle">चायघर का आपका सफ़र</string>
-    <string name="games_unconfigured">उपलब्धियाँ इस डिवाइस में रहती हैं। लॉन्च सेटअप के बाद ऑनलाइन सेवाएँ उपलब्ध होंगी।</string>
+    <string name="games_unconfigured">उपलब्धियाँ इस डिवाइस में रहती हैं। ऑनलाइन सेवाएँ अभी उपलब्ध नहीं हैं।</string>
     <string name="games_connected">Google Play Games से जुड़े हैं</string>
     <string name="games_offline">उपलब्धियाँ सिंक करने, रैंकिंग देखने और क्लाउड सेव के लिए Google Play Games में साइन इन करें। ऑफ़लाइन हमेशा खेल सकते हैं।</string>
     <string name="games_sign_in">Play Games में साइन इन करें</string>

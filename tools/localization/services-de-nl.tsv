@@ -1,7 +1,7 @@
 # key|de|nl
 games_title|Erfolge und Cloud|Prestaties en cloud
 games_subtitle|Deine Reise im Teehaus|Je reis door het theehuis
-games_unconfigured|Erfolge werden auf diesem Gerät gespeichert. Onlinedienste sind nach der Veröffentlichungseinrichtung verfügbar.|Prestaties worden op dit apparaat bewaard. Online diensten komen beschikbaar na de lanceringsinstellingen.
+games_unconfigured|Erfolge werden auf diesem Gerät gespeichert. Onlinedienste sind derzeit nicht verfügbar.|Prestaties worden op dit apparaat bewaard. Online diensten zijn momenteel niet beschikbaar.
 games_connected|Mit Google Play Games verbunden|Verbonden met Google Play Games
 games_offline|Melde dich bei Google Play Games an, um Erfolge zu synchronisieren, Ranglisten anzusehen und Cloud-Speicherstände zu nutzen. Offline spielen bleibt möglich.|Meld je aan bij Google Play Games om prestaties te synchroniseren, ranglijsten te bekijken en cloudopslag te gebruiken. Offline spelen blijft beschikbaar.
 games_sign_in|Mit Play Games anmelden|Aanmelden bij Play Games
@@ -59,3 +59,4 @@ cloud_upload_warning|Dieses Gerät sichern? Der bestehende Cloud-Speicherstand w
 cloud_upload_cancel|Bestehende Cloud behalten|Bestaande cloudopslag behouden
 privacy_text|Ring Revolution kann offline gespielt werden. Der Fortschritt wird auf diesem Gerät gespeichert. Bei Anmeldung in Play Games werden Erfolge und Punkte mit Google geteilt. Cloud-Sicherungen sind optional. Google Play verwaltet Käufe. AdMob zeigt Werbung entsprechend deinen Datenschutzeinstellungen. Premium entfernt Interstitials und Banner. Details stehen in unserer Datenschutzerklärung.|Ring Revolution kun je offline spelen. Voortgang wordt op dit apparaat bewaard. Als je je aanmeldt bij Play Games, worden prestaties en scores gedeeld met Google. Cloudback-ups zijn optioneel. Google Play verwerkt aankopen. AdMob toont advertenties volgens je privacykeuzes. Premium verwijdert interstitials en banners. Lees ons privacybeleid voor details.
 offline_note|Rätsel funktionieren offline. Onlinedienste benötigen eine Verbindung.|Puzzels werken offline. Online diensten vereisen een verbinding.
+ads_disabled_build|Werbung ist derzeit nicht verfügbar.|Advertenties zijn momenteel niet beschikbaar.

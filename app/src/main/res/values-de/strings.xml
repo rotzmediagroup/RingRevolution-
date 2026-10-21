@@ -70,7 +70,7 @@
     <string name="privacy_options">Datenschutzoptionen</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="privacy_text">Ring Revolution kann offline gespielt werden. Der Fortschritt wird auf diesem Gerät gespeichert. Bei Anmeldung in Play Games werden Erfolge und Punkte mit Google geteilt. Cloud-Sicherungen sind optional. Google Play verwaltet Käufe. AdMob zeigt Werbung entsprechend deinen Datenschutzeinstellungen. Premium entfernt Interstitials und Banner. Details stehen in unserer Datenschutzerklärung.</string>
-    <string name="ads_disabled_build">Werbung ist in diesem Build deaktiviert.</string>
+    <string name="ads_disabled_build">Werbung ist derzeit nicht verfügbar.</string>
     <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">Ein Kauf, für immer: keine Interstitials, keine Banner, ein exklusives Onyx-Ringthema mit Goldeinlage und täglich ein kostenloser Booster.</string>
     <string name="buy_premium">Premium kaufen %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d Sterne</string>
     <string name="games_title">Erfolge und Cloud</string>
     <string name="games_subtitle">Deine Reise im Teehaus</string>
-    <string name="games_unconfigured">Erfolge werden auf diesem Gerät gespeichert. Onlinedienste sind nach der Veröffentlichungseinrichtung verfügbar.</string>
+    <string name="games_unconfigured">Erfolge werden auf diesem Gerät gespeichert. Onlinedienste sind derzeit nicht verfügbar.</string>
     <string name="games_connected">Mit Google Play Games verbunden</string>
     <string name="games_offline">Melde dich bei Google Play Games an, um Erfolge zu synchronisieren, Ranglisten anzusehen und Cloud-Speicherstände zu nutzen. Offline spielen bleibt möglich.</string>
     <string name="games_sign_in">Mit Play Games anmelden</string>

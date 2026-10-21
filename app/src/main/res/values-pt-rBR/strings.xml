@@ -70,7 +70,7 @@
     <string name="privacy_options">Opções de privacidade</string>
     <string name="privacy_policy">Política de privacidade</string>
     <string name="privacy_text">Ring Revolution pode ser jogado offline. O progresso fica neste dispositivo. Ao entrar no Play Games, conquistas e pontuações são compartilhadas com o Google. Backups na nuvem são opcionais. O Google Play processa compras. O AdMob exibe anúncios conforme suas escolhas de privacidade. Premium remove intersticiais e banners. Leia nossa política de privacidade.</string>
-    <string name="ads_disabled_build">Os anúncios estão desativados nesta versão.</string>
+    <string name="ads_disabled_build">Os anúncios estão indisponíveis no momento.</string>
     <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">Uma compra para sempre: sem anúncios intersticiais ou banners, tema exclusivo de ônix com ouro e um item grátis por dia.</string>
     <string name="buy_premium">Comprar Premium %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d estrelas</string>
     <string name="games_title">Conquistas e nuvem</string>
     <string name="games_subtitle">Sua jornada pela casa de chá</string>
-    <string name="games_unconfigured">As conquistas ficam neste dispositivo. Os serviços online estarão disponíveis após a configuração de lançamento.</string>
+    <string name="games_unconfigured">As conquistas ficam neste dispositivo. Os serviços online estão indisponíveis no momento.</string>
     <string name="games_connected">Conectado ao Google Play Games</string>
     <string name="games_offline">Entre no Google Play Games para sincronizar conquistas, ver rankings e usar a nuvem. Você sempre pode jogar offline.</string>
     <string name="games_sign_in">Entrar com Play Games</string>

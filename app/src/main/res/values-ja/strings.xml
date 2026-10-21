@@ -70,7 +70,7 @@
     <string name="privacy_options">プライバシー設定</string>
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="privacy_text">Ring Revolutionはオフラインで遊べます。進行状況は端末に保存されます。Play Gamesにログインすると実績とスコアがGoogleと共有されます。クラウド保存は任意です。購入はGoogle Playが処理します。AdMob広告はプライバシー設定に従います。プレミアムで全画面広告とバナーがなくなります。詳しくはプライバシーポリシーをご覧ください。</string>
-    <string name="ads_disabled_build">このビルドでは広告は無効です。</string>
+    <string name="ads_disabled_build">現在広告は利用できません。</string>
     <string name="premium_title">Ring Revolution プレミアム</string>
     <string name="premium_pitch">買い切りでずっと快適に。全画面広告とバナーなし、金細工のオニキス限定テーマ、毎日無料ブースター付き。</string>
     <string name="buy_premium">プレミアム購入 %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">スター%1$d個</string>
     <string name="games_title">実績とクラウド</string>
     <string name="games_subtitle">茶屋の旅の記録</string>
-    <string name="games_unconfigured">実績は端末に保存されます。オンライン機能は公開設定後に利用できます。</string>
+    <string name="games_unconfigured">実績は端末に保存されます。現在オンライン機能は利用できません。</string>
     <string name="games_connected">Google Play Gamesに接続中</string>
     <string name="games_offline">Google Play Gamesにログインすると実績同期、ランキング、クラウド保存を利用できます。オフラインでも遊べます。</string>
     <string name="games_sign_in">Play Gamesにログイン</string>

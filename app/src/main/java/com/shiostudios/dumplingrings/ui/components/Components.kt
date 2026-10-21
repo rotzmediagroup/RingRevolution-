@@ -176,7 +176,7 @@ fun WoodButton(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
             icon?.invoke(this)
-            Text(text, style = style, color = if (textColor == Color.White && color.luminance() > .32f) DR.Ink else textColor, textAlign = TextAlign.Center)
+            Text(text, style = style, color = if (textColor == Color.White && color.luminance() > .18f) DR.Ink else textColor, textAlign = TextAlign.Center)
         }
     }
 }
@@ -186,7 +186,7 @@ fun Color.darken(f: Float) = Color(red * (1 - f), green * (1 - f), blue * (1 - f
 
 /** Round icon button (back, pause, settings…) with ≥48dp touch target. */
 @Composable
-fun RoundIconButton(sprite: String? = null, contentDescription: String, onClick: () -> Unit, modifier: Modifier = Modifier, size: Dp = 52.dp, color: Color = DR.Wood, sfx: String = "button_tap", content: (@Composable BoxScope.() -> Unit)? = null) {
+fun RoundIconButton(sprite: String? = null, contentDescription: String, onClick: () -> Unit, modifier: Modifier = Modifier, size: Dp = 52.dp, color: Color = DR.Indigo, sfx: String = "button_tap", content: (@Composable BoxScope.() -> Unit)? = null) {
     val ctx = LocalContext.current
     val src = remember { MutableInteractionSource() }
     val pressed by src.collectIsPressedAsState()

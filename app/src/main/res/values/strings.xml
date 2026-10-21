@@ -69,7 +69,7 @@
     <string name="privacy_options">Privacy options</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="privacy_text">Ring Revolution can be played offline. Progress is stored on this device. If you sign in to Play Games, achievements and scores are shared with Google; cloud backups are optional. Google Play handles purchases. AdMob shows ads when your privacy choices allow them. Premium removes interstitials and banners. Read our privacy policy for details.</string>
-    <string name="ads_disabled_build">Ads are disabled in this build.</string>
+    <string name="ads_disabled_build">Ads are currently unavailable.</string>
     <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">One purchase, forever: no interstitials, no banners, an exclusive gold-inlaid onyx ring theme and a free daily booster claim.</string>
     <string name="buy_premium">Buy Premium %1$s</string>
@@ -194,7 +194,7 @@
     <string name="unlock_by_stars">%1$d stars</string>
     <string name="games_title">Achievements &amp; cloud</string>
     <string name="games_subtitle">Your teahouse journey</string>
-    <string name="games_unconfigured">Achievements are saved on this device. Online services will be available after launch setup.</string>
+    <string name="games_unconfigured">Achievements are saved on this device. Online services are currently unavailable.</string>
     <string name="games_connected">Connected to Google Play Games</string>
     <string name="games_offline">Sign in to Google Play Games to sync achievements, view rankings and use cloud saves. Offline play is always available.</string>
     <string name="games_sign_in">Sign in with Play Games</string>

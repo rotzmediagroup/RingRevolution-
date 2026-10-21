@@ -70,7 +70,7 @@
     <string name="privacy_options">خيارات الخصوصية</string>
     <string name="privacy_policy">سياسة الخصوصية</string>
     <string name="privacy_text">يمكن لعب Ring Revolution دون اتصال، ويُحفظ تقدمك على هذا الجهاز. عند تسجيل الدخول إلى Play Games تُشارك الإنجازات والنتائج مع Google. النسخ السحابية اختيارية. يتولى Google Play المشتريات، ويعرض AdMob الإعلانات وفق خيارات الخصوصية. يزيل بريميوم الإعلانات البينية واللافتات. اقرأ سياسة الخصوصية للتفاصيل.</string>
-    <string name="ads_disabled_build">الإعلانات معطلة في هذا الإصدار.</string>
+    <string name="ads_disabled_build">الإعلانات غير متاحة حاليًا.</string>
     <string name="premium_title">Ring Revolution بريميوم</string>
     <string name="premium_pitch">شراء واحد للأبد: بلا إعلانات بينية أو لافتات، ومظهر عقيق أسود مرصع بالذهب، ومعزز مجاني يوميًا.</string>
     <string name="buy_premium">اشترِ بريميوم %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d نجوم</string>
     <string name="games_title">الإنجازات والسحابة</string>
     <string name="games_subtitle">رحلتك في بيت الشاي</string>
-    <string name="games_unconfigured">تُحفظ الإنجازات على هذا الجهاز. ستتوفر الخدمات عبر الإنترنت بعد إعداد الإطلاق.</string>
+    <string name="games_unconfigured">تُحفظ الإنجازات على هذا الجهاز. الخدمات عبر الإنترنت غير متاحة حاليًا.</string>
     <string name="games_connected">متصل بـ Google Play Games</string>
     <string name="games_offline">سجّل الدخول إلى Google Play Games لمزامنة الإنجازات وعرض الترتيب والحفظ السحابي. اللعب دون اتصال متاح دائمًا.</string>
     <string name="games_sign_in">تسجيل الدخول عبر Play Games</string>

@@ -70,7 +70,7 @@
     <string name="privacy_options">Opsi privasi</string>
     <string name="privacy_policy">Kebijakan privasi</string>
     <string name="privacy_text">Ring Revolution bisa dimainkan offline. Progres disimpan di perangkat ini. Saat masuk ke Play Games, pencapaian dan skor dibagikan ke Google. Cadangan cloud opsional. Google Play menangani pembelian. AdMob menampilkan iklan sesuai pilihan privasimu. Premium menghapus iklan interstisial dan banner. Baca kebijakan privasi kami.</string>
-    <string name="ads_disabled_build">Iklan dinonaktifkan di versi ini.</string>
+    <string name="ads_disabled_build">Iklan belum tersedia saat ini.</string>
     <string name="premium_title">Ring Revolution Premium</string>
     <string name="premium_pitch">Sekali beli selamanya: tanpa iklan interstisial atau banner, tema oniks bertatah emas eksklusif, dan booster gratis setiap hari.</string>
     <string name="buy_premium">Beli Premium %1$s</string>
@@ -195,7 +195,7 @@
     <string name="unlock_by_stars">%1$d bintang</string>
     <string name="games_title">Pencapaian &amp; cloud</string>
     <string name="games_subtitle">Perjalanan kedai tehmu</string>
-    <string name="games_unconfigured">Pencapaian disimpan di perangkat ini. Layanan online tersedia setelah penyiapan peluncuran.</string>
+    <string name="games_unconfigured">Pencapaian disimpan di perangkat ini. Layanan online belum tersedia saat ini.</string>
     <string name="games_connected">Terhubung ke Google Play Games</string>
     <string name="games_offline">Masuk ke Google Play Games untuk menyinkronkan pencapaian, melihat peringkat, dan memakai cloud. Bermain offline selalu tersedia.</string>
     <string name="games_sign_in">Masuk dengan Play Games</string>

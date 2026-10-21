@@ -237,8 +237,8 @@ private fun Controls(container: AppContainer, activity: ComponentActivity, contr
         }
     }
     val content: @Composable () -> Unit = {
-        RoundIconButton(contentDescription = stringResource(R.string.undo), onClick = { controller.undo() }, color = DR.Wood, sfx = "undo") { Glyph("undo", Modifier.size(26.dp)) }
-        RoundIconButton(contentDescription = stringResource(R.string.restart), onClick = { controller.restart() }, color = DR.Wood) { Glyph("restart", Modifier.size(26.dp)) }
+        RoundIconButton(contentDescription = stringResource(R.string.undo), onClick = { controller.undo() }, color = DR.Indigo, sfx = "undo") { Glyph("undo", Modifier.size(26.dp)) }
+        RoundIconButton(contentDescription = stringResource(R.string.restart), onClick = { controller.restart() }, color = DR.Indigo) { Glyph("restart", Modifier.size(26.dp)) }
         BoosterButton(container, activity, controller, Booster.STEAM_HINT, "sheet16/tea_cup_bamboo_steam", inv["hint"] ?: 0, R.string.hint)
         BoosterButton(container, activity, controller, Booster.STEAM_PEEK, "sheet05/icon_lantern_sakura", inv["steam_peek"] ?: 0, R.string.steam_peek)
         BoosterButton(container, activity, controller, Booster.CHEFS_TWIST, "sheet14/booster_swirl_idle", inv["chefs_twist"] ?: 0, R.string.chefs_twist)
