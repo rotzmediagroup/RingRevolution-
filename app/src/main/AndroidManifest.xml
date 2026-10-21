@@ -21,6 +21,7 @@
         android:theme="@style/Theme.DumplingRings.Splash">
 
         <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="${admobAppId}" />
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/games_app_id" />
         <!-- Ads SDK must not initialise on its own; AdsManager decides after consent and feature flags -->
         <meta-data android:name="com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT" android:value="true" />
         <meta-data android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION" android:value="true" />
@@ -44,3 +45,4 @@
         </activity>
     </application>
 </manifest>
+

@@ -71,6 +71,9 @@ data class SaveData(
     val consentStatus: String = "unknown",
     val seenChapterScenes: List<Int> = emptyList(),
     val sessionCount: Int = 0,
+    val achievements: List<String> = emptyList(),
+    val rewardedDay: String = "",
+    val rewardedCount: Int = 0,
 ) {
     val highestCompleted: Int get() = levels.filter { it.value.completed }.keys.maxOfOrNull { it.drop(1).toInt() } ?: 0
     fun isUnlocked(index: Int): Boolean = index == 1 || levels["L" + (index - 1).toString().padStart(3, '0')]?.completed == true
@@ -228,3 +231,4 @@ object AdsPolicy {
         cfg.enabled && cfg.bannerEnabled && !save.premium && consentGiven && screenIsMenu
     fun rewardedAllowed(cfg: AdsConfig, consentGiven: Boolean) = cfg.enabled && cfg.rewardedEnabled && consentGiven
 }
+

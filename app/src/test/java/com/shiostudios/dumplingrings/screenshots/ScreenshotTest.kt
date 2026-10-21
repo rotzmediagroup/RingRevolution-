@@ -111,7 +111,9 @@ class ScreenshotTest {
         show("21_shop") { ShopScreen(c, Nav(Screen.Shop), rule.activity) }
         show("22_premium") { PremiumScreen(c, Nav(Screen.Premium), rule.activity) }
         show("23_settings") { SettingsScreen(c, Nav(Screen.Settings), rule.activity) }
+        show("27_achievements") { GamesScreen(c, Nav(Screen.Games), rule.activity) }
         show("24_daily") { DailyScreen(c, Nav(Screen.Daily), rule.activity) }
         show("25_chapter_scene") { ChapterSceneScreen(c, 1) {} }
     }
 }
+

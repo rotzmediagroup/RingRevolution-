@@ -22,6 +22,20 @@ val adsEnabled = cfg("ADS_ENABLED", "false")
 val iapEnabled = cfg("IAP_ENABLED", "false")
 val premiumSku = cfg("PREMIUM_PRODUCT_ID", "dumpling_rings_premium")
 val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
+val pgsEnabled = cfg("PGS_ENABLED", "false")
+val pgsAppId = cfg("PGS_APP_ID", "")
+val billingKey = cfg("PLAY_BILLING_PUBLIC_KEY", "")
+val gameKeys = listOf("achievement_first_clear", "achievement_first_chapter", "achievement_blossom_master",
+    "achievement_lantern_master", "achievement_mountain_master", "achievement_star_garden",
+    "achievement_perfect_constellation", "achievement_triple_release", "achievement_daily_ritual",
+    "achievement_thousand_rings", "leaderboard_stars", "leaderboard_campaign")
+fun literal(value: String) = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r") + "\""
+val gameIds = gameKeys.joinToString(prefix = "{", postfix = "}") { literal(it) + ":" + literal(cfg("PGS_" + it.uppercase(), "")) }
+require(pgsEnabled != "true" || pgsAppId.matches(Regex("[0-9]+"))) { "PGS_APP_ID must be the numeric Play Games project ID" }
+require(iapEnabled != "true" || billingKey.isNotBlank()) { "Set PLAY_BILLING_PUBLIC_KEY before enabling purchases" }
+if (adsEnabled == "true" && useTestAds != "true") {
+    require(listOf(admobAppId, adUnitRewarded, adUnitInterstitial).none { it.contains("3940256099942544") }) { "Production ads require your own app and unit IDs" }
+}
 
 android {
     namespace = "com.shiostudios.dumplingrings"
@@ -31,8 +45,8 @@ android {
         applicationId = "com.shiostudios.dumplingrings"
         minSdk = 24
         targetSdk = 35
-        versionCode = 14
-        versionName = "1.3.0"
+        versionCode = 15
+        versionName = "1.4.0"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders["admobAppId"] = admobAppId
         buildConfigField("boolean", "ADS_ENABLED", adsEnabled)
@@ -42,7 +56,12 @@ android {
         buildConfigField("String", "AD_UNIT_INTERSTITIAL", "\"$adUnitInterstitial\"")
         buildConfigField("String", "AD_UNIT_BANNER", "\"$adUnitBanner\"")
         buildConfigField("String", "PREMIUM_PRODUCT_ID", "\"$premiumSku\"")
-        resourceConfigurations += listOf("en", "nl", "de")
+        buildConfigField("boolean", "PGS_ENABLED", pgsEnabled)
+        buildConfigField("String", "PGS_APP_ID", literal(pgsAppId))
+        buildConfigField("String", "PGS_IDS", literal(gameIds))
+        buildConfigField("String", "PLAY_BILLING_PUBLIC_KEY", literal(billingKey))
+        resValue("string", "games_app_id", pgsAppId.ifBlank { "0" })
+        resourceConfigurations += listOf("en", "nl", "de", "es", "pt", "fr", "ja", "ko", "hi", "in", "ar")
     }
 
     signingConfigs {
@@ -85,6 +104,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.activity:activity-compose:1.9.3")
@@ -95,8 +115,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.google.android.gms:play-services-ads:24.7.0")
+    implementation("com.google.android.ump:user-messaging-platform:3.2.0")
+    implementation("com.google.android.gms:play-services-games-v2:20.1.2")
+    implementation("com.android.billingclient:billing-ktx:8.0.0")
     testImplementation("junit:junit:4.13.2")
     testImplementation(kotlin("test"))
     testImplementation("org.robolectric:robolectric:4.14.1")
@@ -105,3 +127,4 @@ dependencies {
     testImplementation("androidx.compose.ui:ui-test-junit4")
     testImplementation("androidx.compose.ui:ui-test-manifest")
 }
+

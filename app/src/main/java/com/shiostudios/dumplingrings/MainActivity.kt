@@ -44,6 +44,7 @@ sealed class Screen {
     object Privacy : Screen()
     object Credits : Screen()
     object Stats : Screen()
+    object Games : Screen()
     data class ChapterScene(val chapter: Int, val next: Screen) : Screen()
     data class WorldIntro(val world: Int, val next: Screen) : Screen()
     object Welcome : Screen()
@@ -60,6 +61,14 @@ class Nav(start: Screen) {
 }
 
 class MainActivity : androidx.appcompat.app.AppCompatActivity() {
+    override fun onResume() {
+        super.onResume()
+        DumplingRingsApp.of(this).games.attach(this)
+    }
+    override fun onDestroy() {
+        DumplingRingsApp.of(this).games.detach(this)
+        super.onDestroy()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -86,6 +95,7 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
             Color(android.graphics.Color.parseColor(w.palette["bg"])), Color(android.graphics.Color.parseColor(w.palette["dark"])))
     }
     LaunchedEffect(save.settings) { container.audio.settings = save.settings; container.haptics.enabled = save.settings.haptics }
+    LaunchedEffect(save.achievements, save.totalStars, save.levels.size) { container.games.sync(save) }
     // music per screen
     LaunchedEffect(nav.current) {
         val s = nav.current
@@ -119,6 +129,7 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
                     Screen.Privacy -> PrivacyScreen(container, nav, activity)
                     Screen.Credits -> CreditsScreen(container, nav)
                     Screen.Stats -> StatsScreen(container, nav)
+                    Screen.Games -> GamesScreen(container, nav, activity)
                     is Screen.ChapterScene -> ChapterSceneScreen(container, s.chapter) { nav.replace(s.next) }
                     is Screen.WorldIntro -> WorldIntroScreen(container, s.world) { nav.replace(s.next) }
                 }
@@ -130,3 +141,4 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
         if (nav.current !is Screen.Play) { container.audio.sfx("button_back", 0.7f); nav.pop() }
     }
 }
+

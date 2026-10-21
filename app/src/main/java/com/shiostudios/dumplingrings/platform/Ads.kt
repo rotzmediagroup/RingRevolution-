@@ -120,6 +120,7 @@ class AdMobAdsProvider : AdsProvider {
     private var rewardedLoading = false
     private var interstitialLoading = false
     private var failures = 0
+    private var nextLoadAt = 0L
 
     override fun initialize(context: Context) {
         if (initialized) return
@@ -131,12 +132,12 @@ class AdMobAdsProvider : AdsProvider {
     }
 
     override fun preload(context: Context) {
-        if (!initialized) return
+        if (!initialized || android.os.SystemClock.elapsedRealtime() < nextLoadAt) return
         if (rewarded == null && !rewardedLoading) {
             rewardedLoading = true
             RewardedAd.load(context, BuildConfig.AD_UNIT_REWARDED, AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
                 override fun onAdLoaded(ad: RewardedAd) { rewarded = ad; rewardedLoading = false; failures = 0 }
-                override fun onAdFailedToLoad(e: LoadAdError) { rewarded = null; rewardedLoading = false; failures++; Log.w("Ads", "rewarded load failed: ${e.message}") }
+                override fun onAdFailedToLoad(e: LoadAdError) { rewarded = null; rewardedLoading = false; failures++; nextLoadAt = android.os.SystemClock.elapsedRealtime() + (5_000L * (1L shl failures.coerceAtMost(5))); Log.w("Ads", "rewarded load failed: ${e.message}") }
             })
         }
         if (interstitial == null && !interstitialLoading) {
@@ -154,12 +155,13 @@ class AdMobAdsProvider : AdsProvider {
     override fun showRewarded(activity: Activity, onResult: (RewardResult) -> Unit) {
         val ad = rewarded ?: return onResult(RewardResult.Failed("not loaded"))
         rewarded = null
-        var earned = false
+        var delivered = false
+        fun deliver(result: RewardResult) { if (!delivered) { delivered = true; onResult(result) } }
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() { preload(activity); onResult(if (earned) RewardResult.Earned else RewardResult.Dismissed) }
-            override fun onAdFailedToShowFullScreenContent(e: AdError) { preload(activity); onResult(RewardResult.Failed(e.message)) }
+            override fun onAdDismissedFullScreenContent() { preload(activity); deliver(RewardResult.Dismissed) }
+            override fun onAdFailedToShowFullScreenContent(e: AdError) { preload(activity); deliver(RewardResult.Failed(e.message)) }
         }
-        ad.show(activity) { earned = true }
+        ad.show(activity) { deliver(RewardResult.Earned) }
     }
 
     override fun showInterstitial(activity: Activity, onClosed: () -> Unit): Boolean {
@@ -173,3 +175,4 @@ class AdMobAdsProvider : AdsProvider {
         return true
     }
 }
+
