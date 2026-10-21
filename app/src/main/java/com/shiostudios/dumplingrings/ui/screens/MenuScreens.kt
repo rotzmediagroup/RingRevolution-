@@ -227,7 +227,7 @@ fun StatsScreen(container: AppContainer, nav: Nav) {
     StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.stats), { nav.pop() })
-            Column(Modifier.padding(20.dp).widthIn(max = 560.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().align(Alignment.CenterHorizontally).verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 StatRow(stringResource(R.string.stat_levels), "${save.levels.count { it.value.completed }} / 150")
                 StatRow(stringResource(R.string.stat_stars), "${save.totalStars} / 450")
                 StatRow(stringResource(R.string.stat_moves), save.totalMoves.toString())

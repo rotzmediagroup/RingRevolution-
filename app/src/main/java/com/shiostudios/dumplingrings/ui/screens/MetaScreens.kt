@@ -119,7 +119,9 @@ fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
     StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.daily_title), { nav.pop() }) { CoinPill(save.coins) }
-            Column(Modifier.fillMaxWidth().padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                WoodPanel(Modifier.widthIn(max = 480.dp).fillMaxWidth()) {
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Sprite("sheet10/mystery_basket_f03", Modifier.size(150.dp))
                 Text(dayId, style = MaterialTheme.typography.titleLarge, color = DR.WoodDeep)
                 Text(stringResource(R.string.daily_streak, dailyStreak(save)), style = MaterialTheme.typography.bodyLarge, color = DR.InkSoft)
@@ -137,6 +139,8 @@ fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
                         container.save.update { s -> var ns = s; container.content.economy.premiumDailyClaim.forEach { (k, v) -> ns = BoosterLedger.grant(ns, Booster.byId(k) ?: Booster.STEAM_HINT, v, "premium-$dayId-$k").save }; ns.copy(lastPremiumClaimDay = dayId) }
                         container.audio.sfx("coin_chime")
                     }, Modifier.widthIn(max = 360.dp).fillMaxWidth(), enabled = !claimed, color = DR.Indigo)
+                }
+                }
                 }
             }
         }

@@ -24,7 +24,7 @@ jobs:
       - name: Android SDK
         run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
       - run: python3 tools/localization/validate.py
-      - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
+      - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:bundleRelease
       - name: Visual review contact sheet
         if: always()
         run: |
@@ -36,5 +36,6 @@ jobs:
           name: android-review
           path: |
             app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/bundle/release/app-release.aab
             app/build/screenshots
             app/build/reports
