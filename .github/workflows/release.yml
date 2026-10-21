@@ -11,7 +11,7 @@ on:
       tag:
         description: 'Release tag to create/publish (e.g. v1.0.0)'
         required: true
-        default: 'v1.4.0'
+        default: 'v1.4.1'
       verify:
         description: 'Run the full verification (tests + 150-level validation) before building'
         type: boolean
@@ -101,7 +101,17 @@ jobs:
           python3 tools/validation/check_release_ads.py
           mkdir -p dist
           cp app/build/outputs/apk/debug/app-debug.apk "dist/RingRevolution-${REL_TAG}-debug.apk"
-          cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"
+          if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
+            cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"
+          else
+            # The Play bundle remains unsigned; provide an explicitly labelled, installable release APK.
+            "$ANDROID_HOME/build-tools/36.0.0/apksigner" sign \
+              --ks "$HOME/.android/debug.keystore" --ks-key-alias androiddebugkey \
+              --ks-pass pass:android --key-pass pass:android \
+              --out "dist/RingRevolution-${REL_TAG}-release-sideload.apk" \
+              app/build/outputs/apk/release/app-release-unsigned.apk
+            "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify "dist/RingRevolution-${REL_TAG}-release-sideload.apk"
+          fi
           cp app/build/outputs/bundle/release/app-release.aab "dist/RingRevolution-${REL_TAG}-release.aab"
           cp content/qa/validation_report.md "dist/level-validation-${REL_TAG}.md"
           python3 tools/validation/package_console_handoff.py
@@ -109,7 +119,7 @@ jobs:
           if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
             echo "Release APK/AAB signed using the configured repository keystore." > dist/SIGNING-STATUS.txt
           else
-            echo "Release APK/AAB are UNSIGNED. Sign with the existing app upload key before Play Console upload. The debug APK is signed with a debug key." > dist/SIGNING-STATUS.txt
+            echo "The release-sideload APK and debug APK are installable and signed with the same CI debug key. Both use live AdMob IDs. These APKs are for direct installation, not Play upload. The release AAB is UNSIGNED: sign it with your app upload key before Play Console upload." > dist/SIGNING-STATUS.txt
           fi
       - name: Publish release
         uses: softprops/action-gh-release@v2

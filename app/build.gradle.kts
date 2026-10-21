@@ -50,8 +50,8 @@ android {
         applicationId = "com.shiostudios.dumplingrings"
         minSdk = 24
         targetSdk = 36
-        versionCode = 15
-        versionName = "1.4.0"
+        versionCode = 16
+        versionName = "1.4.1"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders["admobAppId"] = admobAppId
         buildConfigField("boolean", "ADS_ENABLED", adsEnabled)
@@ -85,12 +85,7 @@ android {
     buildTypes {
         debug {
             isMinifyEnabled = false
-            // Development APKs never serve live impressions. Release uses the owner live units.
-            buildConfigField("boolean", "ADS_ENABLED", "false")
-            buildConfigField("boolean", "ADS_USE_TEST_IDS", "true")
-            buildConfigField("String", "AD_UNIT_REWARDED", literal("ca-app-pub-3940256099942544/5224354917"))
-            buildConfigField("String", "AD_UNIT_INTERSTITIAL", literal("ca-app-pub-3940256099942544/1033173712"))
-            buildConfigField("String", "AD_UNIT_BANNER", literal("ca-app-pub-3940256099942544/6300978111"))
+            // Both downloadable APK variants inherit the configured live AdMob units.
         }
         release {
             isMinifyEnabled = true
