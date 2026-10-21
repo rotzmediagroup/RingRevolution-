@@ -2,7 +2,7 @@ package com.shiostudios.dumplingrings.core
 
 import com.shiostudios.dumplingrings.core.systems.*
 import kotlin.test.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class AchievementsTest {
     @Test fun thresholdsAreDistinctAndUnlocksSurviveUndo() {
