@@ -1,18 +1,35 @@
 name: ci
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
-  verify:
+  core-and-content:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '21' }
-      - name: Android SDK packages (runner ships the SDK at $ANDROID_HOME)
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0" "platform-tools" >/dev/null
-      - run: pip install pillow numpy
+      - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew :core:test
       - run: ./gradlew :tools:levels:installDist && tools/levels/build/install/levels/bin/levels validate
+      - run: pip install pillow numpy
       - run: python3 tools/asset_import/check_runtime_assets.py
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Android SDK
+        run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
+      - run: python3 tools/localization/validate.py
       - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
       - uses: actions/upload-artifact@v4
-        with: { name: app-debug, path: app/build/outputs/apk/debug/app-debug.apk }
+        if: always()
+        with:
+          name: android-review
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/screenshots
+            app/build/reports

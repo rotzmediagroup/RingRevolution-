@@ -114,7 +114,9 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
     DumplingRingsTheme {
         CompositionLocalProvider(LocalWorldPalette provides palette, LocalReduceMotion provides save.settings.reduceMotion, LocalHighContrast provides save.settings.highContrast) {
             Box(Modifier.fillMaxSize()) {
-                when (val s = nav.current) {
+                androidx.compose.animation.Crossfade(targetState = nav.current,
+                    animationSpec = androidx.compose.animation.core.tween(if (save.settings.reduceMotion) 0 else 180), label = "screen") { currentScreen ->
+                when (val s = currentScreen) {
                     Screen.Splash -> SplashScreen({ nav.reset(if (save.firstRunDone) Screen.Menu else Screen.Welcome) })
                     Screen.Welcome -> WelcomeScreen(container) { container.save.update { it.copy(firstRunDone = true) }; nav.reset(Screen.Menu) }
                     Screen.Menu -> MainMenuScreen(container, nav)
@@ -132,6 +134,7 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
                     Screen.Games -> GamesScreen(container, nav, activity)
                     is Screen.ChapterScene -> ChapterSceneScreen(container, s.chapter) { nav.replace(s.next) }
                     is Screen.WorldIntro -> WorldIntroScreen(container, s.world) { nav.replace(s.next) }
+                }
                 }
             }
         }

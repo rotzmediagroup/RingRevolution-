@@ -202,18 +202,24 @@ fun ShopScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
                     Quad(Booster.GOLDEN_STEAMER, "sheet08/golden_dumpling_idle", R.string.golden_steamer, R.string.booster_golden_desc),
                 )) {
                     val price = eco.prices[b.id] ?: 0
-                    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(DR.CreamDark).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Sprite(sprite, Modifier.size(64.dp))
-                        Spacer(Modifier.width(12.dp))
-                        Column(Modifier.weight(1f)) {
-                            Text(stringResource(nameRes) + "  ×" + (save.inventory[b.id] ?: 0), style = MaterialTheme.typography.titleLarge, color = DR.WoodDeep)
-                            Text(stringResource(descRes), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
+                    WoodPanel(Modifier.fillMaxWidth(), padding = androidx.compose.foundation.layout.PaddingValues(16.dp)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Sprite(sprite, Modifier.size(74.dp))
+                                Spacer(Modifier.width(14.dp))
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(nameRes), style = MaterialTheme.typography.titleLarge, color = DR.Ink)
+                                    Text(stringResource(descRes), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
+                                }
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text("×" + (save.inventory[b.id] ?: 0), style = MaterialTheme.typography.headlineSmall, color = DR.Bamboo, modifier = Modifier.weight(1f))
+                                WoodButton(stringResource(R.string.buy_for, price), {
+                                    val r = BoosterLedger.buy(container.save.current, b, eco)
+                                    if (r.applied) { container.save.update { r.save }; container.audio.sfx("coin_chime") } else offer = b
+                                }, color = DR.GoldDeep, minHeight = 48.dp)
+                            }
                         }
-                        Spacer(Modifier.width(8.dp))
-                        WoodButton(stringResource(R.string.buy_for, price), {
-                            val r = BoosterLedger.buy(save, b, eco)
-                            if (r.applied) { container.save.update { r.save }; container.audio.sfx("coin_chime") } else offer = b
-                        }, color = DR.GoldDeep, minHeight = 44.dp, style = MaterialTheme.typography.labelMedium)
                     }
                 }
                 Text(stringResource(R.string.offline_note), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)

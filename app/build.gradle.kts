@@ -13,7 +13,7 @@ val secrets = Properties().apply {
     val f = rootProject.file("secrets.properties")
     if (f.exists()) f.inputStream().use { load(it) }
 }
-fun cfg(name: String, default: String): String = System.getenv(name) ?: secrets.getProperty(name) ?: default
+fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
 val admobAppId = cfg("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")          // Google sample app id
 val adUnitRewarded = cfg("ADMOB_REWARDED_ID", "ca-app-pub-3940256099942544/5224354917")   // official test unit
 val adUnitInterstitial = cfg("ADMOB_INTERSTITIAL_ID", "ca-app-pub-3940256099942544/1033173712")
@@ -39,12 +39,12 @@ if (adsEnabled == "true" && useTestAds != "true") {
 
 android {
     namespace = "com.shiostudios.dumplingrings"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.shiostudios.dumplingrings"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 15
         versionName = "1.4.0"
         vectorDrawables.useSupportLibrary = true
@@ -60,8 +60,8 @@ android {
         buildConfigField("String", "PGS_APP_ID", literal(pgsAppId))
         buildConfigField("String", "PGS_IDS", literal(gameIds))
         buildConfigField("String", "PLAY_BILLING_PUBLIC_KEY", literal(billingKey))
-        resValue("string", "games_app_id", pgsAppId.ifBlank { "0" })
-        resourceConfigurations += listOf("en", "nl", "de", "es", "pt", "fr", "ja", "ko", "hi", "in", "ar")
+        resValue("string", "games_app_id", "\"" + pgsAppId.ifBlank { "0" } + "\"")
+        resourceConfigurations += listOf("en", "nl", "de", "es", "pt", "fr", "ja", "ko", "hi", "in", "id", "ar")
     }
 
     signingConfigs {

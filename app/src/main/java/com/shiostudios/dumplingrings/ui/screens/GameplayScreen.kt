@@ -194,7 +194,7 @@ private fun TopBar(container: AppContainer, controller: GameController, title: S
     Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         RoundIconButton(contentDescription = stringResource(R.string.pause), onClick = onPause) { Glyph("pause", Modifier.size(24.dp)) }
         Spacer(Modifier.width(10.dp))
-        Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).background(DR.WoodDeep.copy(alpha = 0.55f)).padding(horizontal = 12.dp, vertical = 4.dp)) {
+        Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).background(Brush.verticalGradient(listOf(Color(0xE6102B32), Color(0xC51B3E45)))).padding(horizontal = 12.dp, vertical = 4.dp)) {
             Text(title + (if (level.isChefLevel) " ★" else ""), style = MaterialTheme.typography.titleLarge, color = DR.Cream)
             val par = if (level.parMoves > 0) "${stringResource(R.string.moves)} ${controller.moves} · ${stringResource(R.string.par)} ${level.parMoves}" else "${stringResource(R.string.moves)} ${controller.moves}"
             Text(par, style = MaterialTheme.typography.labelMedium, color = DR.Cream.copy(alpha = 0.9f))
@@ -381,3 +381,4 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
         }
     }
 }
+

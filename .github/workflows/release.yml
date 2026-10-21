@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '21' }
       - name: Android SDK packages (runner ships the SDK at $ANDROID_HOME)
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0" "platform-tools" >/dev/null
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "platform-tools" >/dev/null
       - run: pip install pillow numpy
       - name: Create tag (manual dispatch)
         if: github.event_name == 'workflow_dispatch'
@@ -49,6 +49,28 @@ jobs:
           if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks" && echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"; else echo "no keystore secret: release APK will be unsigned"; fi
       - name: Build
         env:
+          ADS_ENABLED: ${{ vars.ADS_ENABLED }}
+          IAP_ENABLED: ${{ vars.IAP_ENABLED }}
+          ADS_USE_TEST_IDS: ${{ vars.ADS_USE_TEST_IDS }}
+          ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
+          ADMOB_REWARDED_ID: ${{ vars.ADMOB_REWARDED_ID }}
+          ADMOB_INTERSTITIAL_ID: ${{ vars.ADMOB_INTERSTITIAL_ID }}
+          PREMIUM_PRODUCT_ID: ${{ vars.PREMIUM_PRODUCT_ID }}
+          PLAY_BILLING_PUBLIC_KEY: ${{ vars.PLAY_BILLING_PUBLIC_KEY }}
+          PGS_ENABLED: ${{ vars.PGS_ENABLED }}
+          PGS_APP_ID: ${{ vars.PGS_APP_ID }}
+          PGS_ACHIEVEMENT_FIRST_CLEAR: ${{ vars.PGS_ACHIEVEMENT_FIRST_CLEAR }}
+          PGS_ACHIEVEMENT_FIRST_CHAPTER: ${{ vars.PGS_ACHIEVEMENT_FIRST_CHAPTER }}
+          PGS_ACHIEVEMENT_BLOSSOM_MASTER: ${{ vars.PGS_ACHIEVEMENT_BLOSSOM_MASTER }}
+          PGS_ACHIEVEMENT_LANTERN_MASTER: ${{ vars.PGS_ACHIEVEMENT_LANTERN_MASTER }}
+          PGS_ACHIEVEMENT_MOUNTAIN_MASTER: ${{ vars.PGS_ACHIEVEMENT_MOUNTAIN_MASTER }}
+          PGS_ACHIEVEMENT_STAR_GARDEN: ${{ vars.PGS_ACHIEVEMENT_STAR_GARDEN }}
+          PGS_ACHIEVEMENT_PERFECT_CONSTELLATION: ${{ vars.PGS_ACHIEVEMENT_PERFECT_CONSTELLATION }}
+          PGS_ACHIEVEMENT_TRIPLE_RELEASE: ${{ vars.PGS_ACHIEVEMENT_TRIPLE_RELEASE }}
+          PGS_ACHIEVEMENT_DAILY_RITUAL: ${{ vars.PGS_ACHIEVEMENT_DAILY_RITUAL }}
+          PGS_ACHIEVEMENT_THOUSAND_RINGS: ${{ vars.PGS_ACHIEVEMENT_THOUSAND_RINGS }}
+          PGS_LEADERBOARD_STARS: ${{ vars.PGS_LEADERBOARD_STARS }}
+          PGS_LEADERBOARD_CAMPAIGN: ${{ vars.PGS_LEADERBOARD_CAMPAIGN }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
@@ -67,3 +89,4 @@ jobs:
           body_path: docs/RELEASE_NOTES.md
           prerelease: ${{ contains(env.REL_TAG, '-') }}
           files: dist/*
+

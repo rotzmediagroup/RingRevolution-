@@ -61,6 +61,7 @@ class CloudSaveService(private val save: SaveStore, private val games: PlayGames
         require(bytes.size <= 512_000)
         val archive = json.decodeFromString<Archive>(bytes.toString(Charsets.UTF_8))
         require(archive.version == 1 && archive.save.schemaVersion <= SaveMigrations.CURRENT)
+        require(archive.save.levels.all { (key, p) -> key.matches(Regex("L[0-9]{3}")) && key.drop(1).toInt() in 1..150 && p.stars in 0..3 && p.bestMoves >= 0 })
         require(archive.save.coins >= 0 && archive.save.inventory.values.all { it >= 0 })
         return archive
     }

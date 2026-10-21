@@ -60,6 +60,19 @@ private val scheme: ColorScheme = lightColorScheme(
 @Composable
 fun DumplingRingsTheme(content: @Composable () -> Unit) {
     isSystemInDarkTheme() // the game has its own art-directed palette per world; system dark mode is not applied
-    MaterialTheme(colorScheme = scheme, typography = DRTypography, content = content)
+    val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0].language
+    val typography = if (locale in listOf("ar", "hi", "ja", "ko")) DRTypography.copy(
+        displayLarge = DRTypography.displayLarge.copy(fontFamily = FontFamily.Default),
+        displayMedium = DRTypography.displayMedium.copy(fontFamily = FontFamily.Default),
+        headlineMedium = DRTypography.headlineMedium.copy(fontFamily = FontFamily.Default),
+        headlineSmall = DRTypography.headlineSmall.copy(fontFamily = FontFamily.Default),
+        titleLarge = DRTypography.titleLarge.copy(fontFamily = FontFamily.Default),
+        titleMedium = DRTypography.titleMedium.copy(fontFamily = FontFamily.Default),
+        bodyLarge = DRTypography.bodyLarge.copy(fontFamily = FontFamily.Default),
+        bodyMedium = DRTypography.bodyMedium.copy(fontFamily = FontFamily.Default),
+        labelLarge = DRTypography.labelLarge.copy(fontFamily = FontFamily.Default),
+        labelMedium = DRTypography.labelMedium.copy(fontFamily = FontFamily.Default),
+    ) else DRTypography
+    MaterialTheme(colorScheme = scheme, typography = typography, content = content)
 }
 
