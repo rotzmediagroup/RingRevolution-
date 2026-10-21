@@ -1,0 +1,11 @@
+{
+  "tag": "v1.4.0",
+  "versionName": "1.4.0",
+  "versionCode": 15,
+  "featureCommit": "f0db1d030d696732f31a47dc079e0dc128a7b462",
+  "achievements": 25,
+  "liveReleaseAds": true,
+  "notes": "docs/releases/v1.4.0.md",
+  "consoleGuide": "docs/GAME_SERVICES_SETUP.md",
+  "signing": "Use configured repository keystore; otherwise unsigned as stated in release assets."
+}
