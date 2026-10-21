@@ -55,6 +55,7 @@ jobs:
           ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
           ADMOB_REWARDED_ID: ${{ vars.ADMOB_REWARDED_ID }}
           ADMOB_INTERSTITIAL_ID: ${{ vars.ADMOB_INTERSTITIAL_ID }}
+          ADMOB_BANNER_ID: ${{ vars.ADMOB_BANNER_ID }}
           PREMIUM_PRODUCT_ID: ${{ vars.PREMIUM_PRODUCT_ID }}
           PLAY_BILLING_PUBLIC_KEY: ${{ vars.PLAY_BILLING_PUBLIC_KEY }}
           PGS_ENABLED: ${{ vars.PGS_ENABLED }}

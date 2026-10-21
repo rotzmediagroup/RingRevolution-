@@ -7,13 +7,16 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-// Monetisation configuration: never hard-code production identifiers. Values come from (in order)
-// environment variables, then secrets.properties (git-ignored), then the official Google TEST identifiers.
+// Configuration precedence: environment, secrets.properties (git-ignored), public admob.properties, defaults.
+// Official test ad units override configured production units while ADS_USE_TEST_IDS=true.
 val secrets = Properties().apply {
     val f = rootProject.file("secrets.properties")
     if (f.exists()) f.inputStream().use { load(it) }
 }
-fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
+val adMobDefaults = Properties().apply {
+    rootProject.file("admob.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+}
+fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: adMobDefaults.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
 val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
 val admobAppId = cfg("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")          // Google sample app id
 val adUnitRewarded = if (useTestAds == "true") "ca-app-pub-3940256099942544/5224354917" else cfg("ADMOB_REWARDED_ID", "")   // official test unit

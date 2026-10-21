@@ -6,7 +6,7 @@ Package identity remains `com.shiostudios.dumplingrings`. Display name is Ring R
 
 ## Configure the build
 
-Copy `services.properties.example` to git-ignored `secrets.properties`, or set environment variables. Environment variables take precedence; blank values use the file/default. Features default to off. No console credentials or service IDs are fabricated.
+Copy `services.properties.example` to git-ignored `secrets.properties`, or set environment variables. Environment variables take precedence, followed by `secrets.properties`, checked-in public AdMob IDs in `admob.properties`, then defaults. Blank values fall through to the next source. Features default to off. No console credentials or service IDs are fabricated.
 
 Release workflow reads these keys from GitHub repository **Variables**, including `PLAY_BILLING_PUBLIC_KEY` (a public key, not a private credential). Signing passwords remain repository **Secrets**. Populate the variables before a production release. Debug CI keeps services disabled. Build targets Android API 36 with AGP 8.11.1.
 
@@ -69,3 +69,14 @@ English, Spanish, Brazilian Portuguese, German, French, Japanese, Korean, Hindi,
 All 250 resource strings and 15 chapter names are translated. Android 13 language settings and the in-game picker include all locales. Arabic uses RTL; Arabic, Devanagari and CJK use system fonts for script coverage. Translation tables are in `tools/localization/`; run `generate.py` after editing and `validate.py` to check coverage and formatting. Native-speaker review is still required before store launch.
 
 Review menu, maps, chapters, gameplay/boosters, results/pause, daily puzzle, collection, shop, Premium, settings, privacy, credits, stats and achievements/cloud at 320dp width, landscape, tablet, large fonts, Reduce Motion, high contrast and Arabic RTL. CI produces Robolectric screenshots and reports as `android-review`; real-device GPU, animation smoothness and live service flows still require device testing.
+
+## Owner-provided AdMob identifiers
+
+The app and three units are configured in `admob.properties` and the example configuration:
+
+- `ADMOB_APP_ID`: `ca-app-pub-3722169369385142~7224384827`
+- `ADMOB_REWARDED_ID`: `ca-app-pub-3722169369385142/7657383681`
+- `ADMOB_INTERSTITIAL_ID`: `ca-app-pub-3722169369385142/5699725172`
+- `ADMOB_BANNER_ID`: `ca-app-pub-3722169369385142/8325888516`
+
+These public identifiers do not enable ads by themselves. Defaults remain `ADS_ENABLED=false` and `ADS_USE_TEST_IDS=true`. Rewarded/interstitial placements are already implemented; the banner ID is stored for future use, and banners remain disabled. Production unit loading uses the configured IDs when `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`.
