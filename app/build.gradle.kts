@@ -50,8 +50,8 @@ android {
         applicationId = "com.shiostudios.dumplingrings"
         minSdk = 24
         targetSdk = 36
-        versionCode = 16
-        versionName = "1.4.1"
+        versionCode = 17
+        versionName = "1.4.2"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders["admobAppId"] = admobAppId
         buildConfigField("boolean", "ADS_ENABLED", adsEnabled)
@@ -70,6 +70,11 @@ android {
     }
 
     signingConfigs {
+        getByName("debug") {
+            System.getenv("SIDELOAD_KEYSTORE_PATH")?.let {
+                storeFile = file(it); storePassword = "android"; keyAlias = "androiddebugkey"; keyPassword = "android"
+            }
+        }
         // Release signing is injected from the environment; absent => the release build is unsigned (owner signs).
         create("release") {
             val ks = System.getenv("ANDROID_KEYSTORE_PATH")

@@ -71,7 +71,7 @@ Upload `premium.png` as the product artwork. Test via an internal/closed Play tr
 
 ## AdMob and consent
 
-Set up the Android app, rewarded and interstitial units, UMP messages and applicable regional privacy requirements in AdMob. Supply `ADMOB_APP_ID`, `ADMOB_REWARDED_ID`, `ADMOB_INTERSTITIAL_ID`. Release defaults are `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`, as requested by the owner for the Play Store build. The release workflow explicitly uses those values. Debug builds override ads to disabled and force test identifiers. Production configuration rejects missing/sample identifiers.
+Set up the Android app, rewarded and interstitial units, UMP messages and applicable regional privacy requirements in AdMob. Supply `ADMOB_APP_ID`, `ADMOB_REWARDED_ID`, `ADMOB_INTERSTITIAL_ID`. Release defaults are `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`, as requested by the owner for the Play Store build. The release workflow explicitly uses those values. Both debug and release builds inherit the owner live-ad configuration (v1.4.1+). Production configuration rejects missing/sample identifiers.
 
 UMP runs before SDK initialization or loading. A player can reopen required privacy choices from Settings → Privacy & ads. Every ad presentation rechecks the current permission to request ads. A rewarded grant is delivered exactly once by the SDK reward callback, never merely for closing an ad. Rewarded ads are capped at ten per local date. Interstitial policy excludes first session, early levels, chef levels and Premium, and enforces spacing/session caps. No banners are placed.
 
@@ -94,6 +94,6 @@ The app and three units are configured in `admob.properties` and the example con
 - `ADMOB_INTERSTITIAL_ID`: `ca-app-pub-3722169369385142/5699725172`
 - `ADMOB_BANNER_ID`: `ca-app-pub-3722169369385142/8325888516`
 
-Release builds now default to `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`; debug builds keep ads off and use test identifiers. Rewarded/interstitial placements are already implemented; the banner ID is stored for future use, and banners remain disabled. Production unit loading uses the configured IDs when `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`.
+Release builds now default to `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`; debug builds also inherit the live configuration. Rewarded/interstitial placements are already implemented; v1.4.2 adds an adaptive menu-only banner for non-premium players after consent. Production unit loading uses the configured IDs when `ADS_ENABLED=true` and `ADS_USE_TEST_IDS=false`.
 
 CI checks the generated release BuildConfig to confirm live ads are enabled, test mode is off and all unit IDs match `admob.properties`. The release bundle remains unsigned unless owner signing configuration is supplied; complete Play Games and billing configuration separately before those services can be offered.

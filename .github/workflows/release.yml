@@ -11,7 +11,7 @@ on:
       tag:
         description: 'Release tag to create/publish (e.g. v1.0.0)'
         required: true
-        default: 'v1.4.1'
+        default: 'v1.4.2'
       verify:
         description: 'Run the full verification (tests + 150-level validation) before building'
         type: boolean
@@ -32,6 +32,7 @@ jobs:
           echo "REL_TAG=$release_tag" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '21' }
+      - uses: gradle/actions/setup-gradle@v4
       - name: Android SDK packages (runner ships the SDK at $ANDROID_HOME)
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "platform-tools" >/dev/null
       - run: pip install pillow numpy
@@ -97,6 +98,9 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
+          keytool -genkeypair -storetype JKS -keystore "$RUNNER_TEMP/sideload.jks" -storepass android -keypass android \
+            -alias androiddebugkey -dname "CN=Ring Revolution Sideload" -keyalg RSA -keysize 2048 -validity 10000
+          export SIDELOAD_KEYSTORE_PATH="$RUNNER_TEMP/sideload.jks"
           ./gradlew :app:assembleDebug :app:assembleRelease :app:bundleRelease
           python3 tools/validation/check_release_ads.py
           mkdir -p dist
@@ -106,7 +110,7 @@ jobs:
           else
             # The Play bundle remains unsigned; provide an explicitly labelled, installable release APK.
             "$ANDROID_HOME/build-tools/36.0.0/apksigner" sign \
-              --ks "$HOME/.android/debug.keystore" --ks-key-alias androiddebugkey \
+              --ks "$RUNNER_TEMP/sideload.jks" --ks-key-alias androiddebugkey \
               --ks-pass pass:android --key-pass pass:android \
               --out "dist/RingRevolution-${REL_TAG}-release-sideload.apk" \
               app/build/outputs/apk/release/app-release-unsigned.apk
@@ -119,7 +123,7 @@ jobs:
           if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
             echo "Release APK/AAB signed using the configured repository keystore." > dist/SIGNING-STATUS.txt
           else
-            echo "The release-sideload APK and debug APK are installable and signed with the same CI debug key. Both use live AdMob IDs. These APKs are for direct installation, not Play upload. The release AAB is UNSIGNED: sign it with your app upload key before Play Console upload." > dist/SIGNING-STATUS.txt
+            echo "The release-sideload APK and debug APK are installable and signed with the same temporary sideload certificate. Both use live AdMob IDs. These APKs are for direct installation, not Play upload. The release AAB is UNSIGNED: sign it with your app upload key before Play Console upload." > dist/SIGNING-STATUS.txt
           fi
       - name: Publish release
         uses: softprops/action-gh-release@v2

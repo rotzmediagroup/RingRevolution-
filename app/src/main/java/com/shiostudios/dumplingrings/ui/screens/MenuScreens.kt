@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -57,7 +58,7 @@ import com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion
 
 @Composable
 fun WelcomeScreen(container: AppContainer, onDone: () -> Unit) {
-    SceneBackground("menu/keyart.webp", dim = 0.25f) {
+    SceneBackground("art/festival_courtyard.webp", dim = 0.12f) {
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom) {
             WoodPanel(Modifier.widthIn(max = 480.dp)) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -94,8 +95,7 @@ fun MainMenuScreen(container: AppContainer, nav: Nav) {
                 TitleText(stringResource(R.string.app_name), size = 40, color = DR.Cream)
                 Text(stringResource(R.string.menu_tagline), style = MaterialTheme.typography.bodyMedium, color = DR.Cream)
                 Spacer(Modifier.height(10.dp))
-                TurntableImage("3d/rings/ring_jade_bamboo_turn.webp", Modifier.size(130.dp), fps = 8f,
-                    animate = !LocalReduceMotion.current && !container.lowMemory)
+                FestivalMascot(animate = !LocalReduceMotion.current && !container.lowMemory)
             }
             WoodPanel(Modifier.widthIn(max = 480.dp).fillMaxWidth(), padding = androidx.compose.foundation.layout.PaddingValues(16.dp)) {
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -120,6 +120,7 @@ fun MainMenuScreen(container: AppContainer, nav: Nav) {
                 }
             }
             Text(stringResource(R.string.menu_footer), style = MaterialTheme.typography.labelMedium, color = DR.Cream)
+            MenuBanner(container)
         }
     }
 }
@@ -263,3 +264,18 @@ fun dailyStreak(save: com.shiostudios.dumplingrings.core.systems.SaveData): Int 
     return streak
 }
 
+
+/** A cheerful host with a slow squash-and-bounce; static when Reduce Motion is enabled. */
+@Composable
+private fun FestivalMascot(animate: Boolean) {
+    if (!animate) {
+        Sprite("sheet12/dumpling_cheer_f01", Modifier.size(116.dp))
+        return
+    }
+    val transition = rememberInfiniteTransition(label = "festival host")
+    val bounce by transition.animateFloat(0f, 10f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "bounce")
+    val squash by transition.animateFloat(.96f, 1.04f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "squash")
+    Sprite("sheet12/dumpling_cheer_f01", Modifier.size(116.dp).then(Modifier.graphicsLayer {
+        translationY = -bounce.dp.toPx(); scaleX = 2f - squash; scaleY = squash; rotationZ = (squash - 1f) * 40f
+    }))
+}

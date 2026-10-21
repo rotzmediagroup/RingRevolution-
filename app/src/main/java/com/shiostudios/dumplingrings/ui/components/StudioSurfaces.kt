@@ -29,8 +29,8 @@ import kotlin.math.sin
 @Composable
 fun StudioBackdrop(dark: Boolean = false, content: @Composable BoxScope.() -> Unit) {
     Box(Modifier.fillMaxSize().background(Brush.verticalGradient(if (dark)
-        listOf(Color(0xFF102B32), Color(0xFF173B43), DR.IndigoDeep)
-        else listOf(Color(0xFFFFFBF4), DR.Cream, Color(0xFFF0E5D6))))) {
+        listOf(Color(0xFF75432F), Color(0xFF8B4D40), Color(0xFF4B2738))
+        else listOf(Color(0xFFFFE8B8), Color(0xFFFFF2DD), Color(0xFFFFD1C8))))) {
         Canvas(Modifier.fillMaxSize()) {
             val ink = if (dark) DR.Gold.copy(alpha = .09f) else DR.Wood.copy(alpha = .07f)
             val center = Offset(size.width * 1.02f, size.height * .20f)
@@ -72,12 +72,12 @@ fun LayeredMenuScene(content: @Composable BoxScope.() -> Unit) {
         while (true) withFrameNanos { time = (it - start) / 1_000_000_000f }
     }
     Box(Modifier.fillMaxSize().background(DR.IndigoDeep)) {
-        AssetImage("menu/keyart.webp", Modifier.fillMaxSize().graphicsLayer {
+        AssetImage("art/festival_courtyard.webp", Modifier.fillMaxSize().graphicsLayer {
             scaleX = 1.07f; scaleY = 1.07f
             translationX = if (reduce) 0f else sin(time * .18f) * 8.dp.toPx()
             translationY = if (reduce) 0f else sin(time * .13f) * 5.dp.toPx()
         }, ContentScale.Crop, downsample = true)
-        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0xA6102B32), Color(0x18102B32), Color(0xED102B32)))))
+        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(Color(0x665B281C), Color(0x085B281C), Color(0xC45B281C)))))
         Canvas(Modifier.fillMaxSize()) {
             repeat(22) { i ->
                 val x = ((i * .137f + time * (.004f + i % 3 * .002f)) % 1.15f) * size.width

@@ -4,7 +4,7 @@
 - [ ] **Signing**: create an upload keystore; export `ANDROID_KEYSTORE_PATH`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`; run `scripts/build_android.sh`.
 - [ ] **Play Console**: app listing, content rating questionnaire (puzzle, no violence; decide age rating), Data Safety form (see docs/PRIVACY.md), privacy policy URL.
 - [ ] **In-app product** `dumpling_rings_premium` (one-time) with localised prices; then `IAP_ENABLED=true`.
-- [ ] **AdMob** app + units, `app-ads.txt`; then `ADMOB_*` ids, `ADS_USE_TEST_IDS=false`, `ADS_ENABLED=true` — only after the explicit release decision; keep banners off.
+- [ ] **AdMob** app + units, `app-ads.txt`; then `ADMOB_*` ids, `ADS_USE_TEST_IDS=false`, `ADS_ENABLED=true` — only after the explicit release decision; verify the menu-only banner and premium suppression.
 - [ ] **Audio rights**: confirm the sunoapi.org / Suno plan grants commercial use for the 10 generated tracks (docs/AUDIO_REPORT.md).
 - [ ] **Device smoke test** on real phones/tablets (no emulator was available in the build environment): see the matrix in docs/TEST_REPORT.md.
 - [ ] Store screenshots and promo art (sources in `assets/generated/`).
@@ -30,3 +30,4 @@
 
 ## iOS (later)
 Follow `scripts/build_ios.sh` and docs/ADR-001-engine.md: KMP conversion of `core`, SwiftUI shell, StoreKit 2 + AdMob iOS + ATT.
+

@@ -341,6 +341,7 @@ private fun PauseOverlay(container: AppContainer, onResume: () -> Unit, onRestar
 @Composable
 fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, level: LevelDefinition, moves: Int, rw: LevelReward, chapterDone: Boolean, onNext: () -> Unit, onReplay: () -> Unit, onMap: () -> Unit) {
     val reduce = LocalReduceMotion.current
+    val rewardedOffered = container.consent.state.collectAsState().value.let { container.ads2.rewardedOffered }
     var shownStars by remember { mutableStateOf(0) }
     var doubled by remember { mutableStateOf(false) }
     var adMsg by remember { mutableStateOf<String?>(null) }
@@ -351,7 +352,8 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
     }
     val scale by animateFloatAsState(if (shownStars > 0 || reduce) 1f else 0.9f, tween(300), label = "pop")
     val reaction = remember(level.id) { listOf("sheet02/bao_cheer", "sheet05/bao_steamer_cheer", "sheet08/golden_dumpling_cheer", "sheet05/dango_cheer", "sheet02/tea_cup_cheer")[level.index % 5] }
-    Overlay(null) {
+    Box(Modifier.fillMaxSize()) {
+        Overlay(null) {
         Column(Modifier.scale(scale), horizontalAlignment = Alignment.CenterHorizontally) {
             TitleText(stringResource(if (level.isChefLevel) R.string.chef_complete else R.string.level_complete), size = 26)
             Spacer(Modifier.height(6.dp))
@@ -372,7 +374,7 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
             Spacer(Modifier.height(12.dp))
             WoodButton(stringResource(R.string.next_level), onNext, Modifier.fillMaxWidth(), color = DR.SakuraDeep, minHeight = 56.dp)
             Spacer(Modifier.height(8.dp))
-            if (container.ads2.rewardedOffered && !doubled && rw.coins > 0) {
+            if (rewardedOffered && !doubled && rw.coins > 0) {
                 WoodButton(stringResource(R.string.double_reward_ad), {
                     container.ads2.showRewarded(activity, grant = { id -> container.save.update { BoosterLedger.grantCoins(it, rw.coins, id).save } }) { r ->
                         if (r is RewardResult.Earned) { doubled = true; container.audio.sfx("coin_chime") } else if (r is RewardResult.Failed) adMsg = adUnavailable
@@ -386,6 +388,8 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
                 WoodButton(stringResource(R.string.quit_to_map), onMap, Modifier.weight(1f), color = DR.WoodDark)
             }
         }
+    }
+    com.shiostudios.dumplingrings.ui.fx.CelebrationConfetti(reduce, container.save.current.settings.effectQuality)
     }
 }
 

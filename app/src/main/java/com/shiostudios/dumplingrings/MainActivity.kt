@@ -1,6 +1,11 @@
 package com.shiostudios.dumplingrings
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.Lifecycle
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -64,6 +69,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val container = DumplingRingsApp.of(this)
+        if (container.consent.canRequestAds) { container.ads.initialize(applicationContext); container.ads.preload(applicationContext) }
         container.games.attach(this)
         container.purchases.connect { container.purchases.restore { } }
     }
@@ -78,6 +84,17 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val container = DumplingRingsApp.of(this)
         container.ads2.initIfAllowed(this)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                while (true) {
+                    if (container.consent.canRequestAds) {
+                        container.ads.initialize(applicationContext)
+                        container.ads.preload(applicationContext)
+                    }
+                    delay(30_000)
+                }
+            }
+        }
         setContent { AppRoot(container, this) }
     }
 }
@@ -100,14 +117,14 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
     // music per screen
     LaunchedEffect(nav.current) {
         val s = nav.current
-        val (music, amb) = when (s) {
-            is Screen.Play -> { val w = container.content.worldOf(s.level); val lv = container.content.level(s.level); (if (lv.isChefLevel) w.finaleMusic else w.music) to w.ambience }
-            is Screen.WorldMap -> container.content.world(s.world).let { it.music to it.ambience }
-            is Screen.Chapter -> container.content.world((s.chapter - 1) / 5 + 1).let { it.music to it.ambience }
-            is Screen.Daily -> container.content.world(1).let { it.music to it.ambience }
-            else -> "menu_theme" to null
+        val amb = when (s) {
+            is Screen.Play -> container.content.worldOf(s.level).ambience
+            is Screen.WorldMap -> container.content.world(s.world).ambience
+            is Screen.Chapter -> container.content.world((s.chapter - 1) / 5 + 1).ambience
+            is Screen.Daily -> container.content.world(1).ambience
+            else -> null
         }
-        container.audio.playMusic(music); container.audio.playAmbience(amb)
+        container.audio.playMusic("festival_pop"); container.audio.playAmbience(amb)
     }
     var backRequested by remember { mutableStateOf(0) }
     BackHandler(enabled = nav.stack.size > 1 || nav.current is Screen.Play) { backRequested++ }

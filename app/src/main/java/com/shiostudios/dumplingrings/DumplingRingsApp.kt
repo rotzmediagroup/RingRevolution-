@@ -39,7 +39,7 @@ class AppContainer(val context: Context) {
     val audio = GameAudio(context).also { it.settings = save.current.settings }
     val haptics = Haptics(context).also { it.enabled = save.current.settings.haptics }
 
-    val adsConfig = AdsConfig(enabled = BuildConfig.ADS_ENABLED, bannerEnabled = false, interstitialEnabled = BuildConfig.ADS_ENABLED, rewardedEnabled = BuildConfig.ADS_ENABLED)
+    val adsConfig = AdsConfig(enabled = BuildConfig.ADS_ENABLED, bannerEnabled = BuildConfig.ADS_ENABLED, interstitialEnabled = BuildConfig.ADS_ENABLED, rewardedEnabled = BuildConfig.ADS_ENABLED)
     val consent: ConsentProvider = if (BuildConfig.ADS_ENABLED) UmpConsentProvider(context) else NoConsentProvider()
     val ads: AdsProvider = if (BuildConfig.ADS_ENABLED) AdMobAdsProvider() else NoAdsProvider()
     val purchases: PurchaseProvider = if (BuildConfig.IAP_ENABLED) PlayBillingProvider(context, save.current.premium) { premium ->
