@@ -105,6 +105,15 @@ class ScreenshotTest {
         show("11_level_070_landscape") { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.size(1100.dp, 700.dp)) { GameBody(c, rule.activity, controller, "Level 70", 2, false, onPause = {}) {} } }
     }
 
+    @Test
+    @Config(sdk = [33], qualifiers = "ar-rSA-w320dp-h760dp-xxhdpi", application = DumplingRingsApp::class)
+    fun arabicNarrowScreens() {
+        val c = container(); host()
+        show("30_ar_menu") { MainMenuScreen(c, Nav(Screen.Menu)) }
+        show("31_ar_shop") { ShopScreen(c, Nav(Screen.Shop), rule.activity) }
+        show("32_ar_games") { GamesScreen(c, Nav(Screen.Games), rule.activity) }
+    }
+
     @Test fun metaScreens() {
         val c = container(); host()
         show("20_collection") { CollectionScreen(c, Nav(Screen.Collection)) }

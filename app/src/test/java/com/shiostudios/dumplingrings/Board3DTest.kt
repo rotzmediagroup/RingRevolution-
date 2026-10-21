@@ -19,6 +19,7 @@ import kotlin.math.cos
 import kotlin.math.exp
 import kotlin.math.sin
 
+@org.robolectric.annotation.Config(sdk = [33])
 @RunWith(AndroidJUnit4::class)
 class Board3DTest {
     @Test fun cameraProjectUnprojectRoundTrip() {
@@ -131,3 +132,4 @@ class Board3DTest {
         assertTrue("open cut outline", counts.values.all { it % 2 == 0 })
     }
 }
+

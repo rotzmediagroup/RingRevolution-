@@ -17,6 +17,8 @@ class PlayGamesService(private val save: SaveStore) {
     val configured get() = BuildConfig.PGS_ENABLED && BuildConfig.PGS_APP_ID.isNotBlank()
     private val ids by lazy { JSONObject(BuildConfig.PGS_IDS) }
     private val sent = mutableSetOf<String>()
+    private val inFlight = mutableSetOf<String>()
+    private val scores = mutableMapOf<String, Long>()
     private var playerId: String? = null
     private var syncing = false
     private var activity: Activity? = null
@@ -32,7 +34,7 @@ class PlayGamesService(private val save: SaveStore) {
             status.value = Status(result.isAuthenticated)
             if (result.isAuthenticated) {
                 PlayGames.getPlayersClient(activity).currentPlayer.addOnSuccessListener { player ->
-                    if (playerId != player.playerId) { sent.clear(); playerId = player.playerId }
+                    if (playerId != player.playerId) { sent.clear(); inFlight.clear(); scores.clear(); playerId = player.playerId }
                     sync(save.current)
                 }.addOnFailureListener { status.value = status.value.copy(failed = true) }
             } else { sent.clear(); playerId = null }
@@ -47,18 +49,23 @@ class PlayGamesService(private val save: SaveStore) {
         if (!configured || !status.value.signedIn || playerId == null || syncing) return
         syncing = true
         val client = PlayGames.getAchievementsClient(activity)
-        data.achievements.filterNot { it in sent }.forEach { key ->
+        data.achievements.filterNot { it in sent || it in inFlight }.forEach { key ->
             id("achievement_$key")?.let { remote ->
-                client.unlockImmediate(remote).addOnSuccessListener { sent.add(key) }
-                    .addOnFailureListener { status.value = status.value.copy(failed = true) }
+                inFlight.add(key)
+                client.unlockImmediate(remote).addOnSuccessListener { sent.add(key); inFlight.remove(key) }
+                    .addOnFailureListener { inFlight.remove(key); status.value = status.value.copy(failed = true) }
             }
         }
         val boards = PlayGames.getLeaderboardsClient(activity)
         // Play Console: both boards use LARGER_IS_BETTER; no currency or paid advantage is ranked.
-        id("leaderboard_stars")?.let { boards.submitScoreImmediate(it, data.totalStars.toLong())
-            .addOnFailureListener { status.value = status.value.copy(failed = true) } }
-        id("leaderboard_campaign")?.let { boards.submitScoreImmediate(it, data.levels.count { p -> p.value.completed }.toLong())
-            .addOnFailureListener { status.value = status.value.copy(failed = true) } }
+        fun submit(key: String, value: Long) {
+            val remote = id(key) ?: return
+            if (scores[key] == value) return
+            boards.submitScoreImmediate(remote, value).addOnSuccessListener { scores[key] = value }
+                .addOnFailureListener { status.value = status.value.copy(failed = true) }
+        }
+        submit("leaderboard_stars", data.totalStars.toLong())
+        submit("leaderboard_campaign", data.levels.count { p -> p.value.completed }.toLong())
         syncing = false
     }
 

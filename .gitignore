@@ -16,3 +16,6 @@ secrets.properties
 tools/**/.env
 # scratch
 /tmp/
+*.jks
+*.keystore
+

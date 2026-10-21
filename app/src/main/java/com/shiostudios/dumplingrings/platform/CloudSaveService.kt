@@ -10,13 +10,13 @@ import com.shiostudios.dumplingrings.core.systems.SaveMigrations
 import com.shiostudios.dumplingrings.save.SaveStore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.serialization.Serializable
+import com.shiostudios.dumplingrings.core.systems.CloudArchive
+import com.shiostudios.dumplingrings.core.systems.CloudSaves
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /** Manual, explicit backup/restore. Never merges spendable balances or trusts a cloud purchase entitlement. */
 class CloudSaveService(private val save: SaveStore, private val games: PlayGamesService) {
-    @Serializable data class Archive(val version: Int = 1, val savedAt: Long, val save: SaveData)
     data class Choice(val local: SaveData, val remote: SaveData, val savedAt: Long, val conflict: Boolean, val upload: Boolean = false)
     data class Status(val busy: Boolean = false, val message: Result? = null, val choice: Choice? = null)
     enum class Result { SAVED, RESTORED, FAILED, NEED_SIGN_IN }
@@ -56,13 +56,11 @@ class CloudSaveService(private val save: SaveStore, private val games: PlayGames
             }.addOnFailureListener { fail() }
     }
 
-    private fun decode(snapshot: Snapshot): Archive {
+    private fun decode(snapshot: Snapshot): CloudArchive {
         val bytes = snapshot.snapshotContents.readFully()
         require(bytes.size <= 512_000)
-        val archive = json.decodeFromString<Archive>(bytes.toString(Charsets.UTF_8))
-        require(archive.version == 1 && archive.save.schemaVersion <= SaveMigrations.CURRENT)
-        require(archive.save.levels.all { (key, p) -> key.matches(Regex("L[0-9]{3}")) && key.drop(1).toInt() in 1..150 && p.stars in 0..3 && p.bestMoves >= 0 })
-        require(archive.save.coins >= 0 && archive.save.inventory.values.all { it >= 0 })
+        val archive = json.decodeFromString<CloudArchive>(bytes.toString(Charsets.UTF_8))
+        CloudSaves.validate(archive)
         return archive
     }
 
@@ -97,14 +95,7 @@ class CloudSaveService(private val save: SaveStore, private val games: PlayGames
             if (!remote) commit(save.current) else cancel()
         } else if (remote) {
             val current = save.current
-            val restored = choice.remote.copy(
-                settings = current.settings, premium = current.premium, premiumVerifiedAt = current.premiumVerifiedAt,
-                consentStatus = current.consentStatus, sessionCount = current.sessionCount,
-                lastInterstitialAt = current.lastInterstitialAt, interstitialsThisSession = current.interstitialsThisSession,
-                rewardedDay = current.rewardedDay, rewardedCount = current.rewardedCount,
-                unlockedCosmetics = choice.remote.unlockedCosmetics.filterNot { it == "theme_premium_ube" } +
-                    current.unlockedCosmetics.filter { it == "theme_premium_ube" },
-            )
+            val restored = CloudSaves.restore(current, choice.remote)
             save.update { restored }
             close(); mutable.value = Status(message = Result.RESTORED)
             games.sync(save.current)
@@ -114,8 +105,8 @@ class CloudSaveService(private val save: SaveStore, private val games: PlayGames
     private fun commit(data: SaveData) {
         val snapshot = opened ?: return fail()
         try {
-            val cloud = data.copy(premium = false, premiumVerifiedAt = 0, consentStatus = "unknown")
-            check(snapshot.snapshotContents.writeBytes(json.encodeToString(Archive(savedAt = System.currentTimeMillis(), save = cloud)).toByteArray()))
+            val cloud = CloudSaves.forBackup(data)
+            check(snapshot.snapshotContents.writeBytes(json.encodeToString(CloudArchive(savedAt = System.currentTimeMillis(), save = cloud)).toByteArray()))
             val change = SnapshotMetadataChange.Builder().setDescription("${data.totalStars} stars · ${data.levels.count { it.value.completed }} / 150").build()
             client?.commitAndClose(snapshot, change)?.addOnSuccessListener {
                 opened = null; mutable.value = Status(message = Result.SAVED)

@@ -25,6 +25,11 @@ jobs:
         run: '"$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"'
       - run: python3 tools/localization/validate.py
       - run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
+      - name: Visual review contact sheet
+        if: always()
+        run: |
+          pip install pillow
+          python3 tools/validation/visual_report.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -90,7 +90,7 @@ fun WorldMapScreen(container: AppContainer, nav: Nav, world: Int) {
                 Row(Modifier.fillMaxWidth().padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
                     RoundIconButton(contentDescription = stringResource(R.string.back), onClick = { nav.pop() }, sfx = "button_back") { Glyph("back", Modifier.size(26.dp)) }
                     Spacer(Modifier.width(8.dp))
-                    Column(Modifier.weight(1f)) {
+                    Column(Modifier.weight(1f).clip(RoundedCornerShape(18.dp)).background(DR.IndigoDeep.copy(alpha = .75f)).padding(10.dp)) {
                         TitleText(stringResource(worldNameRes(world)), size = 24, color = DR.Cream)
                         Text("★ ${save.starsInWorld(world)} / 150", style = MaterialTheme.typography.labelLarge, color = DR.Gold)
                     }
@@ -114,7 +114,7 @@ fun WorldMapScreen(container: AppContainer, nav: Nav, world: Int) {
                         val unlocked = ch.number == 1 || save.chapterComplete(ch.number - 1)
                         val done = save.chapterComplete(ch.number)
                         val stars = (ch.levels[0]..ch.levels[1]).sumOf { save.levels[LevelCodec.levelId(it)]?.stars ?: 0 }
-                        ChapterCard(container, ch, unlocked, done, stars, Modifier.widthIn(max = 560.dp).fillMaxWidth().offset(x = if (landscape) 0.dp else (if (idx % 2 == 0) (-24).dp else 24.dp))) {
+                        ChapterCard(container, ch, unlocked, done, stars, Modifier.widthIn(max = 560.dp).fillMaxWidth()) {
                             if (unlocked) nav.push(Screen.Chapter(ch.number))
                         }
                     }
@@ -145,7 +145,7 @@ private fun ChapterCard(container: AppContainer, ch: ChapterDef, unlocked: Boole
             else Row(verticalAlignment = Alignment.CenterVertically) { Glyph("star", Modifier.size(18.dp), DR.StarOn); Spacer(Modifier.width(4.dp)); Text("$stars / 30", style = MaterialTheme.typography.labelLarge, color = DR.WoodDeep) }
         }
         if (done) Sprite("sheet14/check_mark_f04", Modifier.size(36.dp))
-        CharSprite(ch.rewardCharacter, "idle", Modifier.size(64.dp), alpha = if (done) 1f else 0.35f)
+        CharSprite(ch.rewardCharacter, "idle", Modifier.size(42.dp), alpha = if (done) 1f else 0.35f)
     }
 }
 
@@ -167,8 +167,9 @@ fun ChapterScreen(container: AppContainer, nav: Nav, chapter: Int) {
                     val unlocked = save.isUnlocked(idx)
                     val node = when { !unlocked -> "sheet15/node_locked"; p?.completed != true -> "sheet15/node_unlocked"; else -> "sheet15/node_star${p.stars.coerceIn(1, 3)}" }
                     val chef = idx % 10 == 0
-                    Column(Modifier.clip(RoundedCornerShape(16.dp)).clickable(enabled = unlocked) { container.audio.sfx("button_tap"); nav.push(Screen.Play(idx)) }.padding(4.dp)
-                        .semantics { contentDescription = "Level $idx" + (if (!unlocked) ", locked" else "") }, horizontalAlignment = Alignment.CenterHorizontally) {
+                    val nodeDescription = stringResource(R.string.level_n, idx) + if (!unlocked) ", " + stringResource(R.string.locked) else ""
+                    Column(Modifier.clip(RoundedCornerShape(16.dp)).background(DR.IndigoDeep.copy(alpha = .35f)).clickable(enabled = unlocked) { container.audio.sfx("button_tap"); nav.push(Screen.Play(idx)) }.padding(4.dp)
+                        .semantics { contentDescription = nodeDescription }, horizontalAlignment = Alignment.CenterHorizontally) {
                         Box(contentAlignment = Alignment.Center) {
                             Sprite(node, Modifier.size(if (chef) 92.dp else 80.dp))
                             if (chef && unlocked) Sprite("sheet15/star_badge_gold_small", Modifier.size(28.dp).align(Alignment.TopEnd))
@@ -241,3 +242,4 @@ fun cosmeticNameRes(container: AppContainer, id: String): Int {
     val res = ctx.resources.getIdentifier(key, "string", ctx.packageName)
     return if (res != 0) res else R.string.collection
 }
+

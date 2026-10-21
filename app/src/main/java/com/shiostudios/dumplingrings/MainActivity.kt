@@ -63,7 +63,9 @@ class Nav(start: Screen) {
 class MainActivity : androidx.appcompat.app.AppCompatActivity() {
     override fun onResume() {
         super.onResume()
-        DumplingRingsApp.of(this).games.attach(this)
+        val container = DumplingRingsApp.of(this)
+        container.games.attach(this)
+        container.purchases.connect { container.purchases.restore { } }
     }
     override fun onDestroy() {
         DumplingRingsApp.of(this).games.detach(this)
@@ -76,7 +78,6 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val container = DumplingRingsApp.of(this)
         container.ads2.initIfAllowed(this)
-        container.purchases.connect { container.purchases.restore { } }
         setContent { AppRoot(container, this) }
     }
 }

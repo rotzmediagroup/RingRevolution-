@@ -43,7 +43,9 @@ class AppContainer(val context: Context) {
     val consent: ConsentProvider = if (BuildConfig.ADS_ENABLED) UmpConsentProvider(context) else NoConsentProvider()
     val ads: AdsProvider = if (BuildConfig.ADS_ENABLED) AdMobAdsProvider() else NoAdsProvider()
     val purchases: PurchaseProvider = if (BuildConfig.IAP_ENABLED) PlayBillingProvider(context, save.current.premium) { premium ->
-        save.update { it.copy(premium = premium, premiumVerifiedAt = System.currentTimeMillis()) }
+        save.update { it.copy(premium = premium, premiumVerifiedAt = System.currentTimeMillis(),
+            selectedTheme = if (!premium && it.selectedTheme == "theme_premium_ube") "default" else it.selectedTheme,
+            unlockedCosmetics = if (premium) (it.unlockedCosmetics + "theme_premium_ube").distinct() else it.unlockedCosmetics.filterNot { id -> id == "theme_premium_ube" }) }
     } else NoPurchaseProvider(save.current.premium)
 
     val games = com.shiostudios.dumplingrings.platform.PlayGamesService(save)

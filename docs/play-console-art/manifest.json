@@ -1,0 +1,125 @@
+{
+  "generator": "image_gen",
+  "seed": null,
+  "source_size": [
+    1448,
+    1086
+  ],
+  "grid": [
+    4,
+    3
+  ],
+  "runtime": "app/src/main/assets/art/medals.webp",
+  "entries": [
+    {
+      "key": "first_clear",
+      "cell": 0,
+      "upload_file": "first_clear.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "first_chapter",
+      "cell": 1,
+      "upload_file": "first_chapter.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "blossom_master",
+      "cell": 2,
+      "upload_file": "blossom_master.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "lantern_master",
+      "cell": 3,
+      "upload_file": "lantern_master.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "mountain_master",
+      "cell": 4,
+      "upload_file": "mountain_master.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "star_garden",
+      "cell": 5,
+      "upload_file": "star_garden.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "perfect_constellation",
+      "cell": 6,
+      "upload_file": "perfect_constellation.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "triple_release",
+      "cell": 7,
+      "upload_file": "triple_release.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "daily_ritual",
+      "cell": 8,
+      "upload_file": "daily_ritual.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "thousand_rings",
+      "cell": 9,
+      "upload_file": "thousand_rings.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "premium",
+      "cell": 10,
+      "upload_file": "premium.png",
+      "size": [
+        512,
+        512
+      ]
+    },
+    {
+      "key": "cloud_save",
+      "cell": 11,
+      "upload_file": "cloud_save.png",
+      "size": [
+        512,
+        512
+      ]
+    }
+  ],
+  "direction": "Bespoke cozy hand-painted teahouse medals. Gold, porcelain, jade and sakura. Distinct scenes for every milestone; no stock trophies. Premium is an onyx ring and cloud dragon. Cloud save is a jade teapot in clouds.",
+  "note": "Console PNGs are individual atlas cells resized for the required upload dimensions. Original artwork is 362px per cell; no missing-detail claims are made."
+}

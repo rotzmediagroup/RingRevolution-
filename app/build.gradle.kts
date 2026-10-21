@@ -14,14 +14,14 @@ val secrets = Properties().apply {
     if (f.exists()) f.inputStream().use { load(it) }
 }
 fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
+val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
 val admobAppId = cfg("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")          // Google sample app id
-val adUnitRewarded = cfg("ADMOB_REWARDED_ID", "ca-app-pub-3940256099942544/5224354917")   // official test unit
-val adUnitInterstitial = cfg("ADMOB_INTERSTITIAL_ID", "ca-app-pub-3940256099942544/1033173712")
-val adUnitBanner = cfg("ADMOB_BANNER_ID", "ca-app-pub-3940256099942544/6300978111")
+val adUnitRewarded = if (useTestAds == "true") "ca-app-pub-3940256099942544/5224354917" else cfg("ADMOB_REWARDED_ID", "")   // official test unit
+val adUnitInterstitial = if (useTestAds == "true") "ca-app-pub-3940256099942544/1033173712" else cfg("ADMOB_INTERSTITIAL_ID", "")
+val adUnitBanner = if (useTestAds == "true") "ca-app-pub-3940256099942544/6300978111" else cfg("ADMOB_BANNER_ID", "")
 val adsEnabled = cfg("ADS_ENABLED", "false")
 val iapEnabled = cfg("IAP_ENABLED", "false")
 val premiumSku = cfg("PREMIUM_PRODUCT_ID", "dumpling_rings_premium")
-val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
 val pgsEnabled = cfg("PGS_ENABLED", "false")
 val pgsAppId = cfg("PGS_APP_ID", "")
 val billingKey = cfg("PLAY_BILLING_PUBLIC_KEY", "")
@@ -30,11 +30,13 @@ val gameKeys = listOf("achievement_first_clear", "achievement_first_chapter", "a
     "achievement_perfect_constellation", "achievement_triple_release", "achievement_daily_ritual",
     "achievement_thousand_rings", "leaderboard_stars", "leaderboard_campaign")
 fun literal(value: String) = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r") + "\""
+require(listOf(adsEnabled, iapEnabled, useTestAds, pgsEnabled).all { it == "true" || it == "false" }) { "Service flags must be true or false" }
+require(pgsEnabled != "true" || gameKeys.all { cfg("PGS_" + it.uppercase(), "").isNotBlank() }) { "Configure all PGS achievement and leaderboard IDs before enabling PGS" }
 val gameIds = gameKeys.joinToString(prefix = "{", postfix = "}") { literal(it) + ":" + literal(cfg("PGS_" + it.uppercase(), "")) }
 require(pgsEnabled != "true" || pgsAppId.matches(Regex("[0-9]+"))) { "PGS_APP_ID must be the numeric Play Games project ID" }
 require(iapEnabled != "true" || billingKey.isNotBlank()) { "Set PLAY_BILLING_PUBLIC_KEY before enabling purchases" }
 if (adsEnabled == "true" && useTestAds != "true") {
-    require(listOf(admobAppId, adUnitRewarded, adUnitInterstitial).none { it.contains("3940256099942544") }) { "Production ads require your own app and unit IDs" }
+    require(listOf(admobAppId, adUnitRewarded, adUnitInterstitial).none { it.isBlank() || it.contains("3940256099942544") }) { "Production ads require your own app and unit IDs" }
 }
 
 android {

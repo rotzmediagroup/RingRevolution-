@@ -10,6 +10,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -218,6 +222,7 @@ private fun StatusLine(controller: GameController, explain: String?, stuck: Bool
     }
 }
 
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun Controls(container: AppContainer, activity: ComponentActivity, controller: GameController, rotateButtons: Boolean, modifier: Modifier, vertical: Boolean = false, onExplain: (String?) -> Unit) {
     val save by container.save.state.collectAsState()
@@ -246,8 +251,8 @@ private fun Controls(container: AppContainer, activity: ComponentActivity, contr
                 RoundIconButton(contentDescription = stringResource(R.string.cd_rotate_right), onClick = { controller.rotateSelected(true) }, size = 64.dp, color = DR.Bamboo) { Glyph("right", Modifier.size(30.dp)) }
             }
         }
-        if (vertical) Column(verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) { Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) { content() } }
-        else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) { content() }
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.spacedBy(10.dp), maxItemsInEachRow = if (vertical) 3 else 6) { content() }
     }
 }
 
@@ -307,7 +312,9 @@ fun BoosterOfferDialog(container: AppContainer, activity: ComponentActivity, b: 
 fun Overlay(onDismiss: (() -> Unit)?, content: @Composable () -> Unit) {
     val src1 = remember { MutableInteractionSource() }; val src2 = remember { MutableInteractionSource() }
     Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)).let { m -> if (onDismiss != null) m.clickable(src1, null) { onDismiss() } else m }, contentAlignment = Alignment.Center) {
-        Box(Modifier.padding(20.dp).widthIn(max = 460.dp).clickable(src2, null) {}) {
+        Box(Modifier.padding(20.dp).widthIn(max = 460.dp)
+            .heightIn(max = (androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp - 60).coerceAtLeast(160).dp)
+            .verticalScroll(rememberScrollState()).clickable(src2, null) {}) {
             WoodPanel(content = { content() })
         }
     }

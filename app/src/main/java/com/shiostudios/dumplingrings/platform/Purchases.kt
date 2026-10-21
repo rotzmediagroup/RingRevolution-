@@ -66,16 +66,26 @@ class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val 
         .setListener { result, purchases -> onPurchasesUpdated(result, purchases) }
         .build()
     private var connected = false
+    private var connecting = false
+    private val readyCallbacks = mutableListOf<() -> Unit>()
 
     override fun connect(onReady: () -> Unit) {
-        if (connected) return onReady()
+        if (client.isReady) {
+            connected = true
+            if (product == null) queryProduct()
+            return onReady()
+        }
+        readyCallbacks.add(onReady)
+        if (connecting) return
+        connecting = true
         client.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(result: BillingResult) {
+                connecting = false
                 connected = result.responseCode == BillingClient.BillingResponseCode.OK
-                if (connected) { queryProduct(); restore { }; }
-                onReady()
+                if (connected) queryProduct()
+                val callbacks = readyCallbacks.toList(); readyCallbacks.clear(); callbacks.forEach { it() }
             }
-            override fun onBillingServiceDisconnected() { connected = false }
+            override fun onBillingServiceDisconnected() { connected = false; connecting = false }
         })
     }
 
