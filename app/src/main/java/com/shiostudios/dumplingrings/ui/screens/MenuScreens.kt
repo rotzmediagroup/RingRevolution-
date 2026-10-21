@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -57,7 +58,7 @@ import com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion
 
 @Composable
 fun WelcomeScreen(container: AppContainer, onDone: () -> Unit) {
-    SceneBackground("menu/keyart.webp", dim = 0.25f) {
+    SceneBackground("art/festival_courtyard.webp", dim = 0.12f) {
         Column(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Bottom) {
             WoodPanel(Modifier.widthIn(max = 480.dp)) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -79,41 +80,47 @@ fun WelcomeScreen(container: AppContainer, onDone: () -> Unit) {
 @Composable
 fun MainMenuScreen(container: AppContainer, nav: Nav) {
     val save by container.save.state.collectAsState()
-    val reduce = LocalReduceMotion.current
-    val inf = rememberInfiniteTransition(label = "menu")
-    val bob by inf.animateFloat(0f, 1f, infiniteRepeatable(tween(2200), RepeatMode.Reverse), label = "bob")
     val next = (save.highestCompleted + 1).coerceAtMost(150)
     val hasProgress = save.highestCompleted > 0 || save.inProgress != null
-    BoxWithConstraints(Modifier.fillMaxSize()) {
-        val landscape = maxWidth > maxHeight
-        SceneBackground("menu/keyart.webp") {
-            Box(Modifier.fillMaxSize().background(Brush.verticalGradient(0f to Color.Transparent, 0.55f to Color.Transparent, 1f to DR.WoodDeep.copy(alpha = 0.75f))))
-            Column(Modifier.fillMaxSize().safeDrawingPadding().padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    CoinPill(save.coins)
-                    Spacer(Modifier.weight(1f))
-                    RoundIconButton(contentDescription = stringResource(R.string.settings), onClick = { nav.push(Screen.Settings) }) { Glyph("gear", Modifier.size(26.dp)) }
-                }
-                Spacer(Modifier.height(if (landscape) 4.dp else 24.dp))
-                Box(Modifier.scale(if (reduce) 1f else 1f + bob * 0.02f)) { TitleText("Ring Revolution", size = if (landscape) 36 else 44, color = DR.Cream) }
-                Text("Shio Studios", style = MaterialTheme.typography.labelLarge, color = DR.Cream.copy(alpha = 0.85f))
+    LayeredMenuScene {
+        Column(Modifier.fillMaxSize().safeDrawingPadding().verticalScroll(rememberScrollState()).padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                CoinPill(save.coins)
                 Spacer(Modifier.weight(1f))
-                Column(Modifier.widthIn(max = 420.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                RoundIconButton(contentDescription = stringResource(R.string.settings), onClick = { nav.push(Screen.Settings) }, color = DR.Indigo) { Glyph("gear", Modifier.size(24.dp)) }
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("SHIO STUDIOS", style = MaterialTheme.typography.labelMedium, color = DR.Gold)
+                TitleText(stringResource(R.string.app_name), size = 40, color = DR.Cream)
+                Text(stringResource(R.string.menu_tagline), style = MaterialTheme.typography.bodyMedium, color = DR.Cream)
+                Spacer(Modifier.height(10.dp))
+                FestivalMascot(animate = !LocalReduceMotion.current && !container.lowMemory)
+            }
+            WoodPanel(Modifier.widthIn(max = 480.dp).fillMaxWidth(), padding = androidx.compose.foundation.layout.PaddingValues(16.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(stringResource(R.string.menu_journey), style = MaterialTheme.typography.titleMedium, color = DR.Ink)
+                        Text(stringResource(R.string.achievement_progress, save.totalStars, 450), style = MaterialTheme.typography.labelMedium, color = DR.InkSoft)
+                    }
+                    androidx.compose.material3.LinearProgressIndicator(progress = { save.totalStars / 450f }, modifier = Modifier.fillMaxWidth(), color = DR.Bamboo, trackColor = DR.CreamDark)
                     WoodButton(if (hasProgress) stringResource(R.string.continue_) + "  ·  " + stringResource(R.string.level_n, next) else stringResource(R.string.play),
-                        { nav.push(Screen.WorldMap(LevelCodec.worldNumber(next))); nav.push(Screen.Play(next)) }, Modifier.fillMaxWidth(), color = DR.SakuraDeep, minHeight = 60.dp,
+                        { nav.push(Screen.WorldMap(LevelCodec.worldNumber(next))); nav.push(Screen.Play(next)) }, Modifier.fillMaxWidth(), color = DR.SakuraDeep, minHeight = 62.dp,
                         style = MaterialTheme.typography.headlineSmall)
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        WoodButton(stringResource(R.string.world_map), { nav.push(Screen.WorldMap(LevelCodec.worldNumber(next))) }, Modifier.weight(1f))
-                        WoodButton(stringResource(R.string.collection), { nav.push(Screen.Collection) }, Modifier.weight(1f))
+                        WoodButton(stringResource(R.string.world_map), { nav.push(Screen.WorldMap(LevelCodec.worldNumber(next))) }, Modifier.weight(1f), color = DR.Indigo)
+                        WoodButton(stringResource(R.string.daily_puzzle), { nav.push(Screen.Daily) }, Modifier.weight(1f), color = DR.Bamboo)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        WoodButton(stringResource(R.string.daily_puzzle), { nav.push(Screen.Daily) }, Modifier.weight(1f), color = DR.Bamboo)
+                        WoodButton(stringResource(R.string.collection), { nav.push(Screen.Collection) }, Modifier.weight(1f))
                         WoodButton(stringResource(R.string.shop), { nav.push(Screen.Shop) }, Modifier.weight(1f), color = DR.GoldDeep)
                     }
-                    if (!save.premium) WoodButton(stringResource(R.string.premium), { nav.push(Screen.Premium) }, Modifier.fillMaxWidth(), color = DR.Indigo)
+                    WoodButton(stringResource(R.string.games_title), { nav.push(Screen.Games) }, Modifier.fillMaxWidth(), color = DR.Indigo)
+                    if (!save.premium) WoodButton(stringResource(R.string.premium), { nav.push(Screen.Premium) }, Modifier.fillMaxWidth(), color = DR.GoldDeep)
                 }
-                Spacer(Modifier.height(8.dp))
             }
+            Text(stringResource(R.string.menu_footer), style = MaterialTheme.typography.labelMedium, color = DR.Cream)
+            MenuBanner(container)
         }
     }
 }
@@ -123,10 +130,10 @@ fun SettingsScreen(container: AppContainer, nav: Nav, activity: ComponentActivit
     val save by container.save.state.collectAsState()
     val s = save.settings
     fun set(f: (Settings) -> Settings) = container.save.update { it.copy(settings = f(it.settings)) }
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.settings), { nav.pop() })
-            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp).widthIn(max = 560.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().align(Alignment.CenterHorizontally).verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 ToggleRow(stringResource(R.string.music), s.music) { set { it.copy(music = !it.music) } }
                 SliderRow(stringResource(R.string.music), s.musicVolume, s.music) { v -> set { it.copy(musicVolume = v) } }
                 ToggleRow(stringResource(R.string.sfx), s.sfx) { set { it.copy(sfx = !it.sfx) } }
@@ -142,12 +149,13 @@ fun SettingsScreen(container: AppContainer, nav: Nav, activity: ComponentActivit
                         WoodButton(stringResource(label), { set { it.copy(effectQuality = id) } }, Modifier.weight(1f), color = if (s.effectQuality == id) DR.SakuraDeep else DR.Wood, minHeight = 44.dp)
                 }
                 Text(stringResource(R.string.language), style = MaterialTheme.typography.titleMedium, color = DR.Ink, modifier = Modifier.padding(top = 6.dp))
-                val langs = listOf("system" to stringResource(R.string.lang_system), "en" to "English", "nl" to "Nederlands", "de" to "Deutsch")
+                val langs = listOf("system" to stringResource(R.string.lang_system), "en" to "English", "es" to "Español", "pt-BR" to "Português (Brasil)", "de" to "Deutsch", "fr" to "Français", "ja" to "日本語", "ko" to "한국어", "hi" to "हिन्दी", "id" to "Bahasa Indonesia", "ar" to "العربية", "nl" to "Nederlands")
                 for (row in langs.chunked(2)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     for ((id, label) in row)
                         WoodButton(label, { set { it.copy(language = id) }; applyLanguage(id) }, Modifier.weight(1f), color = if (s.language == id) DR.SakuraDeep else DR.Wood, minHeight = 44.dp)
                 }
                 Divider(Modifier.padding(vertical = 6.dp))
+                WoodButton(stringResource(R.string.games_title), { nav.push(Screen.Games) }, Modifier.fillMaxWidth(), color = DR.Bamboo)
                 WoodButton(stringResource(R.string.privacy), { nav.push(Screen.Privacy) }, Modifier.fillMaxWidth(), color = DR.Indigo)
                 WoodButton(stringResource(R.string.stats), { nav.push(Screen.Stats) }, Modifier.fillMaxWidth())
                 WoodButton(stringResource(R.string.credits), { nav.push(Screen.Credits) }, Modifier.fillMaxWidth())
@@ -181,15 +189,18 @@ private fun SliderRow(label: String, value: Float, enabled: Boolean, onChange: (
 
 @Composable
 fun PrivacyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.privacy), { nav.pop() })
             Column(Modifier.padding(20.dp).widthIn(max = 560.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.privacy_text), style = MaterialTheme.typography.bodyLarge, color = DR.Ink)
+                WoodButton(stringResource(R.string.privacy_policy), {
+                    activity.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse("https://www.shiostudios.com/privacy-policy")))
+                }, Modifier.fillMaxWidth(), color = DR.Indigo)
                 if (!BuildConfig.ADS_ENABLED) Text(stringResource(R.string.ads_disabled_build), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
                 else {
                     Text(stringResource(R.string.consent_text), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
-                    WoodButton(stringResource(R.string.consent_manage), { container.consent.showPrivacyOptions(activity) }, Modifier.fillMaxWidth(), enabled = container.consent.privacyOptionsRequired || true)
+                    WoodButton(stringResource(R.string.consent_manage), { container.consent.showPrivacyOptions(activity) }, Modifier.fillMaxWidth(), enabled = container.consent.privacyOptionsRequired)
                 }
             }
         }
@@ -198,7 +209,7 @@ fun PrivacyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
 
 @Composable
 fun CreditsScreen(container: AppContainer, nav: Nav) {
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.credits), { nav.pop() })
             Column(Modifier.padding(20.dp).widthIn(max = 560.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -214,10 +225,10 @@ fun CreditsScreen(container: AppContainer, nav: Nav) {
 @Composable
 fun StatsScreen(container: AppContainer, nav: Nav) {
     val save by container.save.state.collectAsState()
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.stats), { nav.pop() })
-            Column(Modifier.padding(20.dp).widthIn(max = 560.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().align(Alignment.CenterHorizontally).verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 StatRow(stringResource(R.string.stat_levels), "${save.levels.count { it.value.completed }} / 150")
                 StatRow(stringResource(R.string.stat_stars), "${save.totalStars} / 450")
                 StatRow(stringResource(R.string.stat_moves), save.totalMoves.toString())
@@ -241,7 +252,7 @@ private fun StatRow(label: String, value: String) {
 fun dayId(offsetDays: Int = 0): String {
     val cal = java.util.Calendar.getInstance()
     cal.add(java.util.Calendar.DAY_OF_YEAR, offsetDays)
-    return "%04d-%02d-%02d".format(cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH))
+    return String.format(java.util.Locale.US, "%04d-%02d-%02d", cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH))
 }
 
 fun dailyStreak(save: com.shiostudios.dumplingrings.core.systems.SaveData): Int {
@@ -251,4 +262,20 @@ fun dailyStreak(save: com.shiostudios.dumplingrings.core.systems.SaveData): Int 
     if (dayId(0) !in done) offset = -1
     while (dayId(offset) in done && streak < 400) { streak++; offset-- }
     return streak
+}
+
+
+/** A cheerful host with a slow squash-and-bounce; static when Reduce Motion is enabled. */
+@Composable
+private fun FestivalMascot(animate: Boolean) {
+    if (!animate) {
+        Sprite("sheet12/dumpling_cheer_f01", Modifier.size(116.dp))
+        return
+    }
+    val transition = rememberInfiniteTransition(label = "festival host")
+    val bounce by transition.animateFloat(0f, 10f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "bounce")
+    val squash by transition.animateFloat(.96f, 1.04f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "squash")
+    Sprite("sheet12/dumpling_cheer_f01", Modifier.size(116.dp).then(Modifier.graphicsLayer {
+        translationY = -bounce.dp.toPx(); scaleX = 2f - squash; scaleY = squash; rotationZ = (squash - 1f) * 40f
+    }))
 }

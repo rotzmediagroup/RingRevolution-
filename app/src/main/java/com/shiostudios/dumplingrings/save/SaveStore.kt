@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.shiostudios.dumplingrings.core.systems.SaveData
 import com.shiostudios.dumplingrings.core.systems.SaveMigrations
+import com.shiostudios.dumplingrings.core.systems.Achievements
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.encodeToString
@@ -21,11 +22,11 @@ class SaveStore(private val context: Context) {
     private val backup = File(context.filesDir, "save.bak.json")
     private val temp = File(context.filesDir, "save.tmp.json")
 
-    private val _state = MutableStateFlow(load())
-    val state: StateFlow<SaveData> = _state
-    val current: SaveData get() = _state.value
     var recoveredFromBackup = false
         private set
+    private val _state = MutableStateFlow(Achievements.reconcile(load()))
+    val state: StateFlow<SaveData> = _state
+    val current: SaveData get() = _state.value
 
     private fun load(): SaveData {
         fun parse(f: File): SaveData? = try { if (f.exists()) SaveMigrations.migrate(json.decodeFromString<SaveData>(f.readText())) else null } catch (e: Exception) { Log.w("SaveStore", "corrupt ${f.name}: ${e.message}"); null }
@@ -36,7 +37,7 @@ class SaveStore(private val context: Context) {
 
     @Synchronized
     fun update(transform: (SaveData) -> SaveData): SaveData {
-        val next = transform(_state.value)
+        val next = Achievements.reconcile(transform(_state.value))
         if (next === _state.value) return next
         _state.value = next
         persist(next)
@@ -57,3 +58,4 @@ class SaveStore(private val context: Context) {
     /** For tests / debug menus. */
     fun reset() = update { SaveData() }
 }
+

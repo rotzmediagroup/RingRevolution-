@@ -17,8 +17,8 @@ import com.shiostudios.dumplingrings.R
 
 object DR {
     val Wood = Color(0xFFC98A4B); val WoodDark = Color(0xFF8B5A2B); val WoodDeep = Color(0xFF5A3A28)
-    val Cream = Color(0xFFFFF4E3); val CreamDark = Color(0xFFF1E0C8); val Sakura = Color(0xFFF6A7C1); val SakuraDeep = Color(0xFFE2708F)
-    val Bamboo = Color(0xFF7FA865); val Gold = Color(0xFFFFD88A); val GoldDeep = Color(0xFFE0A93A)
+    val Cream = Color(0xFFFFF4E3); val CreamDark = Color(0xFFF1E0C8); val Sakura = Color(0xFFF6A7C1); val SakuraDeep = Color(0xFFAF4866)
+    val Bamboo = Color(0xFF4E795D); val Gold = Color(0xFFFFD88A); val GoldDeep = Color(0xFFB8802C)
     val Indigo = Color(0xFF26305E); val IndigoDeep = Color(0xFF141A3A); val Amber = Color(0xFFFFB347); val Red = Color(0xFFD9453B)
     val MoonBlue = Color(0xFF3F5C8C); val Jade = Color(0xFF5FB89A); val Lavender = Color(0xFFB9A5D9); val Snow = Color(0xFFF4F6FF)
     val Ink = Color(0xFF3B2A1E); val InkSoft = Color(0xFF6B5340)
@@ -60,5 +60,19 @@ private val scheme: ColorScheme = lightColorScheme(
 @Composable
 fun DumplingRingsTheme(content: @Composable () -> Unit) {
     isSystemInDarkTheme() // the game has its own art-directed palette per world; system dark mode is not applied
-    MaterialTheme(colorScheme = scheme, typography = DRTypography, content = content)
+    val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0].language
+    val typography = if (locale in listOf("ar", "hi", "ja", "ko")) DRTypography.copy(
+        displayLarge = DRTypography.displayLarge.copy(fontFamily = FontFamily.Default),
+        displayMedium = DRTypography.displayMedium.copy(fontFamily = FontFamily.Default),
+        headlineMedium = DRTypography.headlineMedium.copy(fontFamily = FontFamily.Default),
+        headlineSmall = DRTypography.headlineSmall.copy(fontFamily = FontFamily.Default),
+        titleLarge = DRTypography.titleLarge.copy(fontFamily = FontFamily.Default),
+        titleMedium = DRTypography.titleMedium.copy(fontFamily = FontFamily.Default),
+        bodyLarge = DRTypography.bodyLarge.copy(fontFamily = FontFamily.Default),
+        bodyMedium = DRTypography.bodyMedium.copy(fontFamily = FontFamily.Default),
+        labelLarge = DRTypography.labelLarge.copy(fontFamily = FontFamily.Default),
+        labelMedium = DRTypography.labelMedium.copy(fontFamily = FontFamily.Default),
+    ) else DRTypography
+    MaterialTheme(colorScheme = scheme, typography = typography, content = content)
 }
+

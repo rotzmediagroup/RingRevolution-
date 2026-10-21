@@ -105,13 +105,50 @@ class ScreenshotTest {
         show("11_level_070_landscape") { androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.size(1100.dp, 700.dp)) { GameBody(c, rule.activity, controller, "Level 70", 2, false, onPause = {}) {} } }
     }
 
+    @Test
+    @Config(sdk = [33], qualifiers = "ar-rSA-w320dp-h760dp-xxhdpi", application = DumplingRingsApp::class)
+    fun arabicNarrowScreens() {
+        val c = container(); host()
+        show("30_ar_menu") { MainMenuScreen(c, Nav(Screen.Menu)) }
+        show("31_ar_shop") { ShopScreen(c, Nav(Screen.Shop), rule.activity) }
+        show("32_ar_games") { GamesScreen(c, Nav(Screen.Games), rule.activity) }
+    }
+
+    @Test fun allAchievementArtwork() {
+        host()
+        show("33_all_achievement_art") {
+            androidx.compose.foundation.layout.Column {
+                for (row in com.shiostudios.dumplingrings.core.systems.Achievements.all.chunked(5)) {
+                    androidx.compose.foundation.layout.Row {
+                        row.forEach { com.shiostudios.dumplingrings.ui.components.MedalArt(it.art, androidx.compose.ui.Modifier.size(78.dp)) }
+                    }
+                }
+            }
+        }
+    }
+
+    @Test fun festivalVictory() {
+        val c = container(); host()
+        val reward = com.shiostudios.dumplingrings.core.systems.LevelReward(3, 25, emptyMap(), true, true)
+        show("34_festival_victory") {
+            LevelCompleteOverlay(c, rule.activity, c.content.level(1), 4, reward, false, {}, {}, {})
+        }
+        show("35_festival_reduced_motion") {
+            androidx.compose.runtime.CompositionLocalProvider(com.shiostudios.dumplingrings.ui.theme.LocalReduceMotion provides true) {
+                LevelCompleteOverlay(c, rule.activity, c.content.level(1), 4, reward, false, {}, {}, {})
+            }
+        }
+    }
+
     @Test fun metaScreens() {
         val c = container(); host()
         show("20_collection") { CollectionScreen(c, Nav(Screen.Collection)) }
         show("21_shop") { ShopScreen(c, Nav(Screen.Shop), rule.activity) }
         show("22_premium") { PremiumScreen(c, Nav(Screen.Premium), rule.activity) }
         show("23_settings") { SettingsScreen(c, Nav(Screen.Settings), rule.activity) }
+        show("27_achievements") { GamesScreen(c, Nav(Screen.Games), rule.activity) }
         show("24_daily") { DailyScreen(c, Nav(Screen.Daily), rule.activity) }
         show("25_chapter_scene") { ChapterSceneScreen(c, 1) {} }
     }
 }
+

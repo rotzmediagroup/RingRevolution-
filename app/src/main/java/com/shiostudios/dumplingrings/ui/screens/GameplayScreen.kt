@@ -10,6 +10,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -194,7 +198,7 @@ private fun TopBar(container: AppContainer, controller: GameController, title: S
     Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
         RoundIconButton(contentDescription = stringResource(R.string.pause), onClick = onPause) { Glyph("pause", Modifier.size(24.dp)) }
         Spacer(Modifier.width(10.dp))
-        Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).background(DR.WoodDeep.copy(alpha = 0.55f)).padding(horizontal = 12.dp, vertical = 4.dp)) {
+        Column(Modifier.weight(1f).clip(RoundedCornerShape(14.dp)).background(Brush.verticalGradient(listOf(Color(0xE6102B32), Color(0xC51B3E45)))).padding(horizontal = 12.dp, vertical = 4.dp)) {
             Text(title + (if (level.isChefLevel) " ★" else ""), style = MaterialTheme.typography.titleLarge, color = DR.Cream)
             val par = if (level.parMoves > 0) "${stringResource(R.string.moves)} ${controller.moves} · ${stringResource(R.string.par)} ${level.parMoves}" else "${stringResource(R.string.moves)} ${controller.moves}"
             Text(par, style = MaterialTheme.typography.labelMedium, color = DR.Cream.copy(alpha = 0.9f))
@@ -218,6 +222,7 @@ private fun StatusLine(controller: GameController, explain: String?, stuck: Bool
     }
 }
 
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun Controls(container: AppContainer, activity: ComponentActivity, controller: GameController, rotateButtons: Boolean, modifier: Modifier, vertical: Boolean = false, onExplain: (String?) -> Unit) {
     val save by container.save.state.collectAsState()
@@ -232,8 +237,8 @@ private fun Controls(container: AppContainer, activity: ComponentActivity, contr
         }
     }
     val content: @Composable () -> Unit = {
-        RoundIconButton(contentDescription = stringResource(R.string.undo), onClick = { controller.undo() }, color = DR.Wood, sfx = "undo") { Glyph("undo", Modifier.size(26.dp)) }
-        RoundIconButton(contentDescription = stringResource(R.string.restart), onClick = { controller.restart() }, color = DR.Wood) { Glyph("restart", Modifier.size(26.dp)) }
+        RoundIconButton(contentDescription = stringResource(R.string.undo), onClick = { controller.undo() }, color = DR.Indigo, sfx = "undo") { Glyph("undo", Modifier.size(26.dp)) }
+        RoundIconButton(contentDescription = stringResource(R.string.restart), onClick = { controller.restart() }, color = DR.Indigo) { Glyph("restart", Modifier.size(26.dp)) }
         BoosterButton(container, activity, controller, Booster.STEAM_HINT, "sheet16/tea_cup_bamboo_steam", inv["hint"] ?: 0, R.string.hint)
         BoosterButton(container, activity, controller, Booster.STEAM_PEEK, "sheet05/icon_lantern_sakura", inv["steam_peek"] ?: 0, R.string.steam_peek)
         BoosterButton(container, activity, controller, Booster.CHEFS_TWIST, "sheet14/booster_swirl_idle", inv["chefs_twist"] ?: 0, R.string.chefs_twist)
@@ -246,8 +251,8 @@ private fun Controls(container: AppContainer, activity: ComponentActivity, contr
                 RoundIconButton(contentDescription = stringResource(R.string.cd_rotate_right), onClick = { controller.rotateSelected(true) }, size = 64.dp, color = DR.Bamboo) { Glyph("right", Modifier.size(30.dp)) }
             }
         }
-        if (vertical) Column(verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally) { Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) { content() } }
-        else Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) { content() }
+        FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalArrangement = Arrangement.spacedBy(10.dp), maxItemsInEachRow = if (vertical) 3 else 6) { content() }
     }
 }
 
@@ -307,7 +312,9 @@ fun BoosterOfferDialog(container: AppContainer, activity: ComponentActivity, b: 
 fun Overlay(onDismiss: (() -> Unit)?, content: @Composable () -> Unit) {
     val src1 = remember { MutableInteractionSource() }; val src2 = remember { MutableInteractionSource() }
     Box(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.45f)).let { m -> if (onDismiss != null) m.clickable(src1, null) { onDismiss() } else m }, contentAlignment = Alignment.Center) {
-        Box(Modifier.padding(20.dp).widthIn(max = 460.dp).clickable(src2, null) {}) {
+        Box(Modifier.padding(20.dp).widthIn(max = 460.dp)
+            .heightIn(max = (androidx.compose.ui.platform.LocalConfiguration.current.screenHeightDp - 60).coerceAtLeast(160).dp)
+            .verticalScroll(rememberScrollState()).clickable(src2, null) {}) {
             WoodPanel(content = { content() })
         }
     }
@@ -334,6 +341,7 @@ private fun PauseOverlay(container: AppContainer, onResume: () -> Unit, onRestar
 @Composable
 fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, level: LevelDefinition, moves: Int, rw: LevelReward, chapterDone: Boolean, onNext: () -> Unit, onReplay: () -> Unit, onMap: () -> Unit) {
     val reduce = LocalReduceMotion.current
+    val rewardedOffered = container.consent.state.collectAsState().value.let { container.ads2.rewardedOffered }
     var shownStars by remember { mutableStateOf(0) }
     var doubled by remember { mutableStateOf(false) }
     var adMsg by remember { mutableStateOf<String?>(null) }
@@ -344,7 +352,8 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
     }
     val scale by animateFloatAsState(if (shownStars > 0 || reduce) 1f else 0.9f, tween(300), label = "pop")
     val reaction = remember(level.id) { listOf("sheet02/bao_cheer", "sheet05/bao_steamer_cheer", "sheet08/golden_dumpling_cheer", "sheet05/dango_cheer", "sheet02/tea_cup_cheer")[level.index % 5] }
-    Overlay(null) {
+    Box(Modifier.fillMaxSize()) {
+        Overlay(null) {
         Column(Modifier.scale(scale), horizontalAlignment = Alignment.CenterHorizontally) {
             TitleText(stringResource(if (level.isChefLevel) R.string.chef_complete else R.string.level_complete), size = 26)
             Spacer(Modifier.height(6.dp))
@@ -365,7 +374,7 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
             Spacer(Modifier.height(12.dp))
             WoodButton(stringResource(R.string.next_level), onNext, Modifier.fillMaxWidth(), color = DR.SakuraDeep, minHeight = 56.dp)
             Spacer(Modifier.height(8.dp))
-            if (container.ads2.rewardedOffered && !doubled && rw.coins > 0) {
+            if (rewardedOffered && !doubled && rw.coins > 0) {
                 WoodButton(stringResource(R.string.double_reward_ad), {
                     container.ads2.showRewarded(activity, grant = { id -> container.save.update { BoosterLedger.grantCoins(it, rw.coins, id).save } }) { r ->
                         if (r is RewardResult.Earned) { doubled = true; container.audio.sfx("coin_chime") } else if (r is RewardResult.Failed) adMsg = adUnavailable
@@ -380,4 +389,7 @@ fun LevelCompleteOverlay(container: AppContainer, activity: ComponentActivity, l
             }
         }
     }
+    com.shiostudios.dumplingrings.ui.fx.CelebrationConfetti(reduce, container.save.current.settings.effectQuality)
+    }
 }
+

@@ -39,22 +39,30 @@ class AppContainer(val context: Context) {
     val audio = GameAudio(context).also { it.settings = save.current.settings }
     val haptics = Haptics(context).also { it.enabled = save.current.settings.haptics }
 
-    val adsConfig = AdsConfig(enabled = BuildConfig.ADS_ENABLED, bannerEnabled = false, interstitialEnabled = BuildConfig.ADS_ENABLED, rewardedEnabled = BuildConfig.ADS_ENABLED)
+    val adsConfig = AdsConfig(enabled = BuildConfig.ADS_ENABLED, bannerEnabled = BuildConfig.ADS_ENABLED, interstitialEnabled = BuildConfig.ADS_ENABLED, rewardedEnabled = BuildConfig.ADS_ENABLED)
     val consent: ConsentProvider = if (BuildConfig.ADS_ENABLED) UmpConsentProvider(context) else NoConsentProvider()
     val ads: AdsProvider = if (BuildConfig.ADS_ENABLED) AdMobAdsProvider() else NoAdsProvider()
     val purchases: PurchaseProvider = if (BuildConfig.IAP_ENABLED) PlayBillingProvider(context, save.current.premium) { premium ->
-        save.update { it.copy(premium = premium, premiumVerifiedAt = System.currentTimeMillis()) }
+        save.update { it.copy(premium = premium, premiumVerifiedAt = System.currentTimeMillis(),
+            selectedTheme = if (!premium && it.selectedTheme == "theme_premium_ube") "default" else it.selectedTheme,
+            unlockedCosmetics = if (premium) (it.unlockedCosmetics + "theme_premium_ube").distinct() else it.unlockedCosmetics.filterNot { id -> id == "theme_premium_ube" }) }
     } else NoPurchaseProvider(save.current.premium)
 
+    val games = com.shiostudios.dumplingrings.platform.PlayGamesService(save)
+    val cloud = com.shiostudios.dumplingrings.platform.CloudSaveService(save, games)
     val ads2 = AdsManager(this)
 }
 
 /** Placement, consent and reward orchestration (idempotent reward grants, no-fill fallback, caps). */
 class AdsManager(private val c: AppContainer) {
     private var sessionStart = System.currentTimeMillis()
-    val consentGiven: Boolean get() = c.consent.state.value == ConsentState.OBTAINED || c.consent.state.value == ConsentState.NOT_REQUIRED
-    val rewardedAvailable: Boolean get() = AdsPolicy.rewardedAllowed(c.adsConfig, consentGiven) && c.ads.rewardedReady
-    val rewardedOffered: Boolean get() = AdsPolicy.rewardedAllowed(c.adsConfig, consentGiven) && c.ads.available
+    val consentGiven: Boolean get() = c.consent.canRequestAds
+    private fun rewardUnderCap(): Boolean {
+        val today = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+        return c.save.current.rewardedDay != today || c.save.current.rewardedCount < c.adsConfig.rewardedDailyCap
+    }
+    val rewardedAvailable: Boolean get() = AdsPolicy.rewardedAllowed(c.adsConfig, consentGiven) && rewardUnderCap() && c.ads.rewardedReady
+    val rewardedOffered: Boolean get() = AdsPolicy.rewardedAllowed(c.adsConfig, consentGiven) && rewardUnderCap() && c.ads.available
 
     fun initIfAllowed(activity: Activity) {
         if (!c.adsConfig.enabled) return
@@ -68,7 +76,11 @@ class AdsManager(private val c: AppContainer) {
         if (!rewardedAvailable) return onResult(RewardResult.Failed("unavailable"))
         val requestId = "rw-" + UUID.randomUUID()
         c.ads.showRewarded(activity) { r ->
-            if (r is RewardResult.Earned) grant(requestId)
+            if (r is RewardResult.Earned) {
+                val today = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
+                c.save.update { it.copy(rewardedDay = today, rewardedCount = if (it.rewardedDay == today) it.rewardedCount + 1 else 1) }
+                grant(requestId)
+            }
             onResult(r)
         }
     }
@@ -93,6 +105,7 @@ class DumplingRingsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        if (BuildConfig.PGS_ENABLED && BuildConfig.PGS_APP_ID.isNotBlank()) com.google.android.gms.games.PlayGamesSdk.initialize(this)
         container = AppContainer(this)
         container.save.update { it.copy(sessionCount = it.sessionCount + 1, interstitialsThisSession = 0) }
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
@@ -113,3 +126,4 @@ class DumplingRingsApp : Application() {
         fun of(context: Context): AppContainer = (context.applicationContext as DumplingRingsApp).container
     }
 }
+

@@ -5,12 +5,13 @@ name: release
 on:
   push:
     tags: ['v*']
+    branches: ['release/v*']
   workflow_dispatch:
     inputs:
       tag:
         description: 'Release tag to create/publish (e.g. v1.0.0)'
         required: true
-        default: 'v1.0.0'
+        default: 'v1.4.2'
       verify:
         description: 'Run the full verification (tests + 150-level validation) before building'
         type: boolean
@@ -24,10 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Resolve release version
+        run: |
+          release_tag="${REL_TAG#release/}"
+          if [[ ! "$release_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.-]+)?$ ]]; then echo "Invalid release version"; exit 1; fi
+          echo "REL_TAG=$release_tag" >> "$GITHUB_ENV"
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '21' }
+      - uses: gradle/actions/setup-gradle@v4
       - name: Android SDK packages (runner ships the SDK at $ANDROID_HOME)
-        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;35.0.0" "platform-tools" >/dev/null
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null 2>&1 || true; "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "platform-tools" >/dev/null
       - run: pip install pillow numpy
       - name: Create tag (manual dispatch)
         if: github.event_name == 'workflow_dispatch'
@@ -49,21 +56,82 @@ jobs:
           if [ -n "$KS_B64" ]; then echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks" && echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"; else echo "no keystore secret: release APK will be unsigned"; fi
       - name: Build
         env:
+          ADS_ENABLED: 'true'
+          IAP_ENABLED: ${{ vars.IAP_ENABLED }}
+          ADS_USE_TEST_IDS: 'false'
+          ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
+          ADMOB_REWARDED_ID: ${{ vars.ADMOB_REWARDED_ID }}
+          ADMOB_INTERSTITIAL_ID: ${{ vars.ADMOB_INTERSTITIAL_ID }}
+          ADMOB_BANNER_ID: ${{ vars.ADMOB_BANNER_ID }}
+          PREMIUM_PRODUCT_ID: ${{ vars.PREMIUM_PRODUCT_ID }}
+          PLAY_BILLING_PUBLIC_KEY: ${{ vars.PLAY_BILLING_PUBLIC_KEY }}
+          PGS_ENABLED: ${{ vars.PGS_ENABLED }}
+          PGS_APP_ID: ${{ vars.PGS_APP_ID }}
+          PGS_ACHIEVEMENT_FIRST_CLEAR: ${{ vars.PGS_ACHIEVEMENT_FIRST_CLEAR }}
+          PGS_ACHIEVEMENT_FIRST_CHAPTER: ${{ vars.PGS_ACHIEVEMENT_FIRST_CHAPTER }}
+          PGS_ACHIEVEMENT_BLOSSOM_MASTER: ${{ vars.PGS_ACHIEVEMENT_BLOSSOM_MASTER }}
+          PGS_ACHIEVEMENT_LANTERN_MASTER: ${{ vars.PGS_ACHIEVEMENT_LANTERN_MASTER }}
+          PGS_ACHIEVEMENT_MOUNTAIN_MASTER: ${{ vars.PGS_ACHIEVEMENT_MOUNTAIN_MASTER }}
+          PGS_ACHIEVEMENT_STAR_GARDEN: ${{ vars.PGS_ACHIEVEMENT_STAR_GARDEN }}
+          PGS_ACHIEVEMENT_PERFECT_CONSTELLATION: ${{ vars.PGS_ACHIEVEMENT_PERFECT_CONSTELLATION }}
+          PGS_ACHIEVEMENT_TRIPLE_RELEASE: ${{ vars.PGS_ACHIEVEMENT_TRIPLE_RELEASE }}
+          PGS_ACHIEVEMENT_DAILY_RITUAL: ${{ vars.PGS_ACHIEVEMENT_DAILY_RITUAL }}
+          PGS_ACHIEVEMENT_THOUSAND_RINGS: ${{ vars.PGS_ACHIEVEMENT_THOUSAND_RINGS }}
+          PGS_ACHIEVEMENT_TEAHOUSE_REGULAR: ${{ vars.PGS_ACHIEVEMENT_TEAHOUSE_REGULAR }}
+          PGS_ACHIEVEMENT_HALFWAY_HOME: ${{ vars.PGS_ACHIEVEMENT_HALFWAY_HOME }}
+          PGS_ACHIEVEMENT_CENTURY_CLUB: ${{ vars.PGS_ACHIEVEMENT_CENTURY_CLUB }}
+          PGS_ACHIEVEMENT_MOUNTAIN_KEEPER: ${{ vars.PGS_ACHIEVEMENT_MOUNTAIN_KEEPER }}
+          PGS_ACHIEVEMENT_CHEF_APPRENTICE: ${{ vars.PGS_ACHIEVEMENT_CHEF_APPRENTICE }}
+          PGS_ACHIEVEMENT_CHEF_SPECIALIST: ${{ vars.PGS_ACHIEVEMENT_CHEF_SPECIALIST }}
+          PGS_ACHIEVEMENT_CHEF_GRANDMASTER: ${{ vars.PGS_ACHIEVEMENT_CHEF_GRANDMASTER }}
+          PGS_ACHIEVEMENT_STAR_SEED: ${{ vars.PGS_ACHIEVEMENT_STAR_SEED }}
+          PGS_ACHIEVEMENT_STAR_ORCHARD: ${{ vars.PGS_ACHIEVEMENT_STAR_ORCHARD }}
+          PGS_ACHIEVEMENT_PERFECT_TEN: ${{ vars.PGS_ACHIEVEMENT_PERFECT_TEN }}
+          PGS_ACHIEVEMENT_PERFECT_FIFTY: ${{ vars.PGS_ACHIEVEMENT_PERFECT_FIFTY }}
+          PGS_ACHIEVEMENT_FIRST_DAILY: ${{ vars.PGS_ACHIEVEMENT_FIRST_DAILY }}
+          PGS_ACHIEVEMENT_DAILY_DEVOTEE: ${{ vars.PGS_ACHIEVEMENT_DAILY_DEVOTEE }}
+          PGS_ACHIEVEMENT_HUNDRED_RINGS: ${{ vars.PGS_ACHIEVEMENT_HUNDRED_RINGS }}
+          PGS_ACHIEVEMENT_CASCADE_MASTER: ${{ vars.PGS_ACHIEVEMENT_CASCADE_MASTER }}
+          PGS_LEADERBOARD_STARS: ${{ vars.PGS_LEADERBOARD_STARS }}
+          PGS_LEADERBOARD_CAMPAIGN: ${{ vars.PGS_LEADERBOARD_CAMPAIGN }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
+          keytool -genkeypair -storetype JKS -keystore "$RUNNER_TEMP/sideload.jks" -storepass android -keypass android \
+            -alias androiddebugkey -dname "CN=Ring Revolution Sideload" -keyalg RSA -keysize 2048 -validity 10000
+          export SIDELOAD_KEYSTORE_PATH="$RUNNER_TEMP/sideload.jks"
           ./gradlew :app:assembleDebug :app:assembleRelease :app:bundleRelease
+          python3 tools/validation/check_release_ads.py
           mkdir -p dist
           cp app/build/outputs/apk/debug/app-debug.apk "dist/RingRevolution-${REL_TAG}-debug.apk"
-          cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"
+          if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
+            cp app/build/outputs/apk/release/app-release*.apk "dist/RingRevolution-${REL_TAG}-release.apk"
+          else
+            # The Play bundle remains unsigned; provide an explicitly labelled, installable release APK.
+            "$ANDROID_HOME/build-tools/36.0.0/apksigner" sign \
+              --ks "$RUNNER_TEMP/sideload.jks" --ks-key-alias androiddebugkey \
+              --ks-pass pass:android --key-pass pass:android \
+              --out "dist/RingRevolution-${REL_TAG}-release-sideload.apk" \
+              app/build/outputs/apk/release/app-release-unsigned.apk
+            "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify "dist/RingRevolution-${REL_TAG}-release-sideload.apk"
+          fi
           cp app/build/outputs/bundle/release/app-release.aab "dist/RingRevolution-${REL_TAG}-release.aab"
           cp content/qa/validation_report.md "dist/level-validation-${REL_TAG}.md"
+          python3 tools/validation/package_console_handoff.py
+          cp ../ring-revolution-console-handoff.zip "dist/RingRevolution-${REL_TAG}-console-setup.zip"
+          if [ -n "${ANDROID_KEYSTORE_PATH:-}" ]; then
+            echo "Release APK/AAB signed using the configured repository keystore." > dist/SIGNING-STATUS.txt
+          else
+            echo "The release-sideload APK and debug APK are installable and signed with the same temporary sideload certificate. Both use live AdMob IDs. These APKs are for direct installation, not Play upload. The release AAB is UNSIGNED: sign it with your app upload key before Play Console upload." > dist/SIGNING-STATUS.txt
+          fi
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.REL_TAG }}
+          target_commitish: ${{ github.sha }}
           name: "Ring Revolution ${{ env.REL_TAG }}"
-          body_path: docs/RELEASE_NOTES.md
+          body_path: docs/releases/${{ env.REL_TAG }}.md
           prerelease: ${{ contains(env.REL_TAG, '-') }}
           files: dist/*
+

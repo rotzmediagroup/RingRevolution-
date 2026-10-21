@@ -7,32 +7,51 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-// Monetisation configuration: never hard-code production identifiers. Values come from (in order)
-// environment variables, then secrets.properties (git-ignored), then the official Google TEST identifiers.
+// Configuration precedence: environment, secrets.properties (git-ignored), public admob.properties, defaults.
+// Official test ad units override configured production units while ADS_USE_TEST_IDS=true.
 val secrets = Properties().apply {
     val f = rootProject.file("secrets.properties")
     if (f.exists()) f.inputStream().use { load(it) }
 }
-fun cfg(name: String, default: String): String = System.getenv(name) ?: secrets.getProperty(name) ?: default
+val adMobDefaults = Properties().apply {
+    rootProject.file("admob.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+}
+fun cfg(name: String, default: String): String = System.getenv(name)?.takeIf { it.isNotBlank() } ?: secrets.getProperty(name)?.takeIf { it.isNotBlank() } ?: adMobDefaults.getProperty(name)?.takeIf { it.isNotBlank() } ?: default
+val useTestAds = cfg("ADS_USE_TEST_IDS", "false")
 val admobAppId = cfg("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")          // Google sample app id
-val adUnitRewarded = cfg("ADMOB_REWARDED_ID", "ca-app-pub-3940256099942544/5224354917")   // official test unit
-val adUnitInterstitial = cfg("ADMOB_INTERSTITIAL_ID", "ca-app-pub-3940256099942544/1033173712")
-val adUnitBanner = cfg("ADMOB_BANNER_ID", "ca-app-pub-3940256099942544/6300978111")
-val adsEnabled = cfg("ADS_ENABLED", "false")
+val adUnitRewarded = if (useTestAds == "true") "ca-app-pub-3940256099942544/5224354917" else cfg("ADMOB_REWARDED_ID", "")   // official test unit
+val adUnitInterstitial = if (useTestAds == "true") "ca-app-pub-3940256099942544/1033173712" else cfg("ADMOB_INTERSTITIAL_ID", "")
+val adUnitBanner = if (useTestAds == "true") "ca-app-pub-3940256099942544/6300978111" else cfg("ADMOB_BANNER_ID", "")
+val adsEnabled = cfg("ADS_ENABLED", "true")
 val iapEnabled = cfg("IAP_ENABLED", "false")
 val premiumSku = cfg("PREMIUM_PRODUCT_ID", "dumpling_rings_premium")
-val useTestAds = cfg("ADS_USE_TEST_IDS", "true")
+val pgsEnabled = cfg("PGS_ENABLED", "false")
+val pgsAppId = cfg("PGS_APP_ID", "")
+val billingKey = cfg("PLAY_BILLING_PUBLIC_KEY", "")
+val gameKeys = listOf("achievement_first_clear", "achievement_first_chapter", "achievement_blossom_master",
+    "achievement_lantern_master", "achievement_mountain_master", "achievement_star_garden",
+    "achievement_perfect_constellation", "achievement_triple_release", "achievement_daily_ritual",
+    "achievement_thousand_rings", "achievement_teahouse_regular", "achievement_halfway_home", "achievement_century_club", "achievement_mountain_keeper", "achievement_chef_apprentice", "achievement_chef_specialist", "achievement_chef_grandmaster", "achievement_star_seed", "achievement_star_orchard", "achievement_perfect_ten", "achievement_perfect_fifty", "achievement_first_daily", "achievement_daily_devotee", "achievement_hundred_rings", "achievement_cascade_master", "leaderboard_stars", "leaderboard_campaign")
+fun literal(value: String) = "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r") + "\""
+require(listOf(adsEnabled, iapEnabled, useTestAds, pgsEnabled).all { it == "true" || it == "false" }) { "Service flags must be true or false" }
+require(pgsEnabled != "true" || gameKeys.all { cfg("PGS_" + it.uppercase(), "").isNotBlank() }) { "Configure all PGS achievement and leaderboard IDs before enabling PGS" }
+val gameIds = gameKeys.joinToString(prefix = "{", postfix = "}") { literal(it) + ":" + literal(cfg("PGS_" + it.uppercase(), "")) }
+require(pgsEnabled != "true" || pgsAppId.matches(Regex("[0-9]+"))) { "PGS_APP_ID must be the numeric Play Games project ID" }
+require(iapEnabled != "true" || billingKey.isNotBlank()) { "Set PLAY_BILLING_PUBLIC_KEY before enabling purchases" }
+if (adsEnabled == "true" && useTestAds != "true") {
+    require(listOf(admobAppId, adUnitRewarded, adUnitInterstitial).none { it.isBlank() || it.contains("3940256099942544") }) { "Production ads require your own app and unit IDs" }
+}
 
 android {
     namespace = "com.shiostudios.dumplingrings"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.shiostudios.dumplingrings"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 14
-        versionName = "1.3.0"
+        targetSdk = 36
+        versionCode = 17
+        versionName = "1.4.2"
         vectorDrawables.useSupportLibrary = true
         manifestPlaceholders["admobAppId"] = admobAppId
         buildConfigField("boolean", "ADS_ENABLED", adsEnabled)
@@ -42,10 +61,20 @@ android {
         buildConfigField("String", "AD_UNIT_INTERSTITIAL", "\"$adUnitInterstitial\"")
         buildConfigField("String", "AD_UNIT_BANNER", "\"$adUnitBanner\"")
         buildConfigField("String", "PREMIUM_PRODUCT_ID", "\"$premiumSku\"")
-        resourceConfigurations += listOf("en", "nl", "de")
+        buildConfigField("boolean", "PGS_ENABLED", pgsEnabled)
+        buildConfigField("String", "PGS_APP_ID", literal(pgsAppId))
+        buildConfigField("String", "PGS_IDS", literal(gameIds))
+        buildConfigField("String", "PLAY_BILLING_PUBLIC_KEY", literal(billingKey))
+        resValue("string", "games_app_id", "\"" + pgsAppId.ifBlank { "0" } + "\"")
+        resourceConfigurations += listOf("en", "nl", "de", "es", "pt", "fr", "ja", "ko", "hi", "in", "id", "ar")
     }
 
     signingConfigs {
+        getByName("debug") {
+            System.getenv("SIDELOAD_KEYSTORE_PATH")?.let {
+                storeFile = file(it); storePassword = "android"; keyAlias = "androiddebugkey"; keyPassword = "android"
+            }
+        }
         // Release signing is injected from the environment; absent => the release build is unsigned (owner signs).
         create("release") {
             val ks = System.getenv("ANDROID_KEYSTORE_PATH")
@@ -59,7 +88,10 @@ android {
     }
 
     buildTypes {
-        debug { isMinifyEnabled = false }
+        debug {
+            isMinifyEnabled = false
+            // Both downloadable APK variants inherit the configured live AdMob units.
+        }
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -85,6 +117,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.activity:activity-compose:1.9.3")
@@ -95,8 +128,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.google.android.gms:play-services-ads:24.7.0")
+    implementation("com.google.android.ump:user-messaging-platform:3.2.0")
+    implementation("com.google.android.gms:play-services-games-v2:20.1.2")
+    implementation("com.android.billingclient:billing-ktx:8.0.0")
     testImplementation("junit:junit:4.13.2")
     testImplementation(kotlin("test"))
     testImplementation("org.robolectric:robolectric:4.14.1")
@@ -105,3 +140,4 @@ dependencies {
     testImplementation("androidx.compose.ui:ui-test-junit4")
     testImplementation("androidx.compose.ui:ui-test-manifest")
 }
+

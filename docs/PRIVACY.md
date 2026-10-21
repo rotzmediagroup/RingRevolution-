@@ -1,17 +1,16 @@
-# Privacy
+# Privacy integration notes
 
-**Data the game itself collects: none.** Progress, settings, coins, boosters, cosmetics and the Premium entitlement cache are
-stored only in the app's private files (`save.json` + backup), included in Android Auto Backup. No account, no login wall,
-no analytics SDK, no custom tracking server, no push notifications (reminders are off by default and not implemented as
-push). The game is fully playable offline.
+Published policy URL supplied by the owner: https://www.shiostudios.com/privacy-policy
+The app links to this URL from Settings → Privacy & ads. These notes describe the implementation; they do not amend the published policy.
 
-**Third-party SDKs present in the binary** (inactive unless the owner enables them at build time):
-* Google Mobile Ads + User Messaging Platform — only initialised when `ADS_ENABLED=true` **and** UMP consent allows it;
-  uses the Advertising ID (`AD_ID` permission) for ads only. EEA/UK users get the UMP consent form before any ad request;
-  "Privacy options" is reachable from Settings → Privacy. Under-age treatment is left conservative (`setTagForUnderAgeOfConsent(false)`,
-  no child-directed tag); the owner decides the final age rating and must adjust `AdMobAdsProvider`/UMP params accordingly.
-* Google Play Billing — only when `IAP_ENABLED=true`; one non-consumable product, no subscriptions.
+Progress, currency, inventory, cosmetics and settings are stored in private app files with Android Auto Backup enabled. Puzzles work offline without an account. There is no custom analytics SDK, custom tracking server or push notification service.
 
-**Store disclosures to fill (owner):** Play Data Safety (Advertising ID → ads, if ads enabled; otherwise "no data collected"),
-privacy policy URL (templated text in `app/src/main/res/values*/strings.xml` → `privacy_text`), `app-ads.txt`, iOS ATT and
-App Privacy labels when the iOS build exists.
+When enabled, Google Play Games provides account sign-in, achievement/score reporting and optional user-triggered Saved Games backups. Those features transmit data to Google and use the selected Play Games account. Cloud restore never grants purchase ownership and keeps local privacy choices and settings. Users can choose device or cloud progress before replacement.
+
+Google Play Billing handles the one-time Premium product. The app caches the entitlement for offline use, verifies signed purchase data locally, acknowledges completed purchases, restores ownership and refreshes it from Play. No payment-card data is collected by game code.
+
+When ads are enabled, UMP obtains applicable privacy choices before Mobile Ads loads. AdMob may process advertising identifiers and other SDK data according to Google disclosures and configured consent. The required privacy-options form can be reopened in the app. Optional rewarded ads are user-triggered; interstitials follow placement/cap policy. Premium removes interstitials and banners.
+
+The owner must complete Play Data Safety, target-audience declarations, AdMob/UMP configuration and app-ads.txt using the actual enabled SDKs and their current disclosures. Do not claim no data collection merely because game code has no custom analytics. The current implementation is not an age gate or a child-directed/mixed-audience configuration.
+
+Release ads are enabled with the owner live units and remain consent-gated. Debug ads, Play Games and purchases are disabled by default; the latter two require owner configuration. See GAME_SERVICES_SETUP.md for activation and device acceptance checks.

@@ -5,7 +5,7 @@ Native Android (Kotlin + Jetpack Compose) with a pure-Kotlin puzzle core ready f
 
 ## Quick start
 ```bash
-# prerequisites: JDK 17+ (21 used), Android SDK (platform 35, build-tools 35), Python 3 + pillow + numpy
+# prerequisites: JDK 21, Android SDK (platform 36, build-tools 36), Python 3 + pillow + numpy
 ./gradlew :core:test                                   # engine, solver, systems, property tests
 ./gradlew :tools:levels:installDist && tools/levels/build/install/levels/bin/levels validate
 python3 tools/asset_import/pack_runtime_assets.py      # (re)pack optimised runtime assets into app/src/main/assets
@@ -19,8 +19,19 @@ See `docs/ARCHITECTURE.md`. Highlights: `core/` (engine + solver + generator), `
 asset manifest, ad configuration, privacy, test report, release checklist, implementation status).
 
 ## Monetisation safety
-Ads and in-app purchases are **off by default** and use Google test identifiers only; see `docs/AD_CONFIGURATION.md`.
+Release ads use the owner live AdMob units with consent and placement caps. Debug ads are disabled and use test IDs. In-app purchases and Play Games require owner configuration; see `docs/GAME_SERVICES_SETUP.md`.
 No API keys or signing secrets are stored in the repository (`secrets.properties` is git-ignored; pipelines read env vars).
+
+## Game services, artwork and languages
+
+See [owner setup and acceptance checks](docs/GAME_SERVICES_SETUP.md) and
+[configuration template](services.properties.example) for Play Games, achievements, leaderboards,
+Saved Games, Play Billing and AdMob. Release ads are enabled; Play Games and billing remain off until configured.
+Custom achievement and Premium upload art is in [play-console-art](docs/play-console-art/).
+
+The app supports English, Spanish, Brazilian Portuguese, German, French, Japanese, Korean, Hindi,
+Indonesian and Arabic, plus the existing Dutch. Translation sources are in `tools/localization/`.
+Run `python3 tools/localization/validate.py` to check resource and chapter coverage.
 
 ## Content regeneration
 ```bash
@@ -28,3 +39,4 @@ tools/levels/build/install/levels/bin/levels generate 1 150   # deterministic se
 tools/levels/build/install/levels/bin/levels report           # docs/LEVEL_REPORT.md
 python3 tools/level_preview/preview.py content/levels/world_01/level_00*.json
 ```
+

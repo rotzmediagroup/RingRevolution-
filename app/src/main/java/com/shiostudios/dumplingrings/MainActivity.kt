@@ -1,6 +1,11 @@
 package com.shiostudios.dumplingrings
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.Lifecycle
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -44,6 +49,7 @@ sealed class Screen {
     object Privacy : Screen()
     object Credits : Screen()
     object Stats : Screen()
+    object Games : Screen()
     data class ChapterScene(val chapter: Int, val next: Screen) : Screen()
     data class WorldIntro(val world: Int, val next: Screen) : Screen()
     object Welcome : Screen()
@@ -60,6 +66,17 @@ class Nav(start: Screen) {
 }
 
 class MainActivity : androidx.appcompat.app.AppCompatActivity() {
+    override fun onResume() {
+        super.onResume()
+        val container = DumplingRingsApp.of(this)
+        if (container.consent.canRequestAds) { container.ads.initialize(applicationContext); container.ads.preload(applicationContext) }
+        container.games.attach(this)
+        container.purchases.connect { container.purchases.restore { } }
+    }
+    override fun onDestroy() {
+        DumplingRingsApp.of(this).games.detach(this)
+        super.onDestroy()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -67,7 +84,17 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val container = DumplingRingsApp.of(this)
         container.ads2.initIfAllowed(this)
-        container.purchases.connect { container.purchases.restore { } }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                while (true) {
+                    if (container.consent.canRequestAds) {
+                        container.ads.initialize(applicationContext)
+                        container.ads.preload(applicationContext)
+                    }
+                    delay(30_000)
+                }
+            }
+        }
         setContent { AppRoot(container, this) }
     }
 }
@@ -86,17 +113,18 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
             Color(android.graphics.Color.parseColor(w.palette["bg"])), Color(android.graphics.Color.parseColor(w.palette["dark"])))
     }
     LaunchedEffect(save.settings) { container.audio.settings = save.settings; container.haptics.enabled = save.settings.haptics }
+    LaunchedEffect(save.achievements, save.totalStars, save.levels.size) { container.games.sync(save) }
     // music per screen
     LaunchedEffect(nav.current) {
         val s = nav.current
-        val (music, amb) = when (s) {
-            is Screen.Play -> { val w = container.content.worldOf(s.level); val lv = container.content.level(s.level); (if (lv.isChefLevel) w.finaleMusic else w.music) to w.ambience }
-            is Screen.WorldMap -> container.content.world(s.world).let { it.music to it.ambience }
-            is Screen.Chapter -> container.content.world((s.chapter - 1) / 5 + 1).let { it.music to it.ambience }
-            is Screen.Daily -> container.content.world(1).let { it.music to it.ambience }
-            else -> "menu_theme" to null
+        val amb = when (s) {
+            is Screen.Play -> container.content.worldOf(s.level).ambience
+            is Screen.WorldMap -> container.content.world(s.world).ambience
+            is Screen.Chapter -> container.content.world((s.chapter - 1) / 5 + 1).ambience
+            is Screen.Daily -> container.content.world(1).ambience
+            else -> null
         }
-        container.audio.playMusic(music); container.audio.playAmbience(amb)
+        container.audio.playMusic("festival_pop"); container.audio.playAmbience(amb)
     }
     var backRequested by remember { mutableStateOf(0) }
     BackHandler(enabled = nav.stack.size > 1 || nav.current is Screen.Play) { backRequested++ }
@@ -104,7 +132,9 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
     DumplingRingsTheme {
         CompositionLocalProvider(LocalWorldPalette provides palette, LocalReduceMotion provides save.settings.reduceMotion, LocalHighContrast provides save.settings.highContrast) {
             Box(Modifier.fillMaxSize()) {
-                when (val s = nav.current) {
+                androidx.compose.animation.Crossfade(targetState = nav.current,
+                    animationSpec = androidx.compose.animation.core.tween(if (save.settings.reduceMotion) 0 else 180), label = "screen") { currentScreen ->
+                when (val s = currentScreen) {
                     Screen.Splash -> SplashScreen({ nav.reset(if (save.firstRunDone) Screen.Menu else Screen.Welcome) })
                     Screen.Welcome -> WelcomeScreen(container) { container.save.update { it.copy(firstRunDone = true) }; nav.reset(Screen.Menu) }
                     Screen.Menu -> MainMenuScreen(container, nav)
@@ -119,8 +149,10 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
                     Screen.Privacy -> PrivacyScreen(container, nav, activity)
                     Screen.Credits -> CreditsScreen(container, nav)
                     Screen.Stats -> StatsScreen(container, nav)
+                    Screen.Games -> GamesScreen(container, nav, activity)
                     is Screen.ChapterScene -> ChapterSceneScreen(container, s.chapter) { nav.replace(s.next) }
                     is Screen.WorldIntro -> WorldIntroScreen(container, s.world) { nav.replace(s.next) }
+                }
                 }
             }
         }
@@ -130,3 +162,4 @@ fun AppRoot(container: AppContainer, activity: ComponentActivity) {
         if (nav.current !is Screen.Play) { container.audio.sfx("button_back", 0.7f); nav.pop() }
     }
 }
+

@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -137,10 +138,10 @@ fun SceneBackground(path: String, modifier: Modifier = Modifier, dim: Float = 0f
 fun WoodPanel(modifier: Modifier = Modifier, padding: PaddingValues = PaddingValues(20.dp), tint: Color = DR.Cream, content: @Composable BoxScope.() -> Unit) {
     Box(
         modifier
-            .shadow(10.dp, RoundedCornerShape(26.dp), ambientColor = DR.WoodDeep, spotColor = DR.WoodDeep)
+            .shadow(16.dp, RoundedCornerShape(26.dp), ambientColor = DR.WoodDeep, spotColor = DR.WoodDeep)
             .clip(RoundedCornerShape(26.dp))
             .background(Brush.verticalGradient(listOf(tint, tint.copy(alpha = 0.97f).compositeOverCream())))
-            .border(4.dp, Brush.verticalGradient(listOf(DR.Wood, DR.WoodDark)), RoundedCornerShape(26.dp))
+            .border(1.dp, Brush.verticalGradient(listOf(DR.Gold.copy(alpha = .8f), DR.Wood.copy(alpha = .3f))), RoundedCornerShape(26.dp))
             .padding(padding),
         content = content,
     )
@@ -158,24 +159,24 @@ fun WoodButton(
     val src = remember { MutableInteractionSource() }
     val pressed by src.collectIsPressedAsState()
     val reduce = LocalReduceMotion.current
-    val scale by animateFloatAsState(if (pressed && !reduce) 0.95f else 1f, tween(90), label = "press")
+    val scale by animateFloatAsState(if (pressed && !reduce) 0.975f else 1f, tween(90), label = "press")
     val ctx = LocalContext.current
     Box(
         modifier
             .scale(scale)
             .alpha(if (enabled) 1f else 0.5f)
             .defaultMinSize(minHeight = minHeight)
-            .shadow(if (enabled) 6.dp else 0.dp, RoundedCornerShape(18.dp))
+            .shadow(if (enabled) 4.dp else 0.dp, RoundedCornerShape(18.dp))
             .clip(RoundedCornerShape(18.dp))
             .background(Brush.verticalGradient(listOf(color.lighten(0.18f), color, color.darken(0.12f))))
-            .border(2.dp, color.darken(0.3f), RoundedCornerShape(18.dp))
+            .border(1.dp, color.lighten(.3f).copy(alpha = .6f), RoundedCornerShape(18.dp))
             .clickable(src, null, enabled = enabled, role = Role.Button) { DumplingRingsApp.of(ctx).audio.sfx("button_tap", 0.8f); onClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp),
         contentAlignment = Alignment.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
             icon?.invoke(this)
-            Text(text, style = style, color = textColor, textAlign = TextAlign.Center)
+            Text(text, style = style, color = if (textColor == Color.White && color.luminance() > .18f) DR.Ink else textColor, textAlign = TextAlign.Center)
         }
     }
 }
@@ -185,7 +186,7 @@ fun Color.darken(f: Float) = Color(red * (1 - f), green * (1 - f), blue * (1 - f
 
 /** Round icon button (back, pause, settings…) with ≥48dp touch target. */
 @Composable
-fun RoundIconButton(sprite: String? = null, contentDescription: String, onClick: () -> Unit, modifier: Modifier = Modifier, size: Dp = 52.dp, color: Color = DR.Wood, sfx: String = "button_tap", content: (@Composable BoxScope.() -> Unit)? = null) {
+fun RoundIconButton(sprite: String? = null, contentDescription: String, onClick: () -> Unit, modifier: Modifier = Modifier, size: Dp = 52.dp, color: Color = DR.Indigo, sfx: String = "button_tap", content: (@Composable BoxScope.() -> Unit)? = null) {
     val ctx = LocalContext.current
     val src = remember { MutableInteractionSource() }
     val pressed by src.collectIsPressedAsState()
@@ -258,7 +259,7 @@ fun CoinPill(coins: Int, modifier: Modifier = Modifier) {
 fun TitleText(text: String, modifier: Modifier = Modifier, color: Color = DR.WoodDeep, size: Int = 30) {
     val light = (color.red + color.green + color.blue) / 3f > 0.6f
     val style = MaterialTheme.typography.displayMedium.copy(fontSize = size.sp, lineHeight = (size + 4).sp,
-        shadow = androidx.compose.ui.graphics.Shadow(if (light) DR.WoodDeep.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.6f), Offset(0f, if (light) 3f else 2f), if (light) 6f else 1f))
+        shadow = androidx.compose.ui.graphics.Shadow(if (light) DR.WoodDeep.copy(alpha = 0.85f) else Color.White.copy(alpha = 0.6f), Offset(0f, if (light) 2f else 0f), if (light) 5f else 0f))
     Text(text, style = style, color = color, modifier = modifier, textAlign = TextAlign.Center)
 }
 
@@ -266,7 +267,7 @@ fun TitleText(text: String, modifier: Modifier = Modifier, color: Color = DR.Woo
 @Composable
 fun ScreenHeader(title: String, onBack: () -> Unit, modifier: Modifier = Modifier, titleColor: Color = DR.WoodDeep, trailing: (@Composable () -> Unit)? = null) {
     Row(modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-        RoundIconButton(contentDescription = "back", onClick = onBack, sfx = "button_back") { Glyph("back", Modifier.size(26.dp)) }
+        RoundIconButton(contentDescription = androidx.compose.ui.res.stringResource(com.shiostudios.dumplingrings.R.string.back), onClick = onBack, sfx = "button_back") { Glyph("back", Modifier.size(26.dp)) }
         Spacer(Modifier.width(10.dp))
         TitleText(title, Modifier.weight(1f), color = titleColor, size = 24)
         trailing?.invoke()
@@ -275,3 +276,4 @@ fun ScreenHeader(title: String, onBack: () -> Unit, modifier: Modifier = Modifie
 
 @Composable
 fun Divider(modifier: Modifier = Modifier) = Box(modifier.fillMaxWidth().height(2.dp).background(DR.Wood.copy(alpha = 0.35f)))
+

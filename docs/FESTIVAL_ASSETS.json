@@ -1,0 +1,21 @@
+{
+  "version": "1.4.2",
+  "background": {
+    "provider": "OpenAI ImageGen",
+    "source": "exec-e23b8a87-b78c-4733-b441-4f48909d3a6d.png",
+    "conversion": "WebP quality 86, original dimensions preserved"
+  },
+  "music": {
+    "type": "Original procedural instrumental composition",
+    "bpm": 124,
+    "bars": 16,
+    "sampleRate": 32000,
+    "channels": 2,
+    "source": "tools/audio_generate/festival_pop.py",
+    "externalSamples": false
+  },
+  "hashes": {
+    "app/src/main/assets/art/festival_courtyard.webp": "57854df6a41fb10e8fcd12a042b66f01eed8371d5a7801c9c2065b8a7f360338",
+    "app/src/main/assets/audio/music/festival_pop.ogg": "76047a5e45ef0013f8de8c3bdadb197ed219d2b6c8966458ef4d7feeab55684c"
+  }
+}

@@ -116,10 +116,12 @@ fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
         }
         return
     }
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.daily_title), { nav.pop() }) { CoinPill(save.coins) }
-            Column(Modifier.fillMaxWidth().padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                WoodPanel(Modifier.widthIn(max = 480.dp).fillMaxWidth()) {
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Sprite("sheet10/mystery_basket_f03", Modifier.size(150.dp))
                 Text(dayId, style = MaterialTheme.typography.titleLarge, color = DR.WoodDeep)
                 Text(stringResource(R.string.daily_streak, dailyStreak(save)), style = MaterialTheme.typography.bodyLarge, color = DR.InkSoft)
@@ -138,6 +140,8 @@ fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
                         container.audio.sfx("coin_chime")
                     }, Modifier.widthIn(max = 360.dp).fillMaxWidth(), enabled = !claimed, color = DR.Indigo)
                 }
+                }
+                }
             }
         }
     }
@@ -150,7 +154,7 @@ fun DailyScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) 
 fun CollectionScreen(container: AppContainer, nav: Nav) {
     val save by container.save.state.collectAsState()
     val all = container.content.cosmetics
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.collection_title), { nav.pop() })
             Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp)) {
@@ -191,7 +195,7 @@ fun ShopScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
     val save by container.save.state.collectAsState()
     val eco = container.content.economy
     var offer by remember { mutableStateOf<Booster?>(null) }
-    Box(Modifier.fillMaxSize().background(DR.Cream)) {
+    StudioBackdrop {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.shop), { nav.pop() }) { CoinPill(save.coins) }
             Column(Modifier.padding(16.dp).widthIn(max = 560.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -202,18 +206,24 @@ fun ShopScreen(container: AppContainer, nav: Nav, activity: ComponentActivity) {
                     Quad(Booster.GOLDEN_STEAMER, "sheet08/golden_dumpling_idle", R.string.golden_steamer, R.string.booster_golden_desc),
                 )) {
                     val price = eco.prices[b.id] ?: 0
-                    Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(DR.CreamDark).padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                        Sprite(sprite, Modifier.size(64.dp))
-                        Spacer(Modifier.width(12.dp))
-                        Column(Modifier.weight(1f)) {
-                            Text(stringResource(nameRes) + "  ×" + (save.inventory[b.id] ?: 0), style = MaterialTheme.typography.titleLarge, color = DR.WoodDeep)
-                            Text(stringResource(descRes), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
+                    WoodPanel(Modifier.fillMaxWidth(), padding = androidx.compose.foundation.layout.PaddingValues(16.dp)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Sprite(sprite, Modifier.size(74.dp))
+                                Spacer(Modifier.width(14.dp))
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(nameRes), style = MaterialTheme.typography.titleLarge, color = DR.Ink)
+                                    Text(stringResource(descRes), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
+                                }
+                            }
+                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Text("×" + (save.inventory[b.id] ?: 0), style = MaterialTheme.typography.headlineSmall, color = DR.Bamboo, modifier = Modifier.weight(1f))
+                                WoodButton(stringResource(R.string.buy_for, price), {
+                                    val r = BoosterLedger.buy(container.save.current, b, eco)
+                                    if (r.applied) { container.save.update { r.save }; container.audio.sfx("coin_chime") } else offer = b
+                                }, color = DR.GoldDeep, minHeight = 48.dp)
+                            }
                         }
-                        Spacer(Modifier.width(8.dp))
-                        WoodButton(stringResource(R.string.buy_for, price), {
-                            val r = BoosterLedger.buy(save, b, eco)
-                            if (r.applied) { container.save.update { r.save }; container.audio.sfx("coin_chime") } else offer = b
-                        }, color = DR.GoldDeep, minHeight = 44.dp, style = MaterialTheme.typography.labelMedium)
                     }
                 }
                 Text(stringResource(R.string.offline_note), style = MaterialTheme.typography.bodyMedium, color = DR.InkSoft)
@@ -234,16 +244,16 @@ fun PremiumScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
     val ent by container.purchases.state.collectAsState()
     var msg by remember { mutableStateOf<String?>(null) }
     val unavailable = stringResource(R.string.store_unavailable)
-    Box(Modifier.fillMaxSize().background(DR.Indigo)) {
+    StudioBackdrop(dark = true) {
         Column(Modifier.fillMaxSize().safeDrawingPadding()) {
             ScreenHeader(stringResource(R.string.premium_title), { nav.pop() }, titleColor = DR.Cream)
-            Column(Modifier.fillMaxWidth().padding(20.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                 // Blender Cycles hero shot of the whole ring collection on velvet (tools/blender/hero_shot.py)
                 AssetImage("hero/rings_hero.webp", Modifier.widthIn(max = 480.dp).fillMaxWidth().aspectRatio(1.5f).clip(RoundedCornerShape(18.dp)), ContentScale.Crop)
                 Spacer(Modifier.height(14.dp))
                 WoodPanel(Modifier.widthIn(max = 480.dp)) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Sprite("sheet06/cloud_dragon_cheer", Modifier.size(96.dp))
+                        MedalArt(10, Modifier.size(180.dp), stringResource(R.string.premium_title))
                         Text(stringResource(R.string.premium_pitch), style = MaterialTheme.typography.bodyLarge, color = DR.Ink, textAlign = TextAlign.Center)
                         Spacer(Modifier.height(10.dp))
                         TurntableImage("3d/rings/ring_onyx_turn.webp", Modifier.size(110.dp), animate = !LocalReduceMotion.current)
@@ -256,7 +266,7 @@ fun PremiumScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
                                     when (r) {
                                         PurchaseOutcome.Success -> { container.save.update { it.copy(premium = true, premiumVerifiedAt = System.currentTimeMillis(), unlockedCosmetics = (it.unlockedCosmetics + "theme_premium_ube").distinct()) }; container.audio.sfx("chapter_bell") }
                                         PurchaseOutcome.Cancelled -> {}
-                                        PurchaseOutcome.Pending -> msg = "…"
+                                        PurchaseOutcome.Pending -> msg = container.context.getString(R.string.purchase_pending)
                                         is PurchaseOutcome.Failed -> msg = unavailable
                                     }
                                 }
@@ -272,3 +282,4 @@ fun PremiumScreen(container: AppContainer, nav: Nav, activity: ComponentActivity
         }
     }
 }
+

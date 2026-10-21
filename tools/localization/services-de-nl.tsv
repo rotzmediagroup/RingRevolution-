@@ -1,0 +1,92 @@
+# key|de|nl
+games_title|Erfolge und Cloud|Prestaties en cloud
+games_subtitle|Deine Reise im Teehaus|Je reis door het theehuis
+games_unconfigured|Erfolge werden auf diesem Gerät gespeichert. Onlinedienste sind derzeit nicht verfügbar.|Prestaties worden op dit apparaat bewaard. Online diensten zijn momenteel niet beschikbaar.
+games_connected|Mit Google Play Games verbunden|Verbonden met Google Play Games
+games_offline|Melde dich bei Google Play Games an, um Erfolge zu synchronisieren, Ranglisten anzusehen und Cloud-Speicherstände zu nutzen. Offline spielen bleibt möglich.|Meld je aan bij Google Play Games om prestaties te synchroniseren, ranglijsten te bekijken en cloudopslag te gebruiken. Offline spelen blijft beschikbaar.
+games_sign_in|Mit Play Games anmelden|Aanmelden bij Play Games
+games_achievements|Play Games-Erfolge ansehen|Play Games-prestaties bekijken
+games_error|Verbindung fehlgeschlagen. Dein Fortschritt ist auf diesem Gerät sicher. Versuche es online erneut.|Verbinding mislukt. Je voortgang staat veilig op dit apparaat. Probeer het online opnieuw.
+leaderboards|Ranglisten|Ranglijsten
+leaderboards_description|Vergleiche deine Sterne und abgeschlossenen Kampagnenlevel mit anderen.|Vergelijk je sterren en voltooide campagnelevels met andere spelers.
+cloud_title|Cloud-Speicherstand|Cloudopslag
+cloud_description|Sichere deine Reise im Play Games-Konto oder stelle sie auf einem anderen Gerät wieder her.|Bewaar je reis in je Play Games-account of herstel deze op een ander apparaat.
+cloud_backup|Dieses Gerät sichern|Dit apparaat back-uppen
+cloud_restore|Aus der Cloud wiederherstellen|Herstellen uit de cloud
+cloud_saved|Cloud-Sicherung gespeichert.|Cloudback-up opgeslagen.
+cloud_restored|Cloud-Fortschritt wiederhergestellt.|Cloudvoortgang hersteld.
+cloud_failed|Cloud-Speicherstand nicht verfügbar oder inkompatibel. Der Gerätefortschritt bleibt erhalten.|Cloudopslag niet beschikbaar of niet compatibel. Je apparaatvoortgang is behouden.
+cloud_conflict|Cloud-Version wählen|Kies een cloudversie
+cloud_choose|Fortschritt wählen|Kies je voortgang
+cloud_replace_warning|Ein neuer Speicherstand ersetzt auch Münzen und Booster. Prüfe beide Kopien. Einstellungen und Käufe bleiben auf diesem Gerät.|Een opslag vervangen vervangt ook de munten en boosters. Controleer beide kopieën. Instellingen en aankopen blijven bij dit apparaat.
+cloud_device|Gerät: %1$d Sterne · %2$d Level|Apparaat: %1$d sterren · %2$d levels
+cloud_remote|Cloud: %1$d Sterne · %2$d Level|Cloud: %1$d sterren · %2$d levels
+cloud_copy_a|Cloud A: %1$d Sterne · %2$d Level|Cloud A: %1$d sterren · %2$d levels
+cloud_copy_b|Cloud B: %1$d Sterne · %2$d Level|Cloud B: %1$d sterren · %2$d levels
+cloud_use_a|Cloud A verwenden|Cloud A gebruiken
+cloud_use_b|Cloud B verwenden|Cloud B gebruiken
+cloud_use_remote|Cloud-Speicherstand verwenden|Cloudopslag gebruiken
+cloud_keep_device|Gerätespeicherstand behalten|Apparaatopslag behouden
+cloud_saved_at|Cloud gesichert: %1$s|Cloud opgeslagen: %1$s
+achievement_progress|%1$d / %2$d|%1$d / %2$d
+achievement_unlocked|Freigeschaltet|Ontgrendeld
+ach_first_clear|Ein erster Hauch von Freiheit|Een eerste vleugje vrijheid
+ach_first_clear_desc|Schließe dein erstes Rätsel ab.|Voltooi je eerste puzzel.
+ach_first_chapter|Blütenlehrling|Bloesemleerling
+ach_first_chapter_desc|Schließe alle zehn Rätsel des ersten Kapitels ab.|Voltooi alle tien puzzels van hoofdstuk één.
+ach_blossom_master|Hüter des Teehauses|Bewaker van het theehuis
+ach_blossom_master_desc|Schließe alle 50 Rätsel im Blütenteehaus ab.|Voltooi alle 50 puzzels in het Bloesemtheehuis.
+ach_lantern_master|Erleuchte den Markt|Verlicht de markt
+ach_lantern_master_desc|Schließe alle 50 Rätsel im Laternen-Nachtmarkt ab.|Voltooi alle 50 puzzels op de Lantaarnnachtmarkt.
+ach_mountain_master|Meister des Berges|Meester van de berg
+ach_mountain_master_desc|Schließe alle 150 Kampagnenrätsel ab.|Voltooi alle 150 campagnepuzzels.
+ach_star_garden|Ein Garten voller Sterne|Een tuin vol sterren
+ach_star_garden_desc|Sammle 150 Kampagnensterne.|Verzamel 150 campagnesterren.
+ach_perfect_constellation|Perfekte Konstellation|Perfect sterrenbeeld
+ach_perfect_constellation_desc|Verdiene alle 450 Kampagnensterne.|Verdien alle 450 campagnesterren.
+ach_triple_release|Dreifache Harmonie|Drievoudige harmonie
+ach_triple_release_desc|Befreie drei Ringe mit einem Zug.|Maak drie ringen los met één zet.
+ach_daily_ritual|Das tägliche Teeritual|Het dagelijkse theeritueel
+ach_daily_ritual_desc|Löse Tagesrätsel an sieben verschiedenen Tagen.|Voltooi dagpuzzels op zeven verschillende dagen.
+ach_thousand_rings|Tausend kleine Freiheiten|Duizend kleine vrijheden
+ach_thousand_rings_desc|Befreie insgesamt 1.000 Ringe.|Maak in totaal 1.000 ringen los.
+menu_tagline|Eine kleine Drehung. Ein Moment der Ruhe.|Een kleine draai. Een moment van rust.
+menu_journey|Deine Reise|Jouw reis
+menu_footer|150 handgefertigte Rätsel · Spiele in deinem Tempo|150 zorgvuldig gemaakte puzzels · Speel op je eigen tempo
+purchase_pending|Dein Kauf ist ausstehend. Premium wird nach der Zahlungsbestätigung freigeschaltet.|Je aankoop is in behandeling. Premium wordt na de betaalbevestiging ontgrendeld.
+cloud_upload_confirm|Cloud durch Gerät ersetzen|Cloud vervangen door apparaat
+cloud_upload_warning|Dieses Gerät sichern? Der bestehende Cloud-Speicherstand wird ersetzt.|Dit apparaat back-uppen? De bestaande cloudopslag wordt vervangen.
+cloud_upload_cancel|Bestehende Cloud behalten|Bestaande cloudopslag behouden
+privacy_text|Ring Revolution kann offline gespielt werden. Der Fortschritt wird auf diesem Gerät gespeichert. Bei Anmeldung in Play Games werden Erfolge und Punkte mit Google geteilt. Cloud-Sicherungen sind optional. Google Play verwaltet Käufe. AdMob zeigt Werbung entsprechend deinen Datenschutzeinstellungen. Premium entfernt Interstitials und Banner. Details stehen in unserer Datenschutzerklärung.|Ring Revolution kun je offline spelen. Voortgang wordt op dit apparaat bewaard. Als je je aanmeldt bij Play Games, worden prestaties en scores gedeeld met Google. Cloudback-ups zijn optioneel. Google Play verwerkt aankopen. AdMob toont advertenties volgens je privacykeuzes. Premium verwijdert interstitials en banners. Lees ons privacybeleid voor details.
+offline_note|Rätsel funktionieren offline. Onlinedienste benötigen eine Verbindung.|Puzzels werken offline. Online diensten vereisen een verbinding.
+ads_disabled_build|Werbung ist derzeit nicht verfügbar.|Advertenties zijn momenteel niet beschikbaar.
+ach_teahouse_regular|Ein vertrautes Willkommen|Een vertrouwd welkom
+ach_teahouse_regular_desc|Schließe 25 Kampagnenrätsel ab.|Voltooi 25 campagnepuzzels.
+ach_halfway_home|Über die Jadebrücke|Over de jadebrug
+ach_halfway_home_desc|Schließe 75 Kampagnenrätsel ab.|Voltooi 75 campagnepuzzels.
+ach_century_club|Ein Rätselbankett|Een banket van puzzels
+ach_century_club_desc|Schließe 100 Kampagnenrätsel ab.|Voltooi 100 campagnepuzzels.
+ach_mountain_keeper|Hüter des Mondlichts|Bewaker van het maanlicht
+ach_mountain_keeper_desc|Schließe alle 50 Rätsel der Mondschein-Bergküche ab.|Voltooi alle 50 puzzels van de Bergkeuken bij maanlicht.
+ach_chef_apprentice|Das erste Chefgericht|Het eerste chefspecial
+ach_chef_apprentice_desc|Schließe ein Cheflevel ab.|Voltooi één cheflevel.
+ach_chef_specialist|Wok der Wunder|Wok vol wonderen
+ach_chef_specialist_desc|Schließe fünf Cheflevel ab.|Voltooi vijf cheflevels.
+ach_chef_grandmaster|Großmeister der Küche|Grootmeester van de keuken
+ach_chef_grandmaster_desc|Schließe alle 15 Cheflevel ab.|Voltooi alle 15 cheflevels.
+ach_star_seed|Ein Stern schlägt Wurzeln|Een ster schiet wortel
+ach_star_seed_desc|Sammle 30 Kampagnensterne.|Verzamel 30 campagnesterren.
+ach_star_orchard|Der himmlische Obstgarten|De hemelse boomgaard
+ach_star_orchard_desc|Sammle 300 Kampagnensterne.|Verzamel 300 campagnesterren.
+ach_perfect_ten|Zehn Perlen der Präzision|Tien parels van precisie
+ach_perfect_ten_desc|Verdiene drei Sterne in 10 verschiedenen Kampagnenrätseln.|Verdien drie sterren in 10 verschillende campagnepuzzels.
+ach_perfect_fifty|Makellose Blüte|Vlekkeloze bloesem
+ach_perfect_fifty_desc|Verdiene drei Sterne in 50 verschiedenen Kampagnenrätseln.|Verdien drie sterren in 50 verschillende campagnepuzzels.
+ach_first_daily|Tee bei Sonnenaufgang|Thee bij zonsopkomst
+ach_first_daily_desc|Schließe dein erstes Tagesrätsel ab.|Voltooi je eerste dagpuzzel.
+ach_daily_devotee|Ein Monat kleiner Rituale|Een maand vol kleine rituelen
+ach_daily_devotee_desc|Löse Tagesrätsel an 30 verschiedenen Tagen.|Voltooi dagpuzzels op 30 verschillende dagen.
+ach_hundred_rings|Hundert offene Türen|Honderd open deuren
+ach_hundred_rings_desc|Befreie insgesamt 100 Ringe.|Maak in totaal 100 ringen los.
+ach_cascade_master|Fünffache Kaskade|Vijfvoudige waterval
+ach_cascade_master_desc|Befreie fünf Ringe mit einem Zug.|Maak vijf ringen los met één zet.

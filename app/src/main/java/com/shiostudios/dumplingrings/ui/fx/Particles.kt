@@ -17,10 +17,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.shiostudios.dumplingrings.DumplingRingsApp
 import com.shiostudios.dumplingrings.ui.board3d.drawSprite
 import com.shiostudios.dumplingrings.ui.components.AssetImage
@@ -39,7 +42,7 @@ fun AnimatedSceneBackground(path: String, world: Int, reduceMotion: Boolean, qua
     val t = now / 1000f
     Box(modifier.fillMaxSize()) {
         // Ken Burns: ±2% scale, slow drift
-        AssetImage(path, Modifier.fillMaxSize().graphicsLayer {
+        AssetImage(if (world == 1) "art/festival_courtyard.webp" else path, Modifier.fillMaxSize().graphicsLayer {
             if (!reduceMotion) { val s = 1.04f + 0.02f * sin(t * 0.11f); scaleX = s; scaleY = s; translationX = 8f * sin(t * 0.07f); translationY = 6f * cos(t * 0.05f) }
             else { scaleX = 1.02f; scaleY = 1.02f }
         }, ContentScale.Crop, downsample = true)
@@ -49,7 +52,7 @@ fun AnimatedSceneBackground(path: String, world: Int, reduceMotion: Boolean, qua
             val breathe = if (reduceMotion) 0f else 0.5f + 0.5f * sin(t * 0.6f)
             val warm = when (world) { 2 -> Color(0xFFFFB347); 3 -> Color(0xFFB9C8FF); else -> Color(0xFFFFE2A8) }
             drawRect(Brush.radialGradient(listOf(warm.copy(alpha = 0.10f + 0.06f * breathe), Color.Transparent), center = Offset(size.width * 0.5f, size.height * (0.42f + 0.02f * breathe)), radius = size.minDimension * 0.75f))
-            drawRect(Brush.radialGradient(listOf(Color.Transparent, Color(0xFF2A1608).copy(alpha = 0.28f)), center = Offset(size.width / 2, size.height / 2), radius = size.maxDimension * 0.78f))
+            drawRect(Brush.radialGradient(listOf(Color.Transparent, Color(0xFF8B4932).copy(alpha = 0.14f)), center = Offset(size.width / 2, size.height / 2), radius = size.maxDimension * 0.78f))
         }
         content()
     }
@@ -106,6 +109,34 @@ fun ParticleLayer(world: Int, nowMs: Long, quality: String, modifier: Modifier =
                 val twinkle = 0.55f + 0.45f * sin(t * 2.2f + p.phase)
                 val alpha = (if (world == 1 && p.kind == 1) 110f else 165f) * (if (world != 1) twinkle else 1f)
                 drawSprite(c, img, p.x * w, p.y * h, size.minDimension * p.size * (if (world == 3 && p.kind == 1) 0.6f else 1f), alpha.toInt())
+            }
+        }
+    }
+}
+
+
+/** Finite celebration: no hit targets, no perpetual frame loop, deterministic trajectories. */
+@Composable
+fun CelebrationConfetti(reduceMotion: Boolean, quality: String, modifier: Modifier = Modifier) {
+    if (reduceMotion || quality == "low") return
+    var elapsed by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    LaunchedEffect(Unit) {
+        val start = withFrameNanos { it }
+        while (elapsed < 4.5f) withFrameNanos { elapsed = (it - start) / 1_000_000_000f }
+    }
+    if (elapsed >= 4.5f) return
+    val colors = listOf(Color(0xFFFFC83D), Color(0xFFFF6C91), Color(0xFF71D9B5), Color(0xFFB69CFF), Color(0xFFFFF2BD))
+    Canvas(modifier.fillMaxSize()) {
+        repeat(if (quality == "high") 80 else 40) { i ->
+            val delay = (i % 13) * .035f
+            val t = (elapsed - delay).coerceAtLeast(0f)
+            val x = size.width * ((i * .618034f) % 1f) + sin(t * 2.4f + i) * 28.dp.toPx()
+            val y = -40.dp.toPx() + size.height * (t * (.12f + i % 4 * .016f) + .055f * t * t)
+            val center = Offset(x, y)
+            val alpha = ((4.5f - elapsed) / .8f).coerceIn(0f, 1f)
+            rotate(i * 31f + t * (90f + i % 5 * 22f), center) {
+                val width = (5 + i % 4).dp.toPx()
+                drawRoundRect(colors[i % colors.size].copy(alpha = alpha), center, Size(width, width * .48f), androidx.compose.ui.geometry.CornerRadius(1.dp.toPx()))
             }
         }
     }

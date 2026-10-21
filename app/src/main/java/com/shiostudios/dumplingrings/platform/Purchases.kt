@@ -56,34 +56,45 @@ class FakePurchaseProvider(cachedPremium: Boolean = false) : PurchaseProvider {
  * never revokes the cached entitlement on transient network failure (bible §23).
  */
 class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val onEntitlementChanged: (Boolean) -> Unit) : PurchaseProvider {
-    override val available = true
+    override val available: Boolean get() = client.isReady && product != null && pendingResult == null
     override val state = MutableStateFlow(EntitlementState(cachedPremium, false))
     private var product: ProductDetails? = null
     private var pendingResult: ((PurchaseOutcome) -> Unit)? = null
     private val client: BillingClient = BillingClient.newBuilder(context)
+        .enableAutoServiceReconnection()
         .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
         .setListener { result, purchases -> onPurchasesUpdated(result, purchases) }
         .build()
     private var connected = false
+    private var connecting = false
+    private val readyCallbacks = mutableListOf<() -> Unit>()
 
     override fun connect(onReady: () -> Unit) {
-        if (connected) return onReady()
+        if (client.isReady) {
+            connected = true
+            if (product == null) queryProduct()
+            return onReady()
+        }
+        readyCallbacks.add(onReady)
+        if (connecting) return
+        connecting = true
         client.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(result: BillingResult) {
+                connecting = false
                 connected = result.responseCode == BillingClient.BillingResponseCode.OK
-                if (connected) { queryProduct(); restore { }; }
-                onReady()
+                if (connected) queryProduct()
+                val callbacks = readyCallbacks.toList(); readyCallbacks.clear(); callbacks.forEach { it() }
             }
-            override fun onBillingServiceDisconnected() { connected = false }
+            override fun onBillingServiceDisconnected() { connected = false; connecting = false }
         })
     }
 
     private fun queryProduct() {
         val params = QueryProductDetailsParams.newBuilder().setProductList(listOf(
             QueryProductDetailsParams.Product.newBuilder().setProductId(BuildConfig.PREMIUM_PRODUCT_ID).setProductType(BillingClient.ProductType.INAPP).build())).build()
-        client.queryProductDetailsAsync(params) { result, list ->
+        client.queryProductDetailsAsync(params) { result, details ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                product = list.firstOrNull()
+                product = details.productDetailsList.firstOrNull()
                 state.value = state.value.copy(priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice)
             }
         }
@@ -91,6 +102,7 @@ class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val 
 
     override fun buyPremium(activity: Activity, onResult: (PurchaseOutcome) -> Unit) {
         val p = product ?: return onResult(PurchaseOutcome.Failed("product unavailable"))
+        if (pendingResult != null) return onResult(PurchaseOutcome.Failed("purchase in progress"))
         pendingResult = onResult
         val params = BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(
             BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(p).build())).build()
@@ -104,22 +116,37 @@ class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val 
             BillingClient.BillingResponseCode.OK -> {
                 val premium = purchases.orEmpty().filter { BuildConfig.PREMIUM_PRODUCT_ID in it.products }
                 val purchased = premium.firstOrNull { it.purchaseState == Purchase.PurchaseState.PURCHASED }
-                if (purchased != null) { grant(purchased); cb?.invoke(PurchaseOutcome.Success) }
+                if (purchased != null) { grant(purchased) { ok -> cb?.invoke(if (ok) PurchaseOutcome.Success else PurchaseOutcome.Failed("verification or acknowledgement failed")) } }
                 else if (premium.any { it.purchaseState == Purchase.PurchaseState.PENDING }) cb?.invoke(PurchaseOutcome.Pending)
                 else cb?.invoke(PurchaseOutcome.Failed("no purchase"))
             }
             BillingClient.BillingResponseCode.USER_CANCELED -> cb?.invoke(PurchaseOutcome.Cancelled)
-            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> { restore { }; cb?.invoke(PurchaseOutcome.Success) }
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> { restore { owned -> cb?.invoke(if (owned) PurchaseOutcome.Success else PurchaseOutcome.Failed("restore failed")) } }
             else -> cb?.invoke(PurchaseOutcome.Failed(result.debugMessage))
         }
     }
 
-    private fun grant(p: Purchase) {
-        if (!p.isAcknowledged) {
-            client.acknowledgePurchase(AcknowledgePurchaseParams.newBuilder().setPurchaseToken(p.purchaseToken).build()) { r -> Log.i("Billing", "ack ${r.responseCode}") }
+    private fun signatureValid(p: Purchase): Boolean = runCatching {
+        val bytes = android.util.Base64.decode(BuildConfig.PLAY_BILLING_PUBLIC_KEY, android.util.Base64.DEFAULT)
+        val key = java.security.KeyFactory.getInstance("RSA").generatePublic(java.security.spec.X509EncodedKeySpec(bytes))
+        java.security.Signature.getInstance("SHA1withRSA").run {
+            initVerify(key)
+            update(p.originalJson.toByteArray(Charsets.UTF_8))
+            verify(android.util.Base64.decode(p.signature, android.util.Base64.DEFAULT))
         }
-        state.value = state.value.copy(premium = true, verified = true)
-        onEntitlementChanged(true)
+    }.getOrDefault(false)
+
+    private fun grant(p: Purchase, done: (Boolean) -> Unit) {
+        if (p.purchaseState != Purchase.PurchaseState.PURCHASED || !signatureValid(p)) return done(false)
+        fun apply() {
+            state.value = state.value.copy(premium = true, verified = true)
+            onEntitlementChanged(true)
+            done(true)
+        }
+        if (p.isAcknowledged) apply()
+        else client.acknowledgePurchase(AcknowledgePurchaseParams.newBuilder().setPurchaseToken(p.purchaseToken).build()) { result ->
+            if (result.responseCode == BillingClient.BillingResponseCode.OK) apply() else done(false)
+        }
     }
 
     override fun restore(onResult: (Boolean) -> Unit) {
@@ -127,7 +154,7 @@ class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val 
         client.queryPurchasesAsync(QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build()) { result, purchases ->
             if (result.responseCode != BillingClient.BillingResponseCode.OK) return@queryPurchasesAsync onResult(state.value.premium)
             val owned = purchases.firstOrNull { BuildConfig.PREMIUM_PRODUCT_ID in it.products && it.purchaseState == Purchase.PurchaseState.PURCHASED }
-            if (owned != null) { grant(owned); onResult(true) }
+            if (owned != null) { grant(owned, onResult) }
             else {
                 // Verified "not owned" from the store: only now may the cached entitlement be cleared.
                 state.value = EntitlementState(false, true, state.value.priceText); onEntitlementChanged(false); onResult(false)
@@ -135,3 +162,4 @@ class PlayBillingProvider(context: Context, cachedPremium: Boolean, private val 
         }
     }
 }
+
