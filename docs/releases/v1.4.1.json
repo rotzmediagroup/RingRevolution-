@@ -1,0 +1,7 @@
+{
+  "version": "1.4.1",
+  "versionCode": 16,
+  "liveAdsBothApks": true,
+  "releaseSideloadSigning": "CI debug certificate when owner key is absent",
+  "playSigning": "Owner upload key required"
+}
